@@ -711,10 +711,10 @@ def generate_data(dataset,key,train=True):
         #data_files ="/home/niloofar/projects/maildir"
         #data = datasets.load_dataset("json", data_files=data_files, split="train", cache_dir=cache_dir)[key]
         #data = datasets.load_dataset("json",data_files=data_files, split='train', cache_dir=cache_dir)[key]https://the-eye.eu/public/AI/pile/train/00.jsonl.zst"
-        data = datasets.load_dataset("json", data_files="/gscratch/h2lab/sewon/data/the-pile/train-all/00.jsonl.zst",  split=f"{data_split}[:10000]")[key]
+        data = datasets.load_dataset("json", data_files="/gscratch/h2lab/sewon/data/the-pile/train-all/00.jsonl.zst",  split=f"{data_split}[:10000]", cache_dir=cache_dir)[key]
     elif dataset == 'the_pile' and data_split=='test':
         print("test")
-        data = datasets.load_dataset("json", data_files="/gscratch/h2lab/sewon/data/the-pile/test.jsonl.zst",split=f"train[:10000]")[key]
+        data = datasets.load_dataset("json", data_files="/gscratch/h2lab/sewon/data/the-pile/test.jsonl.zst",split=f"train[:10000]", cache_dir=cache_dir)[key]
     else:
         data = datasets.load_dataset(dataset, split=f'train[:10000]', cache_dir=cache_dir)[key]
 
