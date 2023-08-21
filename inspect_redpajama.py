@@ -29,13 +29,13 @@ def main(args):
     elif args.dataset == "pile":
         import zstandard as zstd
         DCTX = zstd.ZstdDecompressor(max_window_size=2**31)
-        def read_lines_from_zst_file(zstd_file_path):
-            with zstd.open(zstd_file_path, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
-                for line in iofh:
-                    yield line  
-        data = list(map(json.loads, read_lines_from_zst_file(args.data_dir)))
-        for entry in data:
-            samples[entry['meta']['pile_set_name']] = entry
+        with zstd.open(zstd_file_path, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
+            for i, line in enumerate(iofh):
+                if i < 1000:
+                    data = json.loads(line) 
+                    samples[data['meta']['pile_set_name']] = data
+                else:
+                    break
     
     with open('{}_sample.json'.format(args.dataset), 'w') as f:
         json.dump(samples, f)
