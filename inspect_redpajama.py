@@ -1,15 +1,7 @@
 import argparse
-import numpy as np
 import json
 import io
 import os
-import pickle
-from transformers import GPTNeoXForCausalLM, GPT2LMHeadModel, AutoTokenizer, AutoModelForCausalLM
-from simcse import SimCSE
-import torch
-import random
-from tqdm import tqdm
-
 
 # REDPAJAMA_DOMAINS = ["arxiv", "book", "c4", "cc_2019-30", "cc_2020-05", "cc_2021-04", "cc_2022-05", "cc_2023-06", "github", "stackexchange", "wikipedia"]
 REDPAJAMA_DOMAINS = ["arxiv", "book", "github", "stackexchange", "wikipedia", "cc_2019-30"]
@@ -35,7 +27,6 @@ def main(args):
                     break
 
     elif args.dataset == "pile":
-        assert domain in PILE_DOMAINS
         import zstandard as zstd
         DCTX = zstd.ZstdDecompressor(max_window_size=2**31)
         def read_lines_from_zst_file(zstd_file_path):
