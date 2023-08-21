@@ -29,7 +29,7 @@ def main(args):
     elif args.dataset == "pile":
         import zstandard as zstd
         DCTX = zstd.ZstdDecompressor(max_window_size=2**31)
-        with zstd.open(args.dataset_dir, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
+        with zstd.open(args.data_dir, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
             for i, line in enumerate(iofh):
                 if i < 1000:
                     data = json.loads(line) 
