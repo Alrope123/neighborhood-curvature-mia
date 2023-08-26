@@ -21,7 +21,7 @@ if __name__ == "__main__":
         for i, line in enumerate(iofh):
             document_count += 1        
             if args.check_id:
-                print(line[:-1])
+                # print(line[:-1])
                 try:
                     dp = json.loads(line[:-1])
                 except ValueError as e:
