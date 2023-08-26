@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     DCTX = zstd.ZstdDecompressor(max_window_size=2**31)
     document_count = 0
-    paragraph_count = 0
+    # paragraph_count = 0
     samples = []
     unmatched = []
     j = 0
@@ -21,7 +21,7 @@ if __name__ == "__main__":
         for i, line in enumerate(iofh):
             document_count += 1
             dp = json.loads(line)
-            paragraph_count += len(dp['text'])
+            # paragraph_count += len(dp['text'])
             if args.check_id:
                 assert j <= dp['id']
                 while j != dp['id']:
@@ -32,7 +32,9 @@ if __name__ == "__main__":
             if i < 10:
                 samples.append(line)
     print(document_count)
-    print(paragraph_count)
+    # print(paragraph_count)
+    print(len(unmatched))
+    print(unmatched)
     print("-------------")
     for sample in samples:
         print(sample)
