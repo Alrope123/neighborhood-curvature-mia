@@ -25,8 +25,10 @@ if __name__ == "__main__":
                 try:
                     dp = json.loads(line[:-1])
                 except ValueError as e:
+                    print(j)
                     print([line[:-1]])
-                    assert False
+                    j += 1
+                    continue
                 assert j <= dp['id']
                 while j != dp['id']:
                     unmatched.append(j)
