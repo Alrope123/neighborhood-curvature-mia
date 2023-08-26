@@ -19,13 +19,14 @@ if __name__ == "__main__":
     j = 0
     with zstd.open(args.data_path, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
         for i, line in enumerate(iofh):
-            document_count += 1
-            print(line[:-1])
-            dp = json.loads(line[:-1])
-            print("!")
-            assert False
-            # paragraph_count += len(dp['text'])
+            document_count += 1        
             if args.check_id:
+                print(line[:-1])
+                try:
+                    dp = json.loads(line[:-1])
+                except ValueError as e:
+                    print([line[:-1]])
+                    assert False
                 assert j <= dp['id']
                 while j != dp['id']:
                     unmatched.append(j)
