@@ -20,8 +20,8 @@ if __name__ == "__main__":
     with zstd.open(args.data_path, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
         for i, line in enumerate(iofh):
             document_count += 1
-            print([line])
-            dp = json.loads(line)
+            print([line[:-1]])
+            dp = json.loads(line[:-1])
             # paragraph_count += len(dp['text'])
             if args.check_id:
                 assert j <= dp['id']
