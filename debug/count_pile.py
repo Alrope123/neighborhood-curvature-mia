@@ -7,7 +7,7 @@ import re
 
 def tokenize(s):
     words = re.findall(r'\S+|\s+', s)
-    return filter(lambda w: not w.isspace(), words)
+    return list(filter(lambda w: not w.isspace(), words))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
