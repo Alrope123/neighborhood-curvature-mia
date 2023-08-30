@@ -3,17 +3,24 @@ import json
 import io
 import os
 import zstandard as zstd
+import re
+
+def tokenize(s):
+    words = re.findall(r'\S+|\s+', s)
+    return filter(lambda w: not w.isspace(), words)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', type=str, default="/gscratch/h2lab/sewon/data/the-pile/val.jsonl.zst")
     parser.add_argument('--check_id', action="store_true", default=False)
+    parser.add_argument('--n_gram', type=int, default=13)
 
     args = parser.parse_args()
 
     DCTX = zstd.ZstdDecompressor(max_window_size=2**31)
     document_count = 0
     # paragraph_count = 0
+    n_gram_count = 0
     samples = []
     unmatched = []
     j = 0
@@ -35,6 +42,8 @@ if __name__ == "__main__":
                     j += 1
                 j += 1
                 assert j == dp['id'] + 1
+            dp = json.loads(line[:-1])
+            n_gram_count += len(tokenize(dp['text']))-args.n_gram+1
             if i < 10:
                 samples.append(line)
     print(document_count)
@@ -44,5 +53,6 @@ if __name__ == "__main__":
     print("-------------")
     for sample in samples:
         print(sample)
+    print(n_gram_count)
 
 # python generate_predctions.py --model_name togethercomputer/RedPajama-INCITE-Base-3B-v1 --n 1000 --answer_n 3
