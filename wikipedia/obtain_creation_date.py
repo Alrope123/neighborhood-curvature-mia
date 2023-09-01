@@ -43,4 +43,4 @@ if __name__ == '__main__':
     #     print(f"The article '{article_title}' was created on: {timestamp}")
     endTime = time.time()
     time_taken = endTime - startTime
-    print("Used {} to process {} articles. Average rate: {} articles/s".format(time_taken), n_iterations, n_iterations/time_taken)
+    print("Used {} to process {} articles. Average rate: {} articles/s".format(time_taken, n_iterations, n_iterations/time_taken))
