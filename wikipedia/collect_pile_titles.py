@@ -18,8 +18,8 @@ if __name__ == "__main__":
     for filename in os.listdir(args.data_dir):
         titles = set()
         file_path = os.path.join(args.data_dir, filename)
-
-        if not os.path.exists(file_path):
+        out_path = os.path.join(args.out_dir, "{}.pkl".format(filename))
+        if not os.path.exists(out_path):
             startTime = time.time()
             DCTX = zstd.ZstdDecompressor(max_window_size=2**31)
             with zstd.open(file_path, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
@@ -31,7 +31,7 @@ if __name__ == "__main__":
             endTime = time.time()
 
             print("Colllected {} titiles for {} in {}.".format(len(titles), filename, endTime - startTime))
-            with open(os.path.join(args.out_dir, "{}.pkl".format(filename)), 'wb') as f:
+            with open(out_path, 'wb') as f:
                 pkl.dump(titles, f)
     
     print("Combing all the sets")
