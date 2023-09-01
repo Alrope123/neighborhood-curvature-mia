@@ -5,6 +5,7 @@ import os
 import zstandard as zstd
 import pickle as pkl
 from tqdm import tqdm
+import time
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -18,17 +19,20 @@ if __name__ == "__main__":
         titles = set()
         file_path = os.path.join(args.data_dir, filename)
 
-        DCTX = zstd.ZstdDecompressor(max_window_size=2**31)
-        with zstd.open(file_path, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
-            for i, line in enumerate(iofh):
-                dp = json.loads(line[:-1])
-                if dp['meta']['pile_set_name'] == 'Wikipedia (en)':
-                    text = dp['text']
-                    titles.add(text.split('\n')[0])
-        
-        print("Colllected {} titiles for {}.".format(len(titles), filename))
-        with open(os.path.join(args.out_dir, "{}.pkl".format(filename)), 'wb') as f:
-            pkl.dump(titles, f)
+        if not os.path.exists(file_path):
+            startTime = time.time()
+            DCTX = zstd.ZstdDecompressor(max_window_size=2**31)
+            with zstd.open(file_path, mode='rb', dctx=DCTX) as zfh, io.TextIOWrapper(zfh) as iofh:
+                for i, line in enumerate(iofh):
+                    dp = json.loads(line[:-1])
+                    if dp['meta']['pile_set_name'] == 'Wikipedia (en)':
+                        text = dp['text']
+                        titles.add(text.split('\n')[0])
+            endTime = time.time()
+
+            print("Colllected {} titiles for {} in {}.".format(len(titles), filename, endTime - startTime))
+            with open(os.path.join(args.out_dir, "{}.pkl".format(filename)), 'wb') as f:
+                pkl.dump(titles, f)
     
     print("Combing all the sets")
     all_titles = set()
