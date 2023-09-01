@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    assert os.path.exists(args.data_dir) and os.path.isdir(args.data_dir):
+    assert os.path.exists(args.data_dir) and os.path.isdir(args.data_dir)
     for filename in os.listdir(args.data_dir):
         titles = set()
         file_path = os.path.join(args.data_dir, filename)
