@@ -17,6 +17,6 @@ if __name__ == "__main__":
             dp = json.loads(line[:-1])
             if dp['meta']['pile_set_name'] == 'Wikipedia (en)':
                 text = dp['text']
-                title = text.split('\n')[:2]
+                title = text.split('\n')[:5]
                 print(title)
                 assert False
