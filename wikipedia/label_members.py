@@ -62,7 +62,7 @@ if __name__ == '__main__':
                 for line in f:
                     dp = json.loads(line)
                     title = dp['title']
-                    if title in pile_set or camel_case_split(title) in pile_set:
+                    if title in pile_set # or camel_case_split(title) in pile_set:
                         if dp['text'] != "":
                             member_text_set.add(title)
                         else:
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     print("Total # articles in the pile: {}".format(len(pile_set)))
     print("# articles from newest Wikipedia dump in the pile with text available: {}".format(len(member_text_set)))
-    print("# articles from newest Wikipedia dump NOT in the pile: {} with text available:".format(len(non_member_text_set)))
+    print("# articles from newest Wikipedia dump NOT in the pile: with text available: {}".format(len(non_member_text_set)))
     print("# articles from newest Wikipedia dump in the pile without text available: {}".format(len(member_notext_set)))
-    print("# articles from newest Wikipedia dump NOT in the pile: {} without text available:".format(len(non_member_notext_set)))
+    print("# articles from newest Wikipedia dump NOT in the pile: without text available: {}".format(len(non_member_notext_set)))
 
