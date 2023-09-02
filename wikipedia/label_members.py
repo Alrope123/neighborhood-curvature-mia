@@ -40,7 +40,8 @@ if __name__ == '__main__':
             with open(file_path, 'r') as f:
                 for line in f:
                     dp = json.loads(line)
-                    if dp['text'] != "":
+                    # if dp['text'] != "":
+                    if True:
                         title = dp['title']
                         if title in pile_set:
                             member_set.add(title)
