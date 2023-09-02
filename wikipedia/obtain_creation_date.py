@@ -61,7 +61,7 @@ def get_wikipedia_creation_timestamp(article_title):
 
 def save_set(dir, name, dictionary):
     with open(os.path.join(dir, name), 'wb') as f:
-        pkl.dump(set, dictionary)
+        pkl.dump(dictionary, f)
 
 
 if __name__ == '__main__':
@@ -76,6 +76,7 @@ if __name__ == '__main__':
 
     new_name = args.set_name.replace('.pkl', '_w_time.pkl')
     out_path = os.path.join(args.out_dir, new_name)
+    print("Writing to {}".format(out_path))
 
     # load the set of title
     with open(os.path.join(args.set_path, args.set_name), 'rb') as f:
