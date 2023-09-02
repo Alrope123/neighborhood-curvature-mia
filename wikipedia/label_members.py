@@ -4,18 +4,6 @@ import pickle as pkl
 import json
 from tqdm import tqdm
 
-def camel_case_split(str):
-    words = [[str[0]]]
- 
-    for c in str[1:]:
-        if words[-1][-1].islower() and c.isupper():
-            words.append(list(c))
-        else:
-            words[-1].append(c)
- 
-    return ' '.join([''.join(word) for word in words])
-     
-
 def iterate_files(root_dir):
     file_paths = []
     for root, _, files in os.walk(root_dir):
@@ -39,8 +27,8 @@ if __name__ == '__main__':
     # initialize the member/non-member sets
     member_text_path = os.path.join(args.out_dir, 'pile_member_text.pkl')
     non_member_text_path = os.path.join(args.out_dir, 'pile_nonmember_text.pkl')
-    member_notext_path = os.path.join(args.out_dir, 'pile_member_text.pkl')
-    non_member_notext_path = os.path.join(args.out_dir, 'pile_nonmember_text.pkl')
+    member_notext_path = os.path.join(args.out_dir, 'pile_member_notext.pkl')
+    non_member_notext_path = os.path.join(args.out_dir, 'pile_nonmember_notext.pkl')
     if os.path.exists(member_text_path) and os.path.exists(non_member_text_path) and \
         os.path.exists(member_notext_path) and os.path.exists(non_member_notext_path):
         with open(member_text_path, 'rb') as f:
