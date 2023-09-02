@@ -94,8 +94,8 @@ if __name__ == '__main__':
     else:
         article_to_timestamp = {}
     
-    for i, title in tqdm(enumerate(title_set)):
-        if title not in title_set:
+    for i, title in enumerate(tqdm(title_set)):
+        if title not in article_to_timestamp:
             article_to_timestamp[title] = get_wikipedia_creation_timestamp(title)
 
         if i % args.save_interval == 0:
