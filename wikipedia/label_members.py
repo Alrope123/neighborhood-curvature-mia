@@ -2,7 +2,7 @@ import os
 import argparse
 import pickle as pkl
 import json
-import tqdm as tqdm
+import tqdm from tqdm
 
 def iterate_files(root_dir):
     file_paths = []
