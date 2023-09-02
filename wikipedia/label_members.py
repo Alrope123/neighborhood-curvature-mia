@@ -62,7 +62,7 @@ if __name__ == '__main__':
                 for line in f:
                     dp = json.loads(line)
                     title = dp['title']
-                    if title in pile_set # or camel_case_split(title) in pile_set:
+                    if title in pile_set: # or camel_case_split(title) in pile_set:
                         if dp['text'] != "":
                             member_text_set.add(title)
                         else:
