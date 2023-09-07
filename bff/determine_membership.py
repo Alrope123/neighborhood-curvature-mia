@@ -67,8 +67,8 @@ def main(args):
     group_to_member = {}
     for i, filename in enumerate(tqdm(os.listdir(data_dir))):
         # DEBUG:
-        # if i > 10:
-        #     break
+        if i > 10:
+            break
 
         # Figure out the path
         data_path = os.path.join(data_dir, filename)
