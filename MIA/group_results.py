@@ -47,8 +47,8 @@ if __name__ == '__main__':
 
     assert os.path.exists(args.result_path), args.result_path
     assert os.path.exists(args.member_info_path), args.member_info_path
-    assert os.path.exists(args.nonmember_info_path). args.nonmember_info_path
-    assert os.path.exists(args.check_map_path). args.check_map_path
+    assert os.path.exists(args.nonmember_info_path), args.nonmember_info_path
+    assert os.path.exists(args.check_map_path), args.check_map_path
 
     with open(args.result_path, 'r') as f:
         result = json.load(f)
