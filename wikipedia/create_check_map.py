@@ -97,7 +97,7 @@ if __name__ == '__main__':
         "std number of instance in every group": np.std(group_lengths), 
     }
     draw_histogram(group_member_rate, title=None, xlabel="Percentage of Members", ylabel="# Dates(k)",
-                    save_path=os.path.join(args.save_dir, 'memership_distribution.png'), bins=20, x_interval=0.05)
+                    save_path=os.path.join(args.out_dir, 'memership_distribution.png'), bins=20, x_interval=0.05)
     print(stats)
     with open(os.path.join(args.out_dir, "stats.json"), 'w') as f:
         json.dump(check_map, f)
