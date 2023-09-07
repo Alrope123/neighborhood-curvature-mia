@@ -1015,9 +1015,6 @@ if __name__ == '__main__':
     data_member = generate_data(args.dataset_member,args.dataset_member_key, SAVE_FOLDER=SAVE_FOLDER)
     data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, SAVE_FOLDER=SAVE_FOLDER) 
 
-    print("# of member data: {}".format(len(data_member)))
-    print("# of non-member data: {}".format(len(data_nonmember)))
-
     data, seq_lens, n_samples = generate_samples(data_member[:n_samples], data_nonmember[:n_samples], batch_size=batch_size)
 
     print("NEW N_SAMPLES IS ", n_samples)

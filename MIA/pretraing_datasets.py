@@ -33,7 +33,7 @@ def sample_group(check_map, n, train=True):
 
 
 def load_wikipedia(data_dir, check_map, train=True, SAVE_FOLDER=None):
-    selected_group = sample_group(check_map, 50, train)
+    selected_group = sample_group(check_map, 100, train)
     data = [] 
     save_data = []
     file_paths, filenames = iterate_files(data_dir)
