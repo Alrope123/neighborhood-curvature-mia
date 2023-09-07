@@ -34,7 +34,7 @@ def get_group(dp, data_type):
         raise NotImplementedError('The data type is not implemented yet.')
 
 
-def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=None, cumulative=False):
+def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=None, cumulative=False, x_interval=0.05):
     """Draw a histogram for the given data."""
     
     plt.figure(figsize=(10,6))  # Set the figure size
@@ -43,6 +43,9 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
+
+    x_ticks = np.arange(min(data), max(data) + x_interval, x_interval)
+    plt.xticks(x_ticks)
     
     # plt.grid(axis='y', alpha=0.75)  # Add a grid on y-axis
     plt.savefig(save_path, format='png') 
