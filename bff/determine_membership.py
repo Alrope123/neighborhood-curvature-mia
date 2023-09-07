@@ -126,7 +126,7 @@ def main(args):
 
     # Create statistic info
     print("Calculating the statistics...")
-    group_to_member = {group: members for group, members in group_to_member if len(members) > 1}
+    group_to_member = {group: members for group, members in group_to_member.items() if len(members) > 1}
     group_lengths = [len(members) for _, members in group_to_member.items()]
     group_member_rate = [sum([member[2] for member in members]) / len(members) for _, members in group_to_member.items()]
     sorted_group = sorted(group_to_member.items(), key=lambda x: x[0])
