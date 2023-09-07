@@ -84,7 +84,7 @@ def main(args):
             coverages = [calculate_coverage(dp) for dp in overlap_data]
             # Draw the distribution of overlaps if haven't drawn
             if not drawn:
-                draw_histogram(data, title="Overlapping Distribution", xlabel="Percentage of overlap", save_path=os.path.join(save_dir, 'overlap_distribution.png'))
+                draw_histogram(coverages, title="Overlapping Distribution", xlabel="Percentage of overlap", save_path=os.path.join(save_dir, 'overlap_distribution.png'))
                 drawn = True
             is_member = [coverage > threshold for coverage in coverages]
             assert len(is_member_all) ==  len(is_member)
