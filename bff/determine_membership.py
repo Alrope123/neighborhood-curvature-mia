@@ -38,7 +38,7 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
     """Draw a histogram for the given data."""
     
     plt.figure(figsize=(10,6))  # Set the figure size
-    plt.hist(data, bins=bins, color='blue', edgecolor='black', density=True, cumulative=cumulative)
+    plt.hist(data, bins=bins, color='#1b9e77', edgecolor=None, density=True, cumulative=cumulative)
     
     plt.title(title)
     plt.xlabel(xlabel)
@@ -88,8 +88,8 @@ def main(args):
             coverages = [calculate_coverage(dp) for dp in overlap_data]
             # Draw the distribution of overlaps if haven't drawn
             if not drawn:
-                draw_histogram(coverages, title="Overlapping Distribution", xlabel="Percentage of overlap", save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
-                draw_histogram(coverages, title="Overlapping Distribution", xlabel="Percentage of overlap", save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=20, cumulative=True)
+                draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)", save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
+                draw_histogram(coverages, title=None, xlabel="Percentage of duplication", save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=20, cumulative=True)
                 drawn = True
             is_member = [coverage > threshold for coverage in coverages]
             # DEBUG:
@@ -128,7 +128,7 @@ def main(args):
     print(stats)
     with open(os.path.join(save_dir, 'stats.json'), "w") as f:
         json.dump(stats, f)
-    draw_histogram(group_member_rate, title="Membership rate within each group", xlabel="Percentage of Members", save_path=os.path.join(save_dir, 'memership_distribution.png'), bins=20)
+    draw_histogram(group_member_rate, title=None, xlabel="Percentage of Members", ylabel="# Dates(k)", save_path=os.path.join(save_dir, 'memership_distribution.png'), bins=20)
 
     # Save the membership info
     with open(os.path.join(save_dir, 'group_to_member.pkl'), "wb") as f:
