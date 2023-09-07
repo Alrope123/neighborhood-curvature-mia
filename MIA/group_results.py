@@ -59,19 +59,19 @@ if __name__ == '__main__':
     with open(args.check_map_path, 'rb') as f:
         check_map= pkl.load(f)
         
-    print("# of results: {}".format(result['raw_results']))
-    print("# of samples: {}".format(result['info']['n_samples']))
+    print("# of results: {}".format(len(result['raw_results'])))
+    print("# of samples: {}".format(len(result['info']['n_samples'])))
     print("Metrics on document level:")
     print(result['metrics'])
 
     group_results_members = {}
     group_results_nonmembers = {}
     for i, entry in enumerate(result['raw_results']):
-        group_member = check_map[member_info[i]["title"]]
+        group_member = check_map[member_info[i]["title"]]['group']
         if group_member not in group_results_members:
             group_results_members[group_member] = []
         group_results_members[group_member].append(entry['member_crit'])
-        group_nonmember = check_map[nonmember_info[i]["title"]]
+        group_nonmember = check_map[nonmember_info[i]["title"]]['group']
         if group_nonmember not in group_results_nonmembers:
             group_results_nonmembers[group_nonmember] = []
         group_results_nonmembers[group_nonmember].append(entry['nonmember_crit'])
