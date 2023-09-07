@@ -61,6 +61,7 @@ if __name__ == '__main__':
 
         # Iterate each file
         file_paths, filenames = iterate_files(args.data_dir)
+        print(len(file_paths))
         for file_path, filename in tqdm(zip(file_paths, filenames)):
             with open(file_path, 'r') as f:
                 for i, line in enumerate(f):
