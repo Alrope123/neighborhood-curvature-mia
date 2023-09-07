@@ -89,9 +89,10 @@ if __name__ == '__main__':
     group_lengths = [len(members) for _, members in group_to_members.items()]
     group_member_rate = [sum(members) / len(members) for _, members in group_to_members.items()]
     stats = {
+        "# documents": len(check_map),
         "# groups": len(group_to_members),
-        "number of group with all members": sum([all(members) for _, members in group_to_members]),
-        "number of group with all non-members": sum([not any(members) for _, members in group_to_members]),
+        "number of group with all members": sum([all(members) for _, members in group_to_members.items()]),
+        "number of group with all non-members": sum([not any(members) for _, members in group_to_members.items()]),
         "average number of instance in every group": np.mean(group_lengths),
         "std number of instance in every group": np.std(group_lengths), 
     }
