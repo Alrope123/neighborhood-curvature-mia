@@ -34,11 +34,11 @@ def get_group(dp, data_type):
         raise NotImplementedError('The data type is not implemented yet.')
 
 
-def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=None):
+def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=None, cumulative=False):
     """Draw a histogram for the given data."""
     
     plt.figure(figsize=(10,6))  # Set the figure size
-    plt.hist(data, bins=bins, color='blue', edgecolor='black')
+    plt.hist(data, bins=bins, color='blue', edgecolor='black', density=True, cumulative=cumulative)
     
     plt.title(title)
     plt.xlabel(xlabel)
@@ -88,16 +88,17 @@ def main(args):
             coverages = [calculate_coverage(dp) for dp in overlap_data]
             # Draw the distribution of overlaps if haven't drawn
             if not drawn:
-                draw_histogram(coverages, title="Overlapping Distribution", xlabel="Percentage of overlap", save_path=os.path.join(save_dir, 'overlap_distribution.png'))
+                draw_histogram(coverages, title="Overlapping Distribution", xlabel="Percentage of overlap", save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
+                draw_histogram(coverages, title="Overlapping Distribution", xlabel="Percentage of overlap", save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=20, cumulative=True)
                 drawn = True
             is_member = [coverage > threshold for coverage in coverages]
             # DEBUG:
-            print("Filter {}:".format(filter_name))
-            print("\taverage coverage: {}".format(np.mean(coverages)))
-            print("\tmembers: {} / {}".format(sum(is_member), len(is_member)))
-            print("\tall members: {} / {}".format(sum(is_member_all), len(is_member_all)))
+            # print("Filter {}:".format(filter_name))
+            # print("\taverage coverage: {}".format(np.mean(coverages)))
+            # print("\tmembers: {} / {}".format(sum(is_member), len(is_member)))
+            # print("\tall members: {} / {}".format(sum(is_member_all), len(is_member_all)))
             assert len(is_member_all) ==  len(is_member)
-            is_member_all = is_member_all or is_member
+            is_member_all = [a or b for a, b in zip(is_member_all, is_member)]
 
         with open(os.path.join(save_dir, '{}_{}.pkl'.format(filename, threshold)), "wb") as f:
             pkl.dump(is_member_all, f)
@@ -109,7 +110,7 @@ def main(args):
             group_to_member[group].append((filename, i, is_member_all[i]))
 
         # DEBUG:
-        print("Total members: {} / {}".format(sum(is_member_all), len(is_member_all)))
+        # print("Total members: {} / {}".format(sum(is_member_all), len(is_member_all)))
 
     # Create statistic info
     print("Calculating the statistics...")
@@ -124,9 +125,10 @@ def main(args):
         "average number of instance in every group": np.mean(group_lengths),
         "std number of instance in every group": np.std(group_lengths),
     }
+    print(stats)
     with open(os.path.join(save_dir, 'stats.json'), "w") as f:
         json.dump(stats, f)
-    draw_histogram(group_member_rate, title="Membership rate within each group", xlabel="Percentage of Members", save_path=os.path.join(save_dir, 'memership_distribution.png'))
+    draw_histogram(group_member_rate, title="Membership rate within each group", xlabel="Percentage of Members", save_path=os.path.join(save_dir, 'memership_distribution.png'), bins=20)
 
     # Save the membership info
     with open(os.path.join(save_dir, 'group_to_member.pkl'), "wb") as f:
