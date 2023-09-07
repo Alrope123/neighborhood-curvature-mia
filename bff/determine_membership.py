@@ -64,6 +64,8 @@ def main(args):
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
     save_dir = os.path.join(save_dir, str(threshold))
+    if not os.path.exists(save_dir):
+        os.mkdir(save_dir)
     filter_names = os.listdir(overlap_dir)    
 
     # Process each file
