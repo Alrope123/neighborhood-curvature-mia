@@ -100,4 +100,4 @@ if __name__ == '__main__':
                     save_path=os.path.join(args.out_dir, 'memership_distribution.png'), bins=20, x_interval=0.05)
     print(stats)
     with open(os.path.join(args.out_dir, "stats.json"), 'w') as f:
-        json.dump(check_map, f)
+        json.dump(stats, f)
