@@ -69,25 +69,32 @@ if __name__ == '__main__':
                     title = dp['title']
                     if title in member_dict and member_dict[title] != None:
                         date = member_dict[title].split(',')[1].strip()
-                        check_map[filename, i] = (date, True)
+                        check_map[title] = {"group": date, "is_member": True}
                     elif title in nonmember_dict and nonmember_dict[title] != None:
                         date = nonmember_dict[title].split(',')[1].strip()
-                        check_map[filename, i] = (date, False)
+                        check_map[title] = {"group": date, "is_member": False}
+
+        # Build group to members
+        group_to_members = {}
+        for _, (date, is_member) in check_map.items():
+            if date not in group_to_members:
+                group_to_members[date] = []
+            group_to_members[date].append(is_member)
+        group_member_rate = [sum(members) / len(members) for _, members in group_to_members.items()]
         
+        # label the group label
+        for title, data in check_map.items():
+            members = group_to_members[data['group']]
+            group_rate = sum(members) / len(members)
+            data["group_is_member"] = group_rate > 0.5
+            check_map[title] = data 
+
         # Save the checkmap
         with open(check_map_path, 'wb') as f:
             pkl.dump(check_map, f)
 
 
-    # Build group to members
-    group_to_members = {}
-    for _, (date, is_member) in check_map.items():
-        if date not in group_to_members:
-            group_to_members[date] = []
-        group_to_members[date].append(is_member)
-
     group_lengths = [len(members) for _, members in group_to_members.items()]
-    group_member_rate = [sum(members) / len(members) for _, members in group_to_members.items()]
     stats = {
         "# documents": len(check_map),
         "# groups": len(group_to_members),
