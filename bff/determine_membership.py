@@ -63,8 +63,9 @@ def main(args):
     filter_names = os.listdir(overlap_dir)    
 
     # Process each file
+    print("Going through each file to check BFF results...")
     group_to_member = {}
-    for filename in os.listdir(data_dir):
+    for filename in tqdm(os.listdir(data_dir)):
         # Figure out the path
         data_path = os.path.join(data_dir, filename)
         
@@ -99,6 +100,7 @@ def main(args):
             group_to_member[group].append((filename, i, is_member_all[i]))
 
     # Create statistic info
+    print("Calculating the statistics...")
     group_lengths = [len(members) for _, members in group_to_member.items()]
     group_member_rate = [sum([member[2] for member in members]) / len(members) for group, members in group_to_member.items()]
     stats = {
