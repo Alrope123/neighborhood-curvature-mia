@@ -60,7 +60,8 @@ if __name__ == '__main__':
             nonmember_dict = pkl.load(f)
 
         # Iterate each file
-        for file_path, filename in tqdm(zip(iterate_files(args.data_dir))):
+        file_paths, filenames = iterate_files(args.data_dir)
+        for file_path, filename in tqdm(zip(file_paths, filenames)):
             with open(file_path, 'r') as f:
                 for i, line in enumerate(f):
                     dp = json.loads(line)
