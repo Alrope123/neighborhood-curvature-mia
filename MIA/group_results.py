@@ -60,7 +60,7 @@ if __name__ == '__main__':
         check_map= pkl.load(f)
         
     print("# of results: {}".format(len(result['raw_results'])))
-    print("# of samples: {}".format(len(result['info']['n_samples'])))
+    print("# of samples: {}".format(result['info']['n_samples']))
     print("Metrics on document level:")
     print(result['metrics'])
 
