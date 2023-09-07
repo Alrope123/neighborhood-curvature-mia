@@ -91,6 +91,11 @@ def main(args):
                 draw_histogram(coverages, title="Overlapping Distribution", xlabel="Percentage of overlap", save_path=os.path.join(save_dir, 'overlap_distribution.png'))
                 drawn = True
             is_member = [coverage > threshold for coverage in coverages]
+            # DEBUG:
+            print("Filter {}:".format(filter_name))
+            print("\taverage coverage: {}".format(np.mean(coverages)))
+            print("\tmembers: {} / {}".format(sum(is_member), len(is_member)))
+            print("\tall members: {} / {}".format(sum(is_member_all), len(is_member_all)))
             assert len(is_member_all) ==  len(is_member)
             is_member_all = is_member_all or is_member
 
