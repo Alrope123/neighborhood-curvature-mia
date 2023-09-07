@@ -54,7 +54,7 @@ def load(name, data_dir, check_map_dir, verbose=False, train=True, SAVE_FOLDER=N
     if name in DATASETS:
         if verbose:
             print("Loading the dataset: {}...".format(name))
-        with open(check_map_dir, 'wb') as f:
+        with open(check_map_dir, 'rb') as f:
             check_map = pickle.load(f)
         load_fn = globals()[f'load_{name}']
         return load_fn(data_dir, check_map, train=train, SAVE_FOLDER=SAVE_FOLDER)
