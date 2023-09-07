@@ -67,14 +67,11 @@ if __name__ == '__main__':
                     dp = json.loads(line)
                     title = dp['title']
                     if title in member_dict and member_dict[title] != None:
-                        date = member_dict[title]
-                        print(date)
-                        assert False
+                        date = member_dict[title].split(',')[1].trim()
+                        assert False, date
                         check_map[filename, i] = (date, True)
                     elif title in nonmember_dict and nonmember_dict[title] != None:
-                        date = member_dict[title]
-                        print(date)
-                        assert False
+                        date = member_dict[title].split(',')[1].trim()
                         check_map[filename, i] = (date, False)
         
         # Save the checkmap
