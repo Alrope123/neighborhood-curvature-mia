@@ -90,9 +90,9 @@ if __name__ == '__main__':
         cur_member_predictions = []
         cur_nonmember_predictions = []
         for group, predictions in group_results_members.items():
-            cur_member_predictions.append(np.mean(sorted(predictions, reverse=True)[:top_k]))
+            cur_member_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
         for group, predictions in group_results_nonmembers.items():
-            cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=True)[:top_k]))
+            cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
         fpr, tpr, roc_auc = get_roc_metrics(cur_member_predictions, cur_nonmember_predictions)
         all_results[top_k] = (fpr, tpr, roc_auc)
         if roc_auc > best_auc:
