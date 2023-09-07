@@ -40,7 +40,7 @@ if __name__ == '__main__':
     parser.add_argument('--member_info_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/wikipedia_member.json")
     parser.add_argument('--nonmember_info_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/wikipedia_nonmember.json")
     parser.add_argument('--check_map_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/check_map.pkl")
-    parser.add_argument('--out_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-miaresults/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
+    parser.add_argument('--out_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
     parser.add_argument('--top_k', type=int, default=50)    
 
     args = parser.parse_args()
@@ -85,6 +85,7 @@ if __name__ == '__main__':
     best_fpr = None
     best_tpr = None
     best_auc = -1
+    all_results = {}
     for top_k in [1, 3, 5, 10, 30, 50]:
         cur_member_predictions = []
         cur_nonmember_predictions = []
@@ -93,6 +94,7 @@ if __name__ == '__main__':
         for group, predictions in group_results_nonmembers.items():
             cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=True)[:top_k]))
         fpr, tpr, roc_auc = get_roc_metrics(cur_member_predictions, cur_nonmember_predictions)
+        all_results[top_k] = (fpr, tpr, roc_auc)
         if roc_auc > best_auc:
             best_k = top_k
             best_auc = roc_auc
@@ -105,6 +107,7 @@ if __name__ == '__main__':
         "fpr": best_fpr,
         "tpr": best_tpr
     }
+    all_results["best"] = output
     print("Final results")
     print(output['top_k'])
     print(output['ROC_AUC'])
@@ -112,6 +115,6 @@ if __name__ == '__main__':
     SAVE_FOLDER = args.out_dir
 
     with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
-        json.dump(output, f)
+        json.dump(all_results, f)
 
     save_roc_curves("neo-3b", best_fpr, best_tpr, best_auc, SAVE_FOLDER)
