@@ -65,7 +65,11 @@ def main(args):
     # Process each file
     print("Going through each file to check BFF results...")
     group_to_member = {}
-    for filename in tqdm(os.listdir(data_dir)):
+    for i, filename in enumerate(tqdm(os.listdir(data_dir))):
+        # DEBUG:
+        if i > 10:
+            break
+
         # Figure out the path
         data_path = os.path.join(data_dir, filename)
         
@@ -99,6 +103,9 @@ def main(args):
                 group_to_member[group] = []
             group_to_member[group].append((filename, i, is_member_all[i]))
 
+        # DEBUG:
+        print("Total members: {} / {}".format(sum(is_member_all), len(is_member_all)))
+
     # Create statistic info
     print("Calculating the statistics...")
     group_lengths = [len(members) for _, members in group_to_member.items()]
@@ -106,6 +113,7 @@ def main(args):
     stats = {
         "threshold": threshold,
         "number of groups": len(group_to_member),
+        "examples of group": list(group_to_member.keys())[:15],
         "number of group with all members": sum([rate == 1.0 for rate in group_member_rate]),
         "number of group with all non-members": sum([rate == 0.0 for rate in group_member_rate]),
         "average number of instance in every group": np.mean(group_lengths),
