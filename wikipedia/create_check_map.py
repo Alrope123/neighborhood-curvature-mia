@@ -76,10 +76,10 @@ if __name__ == '__main__':
 
         # Build group to members
         group_to_members = {}
-        for _, (date, is_member) in check_map.items():
+        for _, dp in check_map.items():
             if date not in group_to_members:
                 group_to_members[date] = []
-            group_to_members[date].append(is_member)
+            group_to_members[date].append(dp['is_member'])
         group_member_rate = [sum(members) / len(members) for _, members in group_to_members.items()]
         
         # label the group label
