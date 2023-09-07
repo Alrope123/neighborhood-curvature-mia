@@ -46,6 +46,7 @@ def load_wikipedia(data_dir, check_map, train=True, SAVE_FOLDER=None):
                     save_data.append(dp)
                     data.append(dp['text'])
     with open(os.path.join(SAVE_FOLDER, "wikipedia_{}.json".format("member" if train else "nonmember")), "w") as f:
+        print("Saving to {}.....".format(os.path.join(SAVE_FOLDER, "wikipedia_{}.json".format("member" if train else "nonmember"))))
         json.dump(save_data, f)
     return data
 
