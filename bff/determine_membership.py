@@ -63,6 +63,7 @@ def main(args):
     
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
+    save_dir = os.path.join(save_dir, str(threshold))
     filter_names = os.listdir(overlap_dir)    
 
     # Process each file
@@ -103,7 +104,7 @@ def main(args):
             assert len(is_member_all) ==  len(is_member)
             is_member_all = [a or b for a, b in zip(is_member_all, is_member)]
 
-        with open(os.path.join(save_dir, '{}_{}.pkl'.format(filename, threshold)), "wb") as f:
+        with open(os.path.join(save_dir, '{}.pkl'.format(filename)), "wb") as f:
             pkl.dump(is_member_all, f)
 
         for i, dp in enumerate(data):
