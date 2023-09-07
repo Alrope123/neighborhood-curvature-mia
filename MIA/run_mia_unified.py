@@ -14,6 +14,7 @@ import os
 import json
 import functools
 import custom_datasets
+import pretraing_datasets
 from multiprocessing.pool import ThreadPool
 import time
 import math
@@ -700,11 +701,14 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
     return data, seq_lens, n_samples
 
 
-def generate_data(dataset,key,train=True):
+def generate_data(dataset,key,train=True, SAVE_FOLDER=None):
     # load data
     data_split = 'train' if train else 'test'
     if dataset in custom_datasets.DATASETS:
         data = custom_datasets.load(dataset, cache_dir)
+    elif dataset in pretraing_datasets.DATASETS:
+        data = pretraing_datasets.load(dataset, data_dir="/gscratch/h2lab/alrope/data/wikipedia/processed/", 
+            check_map_dir="/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/check_map.pkl", train=train, SAVE_FOLDER=SAVE_FOLDER)
     elif dataset == 'the_pile' and data_split=='train':
         #data_files = "https://www.cs.cmu.edu/~enron/enron_mail_20150507.tar.gz"
         #data_files="/home/niloofar/projects/enron_mail_20150507.tar.gz"
@@ -743,10 +747,10 @@ def generate_data(dataset,key,train=True):
     if len(not_too_long_data) > 0:
             data = not_too_long_data
 
-    random.seed(0)
-    random.shuffle(data)
+    # random.seed(0)
+    # random.shuffle(data)
 
-    data = data[:5_000]
+    # data = data[:5_000]
 
     # keep only examples with <= 512 tokens according to mask_tokenizer
     # this step has the extra effect of removing examples with low-quality/garbage content
@@ -1008,8 +1012,11 @@ if __name__ == '__main__':
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
     
-    data_member = generate_data(args.dataset_member,args.dataset_member_key)
-    data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False) 
+    data_member = generate_data(args.dataset_member,args.dataset_member_key, SAVE_FOLDER=SAVE_FOLDER)
+    data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, SAVE_FOLDER=SAVE_FOLDER) 
+
+    print("# of member data: {}".format(len(data_member)))
+    print("# of non-member data: {}".format(len(data_nonmember)))
 
     data, seq_lens, n_samples = generate_samples(data_member[:n_samples], data_nonmember[:n_samples], batch_size=batch_size)
 
