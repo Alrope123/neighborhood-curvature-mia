@@ -77,8 +77,8 @@ def main(args):
         group_to_member = {}
         for i, filename in enumerate(tqdm(os.listdir(data_dir))):
             # DEBUG:
-            if i > 10:
-                break
+            # if i > 10:
+            #     break
 
             # Figure out the path
             data_path = os.path.join(data_dir, filename)
@@ -139,14 +139,18 @@ def main(args):
         "number of group with all non-members": sum([rate == 0.0 for rate in group_member_rate]),
         "average number of instance in every group": np.mean(group_lengths),
         "std number of instance in every group": np.std(group_lengths),
+        "number of group with <= 1 documents": len([length for length in group_lengths if length <= 1]),
+        "number of group with <= 3 documents": len([length for length in group_lengths if length <= 3]),
+        "number of group with <= 5 documents": len([length for length in group_lengths if length <= 5]),
+        "number of group with <= 10 documents": len([length for length in group_lengths if length <= 10]),
     }
     print(stats)
     with open(os.path.join(save_dir, 'stats.json'), "w") as f:
         json.dump(stats, f)
     draw_histogram(group_lengths, title=None, xlabel="# documents each date", ylabel="# Dates(k)",
-                    save_path=os.path.join(save_dir, 'documents_date_distribution.png'))
+                    save_path=os.path.join(save_dir, 'documents_date_distribution.png'), bins=50)
     draw_histogram(group_member_rate, title=None, xlabel="Percentage of Members", ylabel="# Dates(k)",
-                    save_path=os.path.join(save_dir, 'memership_distribution.png'), bins=20, x_interval=0.02)
+                    save_path=os.path.join(save_dir, 'memership_distribution.png'), bins=20, x_interval=0.05)
     
     # Create the check map
     check_map_path = os.path.join(save_dir, 'check_map.pkl')
