@@ -21,7 +21,7 @@ def get_roc_metrics(real_preds, sample_preds):
 def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
     # first, clear plt
     plt.clf()
-    plt.plot(fpr, tpr, label=name, roc_auc="{roc_auc:.3f}", color='#1b9e77')
+    plt.plot(fpr, tpr, label=f"{name}, roc_auc={roc_auc:.3f}", color='#1b9e77')
     # print roc_auc for this experiment
     print(f"{name} roc_auc: {roc_auc:.3f}")
     plt.plot([0, 1], [0, 1], color='black', lw=2, linestyle='--')
