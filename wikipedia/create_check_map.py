@@ -34,6 +34,7 @@ def iterate_files(root_dir):
             file_names.append(file)
     return file_paths, file_names
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default="/gscratch/h2lab/alrope/data/wikipedia/processed/")
@@ -59,7 +60,7 @@ if __name__ == '__main__':
             nonmember_dict = pkl.load(f)
 
         # Iterate each file
-        for file_path, filename in tqdm(iterate_files(args.data_dir)):
+        for file_path, filename in tqdm(zip(iterate_files(args.data_dir))):
             with open(file_path, 'r') as f:
                 for i, line in enumerate(f):
                     dp = json.loads(line)
