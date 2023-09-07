@@ -56,7 +56,7 @@ if __name__ == '__main__':
         member_info = json.load(f)
     with open(args.nonmember_info_path, 'r') as f:
         nonmember_info= json.load(f)
-    with open(args.nonmember_info_path, 'rb') as f:
+    with open(args.check_map_path, 'rb') as f:
         check_map= pkl.load(f)
         
     print("# of results: {}".format(result['raw_results']))
