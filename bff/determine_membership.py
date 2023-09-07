@@ -129,6 +129,7 @@ def main(args):
     group_lengths = [len(members) for _, members in group_to_member.items()]
     group_member_rate = [sum([member[2] for member in members]) / len(members) for _, members in group_to_member.items()]
     sorted_group = sorted(group_to_member.items(), key=lambda x: x[0])
+    sorted_group = [(group, len(members)) for group, members in sorted_group.items()]
     stats = {
         "threshold": threshold,
         "number of groups": len(group_to_member),
