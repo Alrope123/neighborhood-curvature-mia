@@ -163,9 +163,9 @@ def main(args):
             group_to_member = pkl.load(f)
 
     draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                    save_path=os.path.join(save_dir, 'overlap_distribution_{}.png'.format(filter_name)), bins=50, x_interval=0.02)
+                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
     draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
-                    save_path=os.path.join(save_dir, 'overlap_distribution_CDF_{}.png'.format(filter_name)), bins=50, cumulative=True, x_interval=0.02)
+                    save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
 
     # Create statistic info
     print("Calculating the statistics...")
