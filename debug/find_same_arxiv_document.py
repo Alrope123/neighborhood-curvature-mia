@@ -40,9 +40,6 @@ if __name__ == '__main__':
 
         data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
         for i, (data_path, filename) in tqdm(enumerate(iterate_files(data_dir))):
-            if i > 1:
-                break
-
             doc_pool = []
             with open(data_path, 'r') as f:
                 for line in f:
@@ -66,7 +63,7 @@ if __name__ == '__main__':
         candidates = sorted(zip(top_k_texts, top_k_scores), key=lambda x: x[1], reverse=True)
         output[doc] = candidates
 
-    out_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/out"
+    out_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/out"
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
     with open(os.path.join(out_dir, 'same_arxiv_document'), 'w') as f:
