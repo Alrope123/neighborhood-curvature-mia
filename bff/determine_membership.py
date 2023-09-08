@@ -116,7 +116,7 @@ def main(args):
             is_member_all = [False] * len(data)
             for filter_name in filter_names:
                 overlap_path = os.path.join(overlap_dir, filter_name, filename)
-                assert os.path.exists(overlap_path)
+                assert os.path.exists(overlap_path), overlap_path
 
                 # Read in each overlap file
                 overlap_data = custom_open(overlap_path)
