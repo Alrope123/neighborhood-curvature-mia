@@ -91,10 +91,12 @@ def draw_separate_histogram(coverages, split, bins=20, xlabel=None, ylabel=None,
 
     # Merge categories
     categories = np.searchsorted(split, categories, side='right')
+    categories = ["<{}".format(split[i]) for i in categories]
     assert all([category >= 0 and category <= len(split) for category in categories])
 
     # Define bin edges
     bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
+    bin_edges[-1] = bin_edges[-1] + 1e-10
     binned_values = np.digitize(values, bin_edges)
 
     # Prepare data for stacked bars
