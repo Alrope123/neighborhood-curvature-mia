@@ -32,7 +32,7 @@ def custom_open(path, suffix=".jsonl"):
 def calculate_coverage(dp):
     cover_length = sum([x[1] - x[0] for x in dp["bff_duplicate_spans"]])
     total_length = dp["length"]
-    return cover_length / total_length
+    return cover_length / total_length if total_length > 0  else 0
 
 member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
 nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
