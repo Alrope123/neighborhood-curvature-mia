@@ -102,6 +102,10 @@ def main(args):
         print("Going through each file to check BFF results...")
         group_to_member = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
+            print(data_dir)
+            print(data_path)
+            print(filename)
+            assert False
             # DEBUG:
             # if i > 10:
             #     break
