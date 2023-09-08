@@ -91,8 +91,8 @@ def draw_separate_histogram(coverages, split, bins=20, xlabel=None, ylabel=None,
 
     # Merge categories
     categories = np.searchsorted(split, categories, side='right')
-    categories = ["<{}".format(split[i]) for i in categories]
     assert all([category >= 0 and category <= len(split) for category in categories])
+    categories = ["<{}".format(split[i]) for i in categories]
 
     # Define bin edges
     bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
