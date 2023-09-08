@@ -7,6 +7,11 @@ import argparse
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
+member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
+nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
+member_dict = {}
+nonmember_dict = {}
+
 def iterate_files(root_dir):
     file_paths = []
     file_names = []
@@ -192,11 +197,6 @@ def main(args):
 
     
 if __name__ == '__main__':
-    member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
-    nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
-    member_dict = {}
-    nonmember_dict = {}
-
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default="/gscratch/h2lab/alrope/data/redpajama/arxiv/")
     parser.add_argument('--overlap_dir', type=str, default="/gscratch/h2lab/alrope/data/bff/redpajama-arxiv+pile")
