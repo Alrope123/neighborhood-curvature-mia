@@ -208,7 +208,7 @@ def main(args):
     #                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
     # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
     #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
-    draw_separate_histogram(total_coverages, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+    draw_separate_histogram(total_coverages, split=[2000, 2004, 2008, 2012, 2016, 2020, 2021, 2022, 2023, 2024], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50)
     
 
