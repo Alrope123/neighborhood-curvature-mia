@@ -34,10 +34,6 @@ def calculate_coverage(dp):
     total_length = dp["length"]
     return cover_length / total_length if total_length > 0  else 0
 
-member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
-nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
-member_dict = {}
-nonmember_dict = {}
 def get_group(dp, data_type):
     if data_type=='rpj-arxiv':
         timestamp = dp['meta']['timestamp']
@@ -196,6 +192,11 @@ def main(args):
 
     
 if __name__ == '__main__':
+    member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
+    nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
+    member_dict = {}
+    nonmember_dict = {}
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default="/gscratch/h2lab/alrope/data/redpajama/arxiv/")
     parser.add_argument('--overlap_dir', type=str, default="/gscratch/h2lab/alrope/data/bff/redpajama-arxiv+pile")
