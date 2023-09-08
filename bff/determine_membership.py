@@ -94,11 +94,14 @@ def draw_separate_histogram(coverages, split, bins=20, xlabel=None, ylabel=None,
     assert all([category >= 0 and category <= len(split) for category in categories])
 
     # Define bin edges
-    bin_edges = np.linspace(min(values), max(values), bins)  # Example: 20 bins
+    bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
     binned_values = np.digitize(values, bin_edges)
 
     # Prepare data for stacked bars
     bin_counts = {i: {cat: 0 for cat in set(categories)} for i in range(1, len(bin_edges))}
+
+    print(bin_edges)
+    print(bin_counts)
 
     for bv, cat in zip(binned_values, categories):
         bin_counts[bv][cat] += 1
