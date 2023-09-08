@@ -134,6 +134,9 @@ def main(args):
                 assert len(is_member_all) ==  len(is_member)
                 is_member_all = [a or b for a, b in zip(is_member_all, is_member)]
 
+            cur_save_dir = os.path.dirname(os.path.join(save_dir, '{}.pkl'.format(filename)))
+            if not os.path.exists(cur_save_dir):
+                os.makedirs(cur_save_dir)
             with open(os.path.join(save_dir, '{}.pkl'.format(filename)), "wb") as f:
                 pkl.dump(is_member_all, f)
 
