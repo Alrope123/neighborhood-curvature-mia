@@ -101,6 +101,7 @@ def main(args):
 
 
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
+    drawn = {filter_name : False for filter_name in filter_names}
     if not os.path.exists(membership_info_path):
         # Process each file
         print("Going through each file to check BFF results...")
@@ -118,7 +119,7 @@ def main(args):
             data = custom_open(data_path)
 
             is_member_all = [False] * len(data)
-            drawn = False
+
             for filter_name in filter_names:
                 overlap_path = os.path.join(overlap_dir, filter_name, filename)
                 assert os.path.exists(overlap_path), overlap_path
@@ -128,12 +129,12 @@ def main(args):
                 assert len(data) == len(overlap_data)
                 coverages = [calculate_coverage(dp) for dp in overlap_data]
                 # Draw the distribution of overlaps if haven't drawn
-                if not drawn:
+                if not drawn[filter_name]:
                     draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution_{}.png'.format(filter_name)), bins=50, x_interval=0.01)
                     draw_histogram(coverages, title=None, xlabel="Percentage of duplication",
                                     save_path=os.path.join(save_dir, 'overlap_distribution_CDF_{}.png'.format(filter_name)), bins=50, cumulative=True, x_interval=0.02)
-                    drawn = True
+                    drawn[filter_name] = True
                 is_member = [coverage > threshold for coverage in coverages]
                 assert len(is_member_all) ==  len(is_member)
                 is_member_all = [a or b for a, b in zip(is_member_all, is_member)]
