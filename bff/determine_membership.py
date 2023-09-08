@@ -42,7 +42,7 @@ def calculate_coverage(dp):
 def get_group(dp, data_type):
     global member_dict
     global nonmember_dict
-    
+
     if data_type=='rpj-arxiv':
         timestamp = dp['meta']['timestamp']
         assert 'T' in timestamp
@@ -91,7 +91,6 @@ def main(args):
     data_type = args.data_type
     threshold = args.threshold
 
-    drawn = False
     
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
@@ -119,6 +118,7 @@ def main(args):
             data = custom_open(data_path)
 
             is_member_all = [False] * len(data)
+            drawn = False
             for filter_name in filter_names:
                 overlap_path = os.path.join(overlap_dir, filter_name, filename)
                 assert os.path.exists(overlap_path), overlap_path
@@ -130,9 +130,9 @@ def main(args):
                 # Draw the distribution of overlaps if haven't drawn
                 if not drawn:
                     draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
+                                    save_path=os.path.join(save_dir, 'overlap_distribution_{}.png'.format(filter_name)), bins=50, x_interval=0.01)
                     draw_histogram(coverages, title=None, xlabel="Percentage of duplication",
-                                    save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
+                                    save_path=os.path.join(save_dir, 'overlap_distribution_CDF_{}.png'.format(filter_name)), bins=50, cumulative=True, x_interval=0.02)
                     drawn = True
                 is_member = [coverage > threshold for coverage in coverages]
                 assert len(is_member_all) ==  len(is_member)
