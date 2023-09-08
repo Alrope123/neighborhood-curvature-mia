@@ -7,6 +7,15 @@ import argparse
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
+def iterate_files(root_dir):
+    file_paths = []
+    file_names = []
+    for root, _, files in os.walk(root_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            file_paths.append(file_path)
+            file_names.append(file)
+    return zip(file_paths, file_names)
 
 def custom_open(path, suffix=".jsonl"):
     data = []
@@ -24,12 +33,29 @@ def calculate_coverage(dp):
     total_length = dp["length"]
     return cover_length / total_length
 
-
+member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
+nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
+member_dict = {}
+nonmember_dict = {}
 def get_group(dp, data_type):
     if data_type=='rpj-arxiv':
         timestamp = dp['meta']['timestamp']
         assert 'T' in timestamp
         return timestamp.split('T')[0]
+    elif data_type=='wikipedia':
+        if member_dict == {}:
+            with open(member_dict_path, 'rb') as f:
+                member_dict = pkl.load(f)
+        if nonmember_dict == {}:
+            with open(nonmember_dict_path, 'rb') as f:
+                nonmember_dict = pkl.load(f)
+        title = dp['title']
+        if title in member_dict and member_dict[title] != None:
+            return member_dict[title].split(',')[1].strip()
+        elif title in nonmember_dict and nonmember_dict[title] != None:
+            return nonmember_dict[title].split(',')[1].strip()
+        else:
+            return None
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
@@ -75,13 +101,13 @@ def main(args):
         # Process each file
         print("Going through each file to check BFF results...")
         group_to_member = {}
-        for i, filename in enumerate(tqdm(os.listdir(data_dir))):
+        for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
             # if i > 10:
             #     break
 
-            # Figure out the path
-            data_path = os.path.join(data_dir, filename)
+            # # Figure out the path
+            # data_path = os.path.join(data_dir, filename)
             
 
             # Load in the data
@@ -112,9 +138,10 @@ def main(args):
 
             for i, dp in enumerate(data):
                 group = get_group(dp, data_type)
-                if group not in group_to_member:
-                    group_to_member[group] = []
-                group_to_member[group].append((filename, i, is_member_all[i]))
+                if group:
+                    if group not in group_to_member:
+                        group_to_member[group] = []
+                    group_to_member[group].append((filename, i, is_member_all[i]))
 
         # Save the membership info
         with open(membership_info_path, "wb") as f:
