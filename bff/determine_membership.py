@@ -171,7 +171,7 @@ def main(args):
                 overlap_data = custom_open(overlap_path)
                 assert len(data) == len(overlap_data)
                 coverages = [calculate_coverage(dp) for dp in overlap_data]
-                total_coverages.extend([(calculate_coverage(dp), get_group(data[i], data_type=data_type)) for i, dp in enumerate(overlap_data)])
+                total_coverages.extend([(calculate_coverage(dp), get_group(data[i], data_type=data_type)) for i, dp in enumerate(overlap_data) if get_group(data[i], data_type=data_type)])
                 # Draw the distribution of overlaps if haven't drawn
                 # if not drawn[filter_name]:
                 #     draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
