@@ -6,6 +6,7 @@ import pickle as pkl
 import argparse
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
 nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
@@ -35,9 +36,10 @@ def custom_open(path, suffix=".jsonl"):
 
 
 def calculate_coverage(dp):
-    cover_length = sum([x[1] - x[0] for x in dp["bff_duplicate_spans"]])
-    total_length = dp["length"]
-    return cover_length / total_length if total_length > 0  else 0
+    # cover_length = sum([x[1] - x[0] for x in dp["bff_duplicate_spans"]])
+    # total_length = dp["length"]
+    # return cover_length / total_length if total_length > 0  else 0
+    return dp['bff_contained_ngram_count'] / dp['bff_ngram_count'] if dp['bff_ngram_count'] > 0 else 0
 
 def get_group(dp, data_type):
     global member_dict
@@ -56,9 +58,9 @@ def get_group(dp, data_type):
                 nonmember_dict = pkl.load(f)
         title = dp['title']
         if title in member_dict and member_dict[title] != None:
-            return member_dict[title].split(',')[1].strip()
+            return datetime.strptime(member_dict[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
         elif title in nonmember_dict and nonmember_dict[title] != None:
-            return nonmember_dict[title].split(',')[1].strip()
+            return datetime.strptime(nonmember_dict[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
         else:
             return None
     else:
