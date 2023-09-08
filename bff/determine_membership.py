@@ -85,6 +85,46 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
     plt.savefig(save_path, format='png') 
 
 
+def draw_sperate_historam(coverages, split, bins=20, xlabel=None, ylabel=None, save_path=None):    
+    # Separate the numbers and properties
+    values, categories = zip(*coverages)
+
+    # Merge categories
+    categories = np.searchsorted(split, categories, side='right')
+    assert all([category >= 0 and category <= len(split) for category in categories])
+
+    # Define bin edges
+    bin_edges = np.linspace(min(values), max(values), bins)  # Example: 20 bins
+    binned_values = np.digitize(values, bin_edges)
+
+    # Prepare data for stacked bars
+    bin_counts = {i: {cat: 0 for cat in set(categories)} for i in range(1, len(bin_edges))}
+
+    for bv, cat in zip(binned_values, categories):
+        bin_counts[bv][cat] += 1
+
+    # Create gradient colors based on the number of unique categories
+    unique_categories = sorted(list(set(categories)))
+    colormap = plt.get_cmap('viridis')
+    colors = [colormap(i) for i in np.linspace(0, 1, len(unique_categories))]
+
+    # Plotting
+    bottoms = [0] * (len(bin_edges) - 1)
+    for idx, cat in enumerate(unique_categories):
+        cat_counts = [bin_counts[i][cat] for i in range(1, len(bin_edges))]
+        plt.bar(range(1, len(bin_edges)), cat_counts, color=colors[idx], label=cat, bottom=bottoms)
+        bottoms = [i+j for i, j in zip(bottoms, cat_counts)]
+
+    # Setting x-tick labels to represent bin ranges
+    tick_labels = [f"{bin_edges[i]:.2f}-{bin_edges[i+1]:.2f}" for i in range(len(bin_edges)-1)]
+    plt.xticks(range(1, len(bin_edges)), tick_labels, rotation=45, ha="right")
+
+    plt.xlabel('Value Range')
+    plt.ylabel('Count')
+    plt.legend()
+    plt.savefig(save_path, format='png')
+
+
 def main(args):
     # Process args
     data_dir = args.data_dir
@@ -111,8 +151,8 @@ def main(args):
         group_to_member = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
-            # if i > 10:
-            #     break
+            if i > 10:
+                break
 
             # # Figure out the path
             # data_path = os.path.join(data_dir, filename)
@@ -131,7 +171,7 @@ def main(args):
                 overlap_data = custom_open(overlap_path)
                 assert len(data) == len(overlap_data)
                 coverages = [calculate_coverage(dp) for dp in overlap_data]
-                total_coverages.extend(coverages)
+                total_coverages.extend([(calculate_coverage(dp), get_group(dp)) for dp in overlap_data])
                 # Draw the distribution of overlaps if haven't drawn
                 # if not drawn[filter_name]:
                 #     draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
@@ -164,10 +204,13 @@ def main(args):
         with open(membership_info_path, "rb") as f:
             group_to_member = pkl.load(f)
 
-    draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+    # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+    #                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
+    # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
+    #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
+    draw_histogram(total_coverages, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
-    draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
-                    save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
+    
 
     # Create statistic info
     print("Calculating the statistics...")
