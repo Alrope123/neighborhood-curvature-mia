@@ -14,7 +14,7 @@ def iterate_files(root_dir):
         for file in files:
             file_path = os.path.join(root, file)
             file_paths.append(file_path)
-            file_names.append(root_dir[len(file):])
+            file_names.append(root_dir[len(file_path):])
     return zip(file_paths, file_names)
 
 
