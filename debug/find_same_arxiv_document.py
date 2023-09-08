@@ -69,5 +69,5 @@ if __name__ == '__main__':
     out_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/out"
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
-    with open(out_dir, 'w') as f:
+    with open(os.path.join(out_dir, 'same_arxiv_document'), 'w') as f:
         json.dump(output, f)    
