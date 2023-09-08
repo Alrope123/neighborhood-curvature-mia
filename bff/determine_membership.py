@@ -134,7 +134,7 @@ def main(args):
     save_dir = args.save_dir
     data_type = args.data_type
     threshold = args.threshold
-
+    read_cache = args.read_cache
     
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
@@ -147,7 +147,7 @@ def main(args):
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
     # drawn = {filter_name : False for filter_name in filter_names}
     total_coverages = []
-    if not os.path.exists(membership_info_path):
+    if not os.path.exists(membership_info_path) or not read_cache:
         # Process each file
         print("Going through each file to check BFF results...")
         group_to_member = {}
@@ -206,14 +206,14 @@ def main(args):
         with open(membership_info_path, "rb") as f:
             group_to_member = pkl.load(f)
 
-    # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-    #                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
-    # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
-    #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
-    draw_separate_histogram(total_coverages, split=["1960", "2000", "2010", "2020", "2020-03-01", "2021", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+    if not read_cache:
+        # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+        #                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
+        # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
+        #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
+        draw_separate_histogram(total_coverages, split=["1960", "2000", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     
-
     # Create statistic info
     print("Calculating the statistics...")
     group_to_member = {group: members for group, members in group_to_member.items() if len(members) > 1}
@@ -261,6 +261,7 @@ if __name__ == '__main__':
     parser.add_argument('--save_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv")
     parser.add_argument('--data_type', type=str, default="rpj-arxiv")
     parser.add_argument('--threshold', type=float, default="0.1")
+    parser.add_argument('--read_cache', action="store_false", default=True)
 
     args = parser.parse_args()
 
