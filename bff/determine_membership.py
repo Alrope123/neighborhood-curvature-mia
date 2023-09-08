@@ -40,6 +40,9 @@ def calculate_coverage(dp):
     return cover_length / total_length if total_length > 0  else 0
 
 def get_group(dp, data_type):
+    global member_dict
+    global nonmember_dict
+    
     if data_type=='rpj-arxiv':
         timestamp = dp['meta']['timestamp']
         assert 'T' in timestamp
