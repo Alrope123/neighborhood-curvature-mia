@@ -38,9 +38,11 @@ if __name__ == '__main__':
         tfidf_vectorizer = TfidfVectorizer().fit([doc])  # Fit on the target doc first
         target_vector = tfidf_vectorizer.transform([doc])
 
-
         data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
         for i, (data_path, filename) in tqdm(enumerate(iterate_files(data_dir))):
+            if i > 1:
+                break
+
             doc_pool = []
             with open(data_path, 'r') as f:
                 for line in f:
