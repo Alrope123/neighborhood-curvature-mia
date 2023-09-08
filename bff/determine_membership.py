@@ -85,7 +85,7 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
     plt.savefig(save_path, format='png') 
 
 
-def draw_sperate_historam(coverages, split, bins=20, xlabel=None, ylabel=None, save_path=None):    
+def draw_separate_histogram(coverages, split, bins=20, xlabel=None, ylabel=None, save_path=None):    
     # Separate the numbers and properties
     values, categories = zip(*coverages)
 
@@ -119,8 +119,8 @@ def draw_sperate_historam(coverages, split, bins=20, xlabel=None, ylabel=None, s
     tick_labels = [f"{bin_edges[i]:.2f}-{bin_edges[i+1]:.2f}" for i in range(len(bin_edges)-1)]
     plt.xticks(range(1, len(bin_edges)), tick_labels, rotation=45, ha="right")
 
-    plt.xlabel('Value Range')
-    plt.ylabel('Count')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.legend()
     plt.savefig(save_path, format='png')
 
@@ -208,8 +208,8 @@ def main(args):
     #                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
     # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
     #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
-    draw_histogram(total_coverages, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
+    draw_separate_histogram(total_coverages, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50)
     
 
     # Create statistic info
