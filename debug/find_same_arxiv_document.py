@@ -29,7 +29,7 @@ if __name__ == '__main__':
     assert len(docs) == 1
 
     output = {}
-    for j, doc in docs:
+    for j, doc in enumerate(docs):
         print("Processing doc No.1")
         k = 5
         top_k_texts = [None] * k
