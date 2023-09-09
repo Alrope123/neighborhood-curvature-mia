@@ -67,6 +67,22 @@ def get_group(dp, data_type):
         raise NotImplementedError('The data type is not implemented yet.')
 
 
+def get_wikipedia_label(dp):
+    if member_dict == {}:
+        with open(member_dict_path, 'rb') as f:
+            member_dict = pkl.load(f)
+    if nonmember_dict == {}:
+        with open(nonmember_dict_path, 'rb') as f:
+            nonmember_dict = pkl.load(f)
+    title = dp['title']
+    if title in member_dict and member_dict[title] != None:
+        return True
+    elif title in nonmember_dict and nonmember_dict[title] != None:
+        return False
+    else:
+        return None
+
+
 def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=None, cumulative=False, x_interval=-1):
     """Draw a histogram for the given data."""
     
@@ -85,14 +101,15 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
     plt.savefig(save_path, format='png') 
 
 
-def draw_separate_histogram(coverages, split, bins=20, xlabel=None, ylabel=None, save_path=None):    
+def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=None, save_path=None):    
     # Separate the numbers and properties
     values, categories = zip(*coverages)
 
     # Merge categories
-    categories = np.searchsorted(split, categories, side='right')
-    assert all([category >= 0 and category <= len(split) for category in categories])
-    categories = ["<{}".format(split[i]) for i in categories]
+    if split:
+        categories = np.searchsorted(split, categories, side='right')
+        assert all([category >= 0 and category <= len(split) for category in categories])
+        categories = ["<{}".format(split[i]) for i in categories]
 
     # Define bin edges
     bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
@@ -145,16 +162,19 @@ def main(args):
 
 
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
+    coverages_path = os.path.join(save_dir, 'coverages.pkl')
     # drawn = {filter_name : False for filter_name in filter_names}
     total_coverages = []
+    if data_type == "wikipedia":
+        total_coverage_member = []
     if not os.path.exists(membership_info_path) or not read_cache:
         # Process each file
         print("Going through each file to check BFF results...")
         group_to_member = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
-            # if i > 10:
-            #     break
+            if i > 10:
+                break
 
             # # Figure out the path
             # data_path = os.path.join(data_dir, filename)
@@ -174,6 +194,8 @@ def main(args):
                 assert len(data) == len(overlap_data)
                 coverages = [calculate_coverage(dp) for dp in overlap_data]
                 total_coverages.extend([(calculate_coverage(dp), get_group(data[i], data_type=data_type)) for i, dp in enumerate(overlap_data) if get_group(data[i], data_type=data_type)])
+                if data_type == "wikipedia":
+                    total_coverage_member.extend([(calculate_coverage(dp), get_wikipedia_label(data[i])) for i, dp in enumerate(overlap_data) if get_wikipedia_label(data[i])])
                 # Draw the distribution of overlaps if haven't drawn
                 # if not drawn[filter_name]:
                 #     draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
@@ -201,19 +223,30 @@ def main(args):
         # Save the membership info
         with open(membership_info_path, "wb") as f:
             pkl.dump(group_to_member, f)
+
+        if not os.path.exists(coverages_path):    
+            # Save the membership info
+            with open(coverages_path, "wb") as f:
+                pkl.dump(total_coverages, f)
     
     else:
         with open(membership_info_path, "rb") as f:
             group_to_member = pkl.load(f)
 
-    if not read_cache:
+    if os.path.exists(coverages_path):
+        with open(coverages_path, "rb") as f:
+            total_coverages = pkl.load(f)
         # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
         #                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
         # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
         #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
-        draw_separate_histogram(total_coverages, split=["1960", "2000", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
-    
+        if data_type == "wikipedia":
+            draw_separate_histogram(total_coverages, split=["1960", "2000", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                        save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
+            draw_separate_histogram(total_coverage_member, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                        save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
+
+
     # Create statistic info
     print("Calculating the statistics...")
     group_to_member = {group: members for group, members in group_to_member.items() if len(members) > 1}
@@ -261,7 +294,7 @@ if __name__ == '__main__':
     parser.add_argument('--save_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv")
     parser.add_argument('--data_type', type=str, default="rpj-arxiv")
     parser.add_argument('--threshold', type=float, default="0.1")
-    parser.add_argument('--read_cache', action="store_false", default=True)
+    parser.add_argument('--read_cache', action="store_True", default=False)
 
     args = parser.parse_args()
 
