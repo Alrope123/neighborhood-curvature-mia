@@ -53,9 +53,11 @@ def get_group(dp, data_type):
         if member_dict == {}:
             with open(member_dict_path, 'rb') as f:
                 member_dict = pkl.load(f)
+                print("Loaded in {} wikipedia titled matched.".format(len(member_dict)))
         if nonmember_dict == {}:
             with open(nonmember_dict_path, 'rb') as f:
                 nonmember_dict = pkl.load(f)
+                print("Loaded in {} wikipedia titled unmatched.".format(len(nonmember_dict)))
         title = dp['title']
         if title in member_dict and member_dict[title] != None:
             return datetime.strptime(member_dict[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
@@ -232,7 +234,7 @@ def main(args):
         with open(membership_info_path, "wb") as f:
             pkl.dump(group_to_member, f)
 
-        if not os.path.exists(coverages_path):    
+        if not os.path.exists(coverages_path) or not read_cache:    
             # Save the membership info
             with open(coverages_path, "wb") as f:
                 pkl.dump(total_coverages, f)
