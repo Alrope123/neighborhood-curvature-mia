@@ -294,7 +294,7 @@ if __name__ == '__main__':
     parser.add_argument('--save_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv")
     parser.add_argument('--data_type', type=str, default="rpj-arxiv")
     parser.add_argument('--threshold', type=float, default="0.1")
-    parser.add_argument('--read_cache', action="store_True", default=False)
+    parser.add_argument('--read_cache', action="store_true", default=False)
 
     args = parser.parse_args()
 
