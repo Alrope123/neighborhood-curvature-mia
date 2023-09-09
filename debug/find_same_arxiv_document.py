@@ -42,8 +42,8 @@ if __name__ == '__main__':
     data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
     for i, (data_path, filename) in tqdm(enumerate(iterate_files(data_dir))):
         # DEBUG
-        if i > 3:
-            break
+        # if i > 3:
+        #     break
 
         doc_pool = []
         with open(data_path, 'r') as f:
