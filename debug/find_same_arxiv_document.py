@@ -4,6 +4,7 @@ from tqdm import tqdm
 import os
 import json
 import numpy as np
+import random
 
 def iterate_files(root_dir):
     file_paths = []
@@ -26,7 +27,8 @@ if __name__ == '__main__':
             if dp['meta']['pile_set_name'] == "ArXiv":
                 target_docs.append(dp['text'])
     
-    target_docs = np.random.choice(target_docs, 10, replace=False)
+    random_indices = [random.randint(0, len(target_docs)) for _ in range(10)]
+    target_docs = [target_docs[i] for i in random_indices]
 
     k = 5
     top_k_texts = [None] * k
