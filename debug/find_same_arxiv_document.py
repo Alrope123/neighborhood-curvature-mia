@@ -27,7 +27,7 @@ if __name__ == '__main__':
             if dp['meta']['pile_set_name'] == "ArXiv":
                 target_docs.append(dp['text'])
     
-    random_indices = [random.randint(0, len(target_docs)) for _ in range(10)]
+    random_indices = [random.randint(0, len(target_docs)) for _ in range(100)]
     target_docs = [target_docs[i] for i in random_indices]
 
     k = 5
@@ -42,7 +42,7 @@ if __name__ == '__main__':
     data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
     for i, (data_path, filename) in tqdm(enumerate(iterate_files(data_dir))):
         # DEBUG
-        if i < 3:
+        if i > 3:
             break
 
         doc_pool = []
