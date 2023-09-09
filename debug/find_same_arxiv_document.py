@@ -52,9 +52,6 @@ if __name__ == '__main__':
 
         # Transform the batch using the same vectorizer (this ensures consistent feature space)
         batch_vectors = tfidf_vectorizer.transform(doc_pool)
-        
-        # Compute similarities for this batch
-        cosine_similarities = linear_kernel(target_vector, batch_vectors).flatten()
 
         for doc, target_vector in zip(target_docs, target_vectors):
             cosine_similarities = linear_kernel(target_vector, batch_vectors).flatten()
