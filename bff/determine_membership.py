@@ -68,6 +68,9 @@ def get_group(dp, data_type):
 
 
 def get_wikipedia_label(dp):
+    global member_dict
+    global nonmember_dict
+
     if member_dict == {}:
         with open(member_dict_path, 'rb') as f:
             member_dict = pkl.load(f)
