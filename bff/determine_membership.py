@@ -74,14 +74,16 @@ def get_wikipedia_label(dp):
     if member_dict == {}:
         with open(member_dict_path, 'rb') as f:
             member_dict = pkl.load(f)
+            print("Loaded in {} wikipedia titled matched.".format(len(member_dict)))
     if nonmember_dict == {}:
         with open(nonmember_dict_path, 'rb') as f:
             nonmember_dict = pkl.load(f)
+            print("Loaded in {} wikipedia titled unmatched.".format(len(nonmember_dict)))
     title = dp['title']
     if title in member_dict and member_dict[title] != None:
-        return True
+        return "Title Matched"
     elif title in nonmember_dict and nonmember_dict[title] != None:
-        return False
+        return "Title Unmatched"
     else:
         return None
 
