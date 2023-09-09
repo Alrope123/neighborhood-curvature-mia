@@ -89,6 +89,7 @@ def get_wikipedia_label(dp):
 def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=None, cumulative=False, x_interval=-1):
     """Draw a histogram for the given data."""
     
+    plt.clf()
     plt.figure(figsize=(10,6))  # Set the figure size
     plt.hist(data, bins=bins, color='#1b9e77', edgecolor=None, density=True, cumulative=cumulative)
     
@@ -105,6 +106,8 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
 
 
 def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=None, save_path=None):    
+    plt.clf()
+
     # Separate the numbers and properties
     values, categories = zip(*coverages)
 
@@ -176,7 +179,7 @@ def main(args):
         group_to_member = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
-            if i > 10:
+            if i > 3:
                 break
 
             # # Figure out the path
