@@ -3,6 +3,7 @@ from sklearn.metrics.pairwise import linear_kernel
 from tqdm import tqdm
 import os
 import json
+import numpy as np
 
 def iterate_files(root_dir):
     file_paths = []
@@ -18,53 +19,60 @@ def iterate_files(root_dir):
 if __name__ == '__main__':
 
     doc_dir = "/data/pile/train/00.jsonl"
-    docs = []
+    target_docs = []
     with open(doc_dir, 'r') as f:
         for line in f:
             dp = json.loads(line)
             if dp['meta']['pile_set_name'] == "ArXiv":
-                docs.append(dp['text'])
-                if len(docs) >= 1:
-                    break 
-    assert len(docs) == 1
+                target_docs.append(dp['text'])
+    
+    target_docs = np.random.choice(target_docs, 10, replace=False)
 
-    output = {}
-    for j, doc in enumerate(docs):
-        print("Processing doc No.1")
-        k = 5
-        top_k_texts = [None] * k
-        top_k_scores = [-float('inf')] * k
+    k = 5
+    top_k_texts = [None] * k
+    top_k_scores = [-float('inf')] * k
 
-        tfidf_vectorizer = TfidfVectorizer().fit([doc])  # Fit on the target doc first
-        target_vector = tfidf_vectorizer.transform([doc])
+    results = {doc: {'top_k_texts': [None] * k, 'top_k_scores': [-float('inf')] * k} for doc in target_docs}
 
-        data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
-        for i, (data_path, filename) in tqdm(enumerate(iterate_files(data_dir))):
-            doc_pool = []
-            with open(data_path, 'r') as f:
-                for line in f:
-                    doc_pool.append(json.loads(line)['text'])  
+    tfidf_vectorizer = TfidfVectorizer().fit(target_docs)  # Fit on the target docs first
+    target_vectors = tfidf_vectorizer.transform(target_docs)
 
-            # Transform the batch using the same vectorizer (this ensures consistent feature space)
-            batch_vectors = tfidf_vectorizer.transform(doc_pool)
-            
-            # Compute similarities for this batch
+    data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
+    for i, (data_path, filename) in tqdm(enumerate(iterate_files(data_dir))):
+        # DEBUG
+        if i < 3:
+            break
+
+        doc_pool = []
+        with open(data_path, 'r') as f:
+            for line in f:
+                doc_pool.append(json.loads(line)['text'])  
+
+        # Transform the batch using the same vectorizer (this ensures consistent feature space)
+        batch_vectors = tfidf_vectorizer.transform(doc_pool)
+        
+        # Compute similarities for this batch
+        cosine_similarities = linear_kernel(target_vector, batch_vectors).flatten()
+
+        for doc, target_vector in zip(target_docs, target_vectors):
             cosine_similarities = linear_kernel(target_vector, batch_vectors).flatten()
 
             for i, score in enumerate(cosine_similarities):
-                if score > min(top_k_scores):  # If this score is among the top k scores
+                if score > min(results[doc]['top_k_scores']):
                     # Get the index to replace based on the smallest score among top_k_scores
-                    replace_index = top_k_scores.index(min(top_k_scores))
+                    replace_index = results[doc]['top_k_scores'].index(min(results[doc]['top_k_scores']))
                     
                     # Replace the score and text in the top_k lists
-                    top_k_scores[replace_index] = score
-                    top_k_texts[replace_index] = doc_pool[i]
+                    results[doc]['top_k_scores'][replace_index] = score
+                    results[doc]['top_k_texts'][replace_index] = doc_pool[i]
 
-        candidates = sorted(zip(top_k_texts, top_k_scores), key=lambda x: x[1], reverse=True)
-        output[doc] = candidates
+    # Sort each result list
+    for doc in results:
+        sorted_results = sorted(zip(results[doc]['top_k_texts'], results[doc]['top_k_scores']), key=lambda x: x[1], reverse=True)
+        results[doc] = sorted_results
 
     out_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/out"
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
-    with open(os.path.join(out_dir, 'same_arxiv_document'), 'w') as f:
-        json.dump(output, f)    
+    with open(os.path.join(out_dir, 'same_arxiv_document.json'), 'w') as f:
+        json.dump(results, f)    
