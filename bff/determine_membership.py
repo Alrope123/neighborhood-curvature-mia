@@ -251,7 +251,7 @@ def main(args):
         # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
         #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
     
-    total_coverages_values = total_coverages.values()
+    total_coverages_values = list(total_coverages.values())
     # Check if the sublists are of the same length
     assert all(len(sublist) == len(total_coverages_values[0]) for sublist in total_coverages_values)
     # Calculate the max value among all values in the sublists at each index
