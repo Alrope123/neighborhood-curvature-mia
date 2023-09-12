@@ -183,8 +183,8 @@ def main(args):
         group_to_member = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
-            if i > 3:
-                break
+            # if i > 3:
+            #     break
 
             # # Figure out the path
             # data_path = os.path.join(data_dir, filename)
