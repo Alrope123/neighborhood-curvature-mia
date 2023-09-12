@@ -264,7 +264,7 @@ def main(args):
     total_coverage_member_values = [max(sublist[i] for sublist in total_coverage_member_values) for i in range(len(total_coverage_member_values[0]))]
 
     if data_type == "wikipedia":
-        draw_separate_histogram(total_coverages_values, split=["2000", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+        draw_separate_histogram(total_coverages_values, split=["1960", "2000", "2004", "2008", "2012", "2016", "2020", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
         draw_separate_histogram(total_coverage_member_values, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
