@@ -174,17 +174,17 @@ def main(args):
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
     coverages_path = os.path.join(save_dir, 'coverages.pkl')
     # drawn = {filter_name : False for filter_name in filter_names}
-    total_coverages = []
+    total_coverages = {filter_name: [] for filter_name in filter_names}
     if data_type == "wikipedia":
-        total_coverage_member = []
+        total_coverage_member = {filter_name: [] for filter_name in filter_names}
     if not os.path.exists(membership_info_path) or not read_cache:
         # Process each file
         print("Going through each file to check BFF results...")
         group_to_member = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
-            # if i > 3:
-            #     break
+            if i > 3:
+                break
 
             # # Figure out the path
             # data_path = os.path.join(data_dir, filename)
@@ -203,9 +203,9 @@ def main(args):
                 overlap_data = custom_open(overlap_path)
                 assert len(data) == len(overlap_data)
                 coverages = [calculate_coverage(dp) for dp in overlap_data]
-                total_coverages.extend([(calculate_coverage(dp), get_group(data[i], data_type=data_type)) for i, dp in enumerate(overlap_data) if get_group(data[i], data_type=data_type)])
+                total_coverages[filter_name].extend([(calculate_coverage(dp), get_group(data[i], data_type=data_type)) for i, dp in enumerate(overlap_data) if get_group(data[i], data_type=data_type)])
                 if data_type == "wikipedia":
-                    total_coverage_member.extend([(calculate_coverage(dp), get_wikipedia_label(data[i])) for i, dp in enumerate(overlap_data) if get_wikipedia_label(data[i])])
+                    total_coverage_member[filter_name].extend([(calculate_coverage(dp), get_wikipedia_label(data[i])) for i, dp in enumerate(overlap_data) if get_wikipedia_label(data[i])])
                 # Draw the distribution of overlaps if haven't drawn
                 # if not drawn[filter_name]:
                 #     draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
@@ -250,11 +250,18 @@ def main(args):
         #                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
         # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
         #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
-        if data_type == "wikipedia":
-            draw_separate_histogram(total_coverages, split=["1960", "2000", "2004", "2008", "2012", "2016", "2020", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                        save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
-            draw_separate_histogram(total_coverage_member, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                        save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
+    
+    total_coverages_values = total_coverages.values()
+    # Check if the sublists are of the same length
+    assert all(len(sublist) == len(total_coverages_values[0]) for sublist in total_coverages_values)
+    # Calculate the max value among all values in the sublists at each index
+    total_coverages = [max(sublist[i] for sublist in total_coverages_values) for i in range(len(total_coverages_values[0]))]
+
+    if data_type == "wikipedia":
+        draw_separate_histogram(total_coverages, split=["2000", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
+        # draw_separate_histogram(total_coverage_member, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+        #                             save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
 
     if data_type in ['rpj-arxiv']:
         # Create statistic info
