@@ -69,9 +69,9 @@ def get_group(dp, data_type):
         raise NotImplementedError('The data type is not implemented yet.')
 
 
-def qualified(score, data_type):
+def qualified(data_type, score=None, group=None):
     if data_type=='wikipedia':
-        return score < 0.05 or score > 0.95
+        return (score < 0.05 and group >= "2020-03-01") or (score > 0.95 and group < "2020-03-01")
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
@@ -241,7 +241,7 @@ def main(args):
 
             # Build group dict and filter out unwanted ones
             for (filename, i), (score, group) in total_coverages.items():
-                if group and qualified(score, data_type):
+                if group and qualified(data_type, score, group):
                     if group not in membership_info:
                         membership_info[group] = {'documents': []}    
                     membership_info[group]['documents'].append((filename, i, score))
