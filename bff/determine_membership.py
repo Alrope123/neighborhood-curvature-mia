@@ -270,7 +270,7 @@ def main(args):
     coverages_and_group = []
     for group, infos in membership_info.items():
         for (_, _, score) in infos['documents']:
-            coverages_and_group.append(score, group)
+            coverages_and_group.append((score, group))
 
     if data_type == "wikipedia":
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
