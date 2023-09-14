@@ -189,8 +189,8 @@ def main(args):
         membership_info = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
-            # if i > 3:
-            #     break
+            if i > 3:
+                break
 
             coverage_path = os.path.join(save_dir, '{}.pkl'.format(filename))
             if os.path.exists(coverage_path):
@@ -268,8 +268,9 @@ def main(args):
     # total_coverage_member_values = [max(sublist[i] for sublist in total_coverage_member_values) for i in range(len(total_coverage_member_values[0]))]
 
     coverages_and_group = []
-    for group, (_, _, score) in membership_info.items():
-        coverages_and_group.append(score, group)
+    for group, infos in membership_info.items():
+        for (_, _, score) in infos['documents']:
+            coverages_and_group.append(score, group)
 
     if data_type == "wikipedia":
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
