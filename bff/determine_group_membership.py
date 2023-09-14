@@ -75,7 +75,10 @@ def main(args):
     draw_histogram(list(group_rates.values()), title=None, xlabel="Percentage of Members", ylabel="# Dates(k)",
                     save_path=os.path.join(save_dir, 'membership_distribution.png'), bins=20, x_interval=0.05)
 
-    
+    with open(membership_info_path, "wb") as f:
+        pkl.dump(membership_info, f)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--save_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv")
