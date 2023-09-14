@@ -39,6 +39,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
                 new_added_data.add((filename, i))
             new_added_data = np.random.choice(new_added_data, n_document_per_group, replace=False)
             selected_data.update(new_added_data)
+    assert len(selected_data) == n_group * n_document_per_group
     return selected_data
 
 
