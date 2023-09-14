@@ -47,8 +47,7 @@ def load_wikipedia(data_dir, membership_info, train=True, SAVE_FOLDER=None, n_gr
     
     data = [] 
     meta_data = []
-    file_paths, filenames = iterate_files(data_dir)
-    for file_path, filename in tqdm(zip(file_paths, filenames)):
+    for file_path, filename in tqdm(iterate_files(data_dir)):
         with open(file_path, 'r') as f:
             for i, line in enumerate(f):
                 if (filename, i) in selected_data:
