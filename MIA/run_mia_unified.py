@@ -590,6 +590,8 @@ def run_baseline_threshold_experiment(criterion_fn, name, n_samples=500):
         sampled_text = data["member"][batch * batch_size:(batch + 1) * batch_size]
 
         for idx in range(len(original_text)):
+            print(original_text[idx])
+            print(sampled_text[idx])
             results.append({
                 "nonmember": original_text[idx],
                 "nonmember_crit": criterion_fn(original_text[idx]),
