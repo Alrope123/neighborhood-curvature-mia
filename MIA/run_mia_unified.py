@@ -300,9 +300,7 @@ def get_ll(text):
         return np.mean(logprobs)
     else:
         with torch.no_grad():
-            print(len(text))
             tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
-            print(tokenized.input_ids.shape)
             labels = tokenized.input_ids
             return -base_model(**tokenized, labels=labels).loss.item()
 
@@ -590,8 +588,6 @@ def run_baseline_threshold_experiment(criterion_fn, name, n_samples=500):
         sampled_text = data["member"][batch * batch_size:(batch + 1) * batch_size]
 
         for idx in range(len(original_text)):
-            print(original_text[idx])
-            print(sampled_text[idx])
             results.append({
                 "nonmember": original_text[idx],
                 "nonmember_crit": criterion_fn(original_text[idx]),
@@ -743,10 +739,13 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_docum
     data = [strip_newlines(x) for x in data]
 
     # try to keep only examples with > 100 words
-    #if dataset in ['writing', 'squad', 'xsum']:
+    # if dataset in ['writing', 'squad', 'xsum']:
     # long_data = [x for x in data if len(x.split()) > 100]
     # if len(long_data) > 0:
     #     data = long_data
+    long_data = [x for x in data if len(x.split()) > 0]
+    if len(long_data) > 0:
+        data = long_data
 
     
     # not_too_long_data = [x for x in data if len(x.split()) < args.max_length]
