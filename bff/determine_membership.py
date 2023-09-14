@@ -189,8 +189,8 @@ def main(args):
         membership_info = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
-            if i > 3:
-                break
+            # if i > 3:
+            #     break
 
             coverage_path = os.path.join(save_dir, '{}.pkl'.format(filename))
             if os.path.exists(coverage_path):
