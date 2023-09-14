@@ -300,9 +300,9 @@ def get_ll(text):
         return np.mean(logprobs)
     else:
         with torch.no_grad():
-
+            print(len(text))
             tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
-
+            print(tokenized.input_ids.shape)
             labels = tokenized.input_ids
             return -base_model(**tokenized, labels=labels).loss.item()
 
