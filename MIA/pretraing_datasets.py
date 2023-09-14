@@ -35,6 +35,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
     for group, infos in membership_info.items():
         if group in groups:
             new_added_data = []
+            print(infos['documents'][0])
             for (filename, i, _) in infos['documents']:
                 new_added_data.add((filename, i))
             # print(new_added_data)
