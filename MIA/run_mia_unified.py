@@ -693,7 +693,8 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
     if args.tok_by_tok:
         n_samples = len(data["nonmember"])
     else:
-        n_samples = args.n_samples
+        # n_samples = args.n_samples
+        n_samples = len(data["nonmember"])
     if args.pre_perturb_pct > 0:
         print(f'APPLYING {args.pre_perturb_pct}, {args.pre_perturb_span_length} PRE-PERTURBATIONS')
         load_mask_model()
@@ -1020,7 +1021,7 @@ if __name__ == '__main__':
     data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER) 
 
     assert len(data_member) == len(data_nonmember)
-    print(f'Loaded {len(data_member)} members and {data_nonmember} non-members.')
+    print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
 
     data, seq_lens, n_samples = generate_samples(data_member[:n_samples], data_nonmember[:n_samples], batch_size=batch_size)
 

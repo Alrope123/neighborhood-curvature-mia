@@ -37,16 +37,10 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             new_added_data = []
             for filename, i, _, _ in infos['documents']:
                 new_added_data.append((filename, i))
-            # print(new_added_data)
             random.shuffle(new_added_data)
             new_added_data = new_added_data[:n_document_per_group]
-            # print(new_added_data)
             selected_data.update(new_added_data)
-            # print(selected_data)
-            # assert False
     assert len(selected_data) == n_group * n_document_per_group
-    # print(len(selected_data))
-    # print(n_group * n_document_per_group)
     return selected_data
 
 
