@@ -37,8 +37,12 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             new_added_data = []
             for filename, i, _ in infos['documents']:
                 new_added_data.add((filename, i))
+            print(new_added_data)
             new_added_data = np.random.choice(new_added_data, n_document_per_group, replace=False)
+            print(new_added_data)
             selected_data.update(new_added_data)
+            print(selected_data)
+            assert False
     assert len(selected_data) == n_group * n_document_per_group
     return selected_data
 
@@ -51,9 +55,6 @@ def load_wikipedia(data_dir, membership_info, train=True, SAVE_FOLDER=None, n_gr
     for file_path, filename in tqdm(iterate_files(data_dir)):
         with open(file_path, 'r') as f:
             for i, line in enumerate(f):
-                print(filename, i)
-                print(list(selected_data)[0])
-                assert False
                 if (filename, i) in selected_data:
                     dp = json.loads(line)      
                     meta_data.append((filename, i))
