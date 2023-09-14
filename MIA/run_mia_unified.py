@@ -1023,7 +1023,7 @@ if __name__ == '__main__':
     data_member = generate_data(args.dataset_member,args.dataset_member_key, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER)
     data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER) 
 
-    assert len(data_member) == len(data_nonmember)
+    # assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
     
     n_samples = min([len(data_member), len(data_nonmember), n_samples])
