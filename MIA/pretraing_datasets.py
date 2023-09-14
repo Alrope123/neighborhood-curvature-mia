@@ -37,10 +37,10 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             new_added_data = []
             for filename, i, _, _ in infos['documents']:
                 new_added_data.append((filename, i))
-            random.shuffle(new_added_data)
-            new_added_data = new_added_data[:n_document_per_group]
+            # random.shuffle(new_added_data)
+            # new_added_data = new_added_data[:n_document_per_group]
             selected_data.update(new_added_data)
-    assert len(selected_data) == n_group * n_document_per_group
+    assert len(selected_data) >  n_group * n_document_per_group
     return selected_data
 
 
@@ -64,8 +64,7 @@ def load_wikipedia(data_dir, membership_info, train=True, SAVE_FOLDER=None, n_gr
 
 
 def load(name, data_dir, membership_path, verbose=False, n_group=100, n_document_per_group=30, train=True, SAVE_FOLDER=None):
-    random.seed(2023)
-    np.random.seed(2023)
+
     if name in DATASETS:
         if verbose:
             print("Loading the dataset: {}...".format(name))
