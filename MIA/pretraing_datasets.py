@@ -55,6 +55,7 @@ def load_wikipedia(data_dir, membership_info, train=True, SAVE_FOLDER=None, n_gr
                     dp = json.loads(line)      
                     meta_data.append((filename, i))
                     data.append(dp['text'])
+    assert len(data) == len(selected_data)
     with open(os.path.join(SAVE_FOLDER, "wikipedia_{}.json".format("member" if train else "nonmember")), "w") as f:
         print("Saving to {}.....".format(os.path.join(SAVE_FOLDER, "wikipedia_{}.json".format("member" if train else "nonmember"))))
         json.dump(meta_data, f)
