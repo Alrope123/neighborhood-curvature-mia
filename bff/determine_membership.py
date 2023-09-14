@@ -69,6 +69,13 @@ def get_group(dp, data_type):
         raise NotImplementedError('The data type is not implemented yet.')
 
 
+def qualified(score, data_type):
+    if data_type=='wikipedia':
+        return score < 0.05 or score > 0.95
+    else:
+        raise NotImplementedError('The data type is not implemented yet.')
+
+
 def get_wikipedia_label(dp):
     global member_dict
     global nonmember_dict
@@ -165,109 +172,107 @@ def main(args):
     
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
-    save_dir = os.path.join(save_dir, str(threshold))
+    save_dir = os.path.join(save_dir, data_type)
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
     filter_names = os.listdir(overlap_dir)    
 
 
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
-    coverages_path = os.path.join(save_dir, 'coverages.pkl')
+    # coverages_path = os.path.join(save_dir, 'coverages.pkl')
     # drawn = {filter_name : False for filter_name in filter_names}
-    total_coverages = {filter_name: [] for filter_name in filter_names}
-    if data_type == "wikipedia":
-        total_coverage_member = {filter_name: [] for filter_name in filter_names}
+    # if data_type == "wikipedia":
+    #     total_coverage_member = {filter_name: [] for filter_name in filter_names}
     if not os.path.exists(membership_info_path) or not read_cache:
         # Process each file
         print("Going through each file to check BFF results...")
-        group_to_member = {}
+        membership_info = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
             # DEBUG:
             # if i > 3:
             #     break
 
-            # # Figure out the path
-            # data_path = os.path.join(data_dir, filename)
-            
+            coverage_path = os.path.join(save_dir, '{}.pkl'.format(filename))
+            if os.path.exists(coverage_path):
+                with open(coverage_path, 'rb') as f:
+                    total_coverages = pkl.load(f)
+            else:
+                # Load in the data
+                data = custom_open(data_path)
 
-            # Load in the data
-            data = custom_open(data_path)
+                # is_member_all = [False] * len(data)
+                # total_coverages = {filter_name: [] for filter_name in filter_names}
+                total_coverages = []
+                for filter_name in filter_names:
+                    overlap_path = os.path.join(overlap_dir, filter_name, filename)
+                    assert os.path.exists(overlap_path), overlap_path
 
-            is_member_all = [False] * len(data)
+                    # Read in each overlap file
+                    overlap_data = custom_open(overlap_path)
+                    assert len(data) == len(overlap_data)
+                    # coverages = [calculate_coverage(dp) for dp in overlap_data]
+                    total_coverages.append([calculate_coverage(dp) for dp in overlap_data])
+                    # total_coverages[filter_name].extend([(calculate_coverage(dp), get_group(data[i], data_type=data_type)) for i, dp in enumerate(overlap_data) if get_group(data[i], data_type=data_type)])
+                    # if data_type == "wikipedia":
+                    #     total_coverage_member[filter_name].extend([(calculate_coverage(dp), get_wikipedia_label(data[i])) for i, dp in enumerate(overlap_data) if get_wikipedia_label(data[i])])
+                    # Draw the distribution of overlaps if haven't drawn
+                    # if not drawn[filter_name]:
+                    #     draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                    #                     save_path=os.path.join(save_dir, 'overlap_distribution_{}.png'.format(filter_name)), bins=50, x_interval=0.01)
+                    #     draw_histogram(coverages, title=None, xlabel="Percentage of duplication",
+                    #                     save_path=os.path.join(save_dir, 'overlap_distribution_CDF_{}.png'.format(filter_name)), bins=50, cumulative=True, x_interval=0.02)
+                    #     drawn[filter_name] = True
+                    # is_member = [coverage > threshold for coverage in coverages]
+                    # assert len(is_member_all) ==  len(is_member)
+                    # is_member_all = [a or b for a, b in zip(is_member_all, is_member)]
 
-            for filter_name in filter_names:
-                overlap_path = os.path.join(overlap_dir, filter_name, filename)
-                assert os.path.exists(overlap_path), overlap_path
+                assert len(total_coverages) == len(filter_names)
+                assert len(total_coverages[0]) == len(data)
+                # aggreate the scores over the filters
+                total_coverages = [max(sublist[i] for sublist in total_coverages) for i in range(len(total_coverages[0]))]
+                total_coverages = {(filename, i): (total_coverages[i], get_group(data[i], data_type=data_type)) for i in range(len(total_coverages))}
 
-                # Read in each overlap file
-                overlap_data = custom_open(overlap_path)
-                assert len(data) == len(overlap_data)
-                coverages = [calculate_coverage(dp) for dp in overlap_data]
-                total_coverages[filter_name].extend([(calculate_coverage(dp), get_group(data[i], data_type=data_type)) for i, dp in enumerate(overlap_data) if get_group(data[i], data_type=data_type)])
-                if data_type == "wikipedia":
-                    total_coverage_member[filter_name].extend([(calculate_coverage(dp), get_wikipedia_label(data[i])) for i, dp in enumerate(overlap_data) if get_wikipedia_label(data[i])])
-                # Draw the distribution of overlaps if haven't drawn
-                # if not drawn[filter_name]:
-                #     draw_histogram(coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                #                     save_path=os.path.join(save_dir, 'overlap_distribution_{}.png'.format(filter_name)), bins=50, x_interval=0.01)
-                #     draw_histogram(coverages, title=None, xlabel="Percentage of duplication",
-                #                     save_path=os.path.join(save_dir, 'overlap_distribution_CDF_{}.png'.format(filter_name)), bins=50, cumulative=True, x_interval=0.02)
-                #     drawn[filter_name] = True
-                is_member = [coverage > threshold for coverage in coverages]
-                assert len(is_member_all) ==  len(is_member)
-                is_member_all = [a or b for a, b in zip(is_member_all, is_member)]
+                # Save the coverage information for the file
+                with open((coverage_path), "wb") as f:
+                    pkl.dump(total_coverages, f)
 
-            cur_save_dir = os.path.dirname(os.path.join(save_dir, '{}.pkl'.format(filename)))
-            if not os.path.exists(cur_save_dir):
-                os.makedirs(cur_save_dir)
-            with open(os.path.join(save_dir, '{}.pkl'.format(filename)), "wb") as f:
-                pkl.dump(is_member_all, f)
-
-            for i, dp in enumerate(data):
-                group = get_group(dp, data_type)
-                if group:
-                    if group not in group_to_member:
-                        group_to_member[group] = []
-                    group_to_member[group].append((filename, i, is_member_all[i]))
+            # Build group dict and filter out unwanted ones
+            for (filename, i), (score, group) in total_coverages.items():
+                if group and qualified(score, data_type):
+                    if group not in membership_info:
+                        membership_info[group] = {'documents': []}    
+                    membership_info[group]['documents'].append((filename, i, score))
 
         # Save the membership info
         with open(membership_info_path, "wb") as f:
-            pkl.dump(group_to_member, f)
+            pkl.dump(membership_info, f)
 
-        if not os.path.exists(coverages_path) or not read_cache:    
-            # Save the membership info
-            with open(coverages_path, "wb") as f:
-                pkl.dump(total_coverages, f)
-    
     else:
         with open(membership_info_path, "rb") as f:
-            group_to_member = pkl.load(f)
+            membership_info = pkl.load(f)
 
-    if os.path.exists(coverages_path):
-        with open(coverages_path, "rb") as f:
-            total_coverages = pkl.load(f)
-        # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-        #                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=50, x_interval=0.02)
-        # draw_histogram(total_coverages, title=None, xlabel="Percentage of duplication",
-        #                 save_path=os.path.join(save_dir, 'overlap_distribution_CDF.png'), bins=50, cumulative=True, x_interval=0.02)
-    
-    total_coverages_values = list(total_coverages.values())
-    # Check if the sublists are of the same length
-    assert all(len(sublist) == len(total_coverages_values[0]) for sublist in total_coverages_values)
-    # Calculate the max value among all values in the sublists at each index
-    total_coverages_values = [max(sublist[i] for sublist in total_coverages_values) for i in range(len(total_coverages_values[0]))]
+    # Draw the graph
+    # total_coverages_values = list(total_coverages.values())
+    # # Check if the sublists are of the same length
+    # assert all(len(sublist) == len(total_coverages_values[0]) for sublist in total_coverages_values)
+    # # Calculate the max value among all values in the sublists at each index
+    # total_coverages_values = [max(sublist[i] for sublist in total_coverages_values) for i in range(len(total_coverages_values[0]))]
 
-    total_coverage_member_values = list(total_coverage_member.values())
-    # Check if the sublists are of the same length
-    assert all(len(sublist) == len(total_coverage_member_values[0]) for sublist in total_coverage_member_values)
-    # Calculate the max value among all values in the sublists at each index
-    total_coverage_member_values = [max(sublist[i] for sublist in total_coverage_member_values) for i in range(len(total_coverage_member_values[0]))]
+    # total_coverage_member_values = list(total_coverage_member.values())
+    # # Check if the sublists are of the same length
+    # assert all(len(sublist) == len(total_coverage_member_values[0]) for sublist in total_coverage_member_values)
+    # # Calculate the max value among all values in the sublists at each index
+    # total_coverage_member_values = [max(sublist[i] for sublist in total_coverage_member_values) for i in range(len(total_coverage_member_values[0]))]
+
+    coverages_and_group = []
+    for group, (_, _, score) in membership_info.items():
+        coverages_and_group.append(score, group)
 
     if data_type == "wikipedia":
-        draw_separate_histogram(total_coverages_values, split=["1960", "2000", "2004", "2008", "2012", "2016", "2020", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+        draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
-        draw_separate_histogram(total_coverage_member_values, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                    save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
+        # draw_separate_histogram(total_coverage_member_values, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+        #                             save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
 
     if data_type in ['rpj-arxiv']:
         # Create statistic info
@@ -314,7 +319,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default="/gscratch/h2lab/alrope/data/redpajama/arxiv/")
     parser.add_argument('--overlap_dir', type=str, default="/gscratch/h2lab/alrope/data/bff/redpajama-arxiv+pile")
-    parser.add_argument('--save_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv")
+    parser.add_argument('--save_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/")
     parser.add_argument('--data_type', type=str, default="rpj-arxiv")
     parser.add_argument('--threshold', type=float, default="0.1")
     parser.add_argument('--read_cache', action="store_true", default=False)
