@@ -6,11 +6,13 @@ from tqdm import tqdm
 
 def iterate_files(root_dir):
     file_paths = []
+    file_names = []
     for root, _, files in os.walk(root_dir):
         for file in files:
             file_path = os.path.join(root, file)
             file_paths.append(file_path)
-    return file_paths
+            file_names.append(file_path[len(root_dir):])
+    return zip(file_paths, file_names)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

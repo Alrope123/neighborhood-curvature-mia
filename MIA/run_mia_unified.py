@@ -662,6 +662,8 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
         "member": [],
     }
 
+    assert len(raw_data_member) == len(raw_data_non_member)
+
     seq_lens = []
     for batch in range(len(raw_data_member) // batch_size):
         print('Generating samples for batch', batch, 'of', len(raw_data_member) // batch_size)
@@ -701,14 +703,15 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
     return data, seq_lens, n_samples
 
 
-def generate_data(dataset,key,train=True, SAVE_FOLDER=None):
+def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30):
     # load data
     data_split = 'train' if train else 'test'
     if dataset in custom_datasets.DATASETS:
         data = custom_datasets.load(dataset, cache_dir)
     elif dataset in pretraing_datasets.DATASETS:
         data = pretraing_datasets.load(dataset, data_dir="/gscratch/h2lab/alrope/data/wikipedia/processed/", 
-            check_map_dir="/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/check_map.pkl", train=train, SAVE_FOLDER=SAVE_FOLDER)
+            membership_path="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl",
+            n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
     elif dataset == 'the_pile' and data_split=='train':
         #data_files = "https://www.cs.cmu.edu/~enron/enron_mail_20150507.tar.gz"
         #data_files="/home/niloofar/projects/enron_mail_20150507.tar.gz"
@@ -893,7 +896,8 @@ if __name__ == '__main__':
     parser.add_argument('--max_length', type=int, default=None)
     parser.add_argument('--ceil_pct', action='store_true')
 
-
+    parser.add_argument('--n_group', type=int, default=100)
+    parser.add_argument('--n_document_per_group', type=int, default=30)
 
 
 
@@ -1012,8 +1016,11 @@ if __name__ == '__main__':
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
     
-    data_member = generate_data(args.dataset_member,args.dataset_member_key, SAVE_FOLDER=SAVE_FOLDER)
-    data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, SAVE_FOLDER=SAVE_FOLDER) 
+    data_member = generate_data(args.dataset_member,args.dataset_member_key, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER)
+    data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER) 
+
+    assert len(data_member) == len(data_nonmember)
+    print(f'Loaded {len(data_member)} members and {data_nonmember} non-members.')
 
     data, seq_lens, n_samples = generate_samples(data_member[:n_samples], data_nonmember[:n_samples], batch_size=batch_size)
 

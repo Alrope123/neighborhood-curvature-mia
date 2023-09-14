@@ -31,8 +31,8 @@ def iterate_files(root_dir):
         for file in files:
             file_path = os.path.join(root, file)
             file_paths.append(file_path)
-            file_names.append(file)
-    return file_paths, file_names
+            file_names.append(file_path[len(root_dir):])
+    return zip(file_paths, file_names)
 
 
 if __name__ == '__main__':
