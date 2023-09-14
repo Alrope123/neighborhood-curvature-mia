@@ -660,7 +660,7 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
         "member": [],
     }
 
-    assert len(raw_data_member) == len(raw_data_non_member)
+    # assert len(raw_data_member) == len(raw_data_non_member)
 
     seq_lens = []
     for batch in range(len(raw_data_member) // batch_size):
@@ -703,6 +703,8 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
 
 
 def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30):
+    random.seed(2023)
+    np.random.seed(2023)
     # load data
     data_split = 'train' if train else 'test'
     if dataset in custom_datasets.DATASETS:
@@ -753,7 +755,7 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_docum
             # data = not_too_long_data
 
     # random.seed(0)
-    # random.shuffle(data)
+    random.shuffle(data)
 
     # data = data[:5_000]
 
@@ -1023,6 +1025,8 @@ if __name__ == '__main__':
 
     assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
+    
+    n_samples = min([len(data_member), len(data_nonmember), n_samples])
 
     data, seq_lens, n_samples = generate_samples(data_member[:n_samples], data_nonmember[:n_samples], batch_size=batch_size)
 
