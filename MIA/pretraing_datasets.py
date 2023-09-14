@@ -51,6 +51,9 @@ def load_wikipedia(data_dir, membership_info, train=True, SAVE_FOLDER=None, n_gr
     for file_path, filename in tqdm(iterate_files(data_dir)):
         with open(file_path, 'r') as f:
             for i, line in enumerate(f):
+                print(filename, i)
+                print(list(selected_data)[0])
+                assert False
                 if (filename, i) in selected_data:
                     dp = json.loads(line)      
                     meta_data.append((filename, i))
