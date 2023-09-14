@@ -232,6 +232,9 @@ def main(args):
                 total_coverages = [max(sublist[i] for sublist in total_coverages) for i in range(len(total_coverages[0]))]
                 total_coverages = {(filename, i): (total_coverages[i], get_group(data[i], data_type=data_type)) for i in range(len(total_coverages))}
 
+                coverage_dir = os.path.dirname(coverage_path)
+                if not os.path.exists(coverage_dir):
+                    os.makedirs(coverage_dir)
                 # Save the coverage information for the file
                 with open((coverage_path), "wb") as f:
                     pkl.dump(total_coverages, f)
