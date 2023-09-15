@@ -88,9 +88,7 @@ if __name__ == '__main__':
     group_results_members = {}
     group_results_nonmembers = {}
     for i, entry in enumerate(result['raw_results']):
-        print(member_info[i])
-        assert False
-        group_member = info_to_group[member_info[i]]
+        group_member = info_to_group[tuple(member_info[i])]
         assert group_to_documents[group_member]['group_is_member']
         if group_member not in group_results_members:
             group_results_members[group_member] = []
