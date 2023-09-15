@@ -1115,16 +1115,17 @@ if __name__ == '__main__':
             #     json.dump(baseline_outputs[3], f)
             if args.ref_model is not None:
                 with open(os.path.join(SAVE_FOLDER, f"lr_ratio_threshold_results.json"), "w") as f:
-                    json.dump(baseline_outputs[4], f)
+                    # json.dump(baseline_outputs[4], f)
+                    json.dump(baseline_outputs[0], f)
 
 
         # write supervised results to a file
         with open(os.path.join(SAVE_FOLDER, f"roberta-base-openai-detector_results.json"), "w") as f:
             json.dump(baseline_outputs[-2], f)
         
-        # write supervised results to a file
-        with open(os.path.join(SAVE_FOLDER, f"roberta-large-openai-detector_results.json"), "w") as f:
-            json.dump(baseline_outputs[-1], f)
+        # # write supervised results to a file
+        # with open(os.path.join(SAVE_FOLDER, f"roberta-large-openai-detector_results.json"), "w") as f:
+        #     json.dump(baseline_outputs[-1], f)
 
         outputs += baseline_outputs
 
