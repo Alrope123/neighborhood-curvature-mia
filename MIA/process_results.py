@@ -34,6 +34,22 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
     plt.savefig(f"{SAVE_FOLDER}/roc_curves.png")
 
 
+# save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
+def save_ll_histograms(members, nonmembers, name):
+    # first, clear plt
+    plt.clf()
+
+    # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
+    plt.figure(figsize=(20, 6))
+    plt.subplot(1, 2, 1)
+    plt.hist(members, alpha=0.5, bins='auto', label='member')
+    plt.hist(nonmembers, alpha=0.5, bins='auto', label='non-member')
+    plt.xlabel("log likelihood")
+    plt.ylabel('count')
+    plt.legend(loc='upper right')
+    plt.savefig(f"{SAVE_FOLDER}/ll_histograms_{name}.png")
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--result_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/lr_ratio_threshold_results.json")
@@ -66,17 +82,19 @@ if __name__ == '__main__':
 
     info_to_group = {}
     for group, infos in group_to_documents.items():
-        for filename, i, _ in infos['documents']:
+        for filename, i, _, is_member in infos['documents']:
             info_to_group[(filename, i)] = group
 
     group_results_members = {}
     group_results_nonmembers = {}
     for i, entry in enumerate(result['raw_results']):
         group_member = info_to_group[member_info[i]]
+        assert group_to_documents[group_member]['group_is_member']
         if group_member not in group_results_members:
             group_results_members[group_member] = []
         group_results_members[group_member].append(entry['member_crit'])
-        group_nonmember = info_to_group[nonmember_info[i]]
+        group_nonmember, individual_is_member = info_to_group[nonmember_info[i]]
+        assert not group_to_documents[group_nonmember]['group_is_member']
         if group_nonmember not in group_results_nonmembers:
             group_results_nonmembers[group_nonmember] = []
         group_results_nonmembers[group_nonmember].append(entry['nonmember_crit'])
@@ -85,6 +103,11 @@ if __name__ == '__main__':
     print("# of nonmember groups: {}".format(len(group_results_nonmembers)))
     print("Average # document in member group: {}/{}".format(np.mean([len(members) for _, members in group_results_members.items()]), np.std([len(members) for _, members in group_results_members.items()])))
     print("Average # document in nonmember group: {}/{}".format(np.mean([len(members) for _, members in group_results_nonmembers.items()]), np.std([len(members) for _, members in group_results_nonmembers.items()])))
+
+    # Draw log likehood histogram
+    member_predictions = [prediction for prediction_list in list(group_results_members.values()) for prediction in prediction_list]
+    nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
+    save_ll_histograms(member_predictions, nonmember_predictions)
 
     best_k = None
     best_fpr = None
