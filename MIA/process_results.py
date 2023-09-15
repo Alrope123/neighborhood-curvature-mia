@@ -132,7 +132,7 @@ if __name__ == '__main__':
             if len(predictions) >= top_k:
                 cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
         random.shuffle(cur_nonmember_predictions)
-        sample_size = min([cur_member_predictions, cur_nonmember_predictions])
+        sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
         cur_member_predictions = cur_member_predictions[:sample_size]
         cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
         fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
