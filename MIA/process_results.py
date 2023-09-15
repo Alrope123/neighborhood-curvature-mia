@@ -42,7 +42,6 @@ def save_ll_histograms(members, nonmembers, name, SAVE_FOLDER):
 
     # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
     plt.figure(figsize=(20, 6))
-    plt.subplot(1, 2, 1)
     plt.hist(members, alpha=0.5, bins='auto', label='member')
     plt.hist(nonmembers, alpha=0.5, bins='auto', label='non-member')
     plt.xlabel("log likelihood")
@@ -111,6 +110,7 @@ if __name__ == '__main__':
     member_predictions = [prediction for prediction_list in list(group_results_members.values()) for prediction in prediction_list]
     nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
     sample_size = min([len(member_predictions), len(nonmember_predictions)])
+    print(sample_size)
     save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", SAVE_FOLDER)
     save_ll_histograms(member_predictions[:1000], nonmember_predictions[:1000], "individua2", SAVE_FOLDER)
 
@@ -123,30 +123,34 @@ if __name__ == '__main__':
         cur_member_predictions = []
         cur_nonmember_predictions = []
         for group, predictions in group_results_members.items():
-            cur_member_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
+            if predictions >= top_k:
+                cur_member_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
+        cur_member_predictions.shuffle()
         for group, predictions in group_results_nonmembers.items():
-            cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
+            if predictions >= top_k:
+                cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
+        cur_nonmember_predictions.shuffle()
+        sample_size = min([cur_member_predictions, cur_nonmember_predictions])
+        cur_member_predictions = cur_member_predictions[:sample_size]
+        cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
         fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
         save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), SAVE_FOLDER)
-        all_results[top_k] = (fpr, tpr, roc_auc)
+        all_results[top_k] = {
+            "ROC AUC": roc_auc,
+            "Group size": len(cur_member_predictions)
+        }
         if roc_auc > best_auc:
             best_k = top_k
             best_auc = roc_auc
-            best_fpr = fpr
-            best_tpr = tpr
     
     output = {
-        "top_k": best_k,
-        "ROC_AUC": best_auc,
-        # "fpr": best_fpr,
-        # "tpr": best_tpr
+        "top k": best_k,
+        "ROC AUC": best_auc,
     }
     all_results["best"] = output
     print("Final results")
-    print("top_k: {}".format(output['top_k']))
-    print("ROC_AUC: {}".format(output['ROC_AUC']))
-
-    
+    print("top k: {}".format(output['top k']))
+    print("ROC AUC: {}".format(output['ROC AUC']))
 
     with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
         json.dump(all_results, f)
