@@ -307,7 +307,7 @@ def get_ll(text):
 
             # Step 2: Determine Embedding Size
             # Assuming base_model uses an embedding layer named 'embeddings', adjust as per your model architecture
-            embedding_size = base_model.embeddings.weight.size(0)
+            embedding_size = base_model.config.vocab_size
 
             # Step 3: Compare Values
             if max_token_id >= embedding_size:
