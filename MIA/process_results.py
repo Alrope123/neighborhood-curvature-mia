@@ -112,6 +112,7 @@ if __name__ == '__main__':
     nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
     sample_size = min([len(member_predictions), len(nonmember_predictions)])
     save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", SAVE_FOLDER)
+    save_ll_histograms(member_predictions[:1000], nonmember_predictions[:1000], "individua2", SAVE_FOLDER)
 
     best_k = None
     best_fpr = None
