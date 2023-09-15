@@ -123,11 +123,11 @@ if __name__ == '__main__':
         cur_member_predictions = []
         cur_nonmember_predictions = []
         for group, predictions in group_results_members.items():
-            if predictions >= top_k:
+            if len(predictions) >= top_k:
                 cur_member_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
         cur_member_predictions.shuffle()
         for group, predictions in group_results_nonmembers.items():
-            if predictions >= top_k:
+            if len(predictions) >= top_k:
                 cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
         cur_nonmember_predictions.shuffle()
         sample_size = min([cur_member_predictions, cur_nonmember_predictions])
