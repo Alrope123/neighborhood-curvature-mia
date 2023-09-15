@@ -36,7 +36,7 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
 
 # save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
 def save_ll_histograms(members, nonmembers, name, SAVE_FOLDER):
-    assert len(members) == len(nonmembers)
+    # assert len(members) == len(nonmembers)
     # first, clear plt
     plt.clf()
 
