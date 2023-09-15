@@ -35,7 +35,7 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
 
 
 # save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
-def save_ll_histograms(members, nonmembers, name):
+def save_ll_histograms(members, nonmembers, name, SAVE_FOLDER):
     # first, clear plt
     plt.clf()
 
@@ -74,7 +74,9 @@ if __name__ == '__main__':
         nonmember_info= json.load(f)
     with open(args.membership_path, 'rb') as f:
         group_to_documents= pkl.load(f)
-        
+    
+    SAVE_FOLDER = args.out_dir
+
     print("# of results: {}".format(len(result['raw_results'])))
     print("# of samples: {}".format(result['info']['n_samples']))
     print("Metrics on document level:")
@@ -107,7 +109,7 @@ if __name__ == '__main__':
     # Draw log likehood histogram
     member_predictions = [prediction for prediction_list in list(group_results_members.values()) for prediction in prediction_list]
     nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
-    save_ll_histograms(member_predictions, nonmember_predictions, "individual")
+    save_ll_histograms(member_predictions, nonmember_predictions, "individual", SAVE_FOLDER)
 
     best_k = None
     best_fpr = None
@@ -140,7 +142,7 @@ if __name__ == '__main__':
     print(output['top_k'])
     print(output['ROC_AUC'])
 
-    SAVE_FOLDER = args.out_dir
+    
 
     with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
         json.dump(all_results, f)
