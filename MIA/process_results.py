@@ -127,8 +127,9 @@ if __name__ == '__main__':
     save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", 0.05, SAVE_FOLDER)
 
 
+    ROOT_SAVE_FOLDER = SAVE_FOLDER
     for method in ['mean', 'min']:
-        SAVE_FOLDER = os.path.join(SAVE_FOLDER, method)
+        SAVE_FOLDER = os.path.join(ROOT_SAVE_FOLDER, method)
         if not os.path.exists(SAVE_FOLDER):
             os.mkdir(SAVE_FOLDER)
         
