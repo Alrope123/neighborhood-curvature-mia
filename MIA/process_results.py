@@ -144,6 +144,8 @@ if __name__ == '__main__':
         if roc_auc > best_auc:
             best_k = top_k
             best_auc = roc_auc
+            best_fpr = fpr
+            best_tpr = tpr
     
     output = {
         "top k": best_k,
