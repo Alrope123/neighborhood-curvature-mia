@@ -36,6 +36,7 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
 
 # save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
 def save_ll_histograms(members, nonmembers, name, SAVE_FOLDER):
+    assert len(members) == len(nonmembers)
     # first, clear plt
     plt.clf()
 
@@ -124,7 +125,7 @@ if __name__ == '__main__':
             cur_member_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
         for group, predictions in group_results_nonmembers.items():
             cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
-        fpr, tpr, roc_auc = get_roc_metrics(cur_member_predictions, cur_nonmember_predictions)
+        fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
         save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), SAVE_FOLDER)
         all_results[top_k] = (fpr, tpr, roc_auc)
         if roc_auc > best_auc:
