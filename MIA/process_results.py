@@ -107,7 +107,7 @@ if __name__ == '__main__':
     # Draw log likehood histogram
     member_predictions = [prediction for prediction_list in list(group_results_members.values()) for prediction in prediction_list]
     nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
-    save_ll_histograms(member_predictions, nonmember_predictions)
+    save_ll_histograms(member_predictions, nonmember_predictions, "individual")
 
     best_k = None
     best_fpr = None
