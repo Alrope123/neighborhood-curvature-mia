@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, precision_recall_curve, auc
 import math
+import random
 
 
 def get_roc_metrics(real_preds, sample_preds):
@@ -119,17 +120,18 @@ if __name__ == '__main__':
     best_tpr = None
     best_auc = -1
     all_results = {}
+    random.seed(2023)
     for top_k in [1, 3, 5, 10, 30, 50]:
         cur_member_predictions = []
         cur_nonmember_predictions = []
         for group, predictions in group_results_members.items():
             if len(predictions) >= top_k:
                 cur_member_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
-        cur_member_predictions.shuffle()
+        random.shuffle(cur_member_predictions)
         for group, predictions in group_results_nonmembers.items():
             if len(predictions) >= top_k:
                 cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
-        cur_nonmember_predictions.shuffle()
+        random.shuffle(cur_nonmember_predictions)
         sample_size = min([cur_member_predictions, cur_nonmember_predictions])
         cur_member_predictions = cur_member_predictions[:sample_size]
         cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
