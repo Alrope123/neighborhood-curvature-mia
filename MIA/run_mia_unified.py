@@ -302,6 +302,17 @@ def get_ll(text):
         with torch.no_grad():
             tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels = tokenized.input_ids
+            # Step 1: Extract Maximum Token ID
+            max_token_id = tokenized.input_ids.max().item()
+
+            # Step 2: Determine Embedding Size
+            # Assuming base_model uses an embedding layer named 'embeddings', adjust as per your model architecture
+            embedding_size = base_model.embeddings.weight.size(0)
+
+            # Step 3: Compare Values
+            if max_token_id >= embedding_size:
+                raise ValueError(f"Token ID {max_token_id} is out of range for embedding layer of size {embedding_size}.")
+
             return -base_model(**tokenized, labels=labels).loss.item()
 
 
@@ -778,10 +789,10 @@ def load_base_model_and_tokenizer(name):
     if args.openai_model is None:
         print(f'Loading BASE model {name}...')
         base_model_kwargs = {'revision':args.revision}
-        if 'gpt-j' in name or 'neox' in name:
-            base_model_kwargs.update(dict(torch_dtype=torch.float16))
-        if 'gpt-j' in name:
-            base_model_kwargs.update(dict(revision='float16'))
+        # if 'gpt-j' in name or 'neox' in name:
+        #     base_model_kwargs.update(dict(torch_dtype=torch.float16))
+        # if 'gpt-j' in name:
+        #     base_model_kwargs.update(dict(revision='float16'))
         base_model = transformers.AutoModelForCausalLM.from_pretrained(name, **base_model_kwargs, cache_dir=cache_dir)
     else:
         base_model = None
