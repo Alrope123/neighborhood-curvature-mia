@@ -35,6 +35,16 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
     plt.savefig(f"{SAVE_FOLDER}/roc_curves.png")
 
 
+def calculate_group_loss(losses, method, top_k):
+    if method == 'mean':
+        return np.mean(sorted(losses, reverse=False)[:top_k])
+    elif method == 'min':
+        random.shuffle(losses)
+        return min(losses[:top_k])
+    else:
+        raise NotImplementedError("The aggregation method is not supported.")
+
+
 # save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
 def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
     # assert len(members) == len(nonmembers)
@@ -115,50 +125,55 @@ if __name__ == '__main__':
     sample_size = min([len(member_predictions), len(nonmember_predictions)])
     print(sample_size)
     save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", 0.05, SAVE_FOLDER)
-    save_ll_histograms(member_predictions[:1000], nonmember_predictions[:1000], "individua2", 0.05, SAVE_FOLDER)
 
-    best_k = None
-    best_fpr = None
-    best_tpr = None
-    best_auc = -1
-    all_results = {}
-    random.seed(2023)
-    for top_k in [1, 3, 5, 10, 30, 50]:
-        cur_member_predictions = []
-        cur_nonmember_predictions = []
-        for group, predictions in group_results_members.items():
-            if len(predictions) >= top_k:
-                cur_member_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
-        random.shuffle(cur_member_predictions)
-        for group, predictions in group_results_nonmembers.items():
-            if len(predictions) >= top_k:
-                cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
-        random.shuffle(cur_nonmember_predictions)
-        sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
-        cur_member_predictions = cur_member_predictions[:sample_size]
-        cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
-        fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
-        save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.05, SAVE_FOLDER)
-        all_results[top_k] = {
-            "ROC AUC": roc_auc,
-            "Group size": len(cur_member_predictions)
+
+    for method in ['mean', 'min']:
+        SAVE_FOLDER = os.path.join(SAVE_FOLDER, method)
+        if not os.path.exists(SAVE_FOLDER):
+            os.mkdir(SAVE_FOLDER)
+        
+        best_k = None
+        best_fpr = None
+        best_tpr = None
+        best_auc = -1
+        all_results = {}
+        random.seed(2023)
+        for top_k in [1, 3, 5, 10, 30, 50]:
+            cur_member_predictions = []
+            cur_nonmember_predictions = []
+            for group, predictions in group_results_members.items():
+                if len(predictions) >= top_k:
+                    cur_member_predictions.append(calculate_group_loss(predictions, method, top_k))
+            random.shuffle(cur_member_predictions)
+            for group, predictions in group_results_nonmembers.items():
+                if len(predictions) >= top_k:
+                    cur_nonmember_predictions.append(calculate_group_loss(predictions, method, top_k))
+            random.shuffle(cur_nonmember_predictions)
+            sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
+            cur_member_predictions = cur_member_predictions[:sample_size]
+            cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
+            fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
+            save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.05, SAVE_FOLDER)
+            all_results[top_k] = {
+                "ROC AUC": roc_auc,
+                "Group size": len(cur_member_predictions)
+            }
+            if roc_auc > best_auc:
+                best_k = top_k
+                best_auc = roc_auc
+                best_fpr = fpr
+                best_tpr = tpr
+        
+        output = {
+            "top k": best_k,
+            "ROC AUC": best_auc,
         }
-        if roc_auc > best_auc:
-            best_k = top_k
-            best_auc = roc_auc
-            best_fpr = fpr
-            best_tpr = tpr
-    
-    output = {
-        "top k": best_k,
-        "ROC AUC": best_auc,
-    }
-    all_results["best"] = output
-    print("Final results")
-    print("top k: {}".format(output['top k']))
-    print("ROC AUC: {}".format(output['ROC AUC']))
+        all_results["best"] = output
+        print("Final results")
+        print("top k: {}".format(output['top k']))
+        print("ROC AUC: {}".format(output['ROC AUC']))
 
-    with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
-        json.dump(all_results, f)
+        with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
+            json.dump(all_results, f)
 
     save_roc_curves("neo-3b", best_fpr, best_tpr, best_auc, SAVE_FOLDER)
