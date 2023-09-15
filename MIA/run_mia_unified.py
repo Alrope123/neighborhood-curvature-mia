@@ -1067,16 +1067,16 @@ if __name__ == '__main__':
         json.dump(seq_lens, f)
 
     if not args.skip_baselines:
-        baseline_outputs = [run_baseline_threshold_experiment(get_ll, "likelihood", n_samples=n_samples)]
-
+        # baseline_outputs = [run_baseline_threshold_experiment(get_ll, "likelihood", n_samples=n_samples)]
+        baseline_outputs = []
 
         if args.openai_model is None:
-            rank_criterion = lambda text: -get_rank(text, log=False)
-            baseline_outputs.append(run_baseline_threshold_experiment(rank_criterion, "rank", n_samples=n_samples))
-            logrank_criterion = lambda text: -get_rank(text, log=True)
-            baseline_outputs.append(run_baseline_threshold_experiment(logrank_criterion, "log_rank", n_samples=n_samples))
-            entropy_criterion = lambda text: get_entropy(text)
-            baseline_outputs.append(run_baseline_threshold_experiment(entropy_criterion, "entropy", n_samples=n_samples))
+            # rank_criterion = lambda text: -get_rank(text, log=False)
+            # baseline_outputs.append(run_baseline_threshold_experiment(rank_criterion, "rank", n_samples=n_samples))
+            # logrank_criterion = lambda text: -get_rank(text, log=True)
+            # baseline_outputs.append(run_baseline_threshold_experiment(logrank_criterion, "log_rank", n_samples=n_samples))
+            # entropy_criterion = lambda text: get_entropy(text)
+            # baseline_outputs.append(run_baseline_threshold_experiment(entropy_criterion, "entropy", n_samples=n_samples))
             if args.ref_model is not None:
                 baseline_outputs.append(run_baseline_threshold_experiment(get_lira, "lr_ratio", n_samples=n_samples))
 
@@ -1098,21 +1098,21 @@ if __name__ == '__main__':
 
     if not args.skip_baselines:
         # write likelihood threshold results to a file
-        with open(os.path.join(SAVE_FOLDER, f"likelihood_threshold_results.json"), "w") as f:
-            json.dump(baseline_outputs[0], f)
+        # with open(os.path.join(SAVE_FOLDER, f"likelihood_threshold_results.json"), "w") as f:
+        #     json.dump(baseline_outputs[0], f)
 
         if args.openai_model is None:
             # write rank threshold results to a file
-            with open(os.path.join(SAVE_FOLDER, f"rank_threshold_results.json"), "w") as f:
-                json.dump(baseline_outputs[1], f)
+            # with open(os.path.join(SAVE_FOLDER, f"rank_threshold_results.json"), "w") as f:
+            #     json.dump(baseline_outputs[1], f)
 
-            # write log rank threshold results to a file
-            with open(os.path.join(SAVE_FOLDER, f"logrank_threshold_results.json"), "w") as f:
-                json.dump(baseline_outputs[2], f)
+            # # write log rank threshold results to a file
+            # with open(os.path.join(SAVE_FOLDER, f"logrank_threshold_results.json"), "w") as f:
+            #     json.dump(baseline_outputs[2], f)
 
-            # write entropy threshold results to a file
-            with open(os.path.join(SAVE_FOLDER, f"entropy_threshold_results.json"), "w") as f:
-                json.dump(baseline_outputs[3], f)
+            # # write entropy threshold results to a file
+            # with open(os.path.join(SAVE_FOLDER, f"entropy_threshold_results.json"), "w") as f:
+            #     json.dump(baseline_outputs[3], f)
             if args.ref_model is not None:
                 with open(os.path.join(SAVE_FOLDER, f"lr_ratio_threshold_results.json"), "w") as f:
                     json.dump(baseline_outputs[4], f)
