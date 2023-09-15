@@ -36,10 +36,12 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
 
 
 # save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
-def save_ll_histograms(members, nonmembers, name, bins, SAVE_FOLDER):
+def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
     # assert len(members) == len(nonmembers)
     # first, clear plt
     plt.clf()
+
+    bins = int((max(nonmembers) - min(members)) / n_bins) 
 
     # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
     plt.figure(figsize=(10, 6))
