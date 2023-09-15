@@ -310,7 +310,7 @@ def get_ll(text):
             embedding_size = base_model.config.vocab_size
 
             # Step 3: Compare Values
-            if max_token_id >= embedding_size:
+            if max_token_id >= embedding_size or max_token_id < 0:
                 raise ValueError(f"Token ID {max_token_id} is out of range for embedding layer of size {embedding_size}.")
 
             return -base_model(**tokenized, labels=labels).loss.item()
