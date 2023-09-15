@@ -93,7 +93,7 @@ if __name__ == '__main__':
         if group_member not in group_results_members:
             group_results_members[group_member] = []
         group_results_members[group_member].append(entry['member_crit'])
-        group_nonmember, individual_is_member = info_to_group[nonmember_info[i]]
+        group_nonmember, individual_is_member = info_to_group[tuple(nonmember_info[i])]
         assert not group_to_documents[group_nonmember]['group_is_member']
         if group_nonmember not in group_results_nonmembers:
             group_results_nonmembers[group_nonmember] = []
