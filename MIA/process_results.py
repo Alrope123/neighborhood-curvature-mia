@@ -109,7 +109,8 @@ if __name__ == '__main__':
     # Draw log likehood histogram
     member_predictions = [prediction for prediction_list in list(group_results_members.values()) for prediction in prediction_list]
     nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
-    save_ll_histograms(member_predictions, nonmember_predictions, "individual", SAVE_FOLDER)
+    sample_size = min([len(group_results_members), len(group_results_nonmembers)])
+    save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", SAVE_FOLDER)
 
     best_k = None
     best_fpr = None
@@ -124,6 +125,7 @@ if __name__ == '__main__':
         for group, predictions in group_results_nonmembers.items():
             cur_nonmember_predictions.append(np.mean(sorted(predictions, reverse=False)[:top_k]))
         fpr, tpr, roc_auc = get_roc_metrics(cur_member_predictions, cur_nonmember_predictions)
+        save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), SAVE_FOLDER)
         all_results[top_k] = (fpr, tpr, roc_auc)
         if roc_auc > best_auc:
             best_k = top_k
@@ -139,8 +141,8 @@ if __name__ == '__main__':
     }
     all_results["best"] = output
     print("Final results")
-    print(output['top_k'])
-    print(output['ROC_AUC'])
+    print("top_k: {}".format(output['top_k']))
+    print("ROC_AUC: {}".format(output['ROC_AUC']))
 
     
 
