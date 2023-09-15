@@ -713,7 +713,7 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
     return data, seq_lens, n_samples
 
 
-def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30):
+def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30, max_length=100000):
     random.seed(2023)
     np.random.seed(2023)
     # load data
@@ -773,7 +773,7 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_docum
     # keep only examples with <= 512 tokens according to mask_tokenizer
     # this step has the extra effect of removing examples with low-quality/garbage content
     tokenized_data = preproc_tokenizer(data)
-    data = [x for x, y in zip(data, tokenized_data["input_ids"]) if args.max_length <= 2048]
+    data = [x for x, y in zip(data, tokenized_data["input_ids"]) if len(y) <= max_length]
 
     # print stats about remainining data
     print(f"Total number of samples: {len(data)}")
@@ -1031,8 +1031,8 @@ if __name__ == '__main__':
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
     
-    data_member = generate_data(args.dataset_member,args.dataset_member_key, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER)
-    data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER) 
+    data_member = generate_data(args.dataset_member,args.dataset_member_key, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER, max_length=base_model.config.n_positions)
+    data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER, max_length=base_model.config.n_positions) 
 
     # assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
