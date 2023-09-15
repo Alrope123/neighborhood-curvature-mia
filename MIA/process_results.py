@@ -36,15 +36,15 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
 
 
 # save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
-def save_ll_histograms(members, nonmembers, name, SAVE_FOLDER):
+def save_ll_histograms(members, nonmembers, name, bins, SAVE_FOLDER):
     # assert len(members) == len(nonmembers)
     # first, clear plt
     plt.clf()
 
     # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
-    plt.figure(figsize=(20, 6))
-    plt.hist(members, alpha=0.5, bins='auto', label='member')
-    plt.hist(nonmembers, alpha=0.5, bins='auto', label='non-member')
+    plt.figure(figsize=(10, 6))
+    plt.hist(members, alpha=0.5, bins=bins, label='member')
+    plt.hist(nonmembers, alpha=0.5, bins=bins, label='non-member')
     plt.xlabel("log likelihood")
     plt.ylabel('count')
     plt.legend(loc='upper right')
@@ -112,8 +112,8 @@ if __name__ == '__main__':
     nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
     sample_size = min([len(member_predictions), len(nonmember_predictions)])
     print(sample_size)
-    save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", SAVE_FOLDER)
-    save_ll_histograms(member_predictions[:1000], nonmember_predictions[:1000], "individua2", SAVE_FOLDER)
+    save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", 0.05, SAVE_FOLDER)
+    save_ll_histograms(member_predictions[:1000], nonmember_predictions[:1000], "individua2", 0.05, SAVE_FOLDER)
 
     best_k = None
     best_fpr = None
@@ -136,7 +136,7 @@ if __name__ == '__main__':
         cur_member_predictions = cur_member_predictions[:sample_size]
         cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
         fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
-        save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), SAVE_FOLDER)
+        save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.05, SAVE_FOLDER)
         all_results[top_k] = {
             "ROC AUC": roc_auc,
             "Group size": len(cur_member_predictions)
