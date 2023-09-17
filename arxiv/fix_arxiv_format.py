@@ -11,7 +11,7 @@ if __name__ == '__main__':
     for key in keys:
         if "Strongly multiplicative linear secret sharing" in key:
             selected_key = key
-    text = data[selected_key][0]
+    text = data[selected_key][0][0]
     filtered_text = fix_newline_format(text)
 
     with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/out/filtered_text.json", 'r') as f:
