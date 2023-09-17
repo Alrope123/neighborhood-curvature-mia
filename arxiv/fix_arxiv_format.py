@@ -14,5 +14,5 @@ if __name__ == '__main__':
     text = data[selected_key][0][0]
     filtered_text = fix_newline_format(text)
 
-    with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/out/filtered_text.json", 'r') as f:
+    with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/out/filtered_text.json", 'w') as f:
         json.dump({"filtered_text": filtered_text}, f)
