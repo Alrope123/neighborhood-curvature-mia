@@ -1,7 +1,7 @@
 import json
 
 def fix_newline_format(text):
-    return text.replace('\n', '')
+    return text.replace('\n', ' ')
 
 if __name__ == '__main__':
     with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/out/same_arxiv_document.json", 'r') as f:
