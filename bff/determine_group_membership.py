@@ -27,8 +27,11 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
     plt.savefig(save_path, format='png') 
   
 
-def decide_member(is_members, group_threshold):
-    return sum(is_members) / len(is_members) > group_threshold 
+def decide_member_group(group, data_type):
+    if data_type == 'wikipedia':
+        return group < "2020-03-01"
+    else:
+        raise NotImplementedError() 
 
 
 def main(args):
@@ -36,7 +39,6 @@ def main(args):
     save_dir = args.save_dir
     data_type = args.data_type
     document_threshold = args.document_threshold
-    group_threshold = args.group_threshold
     assert os.path.exists(save_dir)
     save_dir = os.path.join(save_dir, data_type)
     assert os.path.exists(save_dir)
@@ -52,7 +54,7 @@ def main(args):
             membership_info[group]['documents'][j] = (filename, i, score, is_member)
             is_members.append(is_member)
         membership_info[group]['is_members'] = is_members
-        membership_info[group]['group_is_member'] = decide_member(is_members, group_threshold)
+        membership_info[group]['group_is_member'] = decide_member_group(group, data_type)
 
     # Create statistic info
     print("Calculating the statistics...")
@@ -60,7 +62,6 @@ def main(args):
     group_rates = {group: sum(infos['is_members']) / len(infos["is_members"]) for group, infos in membership_info.items()}
     stats = {
         "document_threshold": document_threshold,
-        "group_threshold": group_threshold,
         "number of groups": len(membership_info),
         "number of member group": sum([infos['group_is_member'] for _, infos in membership_info.items()]),
         "number of non-member group": sum([not infos['group_is_member'] for _, infos in membership_info.items()]),
@@ -83,8 +84,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--save_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv")
     parser.add_argument('--data_type', type=str, default="rpj-arxiv")
-    parser.add_argument('--document_threshold', type=float, default="0.1")
-    parser.add_argument('--group_threshold', type=float, default="0.1")
+    parser.add_argument('--document_threshold', type=float, default="0.5")
 
     args = parser.parse_args()
 
