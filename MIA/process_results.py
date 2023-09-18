@@ -50,7 +50,8 @@ def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
     # assert len(members) == len(nonmembers)
     # first, clear plt
     plt.clf()
-
+    print(max(nonmembers))
+    print(min(members))
     bins = int((max(nonmembers) - min(members)) / n_bins) 
 
     # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
@@ -164,7 +165,6 @@ if __name__ == '__main__':
                 random.shuffle(cur_member_predictions)
                 random.shuffle(cur_nonmember_predictions)
                 sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
-                print(sample_size)
                 cur_member_predictions = cur_member_predictions[:sample_size]
                 cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
                 fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
