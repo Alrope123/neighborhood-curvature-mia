@@ -31,7 +31,7 @@ if __name__ == '__main__':
             for line in f:
                 dp = json.loads(line)
                 dp['text'] = fix_newline_format(dp['text'])
-                data.append(fix_newline_format(dp))  
+                data.append(dp)  
         
         output_path = os.path.join(output_dir, filename)
         output_sub_dir = os.path.dirname(output_path)
