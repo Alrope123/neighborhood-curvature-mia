@@ -26,8 +26,13 @@ if __name__ == "__main__":
     parser.add_argument('--data_path', type=str, default="/gscratch/h2lab/alrope/data/redpajama/arxiv/")
     args = parser.parse_args()
 
-    # Load the JSON file
-    with open(args.data_path, "r") as f:
-        data = json.load(f)
-        
+    with open(args.data_path, 'r') as f:
+        # Load the JSONL file
+        if args.data_path.endswith(".jsonl"):    
+            for line in f:
+                data = json.load(f)
+                break
+        else:
+            data = json.load(f)
+            
     print_structure(data)
