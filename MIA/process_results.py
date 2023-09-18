@@ -50,8 +50,6 @@ def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
     # assert len(members) == len(nonmembers)
     # first, clear plt
     plt.clf()
-    print(max(nonmembers))
-    print(min(members))
     bins = int((max(nonmembers) - min(members)) / n_bins) 
 
     # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
@@ -156,11 +154,11 @@ if __name__ == '__main__':
                 elif loss == 'bff':
                     for group, predictions in group_results_members.items():
                         if len(predictions) >= top_k:
-                            scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
+                            scores = [1.0-score for (_, _, score, _) in group_to_documents[group]['documents']]
                             cur_member_predictions.append(calculate_group_loss(scores, method, top_k))
                     for group, predictions in group_results_nonmembers.items():
                         if len(predictions) >= top_k:
-                            scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
+                            scores = [1.0-score for (_, _, score, _) in group_to_documents[group]['documents']]
                             cur_nonmember_predictions.append(calculate_group_loss(scores, method, top_k))
                 random.shuffle(cur_member_predictions)
                 random.shuffle(cur_nonmember_predictions)
