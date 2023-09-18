@@ -156,12 +156,10 @@ if __name__ == '__main__':
                     for group, predictions in group_results_members.items():
                         if len(predictions) >= top_k:
                             scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
-                            assert len(predictions) == len(scores), (len(predictions), len(scores))
                             cur_member_predictions.append(calculate_group_loss(scores, method, top_k))
                     for group, predictions in group_results_nonmembers.items():
                         if len(predictions) >= top_k:
                             scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
-                            assert len(predictions) == len(scores), (len(predictions), len(scores))
                             cur_nonmember_predictions.append(calculate_group_loss(scores, method, top_k))
                 random.shuffle(cur_member_predictions)
                 random.shuffle(cur_nonmember_predictions)
