@@ -62,6 +62,7 @@ def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
     plt.title(name)
     plt.legend(loc='upper right')
     plt.savefig(f"{SAVE_FOLDER}/ll_histograms_{name}.png")
+    print(f"Plotting at {SAVE_FOLDER}/ll_histograms_{name}.png")
 
 
 if __name__ == '__main__':
