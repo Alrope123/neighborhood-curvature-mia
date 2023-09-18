@@ -59,6 +59,7 @@ def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
     plt.hist(nonmembers, alpha=0.5, bins=bins, label='non-member')
     plt.xlabel("log likelihood")
     plt.ylabel('count')
+    plt.title(name)
     plt.legend(loc='upper right')
     plt.savefig(f"{SAVE_FOLDER}/ll_histograms_{name}.png")
 
@@ -124,7 +125,7 @@ if __name__ == '__main__':
     nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
     sample_size = min([len(member_predictions), len(nonmember_predictions)])
     print(sample_size)
-    save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", 0.05, SAVE_FOLDER)
+    save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", 0.02, SAVE_FOLDER)
 
 
     ROOT_SAVE_FOLDER = SAVE_FOLDER
