@@ -30,7 +30,7 @@ if __name__ == "__main__":
         # Load the JSONL file
         if args.data_path.endswith(".jsonl"):    
             for line in f:
-                data = json.load(line)
+                data = json.loads(line)
                 break
         else:
             data = json.load(f)
