@@ -46,7 +46,7 @@ def get_group(dp, data_type):
         timestamp = dp['meta']['timestamp']
         assert 'T' in timestamp
         return timestamp.split('T')[0]
-    elif data_type=='wikipedia':
+    elif data_type.startswith('wikipedia'):
         if member_dict == {}:
             with open(member_dict_path, 'rb') as f:
                 member_dict = pkl.load(f)
@@ -67,12 +67,10 @@ def get_group(dp, data_type):
 
 
 def qualified(data_type, score=None, group=None):
-    if data_type=='rpj-arxiv':
-        return True
-    elif data_type=='wikipedia':
+    if data_type=='wikipedia':
         return (score < 0.05 and group >= "2020-03-01") or (score > 0.95 and group < "2020-03-01")
     else:
-        raise NotImplementedError('The data type is not implemented yet.')
+        return True
 
 
 def get_wikipedia_label(dp):
@@ -239,7 +237,7 @@ def main(args):
         for (_, _, score) in infos['documents']:
             coverages_and_group.append((score, group))
 
-    if data_type == "wikipedia":
+    if data_type.startswith("wikipedia"):
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
         # draw_separate_histogram(total_coverage_member_values, xlabel="Percentage of duplication", ylabel="# Documents(k)",
