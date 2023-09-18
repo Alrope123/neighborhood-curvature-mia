@@ -217,12 +217,12 @@ def main(args):
                 with open((coverage_path), "wb") as f:
                     pkl.dump(total_coverages, f)
 
-            # # Build group dict and filter out unwanted ones
-            # for (filename, i), (score, group) in total_coverages.items():
-            #     if group and qualified(data_type, score, group):
-            #         if group not in membership_info:
-            #             membership_info[group] = {'documents': []}    
-            #         membership_info[group]['documents'].append((filename, i, score))
+            # Build group dict and filter out unwanted ones
+            for (filename, i), (score, group) in total_coverages.items():
+                if group and qualified(data_type, score, group):
+                    if group not in membership_info:
+                        membership_info[group] = {'documents': []}    
+                    membership_info[group]['documents'].append((filename, i, score))
 
         # # Save the membership info
         # with open(membership_info_path, "wb") as f:
