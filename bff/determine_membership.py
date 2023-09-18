@@ -237,50 +237,16 @@ def main(args):
         for (_, _, score) in infos['documents']:
             coverages_and_group.append((score, group))
 
-    if data_type.startswith("wikipedia"):
+    if data_type.startswith("rpj-arxiv"):
+        draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-07-32", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
+    elif data_type.startswith("wikipedia"):
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
         # draw_separate_histogram(total_coverage_member_values, xlabel="Percentage of duplication", ylabel="# Documents(k)",
         #                             save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
-
-    if data_type in ['rpj-arxiv']:
-        # Create statistic info
-        print("Calculating the statistics...")
-        group_to_member = {group: members for group, members in group_to_member.items() if len(members) > 1}
-        group_lengths = [len(members) for _, members in group_to_member.items()]
-        group_member_rate = [sum([member[2] for member in members]) / len(members) for _, members in group_to_member.items()]
-        sorted_group = sorted(group_to_member.items(), key=lambda x: x[0])
-        sorted_group = [(group, len(members)) for group, members in sorted_group]
-        stats = {
-            "number of groups": len(group_to_member),
-            "first n group": sorted_group[:15],
-            "last n group": sorted_group[-15:],
-            "number of group with all members": sum([rate == 1.0 for rate in group_member_rate]),
-            "number of group with all non-members": sum([rate == 0.0 for rate in group_member_rate]),
-            "average number of instance in every group": np.mean(group_lengths),
-            "std number of instance in every group": np.std(group_lengths),
-            "number of group with <= 1 documents": len([length for length in group_lengths if length <= 1]),
-            "number of group with <= 3 documents": len([length for length in group_lengths if length <= 3]),
-            "number of group with <= 5 documents": len([length for length in group_lengths if length <= 5]),
-            "number of group with <= 10 documents": len([length for length in group_lengths if length <= 10]),
-        }
-        print(stats)
-        with open(os.path.join(save_dir, 'stats.json'), "w") as f:
-            json.dump(stats, f)
-        draw_histogram(group_lengths, title=None, xlabel="# documents each date", ylabel="# Dates(k)",
-                        save_path=os.path.join(save_dir, 'documents_date_distribution.png'), bins=50)
-        draw_histogram(group_member_rate, title=None, xlabel="Percentage of Members", ylabel="# Dates(k)",
-                        save_path=os.path.join(save_dir, 'memership_distribution.png'), bins=20, x_interval=0.05)
-        
-        # Create the check map
-        check_map_path = os.path.join(save_dir, 'check_map.pkl')
-        if not os.path.exists(check_map_path):
-            check_map = {}
-            for group, members in group_to_member.items():
-                for (filename, i, is_member) in members:
-                    check_map[filename, i] = (group, is_member)
-            with open(check_map_path, "wb") as f:
-                pkl.dump(check_map, f)
+    else:
+        raise NotImplementedError('The data type is not implemented yet.')
 
     
 if __name__ == '__main__':
