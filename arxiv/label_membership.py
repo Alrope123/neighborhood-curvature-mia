@@ -182,9 +182,9 @@ def main(args):
         print("Going through each file to check BFF results...")
         membership_info = {}
         for i, (data_path, filename) in enumerate(tqdm(iterate_files(data_dir))):
-            # DEBUG:
-            if i > 3:
-                break
+            # # DEBUG:
+            # if i > 3:
+            #     break
 
             coverage_path = os.path.join(save_dir, '{}.pkl'.format(filename))
             if os.path.exists(coverage_path):
