@@ -125,7 +125,7 @@ if __name__ == '__main__':
     nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
     sample_size = min([len(member_predictions), len(nonmember_predictions)])
     print(sample_size)
-    save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", 0.02, SAVE_FOLDER)
+    save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", 0.05, SAVE_FOLDER)
 
 
     ROOT_SAVE_FOLDER = SAVE_FOLDER
@@ -155,7 +155,7 @@ if __name__ == '__main__':
             cur_member_predictions = cur_member_predictions[:sample_size]
             cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
             fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
-            save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.05, SAVE_FOLDER)
+            save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.02, SAVE_FOLDER)
             all_results[top_k] = {
                 "ROC AUC": roc_auc,
                 "Group size": len(cur_member_predictions)
