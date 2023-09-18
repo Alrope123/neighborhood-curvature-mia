@@ -67,7 +67,9 @@ def get_group(dp, data_type):
 
 
 def qualified(data_type, score=None, group=None):
-    if data_type=='wikipedia':
+    if data_type == "rpj-arxiv":
+        return True
+    elif data_type=='wikipedia':
         return (score < 0.05 and group >= "2020-03-01") or (score > 0.95 and group < "2020-03-01")
     else:
         raise NotImplementedError('The data type is not implemented yet.')
