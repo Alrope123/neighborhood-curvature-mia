@@ -42,7 +42,7 @@ def get_group(dp, data_type):
     global member_dict
     global nonmember_dict
 
-    if data_type=='rpj-arxiv':
+    if data_type.startswith('rpj-arxiv'):
         timestamp = dp['meta']['timestamp']
         assert 'T' in timestamp
         return timestamp.split('T')[0]
