@@ -722,7 +722,7 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_docum
         data = custom_datasets.load(dataset, cache_dir)
     elif dataset in pretraing_datasets.DATASETS:
         data = pretraing_datasets.load(dataset, data_dir="/gscratch/h2lab/alrope/data/wikipedia/processed/", 
-            membership_path="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl",
+            membership_path="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl",
             n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
     elif dataset == 'the_pile' and data_split=='train':
         #data_files = "https://www.cs.cmu.edu/~enron/enron_mail_20150507.tar.gz"
