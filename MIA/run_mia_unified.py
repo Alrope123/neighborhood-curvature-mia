@@ -713,6 +713,34 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
     return data, seq_lens, n_samples
 
 
+def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='random'):
+    def random_segment(l, length, max_length):
+        idx_random = random.randint(0, length-max_length)
+        return l[idx_random, idx_random + max_length]
+    
+    # Filter by number of words first to save compute
+    n_words = text.split()
+    if len(n_words > max_length):
+        if strategy == 'random':
+            text = random_segment(text, n_words, max_length)
+    
+    # Tokenize
+    tokens_base = tokenizer_base.encode(text)
+    tokens_ref = tokenizer_ref.encode(text)
+    while len(tokens_base) > max_length or len(tokens_ref) > max_length:
+        if len(tokens_base) > max_length:
+            if strategy == 'random':
+                tokens_base = random_segment(tokens_base, len(tokens_base), max_length)
+            text = tokenizer_base.decode(tokens_base)
+            tokens_ref = tokenizer_ref.encode(text)
+        if len(tokens_ref) > max_length:
+            if strategy == 'random':
+                tokens_ref = random_segment(tokens_ref, len(tokens_ref), max_length)
+            text = tokenizer_base.decode(tokens_ref)
+            tokens_base = tokenizer_base.encode(text)
+    return text        
+
+
 def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000):
     random.seed(2023)
     np.random.seed(2023)
@@ -761,9 +789,9 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None
         data = long_data
 
     
-    not_too_long_data = [x for x in data if len(x.split()) < max_length]
-    if len(not_too_long_data) > 0:
-            data = not_too_long_data
+    # not_too_long_data = [x for x in data if len(x.split()) < max_length]
+    # if len(not_too_long_data) > 0:
+    #         data = not_too_long_data
 
     # random.seed(0)
     random.shuffle(data)
@@ -773,10 +801,11 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None
     # keep only examples with <= 512 tokens according to mask_tokenizer
     # this step has the extra effect of removing examples with low-quality/garbage content
     # tokenized_data = preproc_tokenizer(data)
-    tokenized_data_base = base_tokenizer(data)["input_ids"]
-    tokenized_data_ref = ref_tokenizer(data)["input_ids"]
+    # tokenized_data_base = base_tokenizer(data)["input_ids"]
+    # tokenized_data_ref = ref_tokenizer(data)["input_ids"]
     print(f"Tokenizing the samples to remove samples that are too long.")
-    data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
+    # data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
+    data = [sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, 'random') for dp in data]
 
     # print stats about remainining data
     print(f"Total number of samples: {len(data)}")
