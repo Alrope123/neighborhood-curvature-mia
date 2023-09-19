@@ -110,7 +110,6 @@ if __name__ == '__main__':
     max_top_k = args.top_k
     random.seed(2023)
 
-    print("# of results: {}".format(len(result['n_samples'])))
     print("# of samples: {}".format(result['n_samples']))
 
     print("Metrics on document level:")
