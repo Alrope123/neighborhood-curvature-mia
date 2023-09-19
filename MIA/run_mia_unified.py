@@ -716,7 +716,7 @@ def generate_samples(raw_data_member, raw_data_non_member, batch_size):
 def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='random'):
     def random_segment(l, length, max_length):
         idx_random = random.randint(0, length-max_length)
-        return l[idx_random, idx_random + max_length]
+        return l[idx_random: idx_random + max_length]
     
     # Filter by number of words first to save compute
     n_words = len(text.split())
