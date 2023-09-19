@@ -9,6 +9,32 @@ from sklearn.metrics import roc_curve, precision_recall_curve, auc
 import math
 import random
 
+def generate_topk_array(n):
+    base_list = [1, 3, 5]
+    output_list = []
+    while True:
+        for k in base_list:
+            if k > n:
+                return output_list
+            else:
+                output_list.append(k)
+        base_list = [k * 10 for k in base_list]
+
+
+def make_dicts_equal(dict1, dict2):
+    length_diff = len(dict1) - len(dict2)
+
+    if length_diff > 0:
+        keys_to_remove = random.sample(list(dict1.keys()), length_diff)
+        for key in keys_to_remove:
+            del dict1[key]
+    elif length_diff < 0:
+        keys_to_remove = random.sample(list(dict2.keys()), abs(length_diff))
+        for key in keys_to_remove:
+            del dict2[key]
+
+    return dict1, dict2
+
 
 def get_roc_metrics(real_preds, sample_preds):
     real_preds =  [element for element in real_preds if not math.isnan(element)]
@@ -38,9 +64,6 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
 def calculate_group_loss(losses, method, top_k):
     if method == 'mean':
         return np.mean(sorted(losses, reverse=False)[:top_k])
-    elif method == 'min':
-        random.shuffle(losses)
-        return min(losses[:top_k])
     else:
         raise NotImplementedError("The aggregation method is not supported.")
 
@@ -69,8 +92,6 @@ def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--result_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/lr_ratio_threshold_results.json")
-    parser.add_argument('--member_info_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/wikipedia_member.json")
-    parser.add_argument('--nonmember_info_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/wikipedia_nonmember.json")
     parser.add_argument('--membership_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl")
     parser.add_argument('--out_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
     parser.add_argument('--top_k', type=int, default=50)    
@@ -84,19 +105,25 @@ if __name__ == '__main__':
 
     with open(args.result_path, 'r') as f:
         result = json.load(f)
-    with open(args.member_info_path, 'r') as f:
-        member_info = json.load(f)
-    with open(args.nonmember_info_path, 'r') as f:
-        nonmember_info= json.load(f)
     with open(args.membership_path, 'rb') as f:
         group_to_documents= pkl.load(f)
     
     SAVE_FOLDER = args.out_dir
+    max_top_k = args.top_k
+    random.seed(2023)
 
-    print("# of results: {}".format(len(result['raw_results'])))
-    print("# of samples: {}".format(result['info']['n_samples']))
+    print("# of results: {}".format(len(result['n_samples'])))
+    print("# of samples: {}".format(result['n_samples']))
+
     print("Metrics on document level:")
-    print("Individual AUC-ROC: {}".format(result['metrics']['roc_auc']))
+    nonmember_predictions = result['nonmember_crit']
+    member_predictions = result['member_crit']
+    if len(nonmember_predictions) > len(member_predictions):
+        nonmember_predictions = np.choice.random(nonmember_predictions, len(member_predictions), replace=False)
+    _, _, roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
+    # Draw log likehood histogram on individual documents
+    save_ll_histograms(member_predictions, nonmember_predictions, "individual", 0.05, SAVE_FOLDER)
+    print("Individual AUC-ROC: {}".format(roc_auc))
 
     info_to_group = {}
     for group, infos in group_to_documents.items():
@@ -106,33 +133,38 @@ if __name__ == '__main__':
     group_results_members = {}
     group_results_nonmembers = {}
     for i, entry in enumerate(result['raw_results']):
-        group_member = info_to_group[tuple(member_info[i])]
+        group_member = info_to_group[tuple(result['member_meta'][i])]
         assert group_to_documents[group_member]['group_is_member']
         if group_member not in group_results_members:
             group_results_members[group_member] = []
         group_results_members[group_member].append(entry['member_crit'])
-        group_nonmember = info_to_group[tuple(nonmember_info[i])]
+        group_nonmember = info_to_group[tuple(result['nonmember_meta'][i])]
         assert not group_to_documents[group_nonmember]['group_is_member']
         if group_nonmember not in group_results_nonmembers:
             group_results_nonmembers[group_nonmember] = []
         group_results_nonmembers[group_nonmember].append(entry['nonmember_crit'])
 
+    # Selecting qualified groups
+    qualified_group_results_members = {}
+    qualified_group_results_nonmembers = {}
+    for group, predictions in group_results_members.items():
+        if len(predictions) >= max_top_k:
+            random.shuffle(predictions)
+            qualified_group_results_members[group] = predictions[:max_top_k]
+    for group, predictions in group_results_nonmembers.items():
+        if len(predictions) >= max_top_k:
+            random.shuffle(predictions)
+            qualified_group_results_nonmembers[group] = predictions[:max_top_k]
+
+    group_results_members, group_results_nonmembers = make_dicts_equal(qualified_group_results_members, qualified_group_results_nonmembers)
     print("# of member groups: {}".format(len(group_results_members)))
     print("# of nonmember groups: {}".format(len(group_results_nonmembers)))
     print("Average # document in member group: {}/{}".format(np.mean([len(members) for _, members in group_results_members.items()]), np.std([len(members) for _, members in group_results_members.items()])))
     print("Average # document in nonmember group: {}/{}".format(np.mean([len(members) for _, members in group_results_nonmembers.items()]), np.std([len(members) for _, members in group_results_nonmembers.items()])))
 
-    # Draw log likehood histogram on individual documents
-    member_predictions = [prediction for prediction_list in list(group_results_members.values()) for prediction in prediction_list]
-    nonmember_predictions = [prediction for prediction_list in list(group_results_nonmembers.values()) for prediction in prediction_list]
-    sample_size = min([len(member_predictions), len(nonmember_predictions)])
-    print(sample_size)
-    save_ll_histograms(member_predictions[:sample_size], nonmember_predictions[:sample_size], "individual", 0.05, SAVE_FOLDER)
-
-
     ROOT_SAVE_FOLDER = SAVE_FOLDER
     for loss in ['bff', 'mia']:
-        for method in ['mean', 'min']:
+        for method in ['mean']:
             SAVE_FOLDER = os.path.join(ROOT_SAVE_FOLDER, "{}-{}".format(loss, method))
             if not os.path.exists(SAVE_FOLDER):
                 os.mkdir(SAVE_FOLDER)
@@ -142,7 +174,7 @@ if __name__ == '__main__':
             best_tpr = None
             best_auc = -1
             all_results = {}
-            random.seed(2023)
+
             for top_k in [1, 3, 5, 10, 30, 50]:
                 cur_member_predictions = []
                 cur_nonmember_predictions = []
