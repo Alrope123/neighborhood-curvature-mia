@@ -99,8 +99,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     assert os.path.exists(args.result_path), args.result_path
-    assert os.path.exists(args.member_info_path), args.member_info_path
-    assert os.path.exists(args.nonmember_info_path), args.nonmember_info_path
     assert os.path.exists(args.membership_path), args.membership_path
 
     with open(args.result_path, 'r') as f:
