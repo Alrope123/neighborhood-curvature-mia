@@ -28,11 +28,15 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
   
 
 def decide_member_group(group, data_type):
-    if data_type == 'wikipedia':
+    if data_type.startswith('wikipedia'):
         return group < "2020-03-01"
+    elif data_type.startswith('rpj-arxiv'):
+        return group < "2020-07-32"
     else:
         raise NotImplementedError() 
 
+def decide_member_individual(filename, i, score, document_threshold):
+    return score > document_threshold
 
 def main(args):
     # Process args
@@ -50,7 +54,7 @@ def main(args):
     for group, infos in membership_info.items():
         is_members = []
         for j, (filename, i, score) in enumerate(infos['documents']):
-            is_member = score > document_threshold
+            is_member = decide_member_individual(filename, i, score, document_threshold)
             membership_info[group]['documents'][j] = (filename, i, score, is_member)
             is_members.append(is_member)
         membership_info[group]['is_members'] = is_members
