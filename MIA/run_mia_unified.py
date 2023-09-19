@@ -761,9 +761,9 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None
         data = long_data
 
     
-    # not_too_long_data = [x for x in data if len(x.split()) < args.max_length]
-    # if len(not_too_long_data) > 0:
-            # data = not_too_long_data
+    not_too_long_data = [x for x in data if len(x.split()) < max_length]
+    if len(not_too_long_data) > 0:
+            data = not_too_long_data
 
     # random.seed(0)
     random.shuffle(data)
@@ -775,6 +775,7 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None
     # tokenized_data = preproc_tokenizer(data)
     tokenized_data_base = base_tokenizer(data)["input_ids"]
     tokenized_data_ref = ref_tokenizer(data)["input_ids"]
+    print(f"Tokenizing the samples to remove samples that are too long.")
     data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
 
     # print stats about remainining data
