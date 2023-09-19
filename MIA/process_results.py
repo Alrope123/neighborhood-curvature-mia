@@ -51,6 +51,10 @@ def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
     # first, clear plt
     plt.clf()
     bins = int(max(abs(max(nonmembers) - min(members)), abs(min(nonmembers) - max(members))) / n_bins)
+    print(max(nonmembers))
+    print(min(nonmembers))
+    print(max(members))
+    print(min(members))
 
     # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
     plt.figure(figsize=(10, 6))
