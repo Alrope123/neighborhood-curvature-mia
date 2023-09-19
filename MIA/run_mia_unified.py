@@ -1100,7 +1100,7 @@ if __name__ == '__main__':
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
     
-    data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=False, 
+    data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=True, 
                                                  strategy=args.strategy, n_group=args.n_group, 
                                                  n_document_per_group=args.n_document_per_group, 
                                                  SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
