@@ -773,8 +773,9 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, n_group=100, n_docum
     # keep only examples with <= 512 tokens according to mask_tokenizer
     # this step has the extra effect of removing examples with low-quality/garbage content
     # tokenized_data = preproc_tokenizer(data)
-    tokenized_data_lens = max([len(ref_tokenizer(data)["input_ids"]), len(base_tokenizer(data)["input_ids"])])
-    data = [x for x, y in zip(data, tokenized_data_lens) if y <= max_length]
+    tokenized_data_base = base_tokenizer(data)["input_ids"]
+    tokenized_data_ref = ref_tokenizer(data)["input_ids"]
+    data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
 
     # print stats about remainining data
     print(f"Total number of samples: {len(data)}")
