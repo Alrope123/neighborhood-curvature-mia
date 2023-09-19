@@ -589,51 +589,87 @@ def run_perturbation_experiment(results, criterion, span_length=10, n_perturbati
     }
 
 
+# def run_baseline_threshold_experiment(criterion_fn, name, n_samples=500):
+#     torch.manual_seed(0)
+#     np.random.seed(0)
+
+#     results = []
+#     for batch in tqdm.tqdm(range(n_samples // batch_size), desc=f"Computing {name} criterion"):
+#         original_text = data["nonmember"][batch * batch_size:(batch + 1) * batch_size]
+#         sampled_text = data["member"][batch * batch_size:(batch + 1) * batch_size]
+
+#         for idx in range(len(original_text)):
+#             results.append({
+#                 "nonmember": original_text[idx],
+#                 "nonmember_crit": criterion_fn(original_text[idx]),
+#                 "member": sampled_text[idx],
+#                 "member_crit": criterion_fn(sampled_text[idx]),
+#             })
+
+#     # compute prediction scores for real/sampled passages
+#     predictions = {
+#         'real': [x["nonmember_crit"] for x in results],
+#         'samples': [x["member_crit"] for x in results],
+#     }
+
+#     fpr, tpr, roc_auc = get_roc_metrics(predictions['real'], predictions['samples'])
+#     p, r, pr_auc = get_precision_recall_metrics(predictions['real'], predictions['samples'])
+#     print(f"{name}_threshold ROC AUC: {roc_auc}, PR AUC: {pr_auc}")
+#     return {
+#         'name': f'{name}_threshold',
+#         'predictions': predictions,
+#         'info': {
+#             'n_samples': n_samples,
+#         },
+#         'raw_results': results,
+#         'metrics': {
+#             'roc_auc': roc_auc,
+#             'fpr': fpr,
+#             'tpr': tpr,
+#         },
+#         'pr_metrics': {
+#             'pr_auc': pr_auc,
+#             'precision': p,
+#             'recall': r,
+#         },
+#         'loss': 1 - pr_auc,
+#     }
+
+
 def run_baseline_threshold_experiment(criterion_fn, name, n_samples=500):
     torch.manual_seed(0)
     np.random.seed(0)
 
-    results = []
-    for batch in tqdm.tqdm(range(n_samples // batch_size), desc=f"Computing {name} criterion"):
+    results = {
+        "nonmember": [],
+        "nonmember_crit": [],
+        "nonmember_meta": [],
+        "member": [],
+        "member_crit": [],
+        "member_meta": []
+    }
+    for batch in tqdm.tqdm(range(len(data["nonmember"]) // batch_size + 1), desc=f"Computing {name} criterion for nonmember group"):
         original_text = data["nonmember"][batch * batch_size:(batch + 1) * batch_size]
-        sampled_text = data["member"][batch * batch_size:(batch + 1) * batch_size]
-
+        original_meta = data["nonmember_metadata"][batch * batch_size:(batch + 1) * batch_size]
         for idx in range(len(original_text)):
-            results.append({
-                "nonmember": original_text[idx],
-                "nonmember_crit": criterion_fn(original_text[idx]),
-                "member": sampled_text[idx],
-                "member_crit": criterion_fn(sampled_text[idx]),
-            })
+            results["nonmember"].append(original_text[idx])
+            results["nonmember_crit"].append(criterion_fn(original_text[idx]))
+            results["nonmember_meta"].append(original_meta[idx])
+
+
+    for batch in tqdm.tqdm(range(len(data["member"]) // batch_size + 1), desc=f"Computing {name} criterion for member group"):
+        sampled_text = data["member"][batch * batch_size:(batch + 1) * batch_size]
+        sampled_meta = data["member_metadata"][batch * batch_size:(batch + 1) * batch_size]
+        for idx in range(len(sampled_text)):
+            results["member"].append(sampled_text[idx])
+            results["member_crit"].append(criterion_fn(sampled_text[idx]))
+            results["member_meta"].append(sampled_meta[idx])
 
     # compute prediction scores for real/sampled passages
-    predictions = {
-        'real': [x["nonmember_crit"] for x in results],
-        'samples': [x["member_crit"] for x in results],
-    }
+    results['name'] = f'{name}_threshold'
+    results['n_samples'] = n_samples 
 
-    fpr, tpr, roc_auc = get_roc_metrics(predictions['real'], predictions['samples'])
-    p, r, pr_auc = get_precision_recall_metrics(predictions['real'], predictions['samples'])
-    print(f"{name}_threshold ROC AUC: {roc_auc}, PR AUC: {pr_auc}")
-    return {
-        'name': f'{name}_threshold',
-        'predictions': predictions,
-        'info': {
-            'n_samples': n_samples,
-        },
-        'raw_results': results,
-        'metrics': {
-            'roc_auc': roc_auc,
-            'fpr': fpr,
-            'tpr': tpr,
-        },
-        'pr_metrics': {
-            'pr_auc': pr_auc,
-            'precision': p,
-            'recall': r,
-        },
-        'loss': 1 - pr_auc,
-    }
+    return results
 
 
 # strip newlines from each example; replace one or more newlines with a single space
@@ -663,54 +699,50 @@ def truncate_to_substring(text, substring, idx_occurrence):
     return text[:idx]
 
 
-def generate_samples(raw_data_member, raw_data_non_member, batch_size):
+def generate_samples(raw_data_member, raw_data_non_member, meta_member, meta_non_member, batch_size):
     torch.manual_seed(42)
     np.random.seed(42)
     data = {
         "nonmember": [],
         "member": [],
+        "nonmember_metadata": [],
+        "member_metadata": []
     }
 
-    # assert len(raw_data_member) == len(raw_data_non_member)
-
-    seq_lens = []
-    for batch in range(len(raw_data_member) // batch_size):
-        print('Generating samples for batch', batch, 'of', len(raw_data_member) // batch_size)
+    for batch in range(len(raw_data_non_member) // batch_size + 1):
+        print('Generating samples for batch', batch, 'of', len(raw_data_non_member) // batch_size + 1)
         non_member_text = raw_data_non_member[batch * batch_size:(batch + 1) * batch_size]
+        non_member_meta = meta_non_member[batch * batch_size:(batch + 1) * batch_size]
+        #     if args.tok_by_tok:
+        #         for tok_cnt in range(len(o.split(' '))):
+
+        #             data["nonmember"].append(' '.join(o.split(' ')[:tok_cnt+1]))
+        #             data["member"].append(' '.join(s.split(' ')[:tok_cnt+1]))
+        assert len(non_member_text) == len(non_member_meta)
+        for o, om in zip(non_member_text, non_member_meta):
+            data["nonmember"].append(o)
+            data["nonmember_metadata"].append(om)
+    for batch in range(len(raw_data_member) // batch_size + 1):
+        print('Generating samples for batch', batch, 'of', len(raw_data_non_member) // batch_size + 1)
         member_text = raw_data_member[batch * batch_size:(batch + 1) * batch_size]
-        #sampled_text = sample_from_model(original_text, min_words=30 if args.dataset in ['pubmed'] else 55,max_length=args.max_length if args.max_length is not None else 200)
-
-        #TODO make same len
-        for o, s in zip(non_member_text, member_text):
-
-
-            o, s = trim_to_shorter_length(o, s)
-
-
-            # add to the data
-            assert len(o.split(' ')) == len(s.split(' '))
-            seq_lens.append(len(o.split(' ')))
-
-            if args.tok_by_tok:
-                for tok_cnt in range(len(o.split(' '))):
-
-                    data["nonmember"].append(' '.join(o.split(' ')[:tok_cnt+1]))
-                    data["member"].append(' '.join(s.split(' ')[:tok_cnt+1]))
-            else:
-                data["nonmember"].append(o)
-                data["member"].append(s)
-    if args.tok_by_tok:
-        n_samples = len(data["nonmember"])
-    else:
-        # n_samples = args.n_samples
-        n_samples = len(data["nonmember"])
+        member_meta = meta_member[batch * batch_size:(batch + 1) * batch_size]
+        assert len(member_text) == len(member_meta)
+        for s, sm in zip(member_text, member_meta):
+            data["member"].append(s)
+            data["member_metadata"].append(sm)
+    # if args.tok_by_tok:
+    #     n_samples = len(data["nonmember"])
+    # else:
+    #     # n_samples = args.n_samples
+    #     n_samples = len(data["nonmember"])
+    n_samples = len(data["nonmember"]) + len(data["member"])
     if args.pre_perturb_pct > 0:
         print(f'APPLYING {args.pre_perturb_pct}, {args.pre_perturb_span_length} PRE-PERTURBATIONS')
         load_mask_model()
         data["member"] = perturb_texts(data["member"], args.pre_perturb_span_length, args.pre_perturb_pct, ceil_pct=True)
         load_base_model()
 
-    return data, seq_lens, n_samples
+    return data, n_samples
 
 
 def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='random'):
@@ -741,15 +773,16 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
     return text        
 
 
-def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000):
+def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000):
     random.seed(2023)
     np.random.seed(2023)
+    metadata = None
     # load data
     data_split = 'train' if train else 'test'
     if dataset in custom_datasets.DATASETS:
         data = custom_datasets.load(dataset, cache_dir)
     elif dataset in pretraing_datasets.DATASETS:
-        data = pretraing_datasets.load(dataset, 
+        data, metadata = pretraing_datasets.load(dataset, 
             membership_path=membership_path,
             n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
     elif dataset == 'the_pile' and data_split=='train':
@@ -784,9 +817,11 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None
     # long_data = [x for x in data if len(x.split()) > 100]
     # if len(long_data) > 0:
     #     data = long_data
-    long_data = [x for x in data if len(x.split()) > 0]
+    long_datas = [(x, y) for x, y in zip(data, metadata) if len(x.split()) > 0]
+    long_data, long_metadata = zip(*long_datas)
     if len(long_data) > 0:
         data = long_data
+        metadata = long_metadata
 
     
     # not_too_long_data = [x for x in data if len(x.split()) < max_length]
@@ -805,13 +840,13 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None
     # tokenized_data_ref = ref_tokenizer(data)["input_ids"]
     print(f"Tokenizing the samples to remove samples that are too long.")
     # data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
-    data = [sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, 'random') for dp in data]
+    data = [sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy) for dp in data]
 
     # print stats about remainining data
     print(f"Total number of samples: {len(data)}")
     print(f"Average number of words: {np.mean([len(x.split()) for x in data])}")
 
-    return data 
+    return data, metadata
 
     #return generate_samples(data[:n_samples], batch_size=batch_size)
 
@@ -946,6 +981,8 @@ if __name__ == '__main__':
     parser.add_argument('--n_group', type=int, default=100)
     parser.add_argument('--n_document_per_group', type=int, default=30)
 
+    parser.add_argument('--strategy', type=str, default="random")
+
     parser.add_argument('--membership_path', type=str, default=None)
 
     args = parser.parse_args()
@@ -1063,17 +1100,25 @@ if __name__ == '__main__':
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
     
-    data_member = generate_data(args.dataset_member,args.dataset_member_key, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, max_length=min([base_model.config.max_position_embeddings, ref_model.config.n_positions]))
-    data_nonmember  = generate_data( args.dataset_nonmember,  args.dataset_nonmember_key,train=False, n_group=args.n_group, n_document_per_group=args.n_document_per_group, SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, max_length=min([base_model.config.max_position_embeddings, ref_model.config.n_positions])) 
+    data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=False, 
+                                                 strategy=args.strategy, n_group=args.n_group, 
+                                                 n_document_per_group=args.n_document_per_group, 
+                                                 SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
+                                                 max_length=min([base_model.config.max_position_embeddings, ref_model.config.n_positions]))
+    data_nonmember, metadata_nonmember = generate_data(args.dataset_nonmember, args.dataset_nonmember_key, train=False, 
+                                                       strategy=args.strategy, n_group=args.n_group, 
+                                                       n_document_per_group=args.n_document_per_group, 
+                                                       SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
+                                                       max_length=min([base_model.config.max_position_embeddings, ref_model.config.n_positions])) 
 
     # assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
     
-    n_samples = min([len(data_member), len(data_nonmember), n_samples])
+    # n_samples = min([len(data_member), len(data_nonmember), n_samples])
+    # data, seq_lens, n_samples = generate_samples(data_member[:n_samples], data_nonmember[:n_samples], batch_size=batch_size)
+    data, n_samples = generate_samples(data_member, data_nonmember, metadata_member, metadata_nonmember, batch_size=batch_size)
 
-    data, seq_lens, n_samples = generate_samples(data_member[:n_samples], data_nonmember[:n_samples], batch_size=batch_size)
-
-    print("NEW N_SAMPLES IS ", n_samples)
+    print("Total number of datapoints: {} (members: {}, non-members: {})".format(n_samples, len(data["member"]), len(data["nonmember"])))
     if args.random_fills:
         FILL_DICTIONARY = set()
         for texts in data.values():
@@ -1094,9 +1139,9 @@ if __name__ == '__main__':
         print(f"Writing raw data to {os.path.join(SAVE_FOLDER, 'raw_data.json')}")
         json.dump(data, f)
 
-    with open(os.path.join(SAVE_FOLDER, "raw_data_lens.json"), "w") as f:
-        print(f"Writing raw data to {os.path.join(SAVE_FOLDER, 'raw_data_lens.json')}")
-        json.dump(seq_lens, f)
+    # with open(os.path.join(SAVE_FOLDER, "raw_data_lens.json"), "w") as f:
+    #     print(f"Writing raw data to {os.path.join(SAVE_FOLDER, 'raw_data_lens.json')}")
+    #     json.dump(seq_lens, f)
 
     if not args.skip_baselines:
         # baseline_outputs = [run_baseline_threshold_experiment(get_ll, "likelihood", n_samples=n_samples)]
@@ -1112,8 +1157,8 @@ if __name__ == '__main__':
             if args.ref_model is not None:
                 baseline_outputs.append(run_baseline_threshold_experiment(get_lira, "lr_ratio", n_samples=n_samples))
 
-        baseline_outputs.append(eval_supervised(data, model='roberta-base-openai-detector'))
-        baseline_outputs.append(eval_supervised(data, model='roberta-large-openai-detector'))
+        # baseline_outputs.append(eval_supervised(data, model='roberta-base-openai-detector'))
+        # baseline_outputs.append(eval_supervised(data, model='roberta-large-openai-detector'))
 
     outputs = []
 
@@ -1151,9 +1196,9 @@ if __name__ == '__main__':
                     json.dump(baseline_outputs[0], f)
 
 
-        # write supervised results to a file
-        with open(os.path.join(SAVE_FOLDER, f"roberta-base-openai-detector_results.json"), "w") as f:
-            json.dump(baseline_outputs[-2], f)
+        # # write supervised results to a file
+        # with open(os.path.join(SAVE_FOLDER, f"roberta-base-openai-detector_results.json"), "w") as f:
+        #     json.dump(baseline_outputs[-2], f)
         
         # # write supervised results to a file
         # with open(os.path.join(SAVE_FOLDER, f"roberta-large-openai-detector_results.json"), "w") as f:
