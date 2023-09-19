@@ -720,7 +720,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
     
     # Filter by number of words first to save compute
     n_words = text.split()
-    if len(n_words > max_length):
+    if len(n_words) > max_length:
         if strategy == 'random':
             text = random_segment(text, n_words, max_length)
     
