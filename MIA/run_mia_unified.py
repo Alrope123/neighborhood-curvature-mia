@@ -719,8 +719,8 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         return l[idx_random, idx_random + max_length]
     
     # Filter by number of words first to save compute
-    n_words = text.split()
-    if len(n_words) > max_length:
+    n_words = len(text.split())
+    if n_words > max_length:
         if strategy == 'random':
             text = random_segment(text, n_words, max_length)
     
@@ -771,7 +771,7 @@ def generate_data(dataset,key,train=True, SAVE_FOLDER=None, membership_path=None
     # then generate n_samples samples
 
     # remove duplicates from the data
-    data = list(dict.fromkeys(data))  # deterministic, as opposed to set()
+    # data = list(dict.fromkeys(data))  # deterministic, as opposed to set()
 
     # strip whitespace around each example
     data = [x.strip() for x in data]
