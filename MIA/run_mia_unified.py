@@ -1206,9 +1206,9 @@ if __name__ == '__main__':
 
         outputs += baseline_outputs
 
-    save_roc_curves(outputs)
-    save_ll_histograms(outputs)
-    save_llr_histograms(outputs)
+    # save_roc_curves(outputs)
+    # save_ll_histograms(outputs)
+    # save_llr_histograms(outputs)
 
     # move results folder from tmp_results/ to results/, making sure necessary directories exist
     new_folder = SAVE_FOLDER.replace("tmp_results", "results")
