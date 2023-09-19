@@ -109,6 +109,7 @@ if __name__ == '__main__':
     SAVE_FOLDER = args.out_dir
     max_top_k = args.top_k
     random.seed(2023)
+    np.random.seed(2023)
 
     print("# of samples: {}".format(result['n_samples']))
 
@@ -116,7 +117,7 @@ if __name__ == '__main__':
     nonmember_predictions = result['nonmember_crit']
     member_predictions = result['member_crit']
     if len(nonmember_predictions) > len(member_predictions):
-        nonmember_predictions = np.choice.random(nonmember_predictions, len(member_predictions), replace=False)
+        nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
     _, _, roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
     save_ll_histograms(member_predictions, nonmember_predictions, "individual", 0.05, SAVE_FOLDER)
