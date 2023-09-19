@@ -818,7 +818,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     # if len(long_data) > 0:
     #     data = long_data
     long_datas = [(x, y) for x, y in zip(data, metadata) if len(x.split()) > 0]
-    long_data, long_metadata = zip(*long_datas)
+    (long_data, long_metadata) = zip(*long_datas)
     if len(long_data) > 0:
         data = long_data
         metadata = long_metadata
@@ -829,7 +829,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     #         data = not_too_long_data
 
     # random.seed(0)
-    random.shuffle(data)
+    # random.shuffle(data)
 
     # data = data[:5_000]
 
@@ -1033,7 +1033,7 @@ if __name__ == '__main__':
     dataset_member_name=args.dataset_member.replace('/', '_')
     dataset_nonmember_name=args.dataset_nonmember.replace('/', '_')
 
-    SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_samples}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
+    SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
 
     new_folder = SAVE_FOLDER.replace("tmp_results", "results")
     ##don't run if exists!!!
