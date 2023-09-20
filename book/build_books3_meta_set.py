@@ -40,9 +40,8 @@ if __name__ == "__main__":
         for entry in book_list:
             if entry['Year'] <= "1928":
                 books_not_copyrighted.append(entry[key] in titles if key == "Title" else entry[key] in authors)
-        print("In the author list:")
+        print("In the {} list:".format(key))
         print("\tFor not copyrighted books, the percentage of books in Books3 is {}".format(sum(books_not_copyrighted) / len(books_not_copyrighted)))
-        print("\tFor copyrighted books, the percentage of books in Books3 is {}".format(sum(books_copyrighted) / len(books_copyrighted)))
 
     
 
