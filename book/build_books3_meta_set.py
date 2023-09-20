@@ -1,20 +1,27 @@
 import os
 import json
 import csv
+import numpy as np
 
 if __name__ == "__main__":
     metadata_path = "/gscratch/h2lab/sewon/data/books3/metadata/metadata.jsonl"
     titles = set()
     authors = set()
+    author_to_titles = {}
 
     with open(metadata_path, 'r') as f:
         for line in f:
             dp = json.loads(line)
-            titles.add(dp['file'].split('/')[-1].split('.')[0].split('-')[0].strip())
-            authors.add(dp['author'].strip())
-    
-    print(titles.pop())
+            title = dp['file'].split('/')[-1].split('.')[0].split('-')[0].strip()
+            author = dp['author'].strip() 
+            titles.add(title)
+            authors.add(author)
+            if author not in author_to_titles:
+                author_to_titles[author] = []
+            author_to_titles[author].append(title)
 
+    print("There are {} authors and {} titles".format(len(authors), len(titles)))
+    print("On average, each author has {} books".format(np.mean([len(titles) for _, titles in author_to_titles.items()])))
 
     # Define the path to your TSV file
     tsv_file_path = '/gscratch/h2lab/alrope/neighborhood-curvature-mia/book/gpt4-books.tsv'
