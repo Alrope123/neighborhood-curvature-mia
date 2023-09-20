@@ -333,12 +333,12 @@ def get_lira(text):
         with torch.no_grad():
             tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels = tokenized.input_ids
-            assert len(labels) <= longest_tokenizable_len, len(labels)
-            assert max(labels) < longest_tokenizable_len and min(labels) > 0
+            assert labels.size(1) <= longest_tokenizable_len, labels.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
+            assert labels.max().item() < longest_tokenizable_len and labels.min().item() > 0
             tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels_ref = tokenized_ref.input_ids
-            assert len(labels_ref) <= longest_tokenizable_len, len(labels_ref)
-            assert max(labels_ref) < longest_tokenizable_len and min(labels_ref) > 0
+            assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels_ref is of shape [batch_size, sequence_length]
+            assert labels_ref.max().item() < longest_tokenizable_len and labels_ref.min().item() > 0
             lls =  -base_model(**tokenized, labels=labels).loss.item()
             lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
 
