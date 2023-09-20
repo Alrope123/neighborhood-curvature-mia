@@ -23,7 +23,7 @@ if __name__ == "__main__":
         with open(file_path, 'r') as f:
             n_words = 0
             for line in f:
-                n_words += line.split()
+                n_words += len(line.split())
             lengths.append(n_words)
     
     print("Total number is {}.".format(len(lengths)))
