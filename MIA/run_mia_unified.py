@@ -333,10 +333,12 @@ def get_lira(text):
         with torch.no_grad():
             tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels = tokenized.input_ids
+            assert len(labels) <= longest_tokenizable_len, len(labels)
             tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels_ref = tokenized_ref.input_ids
             lls =  -base_model(**tokenized, labels=labels).loss.item()
             lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
+            assert len(labels_ref) <= longest_tokenizable_len, len(labels_ref)
 
             return lls, lls - lls_ref
 
@@ -764,11 +766,15 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         if len(tokens_base) > max_length:
             if strategy == 'random':
                 tokens_base = random_segment(tokens_base, len(tokens_base), max_length)
+            else:
+                raise NotImplementedError()
             text = tokenizer_base.decode(tokens_base)
             tokens_ref = tokenizer_ref.encode(text)
         if len(tokens_ref) > max_length:
             if strategy == 'random':
                 tokens_ref = random_segment(tokens_ref, len(tokens_ref), max_length)
+            else:
+                raise NotImplementedError()
             text = tokenizer_base.decode(tokens_ref)
             tokens_base = tokenizer_base.encode(text)
     return text        
@@ -1101,16 +1107,19 @@ if __name__ == '__main__':
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
     
+    longest_tokenizable_len = min([base_model.config.max_position_embeddings, ref_model.config.n_positions])
+    print(f'The longest tokenizable length of is {longest_tokenizable_len}.')
+
     data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=True, 
                                                  strategy=args.strategy, n_group=args.n_group, 
                                                  n_document_per_group=args.n_document_per_group, 
                                                  SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
-                                                 max_length=min([base_model.config.max_position_embeddings, ref_model.config.n_positions]))
+                                                 max_length=longest_tokenizable_len)
     data_nonmember, metadata_nonmember = generate_data(args.dataset_nonmember, args.dataset_nonmember_key, train=False, 
                                                        strategy=args.strategy, n_group=args.n_group, 
                                                        n_document_per_group=args.n_document_per_group, 
                                                        SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
-                                                       max_length=min([base_model.config.max_position_embeddings, ref_model.config.n_positions])) 
+                                                       max_length=longest_tokenizable_len) 
 
     # assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
