@@ -1,1 +1,0 @@
-{"1": {"ROC AUC": 1.0, "Group size": 79}, "3": {"ROC AUC": 1.0, "Group size": 78}, "5": {"ROC AUC": 1.0, "Group size": 78}, "10": {"ROC AUC": 1.0, "Group size": 78}, "30": {"ROC AUC": 1.0, "Group size": 78}, "50": {"ROC AUC": 1.0, "Group size": 16}, "best": {"top k": 1, "ROC AUC": 1.0}}
