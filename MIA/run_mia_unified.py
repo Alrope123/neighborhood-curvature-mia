@@ -334,11 +334,12 @@ def get_lira(text):
             tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels = tokenized.input_ids
             assert labels.size(1) <= longest_tokenizable_len, labels.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
-            assert labels.max().item() <= base_tokenizer.vocab_size and labels.min().item() >= 0
+            assert labels.max().item() <= base_tokenizer.vocab_size, (labels.max().item(), base_tokenizer.vocab_size)
+            assert labels.min().item() >= 0, labels.min().item()
             tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels_ref = tokenized_ref.input_ids
-            assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels_ref is of shape [batch_size, sequence_length]
-            assert labels_ref.max().item() <= ref_tokenizer.vocab_size and labels_ref.min().item() >= 0
+            assert labels_ref.max().item() <= base_tokenizer.vocab_size, (labels_ref.max().item(), base_tokenizer.vocab_size)
+            assert labels_ref.min().item() >= 0, labels_ref.min().item()
             lls =  -base_model(**tokenized, labels=labels).loss.item()
             lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
 
