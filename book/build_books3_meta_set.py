@@ -14,6 +14,7 @@ if __name__ == "__main__":
             print(dp['file'].split('\/')[-1])
             print(dp['file'].split('\/')[-1].split('.')[0])
             print(dp['file'].split('\/')[-1].split('.')[0].split('-')[0])
+            break
             titles.add(dp['file'].split('\/')[-1].split('.')[0].split('-')[0].strip())
             authors.add(dp['author'].strip())
     
