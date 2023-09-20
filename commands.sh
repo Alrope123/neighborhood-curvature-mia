@@ -65,7 +65,50 @@
 #   --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl\
 #   --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-rpj-arxiv_noisy-rpj-arxiv_noisy-2-100--ref_gpt2-xl--m2000--tok_false/
 
-python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member wikipedia --dataset_member_key text --dataset_nonmember wikipedia --dataset_nonmember_key text --ref_model gpt2-xl  --baselines_only  --n_group 100 --n_document_per_group 30 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl
-python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/pythia-2.8b-v0 --cache_dir cache --dataset_member wikipedia --dataset_member_key text --dataset_nonmember wikipedia --dataset_nonmember_key text --ref_model gpt2-xl  --baselines_only  --n_group 100 --n_document_per_group 30 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl
-python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member wikipedia_noisy --dataset_member_key text --dataset_nonmember wikipedia_noisy --dataset_nonmember_key text --ref_model gpt2-xl  --baselines_only --n_group 100 --n_document_per_group 30 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl
-python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member rpj-arxiv_noisy --dataset_member_key text --dataset_nonmember rpj-arxiv_noisy --dataset_nonmember_key text --ref_model gpt2-xl --baselines_only --n_group 100 --n_document_per_group 100 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl
+# python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member wikipedia --dataset_member_key text --dataset_nonmember wikipedia --dataset_nonmember_key text --ref_model gpt2-xl  --baselines_only  --n_group 100 --n_document_per_group 30 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl
+# python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/pythia-2.8b-v0 --cache_dir cache --dataset_member wikipedia --dataset_member_key text --dataset_nonmember wikipedia --dataset_nonmember_key text --ref_model gpt2-xl  --baselines_only  --n_group 100 --n_document_per_group 30 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl
+# python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member wikipedia_noisy --dataset_member_key text --dataset_nonmember wikipedia_noisy --dataset_nonmember_key text --ref_model gpt2-xl  --baselines_only --n_group 100 --n_document_per_group 30 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl
+# python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member rpj-arxiv_noisy --dataset_member_key text --dataset_nonmember rpj-arxiv_noisy --dataset_nonmember_key text --ref_model gpt2-xl --baselines_only --n_group 100 --n_document_per_group 100 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl
+
+# python MIA/process_results.py \
+#   --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-rpj-arxiv_noisy-rpj-arxiv_noisy-100-100--ref_gpt2-xl--tok_false/lr_ratio_threshold_results.json \
+#   --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl\
+#   --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-rpj-arxiv_noisy-rpj-arxiv_noisy-100-100--ref_gpt2-xl--tok_false/\
+#   --top_k 100\
+#   --key lls
+
+# python MIA/process_results.py \
+#   --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia_noisy-wikipedia_noisy-100-30--ref_gpt2-xl--tok_false/lr_ratio_threshold_results.json \
+#   --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+#   --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia_noisy-wikipedia_noisy-100-30--ref_gpt2-xl--tok_false/\
+#   --top_k 30\
+#   --key lls
+
+# python MIA/process_results.py \
+#   --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-100-30--ref_gpt2-xl--tok_false/lr_ratio_threshold_results.json \
+#   --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl\
+#   --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-100-30--ref_gpt2-xl--tok_false/\
+#   --top_k 30\
+#   --key lls
+
+
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-rpj-arxiv_noisy-rpj-arxiv_noisy-100-100--ref_gpt2-xl--tok_false/*.png
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-rpj-arxiv_noisy-rpj-arxiv_noisy-100-100--ref_gpt2-xl--tok_false/*/*.png
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-rpj-arxiv_noisy-rpj-arxiv_noisy-100-100--ref_gpt2-xl--tok_false/*/group_output.json
+
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia_noisy-wikipedia_noisy-100-30--ref_gpt2-xl--tok_false/*.png
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia_noisy-wikipedia_noisy-100-30--ref_gpt2-xl--tok_false/*/*.png
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia_noisy-wikipedia_noisy-100-30--ref_gpt2-xl--tok_false/*/group_output.json
+
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-100-30--ref_gpt2-xl--tok_false/*.png
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-100-30--ref_gpt2-xl--tok_false/*/*.png
+# git add results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-100-30--ref_gpt2-xl--tok_false/*/group_output.json
+
+# git add results/unified_mia/*/*/*.png
+# git add results/unified_mia/*/*/*/*.png
+# git add results/unified_mia/*/*/*/group_output.json
+
+python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member wikipedia --dataset_member_key text --dataset_nonmember wikipedia --dataset_nonmember_key text --ref_model EleutherAI/gpt-neo-125m --baselines_only --n_group 100 --n_document_per_group 30 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl
+python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member wikipedia --dataset_member_key text --dataset_nonmember wikipedia --dataset_nonmember_key text --ref_model EleutherAI/gpt-neo-1.3B --baselines_only --n_group 100 --n_document_per_group 30 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl
+python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member rpj-arxiv_noisy --dataset_member_key text --dataset_nonmember rpj-arxiv_noisy --dataset_nonmember_key text --ref_model EleutherAI/gpt-neo-125m --baselines_only --n_group 100 --n_document_per_group 100 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl
+python MIA/run_mia_unified.py --output_name unified_mia --base_model_name EleutherAI/gpt-neo-2.7B --cache_dir cache --dataset_member rpj-arxiv_noisy --dataset_member_key text --dataset_nonmember rpj-arxiv_noisy --dataset_nonmember_key text --ref_model EleutherAI/gpt-neo-1.3B --baselines_only --n_group 100 --n_document_per_group 100 --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl
