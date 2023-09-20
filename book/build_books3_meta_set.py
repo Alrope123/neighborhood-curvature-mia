@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     print("There are {} authors and {} titles".format(len(authors), len(titles)))
     print("On average, each author has {} books".format(np.mean([len(titles) for _, titles in author_to_titles.items()])))
-    print("Number of author that has at least 5 books".format(len([author for author, titles in author_to_titles.items() if len(titles) > 5])))
+    print("Number of author that has at least 5 books: {}".format(len([author for author, titles in author_to_titles.items() if len(titles) > 5])))
 
     # Define the path to your TSV file
     tsv_file_path = '/gscratch/h2lab/alrope/neighborhood-curvature-mia/book/gpt4-books.tsv'
