@@ -16,7 +16,7 @@ def iterate_files(root_dir):
 
 
 if __name__ == "__main__":
-    data_dir = "/gscratch/h2lab/sewon/data/books3/metadata/metadata.jsonl"
+    data_dir = "/gscratch/h2lab/sewon/data/books3/shards/A"
     
     lengths = []
     for file_path, file_name in tqdm(iterate_files(data_dir)):
