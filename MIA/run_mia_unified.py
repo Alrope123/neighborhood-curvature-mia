@@ -883,6 +883,7 @@ def load_base_model_and_tokenizer(name):
         optional_tok_kwargs['padding_side'] = 'left'
     base_tokenizer = transformers.AutoTokenizer.from_pretrained(name, **optional_tok_kwargs, cache_dir=cache_dir)
     base_tokenizer.pad_token_id = base_tokenizer.eos_token_id
+    print(type(base_tokenizer))
     print("PAD TOKEN ID is: {}".format(base_tokenizer.pad_token_id))
     print("Vocab Size is: {}".format(base_tokenizer.vocab_size))
     return base_model, base_tokenizer
