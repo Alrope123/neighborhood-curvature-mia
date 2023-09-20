@@ -24,6 +24,7 @@ def print_structure(data, indent=0, key=''):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', type=str, default="/gscratch/h2lab/alrope/data/redpajama/arxiv/")
+    parser.add_argument('--key', type=str, default=None)
     args = parser.parse_args()
 
     with open(args.data_path, 'r') as f:
@@ -34,5 +35,6 @@ if __name__ == "__main__":
                 break
         else:
             data = json.load(f)
-            
     print_structure(data)
+    if args.key:
+        print(data[args.key])
