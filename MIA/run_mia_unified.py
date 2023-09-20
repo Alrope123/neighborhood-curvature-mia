@@ -338,7 +338,8 @@ def get_lira(text):
             assert labels.min().item() >= 0, labels.min().item()
             tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels_ref = tokenized_ref.input_ids
-            assert labels_ref.max().item() <= base_tokenizer.vocab_size, (labels_ref.max().item(), base_tokenizer.vocab_size)
+            assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
+            assert labels_ref.max().item() <= ref_tokenizer.vocab_size, (labels_ref.max().item(), ref_tokenizer.vocab_size)
             assert labels_ref.min().item() >= 0, labels_ref.min().item()
             lls =  -base_model(**tokenized, labels=labels).loss.item()
             lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
@@ -883,6 +884,7 @@ def load_base_model_and_tokenizer(name):
     base_tokenizer = transformers.AutoTokenizer.from_pretrained(name, **optional_tok_kwargs, cache_dir=cache_dir)
     base_tokenizer.pad_token_id = base_tokenizer.eos_token_id
     print("PAD TOKEN ID is: {}".format(base_tokenizer.pad_token_id))
+    print("Vocab Size is: {}".format(base_tokenizer.vocab_size))
     return base_model, base_tokenizer
 
 
