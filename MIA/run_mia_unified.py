@@ -336,9 +336,9 @@ def get_lira(text):
             assert len(labels) <= longest_tokenizable_len, len(labels)
             tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels_ref = tokenized_ref.input_ids
+            assert len(labels_ref) <= longest_tokenizable_len, len(labels_ref)
             lls =  -base_model(**tokenized, labels=labels).loss.item()
             lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
-            assert len(labels_ref) <= longest_tokenizable_len, len(labels_ref)
 
             return lls, lls - lls_ref
 
