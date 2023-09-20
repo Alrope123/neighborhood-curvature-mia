@@ -69,18 +69,21 @@ def calculate_group_loss(losses, method, top_k):
 
 
 # save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
-def save_ll_histograms(members, nonmembers, name, n_bins, SAVE_FOLDER):
+def save_ll_histograms(members, nonmembers, name, bin_width, SAVE_FOLDER):
     # assert len(members) == len(nonmembers)
     # first, clear plt
     plt.clf()
-    bins = int(max(abs(max(nonmembers) - min(members)), abs(min(nonmembers) - max(members))) / n_bins)
-    if bins == 0:
-        bins = None
-
+    bins_members = int(max(abs(max(members) - min(members)), abs(min(members) - max(members))) / bin_width)
+    if bins_members == 0:
+        bins_members = 1
+    bins_nonmembers = int(max(abs(max(nonmembers) - min(nonmembers)), abs(min(nonmembers) - max(nonmembers))) / bin_width)
+    if bins_nonmembers == 0:
+        bins_nonmembers = 1
+    
     # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
     plt.figure(figsize=(10, 6))
-    plt.hist(members, alpha=0.5, bins=bins, label='member')
-    plt.hist(nonmembers, alpha=0.5, bins=bins, label='non-member')
+    plt.hist(members, alpha=0.5, bins=bins_members, label='member')
+    plt.hist(nonmembers, alpha=0.5, bins=bins_nonmembers, label='non-member')
     plt.xlabel("log likelihood")
     plt.ylabel('count')
     plt.title(name)
@@ -94,6 +97,7 @@ if __name__ == '__main__':
     parser.add_argument('--result_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/lr_ratio_threshold_results.json")
     parser.add_argument('--membership_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl")
     parser.add_argument('--out_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
+    parser.add_argument('--key', type=str, default="crit", choices=["crit", "lls"])
     parser.add_argument('--top_k', type=int, default=50)    
 
     args = parser.parse_args()
@@ -114,23 +118,17 @@ if __name__ == '__main__':
     print("# of samples: {}".format(result['n_samples']))
 
     print("Metrics on document level:")
-    nonmember_predictions = result['nonmember_crit']
-    member_predictions = result['member_crit']
-    if len(nonmember_predictions) > len(member_predictions):
-        nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
-    _, _, roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
-    # Draw log likehood histogram on individual documents
-    save_ll_histograms(member_predictions, nonmember_predictions, "individual_with_lira", 0.05, SAVE_FOLDER)
-    print("Individual AUC-ROC with lira: {}".format(roc_auc))
+    nonmember_key = f"nonmember_{args.key}"
+    member_key = f"member_{args.key}"
 
-    nonmember_predictions = result['nonmember_lls']
-    member_predictions = result['member_lls']
+    nonmember_predictions = result[nonmember_key]
+    member_predictions = result[member_key]
     if len(nonmember_predictions) > len(member_predictions):
         nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
     _, _, roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
-    save_ll_histograms(member_predictions, nonmember_predictions, "individual_with_loss", 0.05, SAVE_FOLDER)
-    print("Individual AUC-ROC with loss: {}".format(roc_auc))
+    save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{args.key}", 0.05, SAVE_FOLDER)
+    print("Individual AUC-ROC with {}: {}".format(args.key, roc_auc))
 
     info_to_group = {}
     for group, infos in group_to_documents.items():
@@ -139,13 +137,13 @@ if __name__ == '__main__':
 
     group_results_members = {}
     group_results_nonmembers = {}
-    for i, entry in enumerate(result['member_crit']):
+    for i, entry in enumerate(result[member_key]):
         group_member = info_to_group[tuple(result['member_meta'][i])]
         assert group_to_documents[group_member]['group_is_member']
         if group_member not in group_results_members:
             group_results_members[group_member] = []
         group_results_members[group_member].append(entry)
-    for i, entry in enumerate(result['nonmember_crit']):
+    for i, entry in enumerate(result[nonmember_key]):
         group_nonmember = info_to_group[tuple(result['nonmember_meta'][i])]
         assert not group_to_documents[group_nonmember]['group_is_member']
         if group_nonmember not in group_results_nonmembers:
@@ -175,7 +173,7 @@ if __name__ == '__main__':
     ROOT_SAVE_FOLDER = SAVE_FOLDER
     for loss in ['bff', 'mia']:
         for method in ['mean']:
-            SAVE_FOLDER = os.path.join(ROOT_SAVE_FOLDER, "{}-{}".format(loss, method))
+            SAVE_FOLDER = os.path.join(ROOT_SAVE_FOLDER, "{}-{}-{}".format(loss, args.key, method))
             if not os.path.exists(SAVE_FOLDER):
                 os.mkdir(SAVE_FOLDER)
             
