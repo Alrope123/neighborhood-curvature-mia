@@ -10,7 +10,7 @@ if __name__ == "__main__":
     with open(metadata_path, 'r') as f:
         for line in f:
             dp = json.loads(line)
-            titles.add(dp['file'].split('\/')[-1].split['.'][0].split['-'][0].strip())
+            titles.add(dp['file'].split('\/')[-1].split('.')[0].split('-')[0].strip())
             authors.add(dp['author'].strip())
     
     print(titles.pop())
