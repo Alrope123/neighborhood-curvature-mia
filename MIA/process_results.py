@@ -125,10 +125,10 @@ if __name__ == '__main__':
     member_predictions = result[member_key]
     if len(nonmember_predictions) > len(member_predictions):
         nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
-    _, _, roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
+    _, _, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
     save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{args.key}", 0.05, SAVE_FOLDER)
-    print("Individual AUC-ROC with {}: {}".format(args.key, roc_auc))
+    print("Individual AUC-ROC with {}: {}".format(args.key, individual_roc_auc))
 
     info_to_group = {}
     for group, infos in group_to_documents.items():
@@ -224,6 +224,7 @@ if __name__ == '__main__':
                 "ROC AUC": best_auc,
             }
             all_results["best"] = output
+            all_results["individual ROC AUC"] = individual_roc_auc
             print("Final results")
             print("top k: {}".format(output['top k']))
             print("ROC AUC: {}".format(output['ROC AUC']))
