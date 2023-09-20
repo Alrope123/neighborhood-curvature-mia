@@ -3,7 +3,7 @@ import json
 import csv
 
 if __name__ == "__main__":
-    metadata_path = "/gscratch/h2lab/sewon/data/books3/metadata/metadata.json"
+    metadata_path = "/gscratch/h2lab/sewon/data/books3/metadata/metadata.jsonl"
     titles = set()
     authors = set()
 
