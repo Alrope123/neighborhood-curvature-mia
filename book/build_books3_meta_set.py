@@ -11,11 +11,11 @@ if __name__ == "__main__":
         for line in f:
             dp = json.loads(line)
             print(dp['file'])
-            print(dp['file'].split('\/')[-1])
-            print(dp['file'].split('\/')[-1].split('.')[0])
-            print(dp['file'].split('\/')[-1].split('.')[0].split('-')[0])
+            print(dp['file'].split('/')[-1])
+            print(dp['file'].split('/')[-1].split('.')[0])
+            print(dp['file'].split('/')[-1].split('.')[0].split('-')[0])
             break
-            titles.add(dp['file'].split('\/')[-1].split('.')[0].split('-')[0].strip())
+            titles.add(dp['file'].split('/')[-1].split('.')[0].split('-')[0].strip())
             authors.add(dp['author'].strip())
     
     print(titles.pop())
