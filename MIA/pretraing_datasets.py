@@ -95,7 +95,7 @@ def load(name, membership_path, verbose=False, n_group=100, n_document_per_group
             print("Loading the dataset: {}...".format(name))
         with open(membership_path, 'rb') as f:
             membership_info = pickle.load(f)
-        load_fn = globals()[f'load_{name.split("_")[0].split("-")[1]}']
+        load_fn = globals()[f'load_{name.split("_")[0].split("-")[-1]}']
         return load_fn(membership_info, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
     else:
         raise ValueError(f'Unknown dataset {name}')
