@@ -120,7 +120,7 @@ if __name__ == '__main__':
         nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
     _, _, roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
-    save_ll_histograms(member_predictions, nonmember_predictions, "Individual with lira", 0.05, SAVE_FOLDER)
+    save_ll_histograms(member_predictions, nonmember_predictions, "individual_with_lira", 0.05, SAVE_FOLDER)
     print("Individual AUC-ROC with lira: {}".format(roc_auc))
 
     nonmember_predictions = result['nonmember_lls']
@@ -129,7 +129,7 @@ if __name__ == '__main__':
         nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
     _, _, roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
-    save_ll_histograms(member_predictions, nonmember_predictions, "Individual with loss", 0.05, SAVE_FOLDER)
+    save_ll_histograms(member_predictions, nonmember_predictions, "individual_with_loss", 0.05, SAVE_FOLDER)
     print("Individual AUC-ROC with loss: {}".format(roc_auc))
 
     info_to_group = {}

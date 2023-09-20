@@ -1,0 +1,572 @@
+GPT-4 Accuracy	ChatGPT Accuracy	BERT Accuracy	Author	Title	Year	Bing Hits	Google Hits	C4 Hits	Pile Hits	Source	Sub-source	ChatGPT predicted year	GPT-4 predicted year	ID
+0.98	0.82	0	Lewis Carroll	Alice's Adventures in Wonderland	1865	14.6	2590.9	56.3	43.1	pre-1923 LitBank		1865	1865	11_alices_adventures_in_wonderland
+0.76	0.43	0	J.K. Rowling	Harry Potter and the Sorcerer's Stone	1997	6.4	3074.1	4.7	7.6	Genre Fiction	SF/Fantasy	1997	1997	rowling_harry_potter_and_the_sorcerers_stone_Harry_Potter_and_the_Sorcerer_s_Stone
+0.74	0.29	0	Nathaniel Hawthorne	The Scarlet Letter	1850	12.1	993.1	4.6	23.5	pre-1923 LitBank		1850	1850	33_the_scarlet_letter
+0.72	0.11	0	Arthur Conan Doyle	The Adventures of Sherlock Holmes	1892	7.8	765.4	17.9	31.3	pre-1923 LitBank		1892	1892	1661_the_adventures_of_sherlock_holmes
+0.7	0.1	0	Jane Austen	Emma	1815	2.5	79	7.5	19.1	pre-1923 LitBank		1815	1815	158_emma
+0.65	0.19	0	Mary Wollstonecraft Shelley	Frankenstein; Or, The Modern Prometheus	1823	12.5	694.9	8.8	31.3	pre-1923 LitBank		1818	1818	84_frankenstein_or_the_modern_prometheus
+0.62	0.13	0	Jane Austen	Pride and Prejudice	1813	6.6	24204.4	36.7	27	pre-1923 LitBank		1813	1813	1342_pride_and_prejudice
+0.61	0.18	0	Charles Dickens	Oliver Twist	1838	2.5	34.5	3.6	21.3	pre-1923 LitBank		1837	1838	730_oliver_twist
+0.61	0.3	0	Herman Melville	Bartleby, the Scrivener: A Story of Wall-Street	1853	6.7	684.9	22.9	30.8	pre-1923 LitBank		1853	1853	11231_bartleby_the_scrivener_a_story_of_wallstreet
+0.61	0.35	0	Mark Twain	Adventures of Huckleberry Finn	1884	5.3	1100.3	11.7	24.8	pre-1923 LitBank		1884	1884	76_adventures_of_huckleberry_finn
+0.61	0.08	0	Bram Stoker	Dracula	1897	3.5	38.4	4.6	19.9	pre-1923 LitBank		1897	1897	345_dracula
+0.59	0.22	0	Herman Melville	Moby Dick; Or, The Whale	1851	7.2	118.1	16.5	17.8	pre-1923 LitBank		1851	1851	2489_moby_dick
+0.59	0.13	0	Arthur Conan Doyle	The Hound of the Baskervilles	1902	3.9	570.1	7.2	16.7	pre-1923 LitBank		1902	1902	2852_the_hound_of_the_baskervilles
+0.58	0.35	0	Mark Twain	The Adventures of Tom Sawyer	1876	3.7	343	12	15.9	pre-1923 LitBank		1876	1876	74_the_adventures_of_tom_sawyer
+0.57	0.3	0	George Orwell	1984	1949	4.9	8791.2	15.4	13.4	Genre Fiction	SF/Fantasy	1949	1949	orwell_1984_1984
+0.54	0.1	0	L. M. Montgomery	Anne of Green Gables	1908	5	279.7	14.2	11.5	pre-1923 LitBank		1908	1910	45_anne_of_green_gables
+0.51	0.2	0.01	J.R.R. Tolkien	The Fellowship of the Ring	1954	4.2	1780.3	5.3	4.2	Genre Fiction	SF/Fantasy	1954	1954	tolkien_lord_of_the_rings_The_Fellowship_of_the_Ring
+0.49	0.16	0.13	E.L. James	Fifty Shades of Grey	2012	0.7	4	0.6	3.3	Bestsellers		2011	2011	james_fifty_shades_of_grey_Fifty_Shades_of_Grey
+0.49	0.16	0	Charlotte Brontë	Jane Eyre: An Autobiography	1847	4.6	7014.4	6.4	17.7	pre-1923 LitBank		1847	1847	1260_jane_eyre_an_autobiography
+0.49	0.12	0	Robert Louis Stevenson	Treasure Island	1883	4.3	17148.4	5.1	18.8	pre-1923 LitBank		1883	1883	120_treasure_island
+0.49	0.22	0	Jack London	The Call of the Wild	1903	9.3	143.3	6.9	17.7	pre-1923 LitBank		1903	1903	215_the_call_of_the_wild
+0.49	0.24	0.01	Frances Hodgson Burnett	The Secret Garden	1911	3.7	216.2	3.3	13.7	pre-1923 LitBank		1911	1911	113_the_secret_garden
+0.48	0.14	0	Suzanne Collins	The Hunger Games	2008	4	92.8	2.1	4.3	Genre Fiction	SF/Fantasy	2008	2010	collins_the_hunger_games_The_Hunger_Games
+0.47	0.2	0.01	James Joyce	A Portrait of the Artist as a Young Man	1916	1.3	1207	5.4	17.9	pre-1923 LitBank		1922	1916	4217_a_portrait_of_the_artist_as_a_young_man
+0.45	0.09	0	Emily Brontë	Wuthering Heights	1847	4	715.5	6.4	21.2	pre-1923 LitBank		1847	1847	768_wuthering_heights
+0.45	0.1	0.01	Louisa May Alcott	Little Women	1868	2.3	100.3	3.5	15	pre-1923 LitBank		1868	1869	514_little_women
+0.43	0.27	0	William Golding	Lord of the Flies	1954	6	113.3	1.1	1.8	Genre Fiction	Horror	1954	1954	golding_lord_of_the_flies_Lord_of_the_Flies
+0.43	0.17	0	Douglas Adams	The Hitchhiker's Guide to the Galaxy	1979	5.4	269.3	7.8	13.4	Genre Fiction	SF/Fantasy	1980	1979	adams_the_hitchhikers_guide_to_the_galaxy_The_Hitchhiker_s_Guide_to_the_Galaxy
+0.42	0.08	0	Oscar Wilde	The Picture of Dorian Gray	1890	6.7	1501.6	6.2	32.4	pre-1923 LitBank		1890	1890	174_the_picture_of_dorian_gray
+0.42	0.03	0	Henry James	The Turn of the Screw	1898	0.9	14.9	2.8	21.4	pre-1923 LitBank		1898	1898	209_the_turn_of_the_screw
+0.41	0.2	0	Edgar Rice Burroughs	Tarzan of the Apes	1912	0.3	4.4	1.2	8.5	pre-1923 LitBank		1912	1912	78_tarzan_of_the_apes
+0.4	0.06	0	Charles Dickens	Great Expectations	1861	2.7	163.6	5.1	15.6	pre-1923 LitBank		1861	1861	1400_great_expectations
+0.37	0.06	0	H. G. Wells	The Invisible Man: A Grotesque Romance	1897	1.5	76.9	3.8	11.8	pre-1923 LitBank		1897	1897	5230_the_invisible_man_a_grotesque_romance
+0.36	0.02	0.02	James Joyce	Dubliners	1914	4.1	2917.9	10.1	18.7	pre-1923 LitBank		1914	1914	2814_dubliners
+0.34	0.05	0	Charles Dickens	David Copperfield	1849	2.8	13.4	3.9	14.8	pre-1923 LitBank		1850	1850	766_david_copperfield
+0.33	0.02	0.01	Ann Ward Radcliffe	The Mysteries of Udolpho	1794	0.1	1.4	0	10.1	pre-1923 LitBank		1794	1794	3268_the_mysteries_of_udolpho
+0.3	0.16	0	Chinua Achebe	Things Fall Apart	1959	7	253.3	1.7	2.7	Global	Africa	1958	1958	achebe_things_fall_apart_Things_Fall_Apart
+0.28	0.12	0	J. R. R. Tolkien and Christopher Tolkien	The Silmarillion	1977	6.3	4704.8	8.9	5.4	Bestsellers		Unknown (This passage is from J.R.R. Tolkien's "The Silmarillion," which is a work of fiction set in a mythical world and does not correspond to any specific year in human history.)	1954	tolkien_silmarillion_The_Silmarillion
+0.28	0.09	0	James Joyce	Ulysses	1922	4.1	965.8	6.4	7.4	pre-1923 LitBank		1922	1922	4300_ulysses
+0.27	0.13	0	Ray Bradbury	Fahrenheit 451	1953	16.4	375.4	21.5	3.9	Genre Fiction	SF/Fantasy	1953	1953	bradbury_fahrenheit_451_Fahrenheit_451
+0.27	0.13	0	George R.R. Martin	A Game of Thrones	1996	2.6	41.3	2.7	5.6	Genre Fiction	SF/Fantasy	1996	1996	martin_a_song_of_ice_and_fire_A_Game_of_Thrones
+0.26	0.05	0.01	Dan Brown	The Da Vinci Code	2003	2.5	4.4	1.2	2.4	Bestsellers		2003	2003	brown_the_da_vinci_code_The_Da_Vinci_Code
+0.26	0.08	0	Frank Herbert	Dune	1965	0.2	2.7	0.2	0	Genre Fiction	SF/Fantasy	1965	1965	herbert_dune_Dune
+0.25	0.2	0.01	Zora Neale Hurston	Their Eyes Were Watching God	1937	7.6	2278.7	0.6	4.7	BBIP		1937	1937	hurston_their_eyes_were_watching_god_Their_Eyes_Were_Watching_God
+0.25	0.04	0	Nathaniel Hawthorne	The House of the Seven Gables	1851	0.3	3	1.2	15.5	pre-1923 LitBank		1692	1851	77_the_house_of_the_seven_gables
+0.25	0.03	0	George Eliot	Silas Marner	1861	2.1	29.2	5	9.7	pre-1923 LitBank		1861	1861	550_silas_marner
+0.25	0.01	0	Edith Wharton	The Age of Innocence	1920	1.2	20.9	2.4	16.3	pre-1923 LitBank		1920	1920	541_the_age_of_innocence
+0.25	0.14	0	Harper Lee	To Kill a Mockingbird	1961	4	3290.1	2.5	1.2	Pulitzer		1960	1960	lee_to_kill_a_mockingbird_To_Kill_a_Mockingbird
+0.24	0.03	0.03	Ian Fleming	Casino Royale	1953	0.1	8	1.1	5.8	Genre Fiction	Action/Spy	1953	1953	fleming_casino_royale_Casino_Royale
+0.24	0	0	W. Somerset (William Somerset) Maugham	Of Human Bondage	1915	1	43.5	1.2	10.2	pre-1923 LitBank		1915	1915	351_of_human_bondage
+0.23	0.09	0	Thomas Hardy	Tess of the d'Urbervilles: A Pure Woman	1891	3.3	68.8	3.3	14.9	pre-1923 LitBank		1891	1891	110_tess_of_the_durbervilles_a_pure_woman
+0.23	0.05	0	Henry James	The Ambassadors	1903	0.1	2.7	0.1	10	pre-1923 LitBank		1903	1903	432_the_ambassadors
+0.22	0.13	0	William Gibson	Neuromancer	1984	1.7	30.1	0.5	2.2	Genre Fiction	SF/Fantasy	1984	1984	gibson_neuromancer_Neuromancer
+0.22	0	0	H. Rider (Henry Rider) Haggard	King Solomon's Mines	1885	0.5	5.4	0.3	6.6	pre-1923 LitBank		1885	1885	2166_king_solomons_mines
+0.21	0.02	0	Theodore Dreiser	Sister Carrie: A Novel	1900	0.8	6.7	2.7	10.9	pre-1923 LitBank		1900	1900	233_sister_carrie_a_novel
+0.2	0.1	0	Orson Scott Card	Ender's Game	1985	1.7	2.6	0	1.3	Genre Fiction	SF/Fantasy	1985	1985	card_enders_game_Ender_s_Game
+0.2	0.03	0	Charles Dickens	Bleak House	1852	0.2	2.8	5.2	15.4	pre-1923 LitBank		Unknown (as there is no clear indication of a specific year in the passage)	1853	1023_bleak_house
+0.2	0.04	0	Anna Sewell	Black Beauty	1877	1.4	10355.3	4.1	5.8	pre-1923 LitBank		1887	1877	271_black_beauty
+0.19	0.12	0	Aldous Huxley	Brave New World	1932	5.4	70.1	5.6	7.4	Genre Fiction	SF/Fantasy	1932	1932	huxley_brave_new_world_Brave_New_World
+0.19	0.07	0	James Fenimore Cooper	The Last of the Mohicans; A narrative of 1757	1826	1.1	4.1	1.1	10.6	pre-1923 LitBank		1757	1826	940_the_last_of_the_mohicans_a_narrative_of_1757
+0.19	0.06	0	Wilkie Collins	The Moonstone	1868	0.1	2.3	0.2	10.6	pre-1923 LitBank		1868	1868	155_the_moonstone
+0.19	0	0	F. Scott (Francis Scott) Fitzgerald	The Beautiful and Damned	1922	0	2.2	0.1	13	pre-1923 LitBank		1922	1920	9830_the_beautiful_and_damned
+0.18	0.05	0	Elizabeth Cleghorn Gaskell	North and South	1855	0.1	15.4	0.2	7.7	pre-1923 LitBank		1855	1855	4276_north_and_south
+0.18	0.04	0	Emmuska Orczy, Baroness Orczy	The Scarlet Pimpernel	1905	0.8	4.4	0.7	6	pre-1923 LitBank		1905	1905	60_the_scarlet_pimpernel
+0.18	0.07	0	Margaret Mitchell	Gone with the Wind	1937	0.7	4053.4	0.5	2	Pulitzer		1936	1936	mitchell_gone_with_the_wind_Gone_with_the_Wind
+0.17	0.05	0	Philip K. Dick	Do Androids Dream of Electric Sheep?	1968	0.2	34.1	1.889	0.1	Genre Fiction	SF/Fantasy	1968	1982	dick_do_androids_dream_of_electric_sheep_Do_Androids_Dream_of_Electric_Sheep?
+0.17	0.03	0	Anne Brontë	The Tenant of Wildfell Hall	1848	0.1	7.9	2.6	4.8	pre-1923 LitBank		1848	1848	969_the_tenant_of_wildfell_hall
+0.17	0.08	0	E. M. (Edward Morgan) Forster	A Room with a View	1908	1.1	4	2	9.3	pre-1923 LitBank		1908	1908	2641_a_room_with_a_view
+0.16	0.06	0.05	Dan Brown	The Lost Symbol	2009	0.2	2.1	0.2	0.8	Bestsellers		2010	2009	brown_the_lost_symbol_The_Lost_Symbol
+0.16	0.02	0.01	William Makepeace Thackeray	Vanity Fair	1848	0.4	4.6	0.9	13.1	pre-1923 LitBank		1850	1850	599_vanity_fair
+0.16	0.03	0	George Eliot	Middlemarch	1871	0.5	40.1	2.3	9.9	pre-1923 LitBank		1871	1874	145_middlemarch
+0.16	0.05	0.01	Henry James	Daisy Miller: A Study	1879	1.8	488.1	2.1	14.8	pre-1923 LitBank		1878	1878	208_daisy_miller_a_study
+0.15	0.04	0.04	Dan Brown	Inferno	2013	0.2	1.7	0.4	2.4	Bestsellers		2025	2013	brown_inferno_Inferno
+0.15	0.08	0.01	Veronica Roth	Divergent	2014	0.5	3.2	0.1	3.4	Bestsellers		2011	2011	roth_divergent_Divergent
+0.15	0.07	0	Kate Chopin	The Awakening, and Selected Short Stories	1899	6.3	482.3	1.8	13.4	pre-1923 LitBank		1899	1899	160_the_awakening_and_selected_short_stories
+0.15	0.03	0	Samuel Butler	The Way of All Flesh	1903	0	2.4	0.2	5.1	pre-1923 LitBank		1920	1885	2084_the_way_of_all_flesh
+0.15	0.04	0	John Steinbeck	The Grapes of Wrath	1940	1.7	39.3	0.3	1.1	Pulitzer		1939	1939	steinbeck_the_grapes_of_wrath_The_Grapes_of_Wrath
+0.14	0	0	D. H. (David Herbert) Lawrence	Sons and Lovers	1913	0.8	3.6	1.4	14.4	pre-1923 LitBank		1910	1915	217_sons_and_lovers
+0.13	0.05	0	James Kahn	Return of the Jedi	1983	2.9	51.9	3.4	9.4	Bestsellers		1983	1983	kahn_return_of_the_jedi_Return_of_the_Jedi
+0.13	0.02	0.01	D. H. Lawrence	Lady Chatterley's Lover	1928	0.7	38.4	0.5	9.5	Genre Fiction	Romance	1928	1928	lawrence_three_complete_novels_Lady_Chatterley_s_Lover
+0.13	0.01	0	Henry Fielding	History of Tom Jones, a Foundling	1749	0.6	3.5	0.4	10.1	pre-1923 LitBank		1749	1749	6593_history_of_tom_jones_a_foundling
+0.13	0.04	0	Jane Austen	Persuasion	1818	0.9	2428.5	5.4	16.1	pre-1923 LitBank		1815	1817	105_persuasion
+0.13	0.03	0	Alex Haley	Roots	1977	0	1	0.1	5.2	Pulitzer		1876	1976	haley_roots_Roots
+0.12	0.02	0	Thomas Hardy	Far from the Madding Crowd	1874	0.5	21.1	3	8.1	pre-1923 LitBank		1874	1874	27_far_from_the_madding_crowd
+0.11	0.11	0	Irving Stone	The Agony and the Ecstasy	1961	0	1.2	0	0	Bestsellers		1546	1961	stone_the_agony_and_the_ecstasy_The_Agony_and_the_Ecstasy
+0.11	0.01	0.03	Ian Fleming	From Russia with Love	1957	0.1	3	0.1	5	Genre Fiction	Action/Spy	1949	1963	fleming_from_russia_with_love_From_Russia_with_Love
+0.11	0.04	0	Madeleine L'Engle	A Wrinkle in Time	1962	2.7	8.2	2.3	1.9	Genre Fiction	SF/Fantasy	1962	1962	lengle_a_wrinkle_in_time_A_Wrinkle_in_Time
+0.11	0.04	0.01	Marjorie Kinnan Rawlings	The Yearling	1939	0.1	2.2	0	2	Pulitzer		1938	1940	rawling_the_yearling_The_Yearling
+0.1	0.05	0	E. L. Doctorow	Ragtime	1975	0.6	4.2	0.111	2.7	Bestsellers		1906	1975	doctorow_ragtime_Ragtime
+0.1	0.05	0	Dashiell Hammett	The Maltese Falcon	1929	0.9	13	1	6.2	Genre Fiction	Mystery/Crime	1930	1930	hammett_the_maltese_falcon_The_Maltese_Falcon
+0.1	0.08	0.07	Diana Gabaldon	Outlander	1991	0.1	0.9	0.2	5.1	Genre Fiction	Romance	Outlander is a work of fiction and does not have a specific year associated with it.	1991	gabaldon_outlander_Outlander
+0.1	0.02	0	Kazuo Ishiguro	The Remains of the Day	1989	1	2743.4	0.6	2.4	Global	Europe	1952	1989	ishiguro_the_remains_of_the_day_The_Remains_of_the_Day
+0.1	0.05	0	Elizabeth Von Arnim	Elizabeth and Her German Garden	1898	0.8	2.4	1.2	3.6	pre-1923 LitBank		1920	1898	1327_elizabeth_and_her_german_garden
+0.1	0	0	Charlotte Perkins Gilman	Herland	1915	0.2	3.3	1.5	7.8	pre-1923 LitBank		1915	1915	32_herland
+0.1	0.01	0	Alice Walker	The Color Purple	1983	1.2	13.9	0.5	2	Pulitzer		1982	1982	walker_the_color_purple_The_Color_Purple
+0.09	0.02	0	Dorothy L. Sayers	The Nine Tailors	1934	1.6	1.4	1.1	2.2	Genre Fiction	Mystery/Crime	1920	1920	sayers_the_nine_tailors_The_Nine_Tailors
+0.09	0.03	0	Margaret Atwood	The Handmaid's Tale	1985	0.9	8.5	0	2.7	Genre Fiction	SF/Fantasy	1960	1985	atwood_the_handmaids_tale_The_Handmaid_s_Tale
+0.09	0.01	0	Fanny Burney	Evelina, Or, the History of a Young Lady's Entrance into the World	1778	0.4	3.2	0	1.8	pre-1923 LitBank		1778	1778	6053_evelina_or_the_history_of_a_young_ladys_entrance_into_the_world
+0.09	0.02	0	Sarah Orne Jewett	The Country of the Pointed Firs	1896	0.3	3.4	1.7	11.8	pre-1923 LitBank		1896	1896	367_country_of_the_pointed_firs
+0.09	0.04	0	Toni Morrison	Beloved	1988	1.9	16.9	0.1	1	Pulitzer		Unknown	1987	morrison_beloved_Beloved
+0.08	0.07	0	Joe Nazel	Every Goodbye Ain’t Gone	1982	0	0	0	0	BBIP		1962	1965	nazel_every_goodbye_aint_gone_Every_Goodbye_Ain’t_Gone
+0.08	0.06	0.01	Helen Hooven Santmyer	...And Ladies of the Club	1984	0	0	0	0	Bestsellers		1914	1915	santmyer_and_ladies_of_the_club__...And_Ladies_of_the_Club_
+0.08	0.02	0	Max Brooks	World War Z: An Oral History of the Zombie War	2006	0.3	2.3	0	1	Genre Fiction	Horror	Unknown (This passage appears to be from a work of fiction set in a fictional world, so it is impossible to determine a specific year.)	2006	brooks_world_war_z_World_War_Z:_An_Oral_History_of_the_Zombie_War
+0.08	0.02	0	Irvine Welsh	Trainspotting	1993	1.3	2.6	0	3	Global	Europe	1993	1993	welsh_trainspotting_Trainspotting
+0.08	0.02	0	Horatio, Jr. Alger	Ragged Dick, Or, Street Life in New York with the Boot-Blacks	1868	0.2	2.5	0.6	3.2	pre-1923 LitBank		1890	1870	5348_ragged_dick_or_street_life_in_new_york_with_the_bootblacks
+0.08	0.02	0	H. Rider (Henry Rider) Haggard	Allan Quatermain	1887	0.2	1.9	1.2	5.2	pre-1923 LitBank		1885	1887	711_allan_quatermain
+0.08	0.03	0	Robert Penn Warren	All the King's Men	1947	0.1	2690.5	0.6	0.2	Pulitzer		1950	1955	warren_all_the_kings_men_All_the_King_s_Men
+0.07	0.02	0	Ralph Ellison	Invisible Man	1952	1.6	4.6	0	5.1	BBIP		1952	1952	ellison_invisible_man_Invisible_Man
+0.07	0.01	0	Isaac Asimov	Foundation	1951	0.5	4.1	0.3	3	Genre Fiction	SF/Fantasy	1951	1951	asimov_foundation_i_robot_Foundation
+0.07	0.01	0	Anne Rice	Interview with the Vampire	1976	0.3	2864.1	0.2	4.6	Genre Fiction	Horror	1976	1976	rice_interview_with_the_vampire_Interview_with_the_Vampire
+0.07	0.04	0.02	Stephen King	The Shining	1977	0.4	4.4	3.8	1.2	Genre Fiction	Horror	1977	1977	king_the_shining_The_Shining
+0.07	0.01	0	Helen Fielding	Bridget Jones's Diary	1996	0.4	11.2	0.2	1.9	Genre Fiction	Romance	1996	1996	fielding_bridget_joness_diary_Bridget_Jones_s_Diary
+0.07	0	0	Jamie McGuire	Beautiful Disaster	2011	0.3	1.5	0	0	Genre Fiction	Romance	2012	2010	mcguire_beautiful_disaster_Beautiful_Disaster
+0.07	0	0	Sandra Cisneros	The House of Mango Street	1984	5.7	1113.2	0.8	2.6	Global	Americas	1978	1955	cisneros_the_house_on_mango_street_The_House_of_Mango_Street
+0.07	0.02	0	Mrs. (Margaret) Oliphant	Miss Marjoribanks	1866	0	0.7	0	3	pre-1923 LitBank		1866	1868	41286_miss_marjoribanks
+0.07	0	0	E. M. (Edward Morgan) Forster	Howards End	1910	1.5	4.4	1.3	10.3	pre-1923 LitBank		1910	1910	2891_howards_end
+0.07	0.03	0	Booth Tarkington	The Magnificent Ambersons	1918	0	1.6	0	4.7	pre-1923 LitBank		1920	1920	8867_the_magnificent_ambersons
+0.06	0.03	0	Octavia Butler	Dawn	1987	0.3	3.2	0.1	2.8	BBIP		2025	1985	butler_dawn_Dawn
+0.06	0.02	0	Ira Levin	Rosemary's Baby	1967	0.1	0.8	0.1	1	Genre Fiction	Horror	1955	1967	levin_three_by_ira_levin_Rosemary_s_Baby
+0.06	0	0	William Peter Blatty	The Exorcist	1971	0.1	1.1	0.1	0.2	Genre Fiction	Horror	1971	1971	blatty_the_exorcist_The_Exorcist
+0.06	0.09	0	Neal Stephenson	Snow Crash	1992	0.2	1.1	0.4	0.9	Genre Fiction	SF/Fantasy	1992	1992	stephenson_snow_crash_Snow_Crash
+0.06	0.01	0.01	Ben Okri	The Famished Road	1991	0	0.6	0	2.2	Global	Africa	Unknown (as there is no clear indication of the time period in the passage)	1980	okri_the_famished_road_The_Famished_Road
+0.06	0.01	0	William Wells Brown	Clotelle: A Tale of the Southern States	1853	0.7	1.5	3.8	6.7	pre-1923 LitBank		1853	1853	2095_clotelle_a_tale_of_the_southern_states
+0.06	0.04	0	G. K. (Gilbert Keith) Chesterton	The Man Who Was Thursday: A Nightmare	1908	1.7	49.8	2.4	10.6	pre-1923 LitBank		1908	1908	1695_the_man_who_was_thursday_a_nightmare
+0.06	0.02	0	F. Scott (Francis Scott) Fitzgerald	This Side of Paradise	1920	1	3.2	0.4	11.3	pre-1923 LitBank		1920	1920	805_this_side_of_paradise
+0.06	0.01	0	Agatha Christie	The Secret Adversary	1922	0.4	2.6	2.1	1.3	pre-1923 LitBank		1922	1922	1155_the_secret_adversary
+0.06	0.02	0	Marilynne Robinson	Gilead	2005	2.1	29.2	3.4	1.4	Pulitzer		1938	1980	robinson_gilead_Gilead
+0.05	0.03	0	Rudolph Fisher	The Walls of Jericho	1928	0	0	0	0	BBIP		1928	1920	fisher_the_walls_of_jericho_The_Walls_of_Jericho
+0.05	0.04	0	Robert James Waller	The Bridges of Madison County	1993	0.3	1.8	0	2.1	Bestsellers		1992	1992	waller_the_bridges_of_madison_county_The_Bridges_of_Madison_County
+0.05	0	0	Kathryn Stockett	The Help	2010	1.1	61.7	1.2	1.5	Bestsellers		1962	1960	stockett_the_help_The_Help
+0.05	0.02	0	Paula Hawkins	The Girl on the Train (trade paperback)	2016	0.2	1.6	0.6	4.3	Bestsellers		2010	2010	hawkins_the_girl_on_the_train_The_Girl_on_the_Train__trade_paperback_
+0.05	0.01	0	Amor Towles	A Gentleman in Moscow	2017	0.1	0.8	0	0.9	Bestsellers		1983	1960	towles_a_gentleman_in_moscow_A_Gentleman_in_Moscow
+0.05	0.04	0	Mario Puzo	The Godfather	1969	1.5	288.6	3	2.2	Genre Fiction	Mystery/Crime	1962	1975	puzo_the_godfather_The_Godfather
+0.05	0.01	0	Michael Connelly	The Black Echo	1992	0	0.1	0	2	Genre Fiction	Mystery/Crime	1989	1995	connelly_the_black_echo_The_Black_Echo
+0.05	0.02	0	David Baldacci	Absolute Power	1995	0	0.5	0	1	Genre Fiction	Action/Spy	1982	1985	baldacci_absolute_power_Absolute_Power
+0.05	0.01	0	Arthur Golden	Memoirs of Geisha	1997	0.1	91.3	0.3	2	Genre Fiction	Romance	2005	1997	golden_memoirs_of_a_geisha_Memoirs_of_Geisha
+0.05	0.02	0	Gillian Flynn	Gone Girl	2012	0.1	1.7	0.1	3	Genre Fiction	Mystery/Crime	2012	2012	flynn_gone_girl_Gone_Girl
+0.05	0.01	0	Ha Jin	Waiting	1999	0	0.5	0	1	Global	Asia	1969	1985	jin_waiting_Waiting
+0.05	0.01	0	William Wells Brown	Clotel: or, the President’s Daughter	1853	0.6	2.9	3	7.6	BBIP		1855	1850	brown_clotel_or_the_presidents_daughter_gutenberg_pg2046_Clotel:_or,_the_President’s_Daughter
+0.05	0.03	0	Pauline E. Hopkins	Contending Forces: A Romance Illustrative of Negro Life North and South	1900	0	0	0	0.1	BBIP		1920	1895	hopkins_contending_forces_Contending_Forces:_A_Romance_Illustrative_of_Negro_Life_North_and_South
+0.05	0.05	0.05	Mary Wollstonecraft	Mary: A Fiction	1788	0.1	1.4	1.2	2	pre-1923 LitBank		1798	1790	16357_mary_a_fiction
+0.05	0.02	0	Virginia Woolf	Night and Day	1919	1.3	3.3	1	5	pre-1923 LitBank		1922	1920	1245_night_and_day
+0.05	0.01	0	Sinclair Lewis	Main Street	1920	0.3	2.3	1	4.9	pre-1923 LitBank		1930	1930	543_main_street
+0.05	0	0	Sinclair Lewis	Arrowsmith	1926	0.3	1.9	0	1.8	Pulitzer		1922	1927	lewis_arrowsmith_elmer_gantry_dodsworth_Arrowsmith
+0.05	0	0	John Kennedy Toole	A Confederacy of Dunces	1981	0.9	2.1	19.8	2.1	Pulitzer		1961	1963	toole_a_confederacy_of_dunces_A_Confederacy_of_Dunces
+0.05	0.03	0	Barbara Kingsolver	The Poisonwood Bible	1999	0.2	2.8	0.2	1.1	Pulitzer		1950	1959	kingsolver_the_poisonwood_bible_The_Poisonwood_Bible
+0.05	0.02	0	Lydia Millet	Love in Infant Monkeys	2010	0.2	0.4	0	2	Pulitzer		1979	1980	millet_love_in_infant_monkeys_Love_in_Infant_Monkeys
+0.04	0.01	0.01	Ishmael Reed	Flight to Canada	1976	0	0.1	0.1	2	BBIP		1960	1955	reed_flight_to_canada_Flight_to_Canada
+0.04	0.01	0.01	Raymond Andrews	Appalachee Red	1978	0	0	0	0	BBIP		1930	1970	andrews_appalachee_red_Appalachee_Red
+0.04	0.03	0.01	Daniel Panger	Black Ulysses	1982	0	0	0	0	BBIP		16th century (exact year cannot be determined as the passage is from a historical context)	1940	panger_black_ulysses_Black_Ulysses
+0.04	0.02	0	Paule Marshall	Praisesong for the Widow	1983	0	0.1	0	0	BBIP		1962	1975	marshall_praisesong_for_the_widow_Praisesong_for_the_Widow
+0.04	0.04	0	Octavia Butler	Imago	1989	0	0.4	0	2.7	BBIP		Uncertain (This passage appears to be from a work of science fiction and does not contain any clear indicators of a specific year.)	1987	butler_imago_Imago
+0.04	0.03	0	Paul Beatty	The White Boy Shuffle	1996	0	0.7	0	0.9	BBIP		1985	2023	beatty_the_white_boy_shuffle_The_White_Boy_Shuffle
+0.04	0.01	0.02	Florence Ladd	Sarah's Psalm	1996	0	0	0	0	BCALA		1986	1965	ladd_sarahs_psalm_Sarah_s_Psalm
+0.04	0.02	0	Gayl Jones	The Healing	1998	0	0	0	0	BCALA		Unknown (as there is no clear indication of the time period in the passage)	1980	jones_the_healing_The_Healing
+0.04	0.04	0.01	Mary Ellen Chase	Mary Peters	1934	0	0	0	0	Bestsellers		1937	1930	chase_mary_peters_Mary_Peters
+0.04	0.01	0	Frances Parkinson Keyes	Joy Street	1950	0	0	0	0	Bestsellers		1930	1920	keyes_joy_street_Joy_Street
+0.04	0.02	0.01	James A. Michener	The Source	1965	0	0.4	0	2	Bestsellers		1965	1970	michener_the_source_The_Source
+0.04	0.03	0	Agatha Christie	And Then There Were None	1939	1.1	55.2	1.2	2	Genre Fiction	Mystery/Crime	1930	1940	christie_and_then_there_were_none_And_Then_There_Were_None
+0.04	0.02	0	Raymond Chandler	The Big Sleep	1939	0.3	2.7	0	6.6	Genre Fiction	Mystery/Crime	1949	1940	chandler_the_big_sleep_The_Big_Sleep
+0.04	0	0	John le Carré	The Spy Who Came In from the Cold	1963	0.5	1.9	0.2	5.4	Genre Fiction	Action/Spy	1963	1963	lecarre_the_spy_who_came_in_from_the_cold_The_Spy_Who_Came_In_from_the_Cold
+0.04	0.05	0	Colleen McCullough	The Thorn Birds	1977	0.3	23.4	0.2	0.1	Genre Fiction	Romance	1952	1965	mccullough_the_thorn_birds_The_Thorn_Birds
+0.04	0.01	0.01	Ken Follett	Eye of the Needle	1978	0	1.1	0	2	Genre Fiction	Action/Spy	1962	1975	follett_eye_of_the_needle_Eye_of_the_Needle
+0.04	0.01	0	Stephen King	It	1986	0.1	1.5	0.1	1.2	Genre Fiction	Horror	1945	1970	king_it_It
+0.04	0.01	0	Dean Koontz	Watchers	1987	0.2	0.6	0	0.8	Genre Fiction	Horror	1998	1987	koontz_a_new_collection_Watchers
+0.04	0	0	Elmore Leonard	Get Shorty	1990	0	0.2	0.3	2.7	Genre Fiction	Mystery/Crime	1983	1995	leonard_get_shorty_Get_Shorty
+0.04	0.02	0	Michael Ondaatje	The English Patient	1992	0.4	3.1	0.3	1.1	Genre Fiction	Romance	unknown (as there is no clear indication of a specific year in the passage)	1992	ondaatje_the_english_patient_The_English_Patient
+0.04	0	0	R. K. Narayan	Swami and Friends	1935	0.1	2.7	0.2	4.2	Global	Asia	1930	1935	narayan_swami_and_friends_Swami_and_Friends
+0.04	0.02	0	Jean Rhys	Wide Sargasso Sea	1966	0.5	86.6	0.5	2	Global	Americas	1978	1985	ryhs_wide_sargasso_sea_Wide_Sargasso_Sea
+0.04	0.03	0	Bapsi Sidhwa	Cracking India	1988	0.1	1.3	0	0	Global	Asia	1980	1950	sidhwa_cracking_india_Cracking_India
+0.04	0.02	0	John Banville	The Book of Evidence	1989	0	0	0	2.5	Global	Europe	1967	1960	banville_the_book_of_evidence_The_Book_of_Evidence
+0.04	0.03	0	Richard Flanagan	Gould's Book of Fish	2001	0.1	0.3	0	2	Global	Oceania	1982	1988	flanagan_goulds_book_of_fish_Gould_s_Book_of_Fish
+0.04	0.02	0	Monica Ali	Brick Lane	2003	2.3	97.1	3	2.6	Global	Europe	1990	2000	ali_brick_lane_Brick_Lane
+0.04	0.05	0	Witi Ihimaera	Whale Rider	2006	0.2	1.5	0	0	Global	Oceania	1985	1985	ihimaera_the_whale_rider_Whale_Rider
+0.04	0.01	0	Joseph Conrad	The Secret Agent: A Simple Tale	1907	1.1	3.8	2.1	6.7	pre-1923 LitBank		1924	1915	974_the_secret_agent_a_simple_tale
+0.04	0.01	0	Mary Roberts Rinehart	The Circular Staircase	1908	0.2	352.5	1.9	7.7	pre-1923 LitBank		1878	1915	434_the_circular_staircase
+0.04	0.01	0	Willa Cather	The Song of the Lark	1915	0	2.2	0	7.1	pre-1923 LitBank		1915	1915	44_the_song_of_the_lark
+0.04	0.02	0	Jean Webster	Dear Enemy	1915	0	1.4	0.4	4	pre-1923 LitBank		1912	1915	238_dear_enemy
+0.04	0.02	0.01	Upton Sinclair	Dragon's Teeth	1943	0	0	0	1	Pulitzer		1920	1920	sinclair_dragons_teeth_i_Dragon_s_Teeth
+0.04	0	0	James Gould Cozzens	Guard of Honor	1949	0	0	0	0	Pulitzer		1950	1943	cozzens_guard_of_honor_Guard_of_Honor
+0.04	0	0	Thomas Pynchon	Gravity's Rainbow	1974	0	1.3	0	0	Pulitzer		1973	1973	pynchon_gravitys_rainbow_Gravity_s_Rainbow
+0.04	0.02	0	Viet Thanh Nguyen	The Sympathizer	2016	0.6	1.7	0.7	0.9	Pulitzer		1987	2000	nguyen_the_sympathizer_The_Sympathizer
+0.03	0.04	0	James Baldwin	Go Tell It on The Mountain	1953	1.9	8.8	0.8	1.4	BBIP		1960	1950	baldwin_go_tell_it_on_the_mountain_Go_Tell_It_on_The_Mountain
+0.03	0.01	0	Toni Morrison	Sula	1973	0.3	3.8	0.444	1.2	BBIP		1917	1950	morrison_sula_Sula
+0.03	0.02	0	Gayl Jones	Corregidora	1975	0	0.3	0	1	BBIP		1970	1970	jones_corregidora_Corregidora
+0.03	0.02	0.01	Toni Cade Bambara	The Salt Eaters	1980	0	0.2	0.1	2	BBIP		1973	1968	bambara_salt_eaters_The_Salt_Eaters
+0.03	0.02	0	John Edgar Wideman	Philadelphia Fire	1990	0	0.2	0.1	2	BBIP		1985	1985	wideman_philadelphia_fire_Philadelphia_Fire
+0.03	0.01	0.01	James McBride	The Good Lord Bird	2013	0	0	0	1	BCALA		1850	1870	mcbride_the_good_lord_bird_The_Good_Lord_Bird
+0.03	0.01	0	Roxane Gay	Difficult Women	2017	0.1	0.4	0.1	1	BCALA		2010	2005	gay_difficult_women_Difficult_Women
+0.03	0	0	A. Hamilton Gibbs	Soundings	1925	0	0	0	0	Bestsellers		1920	1920	gibbs_soundings_Soundings
+0.03	0.01	0.01	Lloyd C. Douglas	The Big Fisherman	1949	0.1	0.6	0	0.6	Bestsellers		Unknown (as there is not enough information to make a prediction)	1900	douglas_the_big_fisherman_The_Big_Fisherman
+0.03	0.02	0	Daphne du Maurier	My Cousin Rachel	1952	0.1	1.1	0.6	2	Bestsellers		1951	1951	dumaurier_my_cousin_rachel_My_Cousin_Rachel
+0.03	0.01	0.01	Mary Stewart	This Rough Magic	1964	0	0	0	0	Bestsellers		1960	1965	stewart_this_rough_magic_This_Rough_Magic
+0.03	0.03	0	Philip Roth	Portnoy's Complaint	1969	0	1.8	0.4	2.1	Bestsellers		1961	1963	roth_portnoys_complaint_Portnoy_s_Complaint
+0.03	0.02	0.02	Frederick Forsyth	The Odessa File	1973	0.3	0.7	0	0.9	Bestsellers		1945	1972	forsyth_the_odessa_file_The_Odessa_File
+0.03	0	0	Margaret Craven	I Heard the Owl Call My Name	1974	0	0	0	0.9	Bestsellers		1960	1950	craven_i_heard_the_owl_call_my_name_I_Heard_the_Owl_Call_My_Name
+0.03	0.04	0	Jean M. Auel	The Plains of Passage	1990	0	0	0	0.9	Bestsellers		Unknown (This passage appears to be from a work of fiction set in prehistoric times, so it is impossible to assign a specific year.)	1985	auel_the_plains_of_passage_The_Plains_of_Passage
+0.03	0.01	0	Khaled Hosseini	A Thousand Splendid Suns	2007	1.3	12.8	0.1	0.7	Bestsellers		2007	2003	hosseini_a_thousand_splendid_suns_A_Thousand_Splendid_Suns
+0.03	0.01	0	Anthony Doerr	All the Light We Cannot See	2015	1.4	4.1	0.1	2.8	Bestsellers		1944	2014	doerr_all_the_light_we_cannot_see_All_the_Light_We_Cannot_See
+0.03	0.01	0	Daphne du Maurier	Rebecca	1938	1.2	3	0	1	Genre Fiction	Mystery/Crime	1938	1938	dumaurier_rebecca_Rebecca
+0.03	0.03	0	Ira Levin	The Stepford Wives	1972	1.8	7.5	0.7	1.5	Genre Fiction	Horror	1960	1965	levin_three_by_ira_levin_The_Stepford_Wives
+0.03	0.01	0	Thomas Harris	The Silence of the Lambs	1988	0.5	2.2	0.2	1	Genre Fiction	Horror	1988	1988	harris_the_silence_of_the_lambs_The_Silence_of_the_Lambs
+0.03	0.01	0.01	Anne Rice	The Witching Hour	1990	0.9	1.1	0.1	1	Genre Fiction	Horror	1967	1980	rice_the_witching_hour_The_Witching_Hour
+0.03	0.01	0	Elizabeth Wein	Code Name Verity	2012	0	0.6	0	0.2	Genre Fiction	Action/Spy	1940	1945	wein_code_name_verity_Code_Name_Verity
+0.03	0.01	0	Florence Johnny Frisbie	Miss Ulysses from Pukapuka	1948	0	0	0	0	Global	Oceania	1930	1940	frisbie_miss_ulysses_from_puka_puka_Miss_Ulysses_from_Pukapuka
+0.03	0	0.01	Samuel Selvon	The Lonely Londoners	1956	0.1	0.9	0	1	Global	Americas	1960	1956	selvon_the_lonely_londoners_The_Lonely_Londoners
+0.03	0	0	Ken Saro-Wiwa	Sozaboy	1985	0	0.1	0	0	Global	Africa	Uncertain	1960	saro_wiwa_sozaboy_Sozaboy
+0.03	0.01	0.01	Patricia Grace	Potiki	1987	0	0.3	0	1	Global	Oceania	Uncertain	1985	grace_potiki_Potiki
+0.03	0.01	0.01	Caryl Phillips	Cambridge	1991	0	0.2	0	0.3	Global	Americas	Unknown (as there is no clear indication of a specific year in the passage)	1850	phillips_cambridge_Cambridge
+0.03	0.02	0	Edna O'Brien	House of Splendid Isolation	1994	0	0	0	0	Global	Europe	1922	1945	o_brien_house_of_splendid_isolation_House_of_Splendid_Isolation
+0.03	0.01	0	Qiu Xiaolong	When Red Is Black	2004	0	0	0	0.8	Global	Asia	1989	1997	xiaolong_when_red_is_black_When_Red_Is_Black
+0.03	0.02	0	Colum McCann	Let the Great World Spin	2009	0	0.9	0	1	Global	Europe	1975	1985	mccann_let_the_great_world_spin_Let_the_Great_World_Spin
+0.03	0	0	Chimamanda Ngozi Adichie	Americanah	2013	0	2.2	0	2.1	Global	Africa	2003	2000	adichie_americanah_Americanah
+0.03	0.02	0	Mohsin Hamid	Exit West	2017	2.1	16.7	1.5	2.1	Global	Asia	2017	2017	hamid_exit_west_Exit_West
+0.03	0.01	0.01	Charles Waddell Chesnutt	House Behind the Cedars	1900	0	2.3	0.5	5	BBIP		1899	1899	chesnutt_the_house_behind_the_cedars_gutenberg_pg472_House_Behind_the_Cedars
+0.03	0.01	0	Rebecca Harding Davis	Life in the Iron-Mills; Or, The Korl Woman	1861	1.2	3.5	2	9.7	pre-1923 LitBank		1856	1861	876_life_in_the_ironmills_or_the_korl_woman
+0.03	0.01	0.01	Charles W. (Charles Waddell) Chesnutt	The House Behind the Cedars	1900	0	2.4	0.5	5	pre-1923 LitBank		1870	1898	472_the_house_behind_the_cedars
+0.03	0.02	0.01	W. E. B. (William Edward Burghardt) Du Bois	The Quest of the Silver Fleece: A Novel	1911	0.1	1.1	0.1	2	pre-1923 LitBank		1915	1911	15265_the_quest_of_the_silver_fleece_a_novel
+0.03	0.03	0.01	B. M. Bower	The Flying U Ranch	1914	0	0.1	1.1	5	pre-1923 LitBank		1920	1915	1206_the_flying_u_ranch
+0.03	0.01	0.01	Thomas Sigismund Stribling	The Store	1933	0	0	0	0	Pulitzer		1930	1940	stribling_the_store_The_Store
+0.03	0.02	0	Herman Wouk	The Caine Mutiny	1952	0	0.8	0	2	Pulitzer		1951	1951	wouk_the_caine_mutiny_The_Caine_Mutiny
+0.03	0.02	0	MacKinlay Kantor	Andersonville	1956	0	0.6	0.5	1.7	Pulitzer		1937	1935	kantor_andersonville_Andersonville
+0.03	0	0	Allen Drury	Advise and Consent	1960	0	0	0	0	Pulitzer		1960	1960	drury_advise_and_consent_Advise_and_Consent
+0.03	0	0	William Styron	The Confessions of Nat Turner	1968	0.2	0.3	0	3	Pulitzer		1863	1960	styron_confessions_of_nat_turner_The_Confessions_of_Nat_Turner
+0.03	0.01	0	Michael Shaara	The Killer Angels	1975	0.2	1.9	0.1	1	Pulitzer		1863	1963	shaara_the_killer_angels_The_Killer_Angels
+0.03	0.01	0	John Cheever	The Stories of John Cheever	1979	0.4	1.4	0.1	3.5	Pulitzer		1952	1950	cheever_stories_of_john_cheever_The_Stories_of_John_Cheever
+0.03	0.01	0	Peter Taylor	A Summons to Memphis	1987	0	0.2	0.8	0.4	Pulitzer		1950	1950	taylor_a_summons_for_memphis_A_Summons_to_Memphis
+0.03	0.02	0	Junot Díaz	The Brief Wondrous Life of Oscar Wao	2008	0.1	4.2	0	2	Pulitzer		2000	2007	diaz_the_brief_wondrous_life_of_oscar_wao_The_Brief_Wondrous_Life_of_Oscar_Wao
+0.02	0	0	Paule Marshall	Brown Girl, Brownstones	1959	0	0.1	0	0	BBIP		1950	1950	marshall_brown_girl_brownstones_Brown_Girl,_Brownstones
+0.02	0.02	0.01	Iceberg Slim	Trick Baby	1967	0	0	0	2	BBIP		1953	1952	slim_trick_baby_Trick_Baby
+0.02	0	0	Octavia Butler	Patternmaster	1976	0	0.9	0.1	3.2	BBIP		Unknown (The passage appears to be from a work of fiction and does not contain any clear indicators of a specific year.)	1976	butler_seed_to_harvest_Patternmaster
+0.02	0.01	0	Toni Morrison	*Song of Solomon	1977	0.5	3.3	0.4	1	BBIP		1977	1977	morrison_song_of_solomon_*Song_of_Solomon
+0.02	0.01	0	Octavia Butler	Kindred	1979	0.2	3.3	0.1	0	BBIP		1850	1979	butler_kindred_Kindred
+0.02	0.01	0	Leonard Wise	Dumachas and Sheba	1979	0.1	0	0	0	BBIP		No prediction can be made as the passage does not provide enough context or clues about the time period.	1950	wise_dumachas_and_sheba_Dumachas_and_Sheba
+0.02	0	0	Ernest J. Gaines	A Gathering of Old Men	1983	0	0.4	0	1	BBIP		1960	1960	gaines_a_gathering_of_old_men_A_Gathering_of_Old_Men
+0.02	0.01	0	Fatima Shaik	The Mayor of New Orleans: Just Talking Jazz	1987	0	0.2	0	0	BBIP		1950	1950	shaik_the_mayor_of_new_orleans_The_Mayor_of_New_Orleans:_Just_Talking_Jazz
+0.02	0.01	0	Charles Johnson	Middle Passage	1990	0	0	0	0	BBIP		18th century (exact year uncertain)	1850	johnson_middle_passage_Middle_Passage
+0.02	0.01	0.01	Terry McMillan	Waiting to Exhale	1992	0.2	547	0.5	1.8	BBIP		2010	1992	mcmillan_waiting_to_exhale_Waiting_to_Exhale
+0.02	0	0	Ernest Gaines	A Lesson Before Dying	1993	0.2	1.3	0.2	2.1	BBIP		1940	1968	gaines_a_lesson_before_dying_A_Lesson_Before_Dying
+0.02	0	0	Maxine Clair	Rattlebone	1994	0	0.2	0	0	BCALA		1962	1985	clair_rattlebone_Rattlebone
+0.02	0.01	0	Sandra Jackson-Opoku	The River Where Blood Is Born	1997	0	0	0	0	BCALA		1987	1985	jackson_opoku_the_river_where_blood_is_born_The_River_Where_Blood_Is_Born
+0.02	0.03	0	Pearl Cleage	I Wish I Had A Red Dress	2001	0	0.1	0.1	0	BCALA		1982	1985	cleage_i_wish_i_had_a_red_dress_I_Wish_I_Had_A_Red_Dress
+0.02	0.02	0	Jacqueline Woodson	Another Brooklyn	2016	0	0.6	0	0.7	BCALA		1977	1990	woodson_another_brooklyn_Another_Brooklyn
+0.02	0	0	Sinclair Lewis	Dodsworth	1929	0	1	0	0.1	Bestsellers		1920	1930	lewis_arrowsmith_elmer_gantry_dodsworth_Dodsworth
+0.02	0.01	0	Warwick Deeping	The Bridge of Desire	1931	0	0	0	0	Bestsellers		1920	1920	deeping_the_bridge_of_desire_The_Bridge_of_Desire
+0.02	0.01	0	John P. Marquand	Wickford Point	1939	0	0	0	0	Bestsellers		1950	1930	marquand_wickford_point_Wickford_Point
+0.02	0	0	Pearl S. Buck	Dragon Seed	1942	0	0	0	2	Bestsellers		1949	1942	buck_dragon_seed_Dragon_Seed
+0.02	0.02	0.01	Russell Janney	The Miracle of the Bells	1947	0	0	0	0	Bestsellers		1923	1930	janney_the_miracle_of_the_bells_The_Miracle_of_the_Bells
+0.02	0.02	0.01	Thomas B. Costain	The Silver Chalice	1953	0	1.4	0	1	Bestsellers		Cannot predict accurately as there is not enough context to determine the time period or historical events referenced.	1920	costain_the_silver_chalice_The_Silver_Chalice
+0.02	0.01	0	Herman Wouk	Marjorie Morningstar	1955	0	0.1	0	1.6	Bestsellers		1955	1955	wouk_marjorie_morningstar_Marjorie_Morningstar
+0.02	0	0	James Gould Cozzens	By Love Possessed	1957	0	0	0	0	Bestsellers		1920	1920	cozzens_by_love_possessed_By_Love_Possessed
+0.02	0.01	0	Edna Ferber	Ice Palace	1958	0	0	0	1	Bestsellers		1950	1955	ferber_ice_palace_Ice_Palace
+0.02	0.02	0	Jackie Collins	Hollywood Husbands	1986	0	0	0	0	Bestsellers		1982	1985	collins_hollywood_husbands_Hollywood_Husbands
+0.02	0.02	0	Tom Clancy	Clear and Present Danger	1989	0	0.1	0	2	Bestsellers		1989	1990	clancy_clear_and_present_danger_Clear_and_Present_Danger
+0.02	0	0	Tom Clancy	The Sum of All Fears	1991	1.1	1.4	0.1	3	Bestsellers		1988	1990	clancy_sum_of_all_fears_The_Sum_of_All_Fears
+0.02	0.02	0.01	Danielle Steel	The Gift	1994	0	0.8	0	1	Bestsellers		1978	1980	steel_the_gift_The_Gift
+0.02	0.03	0.01	Jerry B. Jenkins and Tim LaHaye	Desecration	2001	0.3	1610.5	1.1	9.7	Bestsellers		2006	1995	lahaye_desecration_Desecration
+0.02	0.01	0.01	Alice Sebold	The Lovely Bones	2002	0.6	2.6	0	1.2	Bestsellers		2002	2002	sebold_the_lovely_bones_The_Lovely_Bones
+0.02	0	0	Patricia Cornwell	Trace	2004	0	0	0	2	Bestsellers		1990	1990	cornwell_trace_Trace
+0.02	0.01	0	Helen MacInnes	Assignment in Brittany	1941	0	0	0	1.8	Genre Fiction	Action/Spy	1944	1943	macinnes_a_three_novel_omnibus_Assignment_in_Brittany
+0.02	0	0	Kathleen Winsor	Forever Amber	1944	0.1	0.4	0.1	1.1	Genre Fiction	Romance	1920	1930	winsor_forever_amber_Forever_Amber
+0.02	0	0	Shirley Jackson	We Have Always Lived in the Castle	1962	0	1.8	0.8	2	Genre Fiction	Horror	1951	1950	jackson_the_lottery_haunting_hill_house_we_have_always_lived_in_the_castle_We_Have_Always_Lived_in_the_Castle
+0.02	0	0	Ursula K. Le Guin	The Left Hand of Darkness	1969	1.4	3.3	0.4	0.2	Genre Fiction	SF/Fantasy	1969	1969	leguin_the_left_hand_of_darkness_The_Left_Hand_of_Darkness
+0.02	0	0	John le Carré	Tinker, Tailor, Soldier, Spy	1974	0.2	2	0.2	3.3	Genre Fiction	Action/Spy	1974	1974	lecarre_tinker_tailor_soldier_spy_Tinker,_Tailor,_Soldier,_Spy
+0.02	0.01	0	Jude Deveraux	A Knight in Shining Armor	1989	0.1	0.3	0	0	Genre Fiction	Romance	1989	1985	deveraux_a_knight_in_shining_armor_A_Knight_in_Shining_Armor
+0.02	0.01	0.02	Alan Furst	Dark Star	1991	0.1	0.1	0	2.1	Genre Fiction	Action/Spy	1944	1940	furst_dark_star_Dark_Star
+0.02	0	0.01	Janet Evanovich	One for the Money	1994	0.4	1.3	0	0.1	Genre Fiction	Mystery/Crime	1998	1994	evanovich_one_for_the_money_One_for_the_Money
+0.02	0.03	0	Joyce Carol Oates	Zombie	1995	0	0.2	0	1	Genre Fiction	Horror	1983	1985	oates_zombie_Zombie
+0.02	0	0.02	Susanna Clarke	Jonathan Strange & Mr Norrell	2004	0.1	1.1	0	0	Genre Fiction	SF/Fantasy	1805	1800	clarke_jonathan_strange_and_mr_norrell_Jonathan_Strange___Mr_Norrell
+0.02	0.03	0	Elizabeth Kostova	The Historian	2005	0	0.6	0	2	Genre Fiction	Horror	Unknown (as there is no clear indication of a specific year in the passage)	1950	kostova_the_historian_The_Historian
+0.02	0.01	0	Christina Stead	The Man Who Loved Children	1940	0	0.1	0	2	Global	Oceania	1920	1920	stead_the_man_who_loved_children_The_Man_Who_Loved_Children
+0.02	0	0	Samuel Beckett	Watt	1953	0	1.2	0.6	1.6	Global	Europe	1922	1930	beckett_watt_Watt
+0.02	0.01	0	George Lamming	In the Castle of My Skin	1953	0	0	0	2	Global	Americas	1950	1960	lamming_in_the_castle_of_my_skin_In_the_Castle_of_My_Skin
+0.02	0.01	0	Patrick White	Voss	1957	0	0.3	0.1	1.8	Global	Oceania	1939	1957	white_voss_Voss
+0.02	0	0	Vladimir Nabokov	Pale Fire	1962	0.5	4.7	0.6	3	Global	Europe	1950	1950	nabokov_pale_fire_Pale_Fire
+0.02	0.01	0	Ayi Kwei Armah	The Beautyful Ones Are Not Yet Born	1968	0	1.7	0	0	Global	Africa	1950	1950	armah_the_beautyful_ones_are_not_yet_born_The_Beautyful_Ones_Are_Not_Yet_Born
+0.02	0.01	0	Merle Hodge	Crick Crack, Monkey	1970	0.1	0.8	0	0	Global	Americas	1950	1950	hodge_crick_crack_monkey_Crick_Crack,_Monkey
+0.02	0	0	Rudolfo Anaya	Bless Me, Ultima	1972	0.1	3	0.2	1	Global	Americas	1960	1970	anaya_bless_me_ultima_Bless_Me,_Ultima
+0.02	0	0	John Dominis Holt	Waimea Summer	1976	0	0	0	0	Global	Oceania	1920	1940	holt_waimea_summer_Waimea_Summer
+0.02	0.01	0.01	Ama Ata Aidoo	Our Sister Killjoy	1977	0.1	1.9	0	0.2	Global	Africa	1978	1980	aidoo_our_sister_killjoy_Our_Sister_Killjoy
+0.02	0	0	Salman Rushdie	Midnight’s Children	1981	0.1	2.3	0.2	0	Global	Asia	1960	1960	rushdie_midnights_children_Midnight’s_Children
+0.02	0.02	0	Nadine Gordimer	July's People	1981	0.6	2.1	0	1	Global	Africa	1979	1965	gordimer_julys_people_July_s_People
+0.02	0.01	0	Iain Banks	The Wasp Factory	1984	0	1.7	0	1.1	Global	Europe	1982	1985	banks_the_wasp_factory_The_Wasp_Factory
+0.02	0.01	0	Nayantara Sahgal	Rich Like Us	1985	0	0	0	0	Global	Asia	1984	1985	sahgal_rich_like_us_Rich_Like_Us
+0.02	0	0	Nuruddin Farah	Maps	1986	0	0	0	2	Global	Africa	1977	1980	farah_maps_Maps
+0.02	0.01	0	Alan Duff	Once Were Warriors	1990	0	0	0	1	Global	Oceania	1984	1985	duff_once_were_warriors_Once_Were_Warriors
+0.02	0.01	0	Kiana Davenport	Shark Dialogues	1995	0	0	0	0	Global	Oceania	Uncertain	1985	davenport_shark_dialogues_Shark_Dialogues
+0.02	0.01	0	Edwidge Danticat	The Farming of Bones	1998	0	0.8	0	3.9	Global	Americas	Uncertain	2000	danticat_the_farming_of_bones_The_Farming_of_Bones
+0.02	0	0	Zadie Smith	White Teeth	2000	0.4	12.6	0.2	2	Global	Europe	2000	2000	smith_white_teeth_White_Teeth
+0.02	0.01	0	Helen Oyeyemi	Icarus Girl	2005	0	0	0	1.8	Global	Europe		2005	oyeyemi_the_icarus_girl_Icarus_Girl
+0.02	0.01	0	Kiran Desai	The Inheritance of Loss	2006	1.4	5.7	0.1	2.8	Global	Asia	2007	2000	desai_the_inheritance_of_loss_The_Inheritance_of_Loss
+0.02	0	0	NoViolet Bulawayo	We Need New Names	2013	0.3	1.6	0	2	Global	Africa	2013	2005	bulawayo_we_need_new_names_We_Need_New_Names
+0.02	0	0.01	Paul Laurence Dunbar	The Sport of the Gods	1902	1.9	1.4	0.4	2	BBIP		1920	1900	dunbar_the_sport_of_the_gods_gutenberg_pg17854_The_Sport_of_the_Gods
+0.02	0.01	0	Anthony Hope	The Prisoner of Zenda	1894	0.2	3.1	0.7	6.2	pre-1923 LitBank		1894	1894	95_the_prisoner_of_zenda
+0.02	0	0	Mary Johnston	To Have and to Hold	1899	1.2	1.5	0.2	4	pre-1923 LitBank		17th century (exact year cannot be determined as the passage is set in the 17th century)	1890	2807_to_have_and_to_hold
+0.02	0.01	0	Edna Ferber	Personality Plus: Some Experiences of Emma McChesney and Her Son, Jock	1914	0.3	5.1	0.1	0.2	pre-1923 LitBank		1920	1920	12677_personality_plus_some_experiences_of_emma_mcchesney_and_her_son_jock
+0.02	0.01	0	Campbell, Mrs. Praed	Lady Bridget in the Never-Never Land: a story of Australian life	1915	0	1	0	3	pre-1923 LitBank		1920	1910	4051_lady_bridget_in_the_nevernever_land_a_story_of_australian_life
+0.02	0	0	Thornton Wilder	The Bridge of San Luis Rey	1928	0	1.6	0.1	1.9	Pulitzer		1920	1940	wilder_the_bridge_of_san_lius_rey_The_Bridge_of_San_Luis_Rey
+0.02	0.02	0	Harold L. Davis	Honey in the Horn	1936	0	0	0	0	Pulitzer		1952	1930	davis_honey_in_the_horn_Honey_in_the_Horn
+0.02	0.01	0	Ellen Glasgow	In This Our Life	1942	0	0.1	0	0	Pulitzer		1938	1930	glasgow_in_this_our_life_In_This_Our_Life
+0.02	0.02	0	Robert Lewis Taylor	The Travels of Jaimie McPheeters	1959	0	0	0	1.8	Pulitzer		Unknown (as there is no clear indication of the year in the passage)	1885	taylor_the_travels_of_jaimie_mcpheeters_The_Travels_of_Jaimie_McPheeters
+0.02	0.02	0.01	Edwin O'Connor	The Edge of Sadness	1962	0	0	0	0	Pulitzer		1930	1935	o_connor_the_edge_of_sadness_The_Edge_of_Sadness
+0.02	0	0	William Faulkner	The Reivers	1963	0	1.2	0	1	Pulitzer		1930	1950	faulkner_the_reivers_The_Reivers
+0.02	0	0	Joyce Carol Oates	The Wheel of Love	1971	0	0.1	0	0	Pulitzer		1962	1965	oates_the_wheel_of_love_The_Wheel_of_Love
+0.02	0.01	0	Marilynne Robinson	Housekeeping	1982	0.9	4.5	0.2	1.4	Pulitzer		1970	1980	robinson_housekeeping_Housekeeping
+0.02	0.04	0	Oscar Hijuelos	The Mambo Kings Play Songs of Love	1990	0	1	0	1.1	Pulitzer		1982	1985	hijuelos_the_mambo_kings_play_songs_of_love_The_Mambo_Kings_Play_Songs_of_Love
+0.02	0.02	0	Richard Russo	Empire Falls	2002	0	0	0	0	Pulitzer		1996	2001	russo_empire_falls_Empire_Falls
+0.02	0.01	0	Susan Choi	American Woman	2004	0	0	0	2	Pulitzer		1973	1974	choi_american_woman_American_Woman
+0.02	0	0	Elizabeth Strout	Olive Kitteridge	2009	0.3	0.8	0.1	2.1	Pulitzer		1967	1975	strout_olive_kitteridge_Olive_Kitteridge
+0.02	0.01	0	Karen Russell	Swamplandia!	2012	0.3	1.1	0.1	2.4	Pulitzer		1950	1980	russell_swamplandia_Swamplandia!
+0.02	0.04	0	Eowyn Ivey	The Snow Child	2013	0	0.9	0	0.9	Pulitzer		1920	2000	ivey_the_snow_child_The_Snow_Child
+0.02	0.01	0	Laila Lalami	The Moor's Account	2015	0.1	0.9	0	0.9	Pulitzer		1540	1980	lalami_the_moors_account_The_Moor_s_Account
+0.01	0	0.01	Claude McKay	Home to Harlem	1928	0	0.1	0	0	BBIP		1910	1925	mckay_home_to_harlem_Home_to_Harlem
+0.01	0.01	0	Margaret Walker	Jubilee	1966	0	0	0	1	BBIP		1863	1940	walker_jubilee_Jubilee
+0.01	0.01	0	James Baldwin	If Beale Street Could Talk	1974	0.4	44.6	1.8	1	BBIP		1960	1974	baldwin_if_beale_street_could_talk_If_Beale_Street_Could_Talk
+0.01	0	0	Gayl Jones	Eva’s Man	1976	0	0.2	0	0	BBIP		1960	1975	jones_evas_man_Eva’s_Man
+0.01	0.01	0.01	Ben Barker	The Time of the Terrorists	1977	0	0	0	0	BBIP		1978	1975	barker_the_time_of_the_terrorists_The_Time_of_the_Terrorists
+0.01	0	0	Ernest J. Gaines	In My Father’s House	1978	0	0	0	0	BBIP		1955	1950	gaines_in_my_fathers_house_In_My_Father’s_House
+0.01	0	0	J. Jason Grant	Bitch	1979	0	0	0	0	BBIP		1970	1975	grant_bitch_Bitch
+0.01	0	0	Gordon Parks	Shannon	1981	0	0	0	0	BBIP		1950	1960	parks_shannon_Shannon
+0.01	0	0	Octavia Butler	Clay’s Ark	1984	0	0.1	0	2.7	BBIP		2025	2005	butler_seed_to_harvest_Clay’s_Ark
+0.01	0.02	0.01	Clarence Major	Painted Turtle: Woman With Guitar	1988	0	0.1	0	0	BBIP		1969	1975	major_painted_turtle_Painted_Turtle:_Woman_With_Guitar
+0.01	0.01	0	Walter Mosley	Devil in a Blue Dress	1990	0.6	1.3	0	1	BBIP		1978	1975	mosley_devil_in_a_blue_dress_Devil_in_a_Blue_Dress
+0.01	0	0	Edwidge Danticat	Breath, Eyes, Memory	1994	0.2	1.8	0.2	1	BBIP		1987	1990	danticat_breathe_eyes_memory_Breath,_Eyes,_Memory
+0.01	0.01	0	Sister Souljah	The Coldest Winter Ever	1999	0	0	0	2	BBIP		1989	1990	souljah_the_coldest_winter_ever_The_Coldest_Winter_Ever
+0.01	0	0	Edward P. Jones	The Known World	2003	0.4	1.7	0.4	1.3	BBIP		unknown (The passage does not provide enough context or specific historical references to make a prediction.)	2003	jones_the_known_world_The_Known_World
+0.01	0.02	0	Jesmyn Ward	Salvage the Bones	2011	0.1	1.4	0	1	BBIP		2011	2011	ward_salvage_the_bones_Salvage_the_Bones
+0.01	0	0	Paule Marshall	The Fisher King	2000	0.1	0.1	0	0	BCALA		1978	1980	marshall_the_fisher_king_The_Fisher_King
+0.01	0.01	0	Jewell Parker Rhodes	Douglass' Women	2002	0	0	0	1	BCALA		1930	1980	rhodes_douglass_women_Douglass__Women
+0.01	0.01	0	Barbara Chase-Riboud	Hottentot Venus	2003	0	0	0	2	BCALA		1810	1810	chase_riboud_hottentot_venus_Hottentot_Venus
+0.01	0	0	Marita Golden	After	2006	0	0	0.1	0.2	BCALA		1985	1985	golden_after_After
+0.01	0.01	0	Pamela Samuels-Young	Buying Time	2009	0	0	0	0	BCALA		2010	2005	young_buying_time_Buying_Time
+0.01	0	0	Tayari Jones	An American Marriage	2018	0	1	0	1	BCALA		2018	2015	jones_an_american_marriage_An_American_Marriage
+0.01	0.02	0	Anita Loos	Gentlemen Prefer Blondes	1926	0.3	1	0	0.4	Bestsellers		1930	1930	loos_gentlemen_prefer_blondes_Gentlemen_Prefer_Blondes
+0.01	0.02	0	Sinclair Lewis	Elmer Gantry	1927	1.4	13.3	5.2	6.8	Bestsellers		1911	1920	lewis_arrowsmith_elmer_gantry_dodsworth_Elmer_Gantry
+0.01	0	0	Edna Ferber	Cimarron	1930	0	0	0.3	2	Bestsellers		1930	1930	ferber_cimarron_Cimarron
+0.01	0.01	0	Lloyd C. Douglas	Green Light	1935	0.1	1	0	0	Bestsellers		1920	1930	douglas_green_light_Green_Light
+0.01	0.01	0	Kenneth Roberts	Northwest Passage	1937	0	0	0	0	Bestsellers		1857	1940	roberts_northwest_passage_Northwest_Passage
+0.01	0	0	Rachel Field	All This, and Heaven Too	1938	0	0.8	0	0	Bestsellers		1920	1920	field_all_this_and_heaven_too_All_This,_and_Heaven_Too
+0.01	0.01	0	Jan Struther	Mrs. Miniver	1940	1	2	0	0	Bestsellers			1935	struther_mrs_miniver_Mrs._Miniver
+0.01	0	0	A. J. Cronin	The Keys of the Kingdom	1941	0.1	8480	0	0.3	Bestsellers		1948	1920	cronin_the_keys_of_the_kingdom_The_Keys_of_the_Kingdom
+0.01	0.01	0	Thomas B. Costain	The Black Rose	1945	0	0.3	0	0	Bestsellers		1920	1920	costain_the_black_rose_The_Black_Rose
+0.01	0.02	0.01	Frances Parkinson Keyes	Dinner at Antoine's	1948	0	0	0	0	Bestsellers		1948	1948	keyes_dinner_at_antoines_Dinner_at_Antoine_s
+0.01	0.01	0	Daphne du Maurier	Mary Anne	1954	0	0	0	0.9	Bestsellers		1809	1809	dumaurier_mary_anne_Mary_Anne
+0.01	0	0	Grace Metalious	Peyton Place	1956	0	2	0	2	Bestsellers		1952	1960	metalious_peyton_place_Peyton_Place
+0.01	0.01	0	Leon Uris	Exodus	1959	0	0.8	0	2.4	Bestsellers		1951	1950	uris_exodus_Exodus
+0.01	0	0	Katherine Anne Porter	Ship of Fools	1962	0.1	1	0	1.3	Bestsellers		1931	1950	porter_ship_of_fools_Ship_of_Fools
+0.01	0.02	0	Chaim Potok	The Chosen	1967	0	0.4	0	1	Bestsellers		1945	1950	potok_the_chosen_The_Chosen
+0.01	0.01	0	Mary Stewart	The Crystal Cave	1970	0	0	0	1	Bestsellers		Cannot predict without more context. The passage does not provide enough information to determine a specific year.	1968	stewart_the_crystal_cave_The_Crystal_Cave
+0.01	0.01	0	Agatha Christie	Sleeping Murder	1976	0	1.5	0	2	Bestsellers		1944	1950	christie_sleeping_murder_Sleeping_Murder
+0.01	0	0	James Clavell	Noble House	1981	0	0.5	0	1.8	Bestsellers		1988	1980	clavell_noble_house_Noble_House
+0.01	0.01	0	James A. Michener	Texas	1985	0	0	0.1	2	Bestsellers		1910	1935	michener_texas_Texas
+0.01	0	0	Stephen King	The Tommyknockers	1987	0	0.8	0	0.9	Bestsellers		1987	1987	king_tommyknockers_The_Tommyknockers
+0.01	0	0	Danielle Steel	Mixed Blessings	1992	0	0.5	0.3	1.8	Bestsellers		2002	1985	steel_mixed_blessings_Mixed_Blessings
+0.01	0	0	John Grisham	The Rainmaker	1995	0	1.9	0	1	Bestsellers		1991	1990	grisham_the_rainmaker_The_Rainmaker
+0.01	0.01	0	Patricia Cornwell	Cause of Death	1996	0	0.5	0	1	Bestsellers		1996	2000	cornwell_cause_of_death_Cause_of_Death
+0.01	0	0	Patricia Cornwell	The Last Precinct	2000	0	0	0	3	Bestsellers		2003	2000	cornwell_the_last_precinct_The_Last_Precinct
+0.01	0.01	0	James Patterson	Mary, Mary	2005	0	0.1	0	0.9	Bestsellers		1993	2000	patterson_mary_mary_Mary,_Mary
+0.01	0	0	Janet Evanovich	Twelve Sharp	2006	0	0.1	0	1	Bestsellers		2010	2000	evanovich_twelve_sharp_Twelve_Sharp
+0.01	0	0	Stephenie Meyer	The Host	2008	0.1	0.8	0	1	Bestsellers		2008	2008	meyer_the_host_The_Host
+0.01	0.01	0	Stephen King	11/22/63	2011	0.2	2.1	0.1	0.9	Bestsellers		2007	2011	king_11_22_63_11_22_63
+0.01	0.01	0	Celeste Ng	Little Fires Everywhere	2018	2.1	9.3	0.4	1	Bestsellers		2017	1998	ng_little_fires_everywhere_Little_Fires_Everywhere
+0.01	0	0	Jojo Moyes	The Giver of Stars	2020	0	0.8	0	2	Bestsellers		1952	1930	moyes_the_giver_of_stars_The_Giver_of_Stars
+0.01	0	0	James M. Cain	Double Indemnity	1936	0.1	0.9	0	1.8	Genre Fiction	Mystery/Crime	1934	1943	cain_double_indemnity_Double_Indemnity
+0.01	0	0	Helen MacInnes	Above Suspicion	1941	0	0	0	1	Genre Fiction	Action/Spy	1939	1950	macinnes_a_three_novel_omnibus_Above_Suspicion
+0.01	0.04	0	Patricia Highsmith	The Talented Mr. Ripley	1955	0.5	3.3	0.2	1.2	Genre Fiction	Mystery/Crime	1955	1955	highsmith_the_talented_mr_ripley_The_Talented_Mr._Ripley
+0.01	0.01	0	Chester Himes	A Rage in Harlem	1957	0	0	0	3.6	Genre Fiction	Mystery/Crime	1930	1950	himes_a_rage_in_harlem_A_Rage_in_Harlem
+0.01	0.01	0	Graham Greene	Our Man in Havana	1958	0	0.4	0	1.8	Genre Fiction	Action/Spy	1958	1958	greene_our_man_in_havana_Our_Man_in_Havana
+0.01	0.01	0	Shirley Jackson	The Haunting of Hill House	1959	0.1	12	0.5	4.1	Genre Fiction	Horror	1959	1959	jackson_the_lottery_haunting_hill_house_we_have_always_lived_in_the_castle_The_Haunting_of_Hill_House
+0.01	0.03	0	Robert Bloch	Psycho	1959	0.2	1.4	0	2	Genre Fiction	Horror	1950	1955	bloch_psycho_Psycho
+0.01	0.01	0	Jack Higgins	The Eagle Has Landed	1975	0	1.3	0	2	Genre Fiction	Action/Spy	1943	1945	higgins_three_complete_novels_The_Eagle_Has_Landed
+0.01	0	0	Robert Ludlum	The Bourne Identity	1980	0	0.5	0	4	Genre Fiction	Action/Spy	1980	1980	ludlum_the_ludlum_triad_The_Bourne_Identity
+0.01	0	0	Clive Barker	Weaveworld	1987	0	0.2	0	0.9	Genre Fiction	Horror	1989	1980	barker_weaveworld_Weaveworld
+0.01	0.02	0	Elizabeth George	A Great Deliverance	1988	0	0.1	0	1.8	Genre Fiction	Mystery/Crime	1993	1990	george_a_great_deliverance_A_Great_Deliverance
+0.01	0	0	Nelson DeMille	The Charm School	1988	0	0	0	1.6	Genre Fiction	Action/Spy	1983	1985	demille_the_charm_school_The_Charm_School
+0.01	0.01	0	Judith McNaught	A Kingdom of Dreams	1989	0	0.2	0	0	Genre Fiction	Romance	1987	1985	mcnaught_a_kingdom_of_dreams_A_Kingdom_of_Dreams
+0.01	0	0.01	Francine Rivers	Redeeming Love	1991	0	0.4	0	0.8	Genre Fiction	Romance	1982	1980	rivers_redeeming_love_Redeeming_Love
+0.01	0.01	0	James Patterson	Along Came a Spider	1993	0	0.2	0	1	Genre Fiction	Mystery/Crime	1974	1990	patterson_along_came_a_spider_Along_Came_a_Spider
+0.01	0	0	Lee Child	Killing Floor	1997	0	0.2	0	4	Genre Fiction	Action/Spy	1978	1990	child_killing_floor_Killing_Floor
+0.01	0	0	Julia Quinn	The Duke and I	2000	0	1.6	0	1	Genre Fiction	Romance	2020 (Note: This passage appears to be from a work of fiction and does not contain any clear indicators of a specific time period.)	1990	quinn_the_duke_and_i_The_Duke_and_I
+0.01	0	0	Kate Atkinson	Case Histories	2004	0	0	0	1	Genre Fiction	Mystery/Crime	2008	2005	atkinson_case_histories_Case_Histories
+0.01	0	0	J. R. Ward	Dark Lover	2005	0.9	4.8	0.2	3	Genre Fiction	Romance	2010	2005	ward_dark_lover_Dark_Lover
+0.01	0	0	Tana French	In the Woods	2007	0	0.1	0.1	2	Genre Fiction	Mystery/Crime	2010	1992	french_in_the_woods_In_the_Woods
+0.01	0	0	Jason Matthews	Red Sparrow	2013	0	1.1	0	1	Genre Fiction	Action/Spy	2010	2010	matthews_red_sparrow_Red_Sparrow
+0.01	0.01	0	Raja Rao	Kanthapura	1938	0	2.3	0	2	Global	Asia	1960	1950	rao_kanthapura_Kanthapura
+0.01	0	0	Flann O'Brien	At Swim-Two-Birds	1939	0.8	0.7	0	1.2	Global	Europe	1950	1951	obrien_at_swim_two_birds_At_Swim-Two-Birds
+0.01	0	0	José Antonio Villarreal	Pocho	1959	0	0.1	0	0	Global	Americas	1920	1950	villarreal_pocho_Pocho
+0.01	0.02	0	Margaret Laurence	The Stone Angel	1965	0	0.3	0	1.9	Global	Americas	Unknown (The passage does not provide enough context to make a prediction of the year)	1950	laurence_the_stone_angel_The_Stone_Angel
+0.01	0.01	0	Flora Nwapa	Efuru	1966	0.2	5.6	0.1	0.1	Global	Africa	Uncertain	1960	nwapa_efuru_Efuru
+0.01	0.01	0	Thomas Keneally	The Chant of Jimmie Blacksmith	1972	0	0.2	0	2.2	Global	Oceania	1935	1935	kenealy_the_chant_of_jimmie_blacksmith_The_Chant_of_Jimmie_Blacksmith
+0.01	0	0	Bessie Head	A Question of Power	1973	0	0.1	0	0	Global	Africa	1980	1975	head_a_question_of_power_A_Question_of_Power
+0.01	0.01	0	Ngũgĩ wa Thiong'o	Petals of Blood	1977	0	0.3	0	2.4	Global	Africa	1965	1977	thiongo_petals_of_blood_Petals_of_Blood
+0.01	0.01	0	Buchi Emecheta	The Joys of Motherhood	1979	0	0.6	0.1	2.1	Global	Africa	1960	1976	emecheta_the_joys_of_motherhood_The_Joys_of_Motherhood
+0.01	0.02	0	Keri Hulme	The Bone People	1983	0	0.9	0	0	Global	Oceania	1984	1980	hulme_the_bone_people_The_Bone_People
+0.01	0.01	0	Michelle Cliff	No Telephone to Heaven	1987	0	0.2	0	0.1	Global	Americas	1967	1980	cliff_no_telephone_to_heaven_No_Telephone_to_Heaven
+0.01	0.01	0	Amitav Ghosh	Shadow Lines	1988	0	0.7	0	0.8	Global	Asia / Markings on page make OCR difficult	1981	1988	ghosh_the_shadow_lines_Shadow_Lines
+0.01	0.01	0	Peter Carey	Oscar and Lucinda	1988	0	0	0	1	Global	Oceania	1920	1890	carey_oscar_and_lucinda_Oscar_and_Lucinda
+0.01	0	0	Hanif Kureishi	The Buddha of Suburbia	1990	0	1.5	0.1	2	Global	Europe	1984	1980	kureishi_the_buddha_of_suburbia_The_Buddha_of_Suburbia
+0.01	0.01	0	Meena Alexander	Nampally Road	1991	0.1	0.1	0	0	Global	Asia	1984	1965	alexander_nampally_road_Nampally_Road
+0.01	0.01	0.01	Vikram Seth	A Suitable Boy	1993	0	0.1	0	0.9	Global	Asia	1951	1950	seth_a_suitable_boy_A_Suitable_Boy
+0.01	0	0	Ana Castillo	So Far From God	1993	0	0.4	0	0.9	Global	Americas	1992	1990	castillo_so_far_from_god_So_Far_From_God
+0.01	0.01	0	Julia Alvarez	In the Time of the Butterflies	1994	0.3	2.5	0	1	Global	Americas	1960	1994	alvarez_in_the_time_of_butterflies_In_the_Time_of_the_Butterflies
+0.01	0.01	0	William Trevor	Felicia's Journey	1994	0	0	0	2	Global	Europe	1975	1980	trevor_felicias_journey_Felicia_s_Journey
+0.01	0.01	0	Arundhati Roy	The God of Small Things	1998	1.6	907	0.7	2	Global	Asia	1993	1997	roy_the_god_of_small_things_The_God_of_Small_Things
+0.01	0.01	0	Zakes Mda	Heart of Redness	2000	0	1.1	0	1.2	Global	Africa	Uncertain	2005	mda_the_heart_of_redness_Heart_of_Redness
+0.01	0	0	Margaret Atwood	The Blind Assassin	2000	0	0.5	0	3.6	Global	Americas	unknown (There is no clear indication of a specific year in this passage.)	1985	atwood_the_blind_assassin_The_Blind_Assassin
+0.01	0	0	Zoë Wicomb	David's Story	2000	0.1	0.4	0	1	Global	Africa	Unknown (There is no clear indication of a specific year in the passage)	2000	wicomb_davids_story_David_s_Story
+0.01	0	0	Jackie Kay	Trumpet	2000	0.1	0.2	0	1	Global	Europe	2010	1990	kay_trumpet_Trumpet
+0.01	0	0.01	Krys Lee	How I Became a North Korean	2016	0	0	0	1	Global	Asia	2017	2010	lee_how_i_became_a_north_korean_How_I_Became_a_North_Korean
+0.01	0	0	Rosanna Amaka	The Book of Echoes	2020	0	0	0	0	Global	Europe	2010	2000	amaka_the_book_of_echoes_The_Book_of_Echoes
+0.01	0.03	0.03	Harriet E. Wilson	Our Nig	1859	0.2	2.7	2.8	4.5	BBIP		1842	1842	wilson_our_nig_gutenberg_pg584_Our_Nig
+0.01	0	0	Oscar Micheaux	Conquest: The Story of A Negro Pioneer	1912	0	0	0	1.8	BBIP		1915	1910	micheaux_conquest_gutenberg_pg39237_Conquest:_The_Story_of_A_Negro_Pioneer
+0.01	0.02	0.01	Jean Toomer	Cane	1923	1	2.4	0	5.5	BBIP		1930	1925	toomer_cane_gutenberg_60093-0_Cane
+0.01	0	0	Willa Cather	O Pioneers!	1913	1.3	14.1	2.889	12.9	pre-1923 LitBank		1913	1913	24_o_pioneers
+0.01	0	0	Zane Grey	Desert Gold	1913	0	1.1	1.3	2	pre-1923 LitBank		1915	1915	502_desert_gold
+0.01	0	0	Ford Madox Ford	The Good Soldier	1915	0.2	82.3	0.5	9.3	pre-1923 LitBank		1910	1915	2775_the_good_soldier
+0.01	0	0	Zane Grey	The Man of the Forest	1919	0	1.1	0	2.3	pre-1923 LitBank		1930	1920	3457_the_man_of_the_forest
+0.01	0	0	Margaret Wilson	The Able McLaughlins	1924	0	0	0	1	Pulitzer		1920	1920	wilson_the_able_mclaughlins_gutenberg_59845-0_The_Able_McLaughlins
+0.01	0	0	Edna Ferber	So Big	1925	0.1	1.2	0	0	Pulitzer		1937	1920	ferberg_so_big_gutenberg_61686-0_So_Big
+0.01	0	0	Louis Bromfield	Early Autumn	1927	0	0.3	0	0	Pulitzer		1922	1930	bromfield_the_louis_bromfield_trilogy_Early_Autumn
+0.01	0.01	0.01	Julia Peterkin	Scarlet Sister Mary	1929	1.6	21.6	5.5	0.8	Pulitzer		1937	1935	peterkin_scarlet_sister_mary_Scarlet_Sister_Mary
+0.01	0.01	0	Margaret Ayer Barnes	Years of Grace	1931	0	0	0	0	Pulitzer		1920	1925	barnes_years_of_grace_Years_of_Grace
+0.01	0.01	0	Caroline Miller	Lamb in His Bosom	1934	0	0.1	0.1	0	Pulitzer		1930	1935	miller_lamb_in_his_bosom_Lamb_in_His_Bosom
+0.01	0	0	John Phillips Marquand	The Late George Apley	1938	0	0.9	0	0	Pulitzer		1916	1917	marquand_the_late_george_apley_The_Late_George_Apley
+0.01	0.01	0	Martin Flavin	Journey in the Dark	1944	0	0	0	0	Pulitzer		1922	1930	flavin_journey_in_the_dark_Journey_in_the_Dark
+0.01	0.01	0	John Hersey	A Bell for Adano	1945	0	0	0	0	Pulitzer		1944	1944	hersey_a_bell_for_adano_A_Bell_for_Adano
+0.01	0.01	0	James A. Michener	Tales of the South Pacific	1948	0	0.9	0	0	Pulitzer		1950	1940	michener_tales_of_the_south_pacific_Tales_of_the_South_Pacific
+0.01	0.01	0	William Faulkner	A Fable	1955	0	0	0	1.9	Pulitzer		1949	1940	faulkner_a_fable_A_Fable
+0.01	0.02	0	Elizabeth Spencer	The Voice At The Back Door	1957	0	0.7	0.4	6.3	Pulitzer		1952	1955	spencer_the_voice_at_the_back_door_The_Voice_At_The_Back_Door
+0.01	0.01	0	James Agee	A Death in the Family	1958	0.4	1.1	0.3	1.8	Pulitzer		1930	1950	agee_a_death_in_the_family_A_Death_in_the_Family
+0.01	0	0	Wallace Stegner	Angle of Repose	1972	0	0.6	0.111	0	Pulitzer		1928	1935	stegner_angle_of_repose_Angle_of_Repose
+0.01	0	0	William Kennedy	Ironweed	1984	0	0.1	0	2	Pulitzer		1970	1980	kennedy_ironweed_Ironweed
+0.01	0.01	0	Anne Tyler	Breathing Lessons	1989	0	0	0	1.8	Pulitzer		1987	1980	tyler_breathing_lessons_Breathing_Lessons
+0.01	0	0	Linda Hogan	Mean Spirit	1991	0	0	0	0	Pulitzer		1955	1950	hogan_mean_spirit_Mean_Spirit
+0.01	0	0	Alice McDermott	At Weddings and Wakes	1993	0	0.4	0	1.2	Pulitzer		1962	1960	mcdermott_at_weddings_and_wakes_At_Weddings_and_Wakes
+0.01	0	0	E. Annie Proulx	The Shipping News	1994	0	1	0.1	2	Pulitzer			1993	proulx_the_shipping_news_The_Shipping_News
+0.01	0.01	0	Philip Roth	American Pastoral	1998	0	1.5	0.2	1.1	Pulitzer		1973	1960	roth_american_pastoral_American_Pastoral
+0.01	0.03	0	Geraldine Brooks	March	2006	0	0	0	2	Pulitzer		1850	1850	brooks_march_March
+0.01	0	0	Jennifer Egan	A Visit From the Goon Squad	2011	0.8	93.9	0.8	1.2	Pulitzer		1998	1993	egan_a_visit_from_the_goon_squad_A_Visit_From_the_Goon_Squad
+0.01	0.02	0.01	Donna Tartt	The Goldfinch	2014	0.1	0.8	0.4	2	Pulitzer		2003	2005	tartt_the_goldfinch_The_Goldfinch
+0.01	0	0.01	Rebecca Makkai	The Great Believers	2019	0	0.1	0	1	Pulitzer		2010	2010	makkai_the_great_believers_The_Great_Believers
+0.01	0	0	Colson Whitehead	The Nickel Boys	2020	0.2	2.5	0	1	Pulitzer		1963	2019	whitehead_the_nickel_boys_The_Nickel_Boys
+0	0	0	Nella Larsen	Quicksand	1928	0.1	1.7	0	4.1	BBIP		1928	1928	larsen_quicksand_Quicksand
+0	0	0	Langston Hughes	Not Without Laughter	1930	0	0.7	0.1	1.6	BBIP		1937	1935	hughes_not_without_laughter_Not_Without_Laughter
+0	0.04	0	Richard Wright	Native Son	1940	1.2	1.9	0.2	1.9	BBIP		1940	1940	wright_native_son_Native_Son
+0	0.01	0	Chester Himes	If He Hollers Let Him Go	1945	0	0.2	0	2	BBIP		1950	1950	himes_if_he_hollers_let_him_go_If_He_Hollers_Let_Him_Go
+0	0	0	Ann Petry	The Street	1946	0	0	0.2	1.1	BBIP		1950	1950	petry_street_The_Street
+0	0	0	Dorothy West	The Living Is Easy	1948	0	0.1	0	0	BBIP		1922	1920	west_the_living_is_easy_The_Living_Is_Easy
+0	0	0	Richard Wright	The Outsider	1953	0	0	0	2	BBIP		1950	1950	wright_the_outsider_The_Outsider
+0	0.01	0	John Oliver Killens	And Then We Heard the Thunder	1963	0	0	0	0	BBIP		1950	1955	killens_and_then_we_heard_the_thunder_And_Then_We_Heard_the_Thunder
+0	0	0	Toni Morrison	*The Bluest Eye	1970	0.1	3.3	0.1	2.2	BBIP		1970	1970	morrison_the_bluest_eye_*The_Bluest_Eye
+0	0	0	Samuel Delany	Dhalgren	1974	0	0.1	0	1.8	BBIP		1970	1975	delaney_dhalgren_Dhalgren
+0	0	0	Alice Walker	Meridian	1976	0.1	0.4	0	2	BBIP		1960	1970	walker_meridian_Meridian
+0	0.01	0	Samuel Delany	Triton	1976	0	0.2	0	1	BBIP		1978	1975	delany_triton_Triton
+0	0	0	Martin Van Peebles	Just An Old Sweet Song	1976	0	0	0	0	BBIP		1978	1975	van_peebles_just_an_old_sweet_song_Just_An_Old_Sweet_Song
+0	0	0	Felix E. Goodson	Sweet Salt	1976	0	0	0	0	BBIP		1952	1955	goodson_sweet_salt_Sweet_Salt
+0	0	0	Octavia Butler	Mind of My Mind	1977	0	0	0	4	BBIP		1968	1977	butler_seed_to_harvest_Mind_of_My_Mind
+0	0	0	Charles Pugh	The Hospital Plot	1979	0	0	0	0	BBIP		1975	1970	pugh_the_hospital_plot_The_Hospital_Plot
+0	0	0	Octavia Butler	Wild Seed	1980	0	0.4	0	3.1	BBIP		1976	1979	butler_seed_to_harvest_Wild_Seed
+0	0	0	Samuel Delany	Distant Stars	1981	0	1.1	0	0.6	BBIP		1955	1965	delany_distant_stars_Distant_Stars
+0	0	0	Toni Morrison	Tar Baby	1981	0.1	0.9	0	2	BBIP		1978	1950	morrison_tar_baby_Tar_Baby
+0	0	0	Gloria Naylor	The Women of Brewster Place	1982	2.3	1680.1	39.4	5.2	BBIP		1930	1950	naylor_women_of_brewster_place_The_Women_of_Brewster_Place
+0	0	0	Samuel Delany	Neveryona, or, the Tale of Signs and Cities	1982	0	0.1	0	1.2	BBIP		Unknown (There is not enough information in the passage to make a prediction of the year)	1975	delany_neveryona_Neveryona,_or,_the_Tale_of_Signs_and_Cities
+0	0.01	0	Odie Hawkins	Chicago Hustle	1983	0	0	0	0	BBIP		1970	1970	hawkins_chicago_hustle_Chicago_Hustle
+0	0	0	Octavia Butler	Adulthood Rites	1988	0.1	0.5	0	3.7	BBIP		2025	1984	butler_adulthood_rites_Adulthood_Rites
+0	0	0	Samuel Delany	Return to Neveryon	1989	0	12700	0.4	1.4	BBIP		1982	1965	delany_return_to_neveryon_Return_to_Neveryon
+0	0.01	0	Colson Whitehead	The Intuitionist	1999	0	1	0	2	BBIP		2000	1999	whitehead_intuitionist_The_Intuitionist
+0	0	0	Tayari Jones	Leaving Atlanta	2002	0	0	0	0	BBIP		1981	1985	jones_leaving_atlanta_Leaving_Atlanta
+0	0	0	Suzan-Lori Park	Getting Mother's Body	2003	0	0	0	1	BBIP		1970	1975	parks_getting_mothers_body_Getting_Mother_s_Body
+0	0	0	Walter Mosley	RL's Dream	1995	0	0	0	2	BCALA		1968	1980	mosley_rls_dream_RL_s_Dream
+0	0	0	Valerie Wilson Wesley	Ain't Nobody's Business If I Do	1999	0	0	0	0	BCALA		1975	1980	wesley_aint_nobodys_business_if_i_do_Ain_t_Nobody_s_Business_If_I_Do
+0	0	0	Diane McKinney-Whetstone	Leaving Cecil Street	2004	0	0	0	0	BCALA		Unknown (The passage does not provide enough context to make a prediction of the year.)	1985	mckinney_whetstone_leaving_cecil_street_Leaving_Cecil_Street
+0	0.02	0	Martha Southgate	Third Girl From the Left	2005	0	0.1	0	0	BCALA		1952	1950	southgate_third_girl_from_the_left_Third_Girl_From_the_Left
+0	0	0	Stephen L. Carter	New England White	2007	0	0.1	0	0.9	BCALA		2010	2000	carter_new_england_white_New_England_White
+0	0	0	Diane McKinney-Whetstone	Trading Dreams at Midnight	2008	0	0	0.1	0	BCALA		1998	1995	mckinney_whetstone_trading_dreams_at_midnight_Trading_Dreams_at_Midnight
+0	0.01	0	Bernice L. McFadden	Glorious	2010	0	0	0	0	BCALA		1960	1960	mcfadden_glorious_Glorious
+0	0	0	Tayari Jones	Silver Sparrow	2011	0	0.1	0	1	BCALA		2010	2000	jones_silver_sparrow_Silver_Sparrow
+0	0.01	0.02	Leonard Pitts	Freeman	2012	0	0	0	0	BCALA			2018	pitts_freeman_Freeman
+0	0.01	0	Lalita Tademy	Citizens Creek	2014	0	0	0	0	BCALA		Unknown (insufficient information to make a prediction)	1980	tademy_citizens_creek_Citizens_Creek
+0	0	0	Toni Morrison	God Help the Child	2015	0.1	0.6	0	1	BCALA		Unknown (There is not enough information in the passage to make a prediction of the year.)	2015	morrison_god_help_the_child_God_Help_the_Child
+0	0	0	Anne Douglas Sedgwick	The Little French Girl	1924	0	0	0	0	Bestsellers		1920	1920	sedgwick_the_little_french_girl_The_Little_French_Girl
+0	0	0	Viña Delmar	Bad Girl	1928	0	0.1	0	0	Bestsellers		1930	1920	delmar_bad_girl_Bad_Girl
+0	0	0	Hervey Allen	Anthony Adverse	1933	0	0.6	0	0	Bestsellers		1922	1925	allen_anthony_adverse_Anthony_Adverse
+0	0.01	0	Rebecca West	The Thinking Reed	1936	0	0	0	3	Bestsellers		1924	1936	west_the_thinking_reed_The_Thinking_Reed
+0	0	0	Lloyd C. Douglas	The Robe	1943	0.4	0.7	0	2.6	Bestsellers		Unknown (as the passage does not provide enough information to make a prediction)	1942	douglas_the_robe_The_Robe
+0	0	0.01	Lillian Smith	Strange Fruit	1944	0	0	0	0	Bestsellers		1955	1948	smith_strange_fruit_Strange_Fruit
+0	0.01	0.01	Daphne du Maurier	The King's General	1946	0	0	0	0.8	Bestsellers		1642	1940	dumaurier_the_kings_general_The_King_s_General
+0	0	0	James Jones	From Here to Eternity	1951	0.2	0.4	0	1	Bestsellers		1951	1951	jones_from_here_to_eternity_From_Here_to_Eternity
+0	0	0	Marcia Davenport	The Constant Image	1960	0	0	0	0	Bestsellers		1922	1920	davenport_the_constant_image_The_Constant_Image
+0	0.01	0	Morris West	The Shoes of the Fisherman	1963	0	0	0	0	Bestsellers		1960	1960	west_shoes_of_the_fisherman_The_Shoes_of_the_Fisherman
+0	0	0	Helen MacInnes	The Double Image	1966	0	0	0	1	Bestsellers		1962	1955	macinnes_double_image_The_Double_Image
+0	0	0	Helen MacInnes	The Salzburg Connection	1968	0	0	0	0.9	Bestsellers		1960	1950	macinnes_salzburg_connection_The_Salzburg_Connection
+0	0	0	Taylor Caldwell	Captains and the Kings	1972	0	0	0	0	Bestsellers		1950	1950	caldwell_captains_and_kings_Captains_and_the_Kings
+0	0	0	Judith Krantz	Scruples	1978	0	0	0	0.2	Bestsellers		1930	1950	krantz_scruples_Scruples
+0	0	0	Robert Ludlum	The Matarese Circle	1979	0	0.3	0	1	Bestsellers		1984	1979	ludlum_materese_circle_The_Matarese_Circle
+0	0.02	0	Judith Krantz	Princess Daisy	1980	0.1	0.2	0	0.2	Bestsellers		1950	1960	krantz_princess_daisy_Princess_Daisy
+0	0	0	Judith Krantz	Mistral's Daughter	1982	0.2	0.7	0.5	0.5	Bestsellers		1952	1980	krantz_mistrals_daughter_Mistral_s_Daughter
+0	0	0	Danielle Steel	Zoya	1988	0.2	0.2	0	0.9	Bestsellers		1917	1917	steel_zoya_Zoya
+0	0.01	0	John Grisham	The Partner	1997	0	0.6	0	1	Bestsellers		1989	1991	grisham_the_partner_The_Partner
+0	0	0	Toni Morrison	Paradise	1998	0	1.6	0	1	Bestsellers		1938	1950	morrison_paradise_Paradise
+0	0	0	John Grisham	The Testament	1999	0.2	1.2	0.1	1	Bestsellers		2010	1996	grisham_the_testament_The_Testament
+0	0	0	Alex Michaelides	The Silent Patient	2019	1.1	13.4	0.8	2	Bestsellers		2018	2010	michaelides_the_silent_patient_The_Silent_Patient
+0	0	0	Jim Thompson	The Killer Inside Me	1952	0	0	0.1	1.2	Genre Fiction	Mystery/Crime	1951	1950	thompson_the_killer_inside_me_The_Killer_Inside_Me
+0	0	0	Anya Seton	Katherine	1954	0	0	0	0	Genre Fiction	Romance	14th century (as the passage describes a jousting tournament during the time of the Plantagenet dynasty, which ruled England from the 12th to the 15th century)	1950	seton_katherine_Katherine
+0	0	0	Jack Finney	Invasion of the Body Snatchers	1955	0	0.1	0	2	Genre Fiction	Horror	1955	1955	finney_invasion_of_the_body_snatchers_Invasion_of_the_Body_Snatchers
+0	0	0	Georgette Heyer	Frederica	1965	0.1	0.1	0	1	Genre Fiction	Romance	Regency era (early 19th century)	1950	heyer_frederica_Frederica
+0	0	0	Frederick Forsyth	The Day of the Jackal	1971	0.1	1.8	0.1	3.6	Genre Fiction	Action/Spy	1958	1965	forsyth_the_day_of_the_jackal_The_Day_of_the_Jackal
+0	0	0	P. D. James	An Unsuitable Job for a Woman	1972	0	0.3	0	0.9	Genre Fiction	Mystery/Crime	1960	1980	james_an_unsuitable_job_for_a_woman_An_Unsuitable_Job_for_a_Woman
+0	0	0	Anne Rivers Siddons	The House Next Door	1978	0	1	0.111	0.9	Genre Fiction	Horror	1960	1965	siddons_the_house_next_door_The_House_Next_Door
+0	0.02	0	Tom Clancy	Patriot Games	1987	0	0.6	0.1	2.3	Genre Fiction	Action/Spy	1984	1984	clancy_patriot_games_Patriot_Games
+0	0.01	0	Julie Garwood	The Bride	1989	0.1	0.3	0	2	Genre Fiction	Romance	1950	1985	garwood_the_bride_The_Bride
+0	0	0	Richard Price	Clockers	1992	0	0	0	2.9	Genre Fiction	Mystery/Crime	2013	1995	price_clockers_Clockers
+0	0	0	Nicholas Sparks	The Notebook	1996	0	2.1	0.222	2.3	Genre Fiction	Romance	2010	1985	sparks_the_notebook_The_Notebook
+0	0	0	Octavia E. Butler	Parable of the Talents	1998	0	0.5	0.1	3	Genre Fiction	SF/Fantasy	1930	1980	butler_parable_of_the_talents_Parable_of_the_Talents
+0	0	0	Stella Rimington	At Risk	2004	0.3	0.7	0.2	1	Genre Fiction	Action/Spy	2010	2005	rimington_at_risk_At_Risk
+0	0	0.01	Jojo Moyes	Me Before You	2012	0.8	19402	29.6	6	Genre Fiction	Romance	2012	2010	moyes_me_before_you_Me_Before_You
+0	0	0	Sylvia Day	Bared to You	2012	0.1	3.5	1	1	Genre Fiction	Romance	2012	2012	day_bared_to_you_Bared_to_You
+0	0	0	Colleen Hoover	It Ends with Us	2016	0.4	4.7	0	1	Genre Fiction	Romance	2021	2015	hoover_it_ends_with_us_It_Ends_with_Us
+0	0	0	Kate Quinn	The Alice Network	2017	0	1.1	0	2	Genre Fiction	Action/Spy	2018	2010	quinn_the_alice_network_The_Alice_Network
+0	0	0	N.K. Jemisin	The Stone Sky	2017	0.1	0.4	0.1	0.9	Genre Fiction	SF/Fantasy	Unknown (This passage appears to be from a work of fiction set in a fictional world, so it is impossible to predict a specific year.)	2015	jemisin_the_stone_sky_The_Stone_Sky
+0	0	0	Mulk Raj Anand	Coolie	1936	0	0.4	0	1.6	Global	Asia	1940	1936	anand_coolie_Coolie
+0	0	0	C. L. R. James	Minty Alley	1936	0	0	0	0.1	Global	Americas	1920	1935	james_minty_alley_Minty_Alley
+0	0	0	D'Arcy Niland	The Shiralee	1955	0	0	0	0	Global	Oceania	1930	1950	niland_the_shiralee_The_Shiralee
+0	0	0	V. S. Naipaul	A House for Mr. Biswas	1967	0.1	2.6	0	0.9	Global	Americas	1961	1961	naipaul_a_house_for_mr_biswas_A_House_for_Mr._Biswas
+0	0	0	Alice Munro	Lives of Girls and Women	1971	0	1.2	0	2.1	Global	Americas	1960	1965	munro_lives_of_girls_and_women_Lives_of_Girls_and_Women
+0	0	0	Helen Garner	Monkey Grip	1977	0.1	0.4	0	2	Global	Oceania	1984	1985	garner_monkey_grip_Monkey_Grip
+0	0	0	Albert Wendt	Pouliuli	1977	0	0	0	0	Global	Oceania	Uncertain (The passage does not provide enough context to make a prediction of the year)	1970	wendt_pouliuli_Pouliuli
+0	0	0	Jennifer Johnston	Shadows on our Skin	1977	0	0	0	0	Global	Europe	1960	1985	johnston_shadows_on_our_skin_Shadows_on_our_Skin
+0	0	0	Anita Desai	Clear Light of Day	1980	0	1.5	0	2.1	Global	Asia	1952	1980	desai_the_clear_light_of_day_Clear_Light_of_Day
+0	0	0	Earl Lovelace	The Wine of Astonishment	1982	0	1	0	0	Global	Americas	1940	1960	lovelace_the_wine_of_astonishment_The_Wine_of_Astonishment
+0	0.01	0	Mudrooroo	Doctor Wooreddy's Prescription for Enduring the Ending of the World	1983	0	0	0	0	Global	Oceania	1830	1950	mudrooroo_doctor_wooreddys_prescription_Doctor_Wooreddy_s_Prescription_for_Enduring_the_Ending_of_the_World
+0	0	0	Tsitsi Dangarembga	Nervous Conditions	1988	0.2	0.8	0	0	Global	Africa	1988	1988	dangarembga_nervous_conditions_Nervous_Conditions
+0	0	0	David Malouf	The Great World	1990	0	0.1	0	1	Global	Oceania	1978	1985	malouf_the_great_world_The_Great_World
+0	0	0	Mahasweta Devi	Imaginary Maps	1995	0.3	2.2	0	0	Global	Asia	1960	1970	devi_imaginary_maps_Imaginary_Maps
+0	0	0	Figiel Sia	Where We Once Belonged	1996	0	0	0	0	Global	Oceania	Uncertain (The passage does not provide enough context to make a prediction of a specific year.)	1980	figiel_where_we_once_belonged_Where_We_Once_Belonged
+0	0	0	Robert Barclay	Melal: A Novel of the Pacific	2002	0	56300	1	1.1	Global	Oceania	1954	1985	barclay_melal_Melal:_A_Novel_of_the_Pacific
+0	0	0	Patricia Powell	A Small Gathering of Bones	2003	0	0	0	0	Global	Americas	1978	1978	powell_a_small_gathering_of_bones_A_Small_Gathering_of_Bones
+0	0	0	Sefi Atta	Everything Good Will Come	2005	0	0.7	0.1	2	Global	Africa	2006	2000	atta_everything_good_will_come_Everything_Good_Will_Come
+0	0	0	Aleksandar Hemon	The Lazarus Project	2006	0	0.3	0	1	Global	Europe	1920	1920	hemon_the_lazarus_project_The_Lazarus_Project
+0	0	0	Yiyun Li	The Vagrants	2009	0.2	0.4	0	0.1	Global	Asia	1968	1985	li_the_vagrants_The_Vagrants
+0	0	0	Aminatta Forna	The Memory of Love	2010	0	0	0	0	Global	Europe	1980	1985	forna_the_memory_of_love_The_Memory_of_Love
+0	0	0	Helon Habila	Oil on Water	2011	0	1	0	1.8	Global	Africa	1998	2010	habila_oil_on_water_Oil_on_Water
+0	0	0	Eleanor Catton	The Luminaries	2013	0	0.1	0.1	0.9	Global	Oceania	1865	2013	catton_the_luminaries_The_Luminaries
+0	0	0	Neel Mukherjee	The Lives of Others	2014	0	0.2	0	2	Global	Asia	1978	1985	mukherjee_the_lives_of_others_The_Lives_of_Others
+0	0.02	0	Mrs. Rowson	Charlotte Temple	1791	0.8	3.8	1.7	3.2	pre-1923 LitBank		1794	1791	171_charlotte_temple
+0	0.01	0	Horatio, Jr. Alger	Adrift in New York: Tom and Florence Braving the World	1904	0	1.9	0.6	0.7	pre-1923 LitBank		1885	1890	18581_adrift_in_new_york_tom_and_florence_braving_the_world
+0	0	0	P. G. (Pelham Grenville) Wodehouse	Piccadilly Jim	1919	0	0.8	0	3.4	pre-1923 LitBank		1920	1920	2005_piccadilly_jim
+0	0	0.01	Josephine Winslow Johnson	Now in November	1935	0	0	0	0	Pulitzer		1930	1950	johnson_now_in_november_Now_in_November
+0	0	0	Jr. A. B. Guthrie	The Way West	1950	0	0.4	0	0	Pulitzer		1851	1950	guthrie_the_way_west_The_Way_West
+0	0	0	Conrad Richter	The Town	1951	0	0.1	0	0	Pulitzer		1930	1930	richter_the_town_The_Town
+0	0	0	May Sarton	Joanna and Ulysses	1964	0	0	0	0	Pulitzer		1950	1950	sarton_joanna_and_ulysses_Joanna_and_Ulysses
+0	0	0	Shirley Ann Grau	The Keepers of the House	1965	0	0.1	0	1	Pulitzer		1952	1950	grau_the_keepers_of_the_house_The_Keepers_of_the_House
+0	0	0	Katherine Anne Porter	The Collected Stories of Katherine Anne Porter	1966	0.2	1.6	0	3.7	Pulitzer		1930	1950	porter_the_collected_stories_of_katherine_anne_porter_The_Collected_Stories_of_Katherine_Anne_Porter
+0	0.01	0	Bernard Malamud	The Fixer	1967	0	0.2	0	2	Pulitzer		1940	1966	melamud_the_fixer_The_Fixer
+0	0	0	N. Scott Momaday	House Made of Dawn	1969	0	1.9	0	3	Pulitzer		1962	1955	momaday_house_made_of_dawn_House_Made_of_Dawn
+0	0	0	Jean Stafford	The Collected Stories of Jean Stafford	1970	0	0.4	0.1	3.1	Pulitzer		1950	1950	stafford_the_collected_stories_of_jean_stafford_The_Collected_Stories_of_Jean_Stafford
+0	0	0	Eudora Welty	The Optimist's Daughter	1973	0	1.3	0	2.1	Pulitzer		1950	1950	welty_the_optimists_daughter_The_Optimist_s_Daughter
+0	0	0	Saul Bellow	Humboldt's Gift	1976	0.1	0.8	0	0.8	Pulitzer		1968	1965	bellow_humboldts_gift_Humboldt_s_Gift
+0	0	0.01	James Alan McPherson	Elbow Room	1978	0.1	0.7	0.2	0.3	Pulitzer		1965	1977	mcpherson_elbow_room_Elbow_Room
+0	0	0	Norman Mailer	The Executioner's Song	1980	0	0	0	1	Pulitzer		1960	1970	mailer_executioners_song_The_Executioner_s_Song
+0	0	0	Alison Lurie	Foreign Affairs	1985	0	0	0	2	Pulitzer		1960	1965	lurie_foreign_affairs_Foreign_Affairs
+0	0	0	Anne Tyler	The Accidental Tourist	1986	0.3	1.1	0.222	1.1	Pulitzer		1985	1985	tyler_the_accidental_tourist_The_Accidental_Tourist
+0	0	0	Jane Smiley	A Thousand Acres	1992	0	0.3	0	0	Pulitzer		1950	1985	smiley_a_thousand_acres_A_Thousand_Acres
+0	0.01	0	Carol Shields	The Stone Diaries	1995	0.1	0.4	0	3	Pulitzer		1952	1980	shields_the_stone_diaries_The_Stone_Diaries
+0	0.01	0	Richard Ford	Independence Day	1996	0	0.2	0	3	Pulitzer		2010	1990	ford_independence_day_Independence_Day
+0	0	0	Joanna Scott	The Manikin	1997	0	0	0	2	Pulitzer		Cannot predict without more context as there is no clear indication of time period.	1985	scott_the_manikin_The_Manikin
+0	0	0	Jhumpa Lahiri	Interpreter of Maladies	2000	1.7	751.8	5.8	0.8	Pulitzer		2003	2000	lahiri_interpreter_of_maladies_Interpreter_of_Maladies
+0	0	0	Joyce Carol Oates	Blonde	2001	0	0.5	0	1.8	Pulitzer		1949	1955	oates_blonde_Blonde
+0	0	0.01	Andrea Barrett	Servants of the Map: Stories	2003	0	0	0	1	Pulitzer		Unknown (no specific year mentioned in the passage)	1880	barrett_servants_of_the_map_Servants_of_the_Map:_Stories
+0	0	0	Colson Whitehead	The Underground Railroad	2017	1.4	5.5	1	0.1	Pulitzer		1850	2016	whitehead_the_underground_railroad_The_Underground_Railroad
+0	0	0	Hernan Diaz	In the Distance	2018	0	0.1	0	1	Pulitzer		1920	1950	diaz_in_the_distance_In_the_Distance
