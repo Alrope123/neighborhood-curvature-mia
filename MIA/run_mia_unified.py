@@ -338,7 +338,7 @@ def get_lira(text):
             lls =  -base_model(**tokenized, labels=labels).loss.item()
             lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
 
-            return lls - lls_ref
+            return lls, lls - lls_ref
 
 def get_lls(texts):
     if not args.openai_model:
@@ -643,17 +643,21 @@ def run_baseline_threshold_experiment(criterion_fn, name, n_samples=500):
     results = {
         "nonmember": [],
         "nonmember_crit": [],
+        "nonmember_lls": [],
         "nonmember_meta": [],
         "member": [],
         "member_crit": [],
+        "member_lls": [],
         "member_meta": []
     }
     for batch in tqdm.tqdm(range(len(data["nonmember"]) // batch_size + 1), desc=f"Computing {name} criterion for nonmember group"):
         original_text = data["nonmember"][batch * batch_size:(batch + 1) * batch_size]
         original_meta = data["nonmember_metadata"][batch * batch_size:(batch + 1) * batch_size]
         for idx in range(len(original_text)):
+            lls, crit = criterion_fn(original_text[idx])
             results["nonmember"].append(original_text[idx])
-            results["nonmember_crit"].append(criterion_fn(original_text[idx]))
+            results["nonmember_crit"].append(crit)
+            results["nonmember_lls"].append(lls)
             results["nonmember_meta"].append(original_meta[idx])
 
 
@@ -661,8 +665,10 @@ def run_baseline_threshold_experiment(criterion_fn, name, n_samples=500):
         sampled_text = data["member"][batch * batch_size:(batch + 1) * batch_size]
         sampled_meta = data["member_metadata"][batch * batch_size:(batch + 1) * batch_size]
         for idx in range(len(sampled_text)):
+            lls, crit = criterion_fn(sampled_text[idx])
             results["member"].append(sampled_text[idx])
-            results["member_crit"].append(criterion_fn(sampled_text[idx]))
+            results["member_crit"].append(crit)
+            results["member_lls"].append(lls)
             results["member_meta"].append(sampled_meta[idx])
 
     # compute prediction scores for real/sampled passages
@@ -710,20 +716,15 @@ def generate_samples(raw_data_member, raw_data_non_member, meta_member, meta_non
     }
 
     for batch in range(len(raw_data_non_member) // batch_size + 1):
-        print('Generating samples for batch', batch, 'of', len(raw_data_non_member) // batch_size + 1)
+        # print('Generating samples for batch', batch, 'of', len(raw_data_non_member) // batch_size + 1)
         non_member_text = raw_data_non_member[batch * batch_size:(batch + 1) * batch_size]
         non_member_meta = meta_non_member[batch * batch_size:(batch + 1) * batch_size]
-        #     if args.tok_by_tok:
-        #         for tok_cnt in range(len(o.split(' '))):
-
-        #             data["nonmember"].append(' '.join(o.split(' ')[:tok_cnt+1]))
-        #             data["member"].append(' '.join(s.split(' ')[:tok_cnt+1]))
         assert len(non_member_text) == len(non_member_meta)
         for o, om in zip(non_member_text, non_member_meta):
             data["nonmember"].append(o)
             data["nonmember_metadata"].append(om)
     for batch in range(len(raw_data_member) // batch_size + 1):
-        print('Generating samples for batch', batch, 'of', len(raw_data_non_member) // batch_size + 1)
+        # print('Generating samples for batch', batch, 'of', len(raw_data_member) // batch_size + 1)
         member_text = raw_data_member[batch * batch_size:(batch + 1) * batch_size]
         member_meta = meta_member[batch * batch_size:(batch + 1) * batch_size]
         assert len(member_text) == len(member_meta)
