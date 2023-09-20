@@ -1112,8 +1112,15 @@ if __name__ == '__main__':
 
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
-    
-    longest_tokenizable_len = min([base_model.config.max_position_embeddings, ref_model.config.n_positions])
+    try:
+        base_model_n_position = base_model.config.max_position_embeddings
+    except AttributeError:
+        base_model_n_position = base_model.config.n_positions
+    try:
+        ref_model_n_position = ref_model.config.max_position_embeddings
+    except AttributeError:
+        ref_model_n_position = ref_model.config.n_positions
+    longest_tokenizable_len = min(base_model_n_position, ref_model_n_position)
     print(f'The longest tokenizable length of is {longest_tokenizable_len}.')
 
     data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=True, 
