@@ -185,7 +185,7 @@ if __name__ == '__main__':
             best_auc = -1
             all_results = {}
 
-            for top_k in [1, 3, 5, 10, 30, 50]:
+            for top_k in generate_topk_array(max_top_k):
                 cur_member_predictions = []
                 cur_nonmember_predictions = []
                 if loss == 'mia':
