@@ -334,9 +334,11 @@ def get_lira(text):
             tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels = tokenized.input_ids
             assert len(labels) <= longest_tokenizable_len, len(labels)
+            assert max(labels) < longest_tokenizable_len and min(labels) > 0
             tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels_ref = tokenized_ref.input_ids
             assert len(labels_ref) <= longest_tokenizable_len, len(labels_ref)
+            assert max(labels_ref) < longest_tokenizable_len and min(labels_ref) > 0
             lls =  -base_model(**tokenized, labels=labels).loss.item()
             lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
 
@@ -879,7 +881,7 @@ def load_base_model_and_tokenizer(name):
         optional_tok_kwargs['padding_side'] = 'left'
     base_tokenizer = transformers.AutoTokenizer.from_pretrained(name, **optional_tok_kwargs, cache_dir=cache_dir)
     base_tokenizer.pad_token_id = base_tokenizer.eos_token_id
-
+    print("PAD TOKEN ID is: {}".format(base_tokenizer.pad_token_id))
     return base_model, base_tokenizer
 
 
