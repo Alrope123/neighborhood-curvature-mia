@@ -1,0 +1,1 @@
+{"1": {"ROC AUC": 0.5914000000000001, "Group size": 100}, "3": {"ROC AUC": 0.5961000000000001, "Group size": 100}, "5": {"ROC AUC": 0.5938, "Group size": 100}, "10": {"ROC AUC": 0.5996, "Group size": 100}, "30": {"ROC AUC": 0.7603000000000001, "Group size": 100}, "best": {"top k": 30, "ROC AUC": 0.7603000000000001}, "individual ROC AUC": 0.5663531804295615}
