@@ -125,10 +125,11 @@ if __name__ == '__main__':
     member_predictions = result[member_key]
     if len(nonmember_predictions) > len(member_predictions):
         nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
-    _, _, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
+    fpr, tpr, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
     save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{args.key}", 0.05, SAVE_FOLDER)
     print("Individual AUC-ROC with {}: {}".format(args.key, individual_roc_auc))
+    save_roc_curves("Individual_with_{}".format(args.key), fpr, tpr, individual_roc_auc, SAVE_FOLDER)
 
     info_to_group = {}
     for group, infos in group_to_documents.items():
@@ -232,5 +233,5 @@ if __name__ == '__main__':
             with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
                 json.dump(all_results, f)
 
-            save_roc_curves("neo-3b", best_fpr, best_tpr, best_auc, SAVE_FOLDER)
+            save_roc_curves("{}-{}-{}".format(loss, args.key, method), best_fpr, best_tpr, best_auc, SAVE_FOLDER)
             
