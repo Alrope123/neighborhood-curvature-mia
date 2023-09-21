@@ -58,7 +58,7 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
     plt.ylabel('True Positive Rate')
     plt.title(f'ROC Curves')
     plt.legend(loc="lower right", fontsize=6)
-    plt.savefig(f"{SAVE_FOLDER}/roc_curves.png")
+    plt.savefig(f"{SAVE_FOLDER}/roc_curves_{name}.png")
 
 
 def calculate_group_loss(losses, method, top_k):
@@ -210,6 +210,7 @@ if __name__ == '__main__':
                 cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
                 fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
                 save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.02, SAVE_FOLDER)
+                save_roc_curves("group_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
                 all_results[top_k] = {
                     "ROC AUC": roc_auc,
                     "Group size": len(cur_member_predictions)
@@ -233,5 +234,4 @@ if __name__ == '__main__':
             with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
                 json.dump(all_results, f)
 
-            save_roc_curves("{}-{}-{}".format(loss, args.key, method), best_fpr, best_tpr, best_auc, SAVE_FOLDER)
             
