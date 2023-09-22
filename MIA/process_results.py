@@ -210,7 +210,7 @@ if __name__ == '__main__':
 
                     if args.key != 'bff':
                         for group, predictions in cur_group_results_members.items():
-                            group_loss = calculate_group_loss(predictions, aggregated_method, top_s)
+                            group_loss = calculate_group_loss(predictions, aggregated_method, direction, top_s)
                             cur_member_predictions.append(group_loss)
                             cur_member_individual_predictions.extend(predictions)
                             cur_member_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
