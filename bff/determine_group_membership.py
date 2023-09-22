@@ -137,10 +137,10 @@ def main(args):
                     save_path=os.path.join(save_dir, 'membership_distribution.png'), bins=20, x_interval=0.05)
     if data_type.startswith("rpj-arxiv"):
         draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-07-32", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=50)
+                                save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=50)
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
 
     with open(membership_info_path, "wb") as f:
         pkl.dump(membership_info, f)
