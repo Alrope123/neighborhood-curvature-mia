@@ -61,9 +61,9 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
     plt.savefig(f"{SAVE_FOLDER}/roc_curves_{name}.png")
 
 
-def calculate_group_loss(losses, method, top_k):
-    if method == 'mean':
-        return np.mean(sorted(losses, reverse=False)[:top_k])
+def calculate_group_loss(losses, aggregated_method, direction, top_s):
+    if aggregated_method == 'mean':
+        return np.mean(sorted(losses, reverse=direction == "min")[:top_s])
     else:
         raise NotImplementedError("The aggregation method is not supported.")
 
@@ -175,94 +175,111 @@ if __name__ == '__main__':
     print("Average # document in nonmember group: {}/{}".format(np.mean([len(members) for _, members in group_results_nonmembers.items()]), np.std([len(members) for _, members in group_results_nonmembers.items()])))
 
     ROOT_SAVE_FOLDER = SAVE_FOLDER
-    for loss in ['bff', 'mia']:
-        for method in ['mean']:
-            SAVE_FOLDER = os.path.join(ROOT_SAVE_FOLDER, "{}-{}-{}".format(loss, args.key, method))
+    for aggregated_method in ['mean']:
+        for direction in ['max', "min"]:
+            method = f"{aggregated_method}-{direction}"
+            SAVE_FOLDER = os.path.join(ROOT_SAVE_FOLDER, "{}-{}".format(args.key, method))
             if not os.path.exists(SAVE_FOLDER):
                 os.mkdir(SAVE_FOLDER)
             
-            best_k = None
-            best_fpr = None
-            best_tpr = None
-            best_auc = -1
-            all_results = {}
 
-            for top_k in generate_topk_array(max_top_k):
-                cur_member_predictions = []
-                cur_nonmember_predictions = []
+            for k in generate_topk_array(max_top_k):
+                # Randomly k documents from each group 
+                cur_group_results_members = {}
+                cur_group_results_nonmembers = {}
+                for group, predictions in group_results_members.items():
+                    random.shuffle(predictions)
+                    cur_group_results_members[group] = predictions[:k]
+                for group, predictions in group_results_nonmembers.items():
+                    random.shuffle(predictions)
+                    cur_group_results_nonmembers[group] = predictions[:k]
 
-                cur_member_individual_predictions = []
-                cur_nonmember_individual_predictions = []
-                cur_member_individual_predictions_with_set_label = []
-                cur_nonmember_individual_predictions_with_set_label = []
+                best_s = None
+                best_fpr = None
+                best_tpr = None
+                best_auc = -1
+                all_results = {}
+                for top_s in generate_topk_array(k):
+                    cur_member_predictions = []
+                    cur_nonmember_predictions = []
 
-                if loss == 'mia':
-                    for group, predictions in group_results_members.items():
-                        group_loss = calculate_group_loss(predictions, method, top_k)
-                        cur_member_predictions.append(group_loss)
-                        cur_member_individual_predictions.extend(predictions)
-                        cur_member_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
-                    for group, predictions in group_results_nonmembers.items():
-                        group_loss = calculate_group_loss(predictions, method, top_k)
-                        cur_nonmember_predictions.append(group_loss)
-                        cur_nonmember_individual_predictions.extend(predictions)
-                        cur_nonmember_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
-                elif loss == 'bff':
-                    for group, predictions in group_results_members.items():
-                        scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
-                        group_loss = calculate_group_loss(scores, method, top_k)
-                        cur_member_predictions.append(group_loss)
-                        cur_member_individual_predictions.extend(predictions)
-                        cur_member_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
-                    for group, predictions in group_results_nonmembers.items():
-                        scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
-                        group_loss = calculate_group_loss(scores, method, top_k)
-                        cur_nonmember_predictions.append(group_loss)
-                        cur_nonmember_individual_predictions.extend(predictions)
-                        cur_nonmember_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
+                    cur_member_individual_predictions = []
+                    cur_nonmember_individual_predictions = []
+                    cur_member_individual_predictions_with_set_label = []
+                    cur_nonmember_individual_predictions_with_set_label = []
+
+                    if args.key != 'bff':
+                        for group, predictions in cur_group_results_members.items():
+                            group_loss = calculate_group_loss(predictions, aggregated_method, top_s)
+                            cur_member_predictions.append(group_loss)
+                            cur_member_individual_predictions.extend(predictions)
+                            cur_member_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
+                        for group, predictions in cur_group_results_nonmembers.items():
+                            group_loss = calculate_group_loss(predictions, aggregated_method, direction, top_s)
+                            cur_nonmember_predictions.append(group_loss)
+                            cur_nonmember_individual_predictions.extend(predictions)
+                            cur_nonmember_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
+                    else:
+                        for group, predictions in cur_group_results_members.items():
+                            scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
+                            group_loss = calculate_group_loss(scores, aggregated_method, direction, top_s)
+                            cur_member_predictions.append(group_loss)
+                            cur_member_individual_predictions.extend(predictions)
+                            cur_member_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
+                        for group, predictions in cur_group_results_nonmembers.items():
+                            scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
+                            group_loss = calculate_group_loss(scores, aggregated_method, direction, top_s)
+                            cur_nonmember_predictions.append(group_loss)
+                            cur_nonmember_individual_predictions.extend(predictions)
+                            cur_nonmember_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
+                    
+                    random.shuffle(cur_member_predictions)
+                    random.shuffle(cur_nonmember_predictions)
+                    sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
+                    cur_member_predictions = cur_member_predictions[:sample_size]
+                    cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
+                    fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
+                    # save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.02, SAVE_FOLDER)
+                    # save_roc_curves("group_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
+                    
+                    assert len(cur_member_individual_predictions) == len(cur_nonmember_individual_predictions)
+                    fpr, tpr, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
+                    # save_ll_histograms(cur_member_individual_predictions, cur_nonmember_individual_predictions, "individual", 0.05, SAVE_FOLDER)
+                    # save_roc_curves("individual", fpr, tpr, roc_auc, SAVE_FOLDER)
+
+                    assert len(cur_member_individual_predictions_with_set_label) == len(cur_nonmember_individual_predictions_with_set_label)
+                    fpr, tpr, individual_roc_auc_set = get_roc_metrics(cur_nonmember_individual_predictions_with_set_label, cur_member_individual_predictions_with_set_label)
+                    # save_ll_histograms(cur_member_individual_predictions_with_set_label, cur_nonmember_individual_predictions_with_set_label, "individual_top-k={}".format(top_k), 0.05, SAVE_FOLDER)
+                    # save_roc_curves("individual_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
+
+                    if k not in all_results:
+                        all_results[k] = {}
+                    all_results[k][top_s] = {
+                        "ROC AUC": roc_auc,
+                        "Group size": len(cur_member_predictions),
+                        "ROC AUC Individual": individual_roc_auc_,
+                        "ROC AUC Individual with set label": individual_roc_auc_set
+                    }
+                    if roc_auc > best_auc:
+                        best_s = top_s
+                        best_auc = roc_auc
+                        best_fpr = fpr
+                        best_tpr = tpr
                 
-                random.shuffle(cur_member_predictions)
-                random.shuffle(cur_nonmember_predictions)
-                sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
-                cur_member_predictions = cur_member_predictions[:sample_size]
-                cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
-                fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
-                save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.02, SAVE_FOLDER)
-                save_roc_curves("group_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
-                
-                assert len(cur_member_individual_predictions) == len(cur_nonmember_individual_predictions)
-                fpr, tpr, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
-                save_ll_histograms(cur_member_individual_predictions, cur_nonmember_individual_predictions, "individual", 0.05, SAVE_FOLDER)
-                save_roc_curves("individual", fpr, tpr, roc_auc, SAVE_FOLDER)
-
-                assert len(cur_member_individual_predictions_with_set_label) == len(cur_nonmember_individual_predictions_with_set_label)
-                fpr, tpr, individual_roc_auc_set = get_roc_metrics(cur_nonmember_individual_predictions_with_set_label, cur_member_individual_predictions_with_set_label)
-                save_ll_histograms(cur_member_individual_predictions_with_set_label, cur_nonmember_individual_predictions_with_set_label, "individual_top-k={}".format(top_k), 0.05, SAVE_FOLDER)
-                save_roc_curves("individual_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
-
-                all_results[top_k] = {
-                    "ROC AUC": roc_auc,
-                    "Group size": len(cur_member_predictions),
-                    "ROC AUC Individual": individual_roc_auc_set
+                output = {
+                    "s": best_s,
+                    "ROC AUC": best_auc,
                 }
-                if roc_auc > best_auc:
-                    best_k = top_k
-                    best_auc = roc_auc
-                    best_fpr = fpr
-                    best_tpr = tpr
-            
-            output = {
-                "top k": best_k,
-                "ROC AUC": best_auc,
-            }
-            all_results["best"] = output
-            all_results["Individual ROC AUC"] = individual_roc_auc_
-            all_results["Total individual ROC AUC"] = individual_roc_auc
-            print("Final results")
-            print("top k: {}".format(output['top k']))
-            print("ROC AUC: {}".format(output['ROC AUC']))
+                all_results["best"] = output
 
+                print("For {} documents: ".format(k))
+                print("top s: {}".format(output['s']))
+                print("ROC AUC: {}".format(output['ROC AUC']))
+                save_roc_curves("group_best", best_fpr, best_tpr, best_auc, SAVE_FOLDER)
+
+            all_results["Total individual ROC AUC"] = individual_roc_auc
             with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
                 json.dump(all_results, f)
-
+            
+            
             
