@@ -1,1 +1,39 @@
-{"30": {"1": {"ROC AUC": 0.5239, "Group size": 100, "ROC AUC Individual": 0.5466519444444444, "ROC AUC Individual with set label": 0.5239}, "3": {"ROC AUC": 0.527, "Group size": 100, "ROC AUC Individual": 0.5466519444444444, "ROC AUC Individual with set label": 0.527}, "5": {"ROC AUC": 0.5546, "Group size": 100, "ROC AUC Individual": 0.5466519444444444, "ROC AUC Individual with set label": 0.5546}, "10": {"ROC AUC": 0.5951, "Group size": 100, "ROC AUC Individual": 0.5466519444444444, "ROC AUC Individual with set label": 0.5951}, "30": {"ROC AUC": 0.6603000000000001, "Group size": 100, "ROC AUC Individual": 0.5466519444444444, "ROC AUC Individual with set label": 0.6603000000000001}}, "best": {"s": 30, "ROC AUC": 0.6603000000000001}, "Total individual ROC AUC": 0.5551865572132528}
+{
+    "30": {
+        "1": {
+            "ROC AUC": 0.5239,
+            "Group size": 100,
+            "ROC AUC Individual": 0.5466519444444444,
+            "ROC AUC Individual with set label": 0.5239
+        },
+        "3": {
+            "ROC AUC": 0.527,
+            "Group size": 100,
+            "ROC AUC Individual": 0.5466519444444444,
+            "ROC AUC Individual with set label": 0.527
+        },
+        "5": {
+            "ROC AUC": 0.5546,
+            "Group size": 100,
+            "ROC AUC Individual": 0.5466519444444444,
+            "ROC AUC Individual with set label": 0.5546
+        },
+        "10": {
+            "ROC AUC": 0.5951,
+            "Group size": 100,
+            "ROC AUC Individual": 0.5466519444444444,
+            "ROC AUC Individual with set label": 0.5951
+        },
+        "30": {
+            "ROC AUC": 0.6603000000000001,
+            "Group size": 100,
+            "ROC AUC Individual": 0.5466519444444444,
+            "ROC AUC Individual with set label": 0.6603000000000001
+        }
+    },
+    "best": {
+        "s": 30,
+        "ROC AUC": 0.6603000000000001
+    },
+    "Total individual ROC AUC": 0.5551865572132528
+}
