@@ -100,11 +100,18 @@ def main(args):
     for group, infos in membership_info.items():
         is_members = []
         scores = []
-        for j, (filename, i, score) in enumerate(infos['documents']):
-            scores.append(score)
-            is_member = decide_member_individual(filename, i, score, document_threshold)
-            membership_info[group]['documents'][j] = (filename, i, score, is_member)
-            is_members.append(is_member)
+        try:
+            for j, (filename, i, score) in enumerate(infos['documents']):
+                scores.append(score)
+                is_member = decide_member_individual(filename, i, score, document_threshold)
+                membership_info[group]['documents'][j] = (filename, i, score, is_member)
+                is_members.append(is_member)
+        except:
+            for j, (filename, i, score, is_member) in enumerate(infos['documents']):
+                scores.append(score)
+                is_member = decide_member_individual(filename, i, score, document_threshold)
+                membership_info[group]['documents'][j] = (filename, i, score, is_member)
+                is_members.append(is_member)
         scores_and_group.append((np.mean(scores), group))
         membership_info[group]['is_members'] = is_members
         membership_info[group]['group_is_member'] = decide_member_group(group, data_type)
