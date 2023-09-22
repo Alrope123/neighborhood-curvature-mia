@@ -279,7 +279,7 @@ if __name__ == '__main__':
 
             all_results["Total individual ROC AUC"] = individual_roc_auc
             with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
-                json.dump(all_results, f)
+                json.dump(all_results, f, indent=4)
             
             
             
