@@ -182,7 +182,7 @@ if __name__ == '__main__':
             if not os.path.exists(SAVE_FOLDER):
                 os.mkdir(SAVE_FOLDER)
             
-
+            all_results = {}
             for k in generate_topk_array(max_top_k):
                 # Randomly k documents from each group 
                 cur_group_results_members = {}
@@ -198,7 +198,7 @@ if __name__ == '__main__':
                 best_fpr = None
                 best_tpr = None
                 best_auc = -1
-                all_results = {}
+
                 for top_s in generate_topk_array(k):
                     cur_member_predictions = []
                     cur_nonmember_predictions = []
@@ -270,7 +270,7 @@ if __name__ == '__main__':
                     "s": best_s,
                     "ROC AUC": best_auc,
                 }
-                all_results["best"] = output
+                all_results[k]["best"] = output
 
                 print("For {} documents: ".format(k))
                 print("top s: {}".format(output['s']))
