@@ -8,6 +8,51 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=None, save_path=None):    
+    plt.clf()
+
+    # Separate the numbers and properties
+    values, categories = zip(*coverages)
+
+    # Merge categories
+    if split:
+        categories = np.searchsorted(split, categories, side='right')
+        assert all([category >= 0 and category <= len(split) for category in categories])
+        categories = ["<{}".format(split[i]) for i in categories]
+
+    # Define bin edges
+    bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
+    bin_edges[-1] = bin_edges[-1] + 1e-10
+    binned_values = np.digitize(values, bin_edges)
+
+    # Prepare data for stacked bars
+    bin_counts = {i: {cat: 0 for cat in set(categories)} for i in range(1, len(bin_edges))}
+
+    for bv, cat in zip(binned_values, categories):
+        bin_counts[bv][cat] += 1
+
+    # Create gradient colors based on the number of unique categories
+    unique_categories = sorted(list(set(categories)))
+    colormap = plt.get_cmap('viridis')
+    colors = [colormap(i) for i in np.linspace(0, 1, len(unique_categories))]
+
+    # Plotting
+    bottoms = [0] * (len(bin_edges) - 1)
+    for idx, cat in enumerate(unique_categories):
+        cat_counts = [bin_counts[i][cat] for i in range(1, len(bin_edges))]
+        plt.bar(range(1, len(bin_edges)), cat_counts, color=colors[idx], label=cat, bottom=bottoms)
+        bottoms = [i+j for i, j in zip(bottoms, cat_counts)]
+
+    # Setting x-tick labels to represent bin ranges
+    tick_labels = [f"{bin_edges[i]:.2f}-{bin_edges[i+1]:.2f}" for i in range(len(bin_edges)-1)]
+    plt.xticks(range(1, len(bin_edges)), tick_labels, rotation=45, ha="right")
+
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.legend()
+    plt.savefig(save_path, format='png')
+
+
 def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=None, cumulative=False, x_interval=-1):
     """Draw a histogram for the given data."""
     
@@ -51,12 +96,16 @@ def main(args):
     with open(membership_info_path, "rb") as f:
         membership_info = pkl.load(f)
 
+    scores_and_group = []
     for group, infos in membership_info.items():
         is_members = []
+        scores = []
         for j, (filename, i, score) in enumerate(infos['documents']):
+            scores.append(score)
             is_member = decide_member_individual(filename, i, score, document_threshold)
             membership_info[group]['documents'][j] = (filename, i, score, is_member)
             is_members.append(is_member)
+        scores_and_group.append((np.mean(scores), group))
         membership_info[group]['is_members'] = is_members
         membership_info[group]['group_is_member'] = decide_member_group(group, data_type)
 
@@ -79,6 +128,12 @@ def main(args):
                     save_path=os.path.join(save_dir, 'documents_date_distribution.png'), bins=50)
     draw_histogram(list(group_rates.values()), title=None, xlabel="Percentage of Members", ylabel="# Dates(k)",
                     save_path=os.path.join(save_dir, 'membership_distribution.png'), bins=20, x_interval=0.05)
+    if data_type.startswith("rpj-arxiv"):
+        draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-07-32", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=50)
+    elif data_type.startswith("wikipedia"):
+        draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=50)
 
     with open(membership_info_path, "wb") as f:
         pkl.dump(membership_info, f)
