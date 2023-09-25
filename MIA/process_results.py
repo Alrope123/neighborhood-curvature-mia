@@ -92,6 +92,30 @@ def save_ll_histograms(members, nonmembers, name, bin_width, SAVE_FOLDER):
     print(f"Plotting at {SAVE_FOLDER}/ll_histograms_{name}.png")
 
 
+def save_cmap(data, ticks, name):
+    # Creating the 2D table plot
+    fig, ax = plt.subplots()
+    cax = ax.matshow(data, cmap='Blues')
+
+    # Masking nan values to show as white
+    cax.set_bad(color='white')
+
+    # Creating a colorbar for reference
+    fig.colorbar(cax)
+
+    # Labeling the axes
+    ax.set_xlabel('Top S')
+    ax.set_ylabel('K')
+
+    # Setting custom tick labels
+    ax.set_xticklabels([str(tick) for tick in ticks])
+    ax.set_yticklabels([str(tick) for tick in ticks])
+
+    # Showing the plot
+    plt.savefig(f"{SAVE_FOLDER}/cmap_{name}.png")
+    print(f"Plotting at {SAVE_FOLDER}/cmap_{name}.png")
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--result_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/lr_ratio_threshold_results.json")
@@ -276,6 +300,20 @@ if __name__ == '__main__':
                 print("top s: {}".format(output['s']))
                 print("ROC AUC: {}".format(output['ROC AUC']))
                 save_roc_curves("group_best", best_fpr, best_tpr, best_auc, SAVE_FOLDER)
+
+                # Graph C map
+                ticks = generate_topk_array(max_top_k)
+                data = [] 
+                for k in ticks:
+                    cur_row = []
+                    for s in ticks:
+                        if s in all_results[k]:
+                            cur_row.append(all_results[k][s])
+                        else:
+                            cur_row.append(np.nan)
+                    data.append(cur_row)
+                save_cmap(data, ticks, method)
+
 
             all_results["Total individual ROC AUC"] = individual_roc_auc
             with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
