@@ -98,7 +98,7 @@ def save_cmap(data, ticks, name):
     cax = ax.matshow(data, cmap='Blues')
 
     # Masking nan values to show as white
-    cax.set_bad(color='white')
+    # cax.set_bad(color='white')
 
     # Creating a colorbar for reference
     fig.colorbar(cax)
