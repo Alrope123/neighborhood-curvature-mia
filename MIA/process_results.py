@@ -107,6 +107,8 @@ def save_cmap(data, ticks, name):
     ax.set_xlabel('Top S')
     ax.set_ylabel('K')
 
+    ticks = [1] + ticks
+
     # Setting custom tick labels
     ax.set_xticklabels([str(tick) for tick in ticks])
     ax.set_yticklabels([str(tick) for tick in ticks])
