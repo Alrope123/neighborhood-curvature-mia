@@ -308,7 +308,7 @@ if __name__ == '__main__':
                 cur_row = []
                 for s in ticks:
                     if s in all_results[k]:
-                        cur_row.append(all_results[k][s])
+                        cur_row.append(all_results[k][s]["ROC AUC"])
                     else:
                         cur_row.append(np.nan)
                 data.append(cur_row)
