@@ -301,18 +301,18 @@ if __name__ == '__main__':
                 print("ROC AUC: {}".format(output['ROC AUC']))
                 save_roc_curves("group_best", best_fpr, best_tpr, best_auc, SAVE_FOLDER)
 
-                # Graph C map
-                ticks = generate_topk_array(max_top_k)
-                data = [] 
-                for k in ticks:
-                    cur_row = []
-                    for s in ticks:
-                        if s in all_results[k]:
-                            cur_row.append(all_results[k][s])
-                        else:
-                            cur_row.append(np.nan)
-                    data.append(cur_row)
-                save_cmap(data, ticks, method)
+            # Graph C map
+            ticks = generate_topk_array(max_top_k)
+            data = [] 
+            for k in ticks:
+                cur_row = []
+                for s in ticks:
+                    if s in all_results[k]:
+                        cur_row.append(all_results[k][s])
+                    else:
+                        cur_row.append(np.nan)
+                data.append(cur_row)
+            save_cmap(data, ticks, method)
 
 
             all_results["Total individual ROC AUC"] = individual_roc_auc
