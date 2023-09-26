@@ -737,11 +737,7 @@ def generate_samples(raw_data_member, raw_data_non_member, meta_member, meta_non
         for s, sm in zip(member_text, member_meta):
             data["member"].append(s)
             data["member_metadata"].append(sm)
-    # if args.tok_by_tok:
-    #     n_samples = len(data["nonmember"])
-    # else:
-    #     # n_samples = args.n_samples
-    #     n_samples = len(data["nonmember"])
+
     n_samples = len(data["nonmember"]) + len(data["member"])
     if args.pre_perturb_pct > 0:
         print(f'APPLYING {args.pre_perturb_pct}, {args.pre_perturb_span_length} PRE-PERTURBATIONS')
