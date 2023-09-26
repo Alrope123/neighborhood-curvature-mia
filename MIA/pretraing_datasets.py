@@ -49,8 +49,6 @@ def load_wikipedia(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n
     data_dir = "/gscratch/h2lab/alrope/data/wikipedia/processed/"
     
     selected_data = None
-    # DEBUG
-    print("n group: {}".format(n_group))
     if n_group > 0:
         selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     
@@ -73,7 +71,8 @@ def load_wikipedia(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n
 def load_arxiv(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30):
     data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
     
-    selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
+    if n_group > 0:
+        selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     
     data = [] 
     meta_data = []

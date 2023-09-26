@@ -789,8 +789,6 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     if dataset in custom_datasets.DATASETS:
         data = custom_datasets.load(dataset, cache_dir)
     elif dataset in pretraing_datasets.DATASETS:
-        # DEBUG
-        print("n group: {}".format(n_group))
         data, metadata = pretraing_datasets.load(dataset, 
             membership_path=membership_path,
             n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
