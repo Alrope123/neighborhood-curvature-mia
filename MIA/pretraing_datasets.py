@@ -23,6 +23,8 @@ def iterate_files(root_dir):
 def sample_group(membership_info, n_group=100, n_document_per_group=30, train=True):
     groups = set()
     info_list = list(membership_info.items())
+    if n_group < -1:
+        n_group = len(info_list)
     random.shuffle(info_list)
     for group, infos in info_list:
         if len(groups) >= n_group:
@@ -48,16 +50,14 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
 def load_wikipedia(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30):
     data_dir = "/gscratch/h2lab/alrope/data/wikipedia/processed/"
     
-    selected_data = None
-    if n_group > 0:
-        selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
+    selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     
     data = [] 
     meta_data = []
     for file_path, filename in tqdm(iterate_files(data_dir)):
         with open(file_path, 'r') as f:
             for i, line in enumerate(f):
-                if not selected_data or (filename, i) in selected_data:
+                if (filename, i) in selected_data:
                     dp = json.loads(line)      
                     meta_data.append((filename, i))
                     data.append(dp['text'])
@@ -71,16 +71,14 @@ def load_wikipedia(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n
 def load_arxiv(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30):
     data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
     
-    selected_data = None
-    if n_group > 0:
-        selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
+    selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     
     data = [] 
     meta_data = []
     for file_path, filename in tqdm(iterate_files(data_dir)):
         with open(file_path, 'r') as f:
             for i, line in enumerate(f):
-                if not selected_data or (filename, i) in selected_data:
+                if (filename, i) in selected_data:
                     dp = json.loads(line)      
                     meta_data.append((filename, i))
                     data.append(dp['text'])
