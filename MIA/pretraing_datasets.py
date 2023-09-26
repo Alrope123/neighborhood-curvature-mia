@@ -71,6 +71,7 @@ def load_wikipedia(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n
 def load_arxiv(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30):
     data_dir = "/gscratch/h2lab/alrope/data/redpajama/arxiv/"
     
+    selected_data = None
     if n_group > 0:
         selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     
@@ -79,7 +80,7 @@ def load_arxiv(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n_doc
     for file_path, filename in tqdm(iterate_files(data_dir)):
         with open(file_path, 'r') as f:
             for i, line in enumerate(f):
-                if (filename, i) in selected_data:
+                if not selected_data or (filename, i) in selected_data:
                     dp = json.loads(line)      
                     meta_data.append((filename, i))
                     data.append(dp['text'])
