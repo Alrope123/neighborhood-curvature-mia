@@ -48,9 +48,15 @@ def custom_open_yield(path, suffix=".jsonl"):
 def calculate_coverage(dp):
     return dp['bff_contained_ngram_count'] / dp['bff_ngram_count'] if dp['bff_ngram_count'] > 0 else 0
 
+
+title_count = 0
+short_title_count = 0
 def get_group(dp, data_type):
     global member_dict
     global nonmember_dict
+    # DEBUG
+    global title_count 
+    global short_title_count
 
     if data_type == 'rpj-arxiv_month':
         timestamp = dp['meta']['timestamp']
@@ -80,7 +86,14 @@ def get_group(dp, data_type):
         else:
             return None
     elif data_type.startswith("rpj-book"):
-        return dp['meta']['title']
+        if 'title' in dp['meta']:
+            title_count += 1
+            return dp['meta']['title']
+        elif 'short_book_title' in dp['meta']:
+            short_title_count += 1
+            return dp['meta']['short_book_title']
+        else:
+            raise NotImplementedError("Key not in the meta")
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
@@ -252,6 +265,13 @@ def main(args):
     else:
         with open(membership_info_path, "rb") as f:
             membership_info = pkl.load(f)
+
+    
+    # DEBUG
+    global title_count 
+    global short_title_count
+    print(title_count)
+    print(short_title_count)
 
     coverages_and_group = []
     for group, infos in membership_info.items():
