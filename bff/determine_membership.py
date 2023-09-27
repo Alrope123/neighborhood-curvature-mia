@@ -208,6 +208,7 @@ def main(args):
                 with open(coverage_path, 'rb') as f:
                     total_coverages = pkl.load(f)
             else:
+                print("Reading the ovelapping data")
                 # is_member_all = [False] * len(data)
                 total_coverages = []
                 for filter_name in filter_names:
@@ -226,6 +227,7 @@ def main(args):
                 total_coverages = [max(sublist[j] for sublist in total_coverages) for j in range(len(total_coverages[0]))]
                 # total_coverages = {(filename, i): (total_coverages[i], get_group(data[i], data_type=data_type)) for i in range(len(total_coverages))}
 
+                print("Building the total coverage dictionary")
                 total_coverages_dict = {}
                 for j, dp in enumerate(tqdm(custom_open_yield(data_path))):
                     total_coverages_dict[(filename, j)] = (total_coverages[j], get_group(dp, data_type=data_type))
