@@ -70,7 +70,7 @@ def get_group(dp, data_type):
         else:
             return None
     elif data_type.startswith("rpj-book"):
-        return dp['short_book_title']
+        return dp['meta']['short_book_title']
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
