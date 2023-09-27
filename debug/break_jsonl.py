@@ -2,6 +2,7 @@ import json
 import argparse
 import math
 import os
+from tqdm import tqdm
 
 def split_jsonl(filepath, total_lines, n):
     """
@@ -19,11 +20,11 @@ def split_jsonl(filepath, total_lines, n):
     file_num = 1
 
     filedir = os.path.dirname(filepath)
-    filename = os.path.basename(filepath)
+    filename = os.path.basename(filepath).split('.')[0]
 
     with open(filepath, 'r') as file:
         outfile = open(os.path.join(filedir, f'{filename}_{file_num}.jsonl'), 'w')
-        for line in file:
+        for line in tqdm(file):
             if count < lines_per_file:
                 outfile.write(line)
                 count += 1
