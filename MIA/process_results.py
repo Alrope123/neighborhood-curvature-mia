@@ -195,6 +195,8 @@ if __name__ == '__main__':
             qualified_group_results_nonmembers[group] = predictions[:max_top_k]
 
     # group_results_members, group_results_nonmembers = make_dicts_equal(qualified_group_results_members, qualified_group_results_nonmembers)
+    group_results_members = qualified_group_results_members
+    group_results_nonmembers = qualified_group_results_nonmembers
     print("# of member groups: {}".format(len(group_results_members)))
     print("# of nonmember groups: {}".format(len(group_results_nonmembers)))
     print("Average # document in member group: {}/{}".format(np.mean([len(members) for _, members in group_results_members.items()]), np.std([len(members) for _, members in group_results_members.items()])))
