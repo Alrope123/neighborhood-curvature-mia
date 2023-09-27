@@ -150,10 +150,10 @@ if __name__ == '__main__':
     nonmember_predictions = result[nonmember_key]
     member_predictions = result[member_key]
     compare_length = min(len(nonmember_predictions), len(member_predictions))
-    if len(nonmember_predictions) > len(member_predictions):
-        nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
-    elif len(member_predictions) > len(nonmember_predictions):
-        member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
+    # if len(nonmember_predictions) > len(member_predictions):
+    #     nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
+    # elif len(member_predictions) > len(nonmember_predictions):
+    #     member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
     fpr, tpr, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
     save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{args.key}", 0.05, SAVE_FOLDER)
@@ -194,7 +194,7 @@ if __name__ == '__main__':
             random.shuffle(predictions)
             qualified_group_results_nonmembers[group] = predictions[:max_top_k]
 
-    group_results_members, group_results_nonmembers = make_dicts_equal(qualified_group_results_members, qualified_group_results_nonmembers)
+    # group_results_members, group_results_nonmembers = make_dicts_equal(qualified_group_results_members, qualified_group_results_nonmembers)
     print("# of member groups: {}".format(len(group_results_members)))
     print("# of nonmember groups: {}".format(len(group_results_nonmembers)))
     print("Average # document in member group: {}/{}".format(np.mean([len(members) for _, members in group_results_members.items()]), np.std([len(members) for _, members in group_results_members.items()])))
@@ -259,11 +259,11 @@ if __name__ == '__main__':
                             cur_nonmember_individual_predictions.extend(predictions)
                             cur_nonmember_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
                     
-                    random.shuffle(cur_member_predictions)
-                    random.shuffle(cur_nonmember_predictions)
-                    sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
-                    cur_member_predictions = cur_member_predictions[:sample_size]
-                    cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
+                    # random.shuffle(cur_member_predictions)
+                    # random.shuffle(cur_nonmember_predictions)
+                    # sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
+                    # cur_member_predictions = cur_member_predictions[:sample_size]
+                    # cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
                     fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
                     # save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.02, SAVE_FOLDER)
                     # save_roc_curves("group_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
@@ -282,7 +282,8 @@ if __name__ == '__main__':
                         all_results[k] = {}
                     all_results[k][top_s] = {
                         "ROC AUC": roc_auc,
-                        "Group size": len(cur_member_predictions),
+                        "Member size": len(cur_member_predictions),
+                        "Nonmember size": len(cur_nonmember_predictions),
                         "ROC AUC Individual": individual_roc_auc_,
                         "ROC AUC Individual with set label": individual_roc_auc_set
                     }
