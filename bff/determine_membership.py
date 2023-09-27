@@ -35,6 +35,16 @@ def custom_open(path, suffix=".jsonl"):
     return data
 
 
+def custom_open_yield(path, suffix=".jsonl"):
+    if suffix == ".jsonl":
+        with open(path, 'r') as file:
+            for line in file:
+                dp = json.loads(line)
+                yield dp
+    else:
+        raise NotImplementedError()
+
+
 def calculate_coverage(dp):
     return dp['bff_contained_ngram_count'] / dp['bff_ngram_count'] if dp['bff_ngram_count'] > 0 else 0
 
@@ -198,9 +208,6 @@ def main(args):
                 with open(coverage_path, 'rb') as f:
                     total_coverages = pkl.load(f)
             else:
-                # Load in the data
-                data = custom_open(data_path)
-
                 # is_member_all = [False] * len(data)
                 total_coverages = []
                 for filter_name in filter_names:
@@ -209,15 +216,20 @@ def main(args):
 
                     # Read in each overlap file
                     overlap_data = custom_open(overlap_path)
-                    assert len(data) == len(overlap_data)
+                    # assert len(data) == len(overlap_data)
 
                     total_coverages.append([calculate_coverage(dp) for dp in overlap_data])
 
                 assert len(total_coverages) == len(filter_names)
-                assert len(total_coverages[0]) == len(data)
+                # assert len(total_coverages[0]) == len(data)
                 # aggreate the scores over the filters
-                total_coverages = [max(sublist[i] for sublist in total_coverages) for i in range(len(total_coverages[0]))]
-                total_coverages = {(filename, i): (total_coverages[i], get_group(data[i], data_type=data_type)) for i in range(len(total_coverages))}
+                total_coverages = [max(sublist[j] for sublist in total_coverages) for j in range(len(total_coverages[0]))]
+                # total_coverages = {(filename, i): (total_coverages[i], get_group(data[i], data_type=data_type)) for i in range(len(total_coverages))}
+
+                total_coverages_dict = {}
+                for j, dp in enumerate(tqdm(custom_open_yield(data_path))):
+                    total_coverages_dict[(filename, j)] = (total_coverages[j], get_group(dp, data_type=data_type))
+                total_coverages = total_coverages_dict
 
                 coverage_dir = os.path.dirname(coverage_path)
                 if not os.path.exists(coverage_dir):
@@ -227,11 +239,11 @@ def main(args):
                     pkl.dump(total_coverages, f)
 
             # Build group dict and filter out unwanted ones
-            for (filename, i), (score, group) in total_coverages.items():
+            for (filename, j), (score, group) in total_coverages.items():
                 if group and qualified(data_type, score, group):
                     if group not in membership_info:
                         membership_info[group] = {'documents': []}    
-                    membership_info[group]['documents'].append((filename, i, score))
+                    membership_info[group]['documents'].append((filename, j, score))
 
         # Save the membership info
         with open(membership_info_path, "wb") as f:
