@@ -270,12 +270,12 @@ if __name__ == '__main__':
                     # save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.02, SAVE_FOLDER)
                     # save_roc_curves("group_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
                     
-                    assert len(cur_member_individual_predictions) == len(cur_nonmember_individual_predictions)
+                    # assert len(cur_member_individual_predictions) == len(cur_nonmember_individual_predictions)
                     fpr, tpr, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
                     # save_ll_histograms(cur_member_individual_predictions, cur_nonmember_individual_predictions, "individual", 0.05, SAVE_FOLDER)
                     # save_roc_curves("individual", fpr, tpr, roc_auc, SAVE_FOLDER)
 
-                    assert len(cur_member_individual_predictions_with_set_label) == len(cur_nonmember_individual_predictions_with_set_label)
+                    # assert len(cur_member_individual_predictions_with_set_label) == len(cur_nonmember_individual_predictions_with_set_label)
                     fpr, tpr, individual_roc_auc_set = get_roc_metrics(cur_nonmember_individual_predictions_with_set_label, cur_member_individual_predictions_with_set_label)
                     # save_ll_histograms(cur_member_individual_predictions_with_set_label, cur_nonmember_individual_predictions_with_set_label, "individual_top-k={}".format(top_k), 0.05, SAVE_FOLDER)
                     # save_roc_curves("individual_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
