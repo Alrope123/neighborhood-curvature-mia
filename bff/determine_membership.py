@@ -240,7 +240,7 @@ def main(args):
                 # total_coverages = {(filename, i): (total_coverages[i], get_group(data[i], data_type=data_type)) for i in range(len(total_coverages))}
 
                 total_coverages_dict = {}
-                for j, dp in enumerate(tqdm(custom_open_yield(data_path))):
+                for j, dp in enumerate(custom_open_yield(data_path)):
                     total_coverages_dict[(filename, j)] = (total_coverages[j], get_group(dp, data_type=data_type))
                 total_coverages = total_coverages_dict
 
@@ -270,8 +270,8 @@ def main(args):
     # DEBUG
     global title_count 
     global short_title_count
-    print(title_count)
-    print(short_title_count)
+    print("Title count: {}".format(title_count))
+    print("Short Title cout: {}".format(short_title_count))
 
     coverages_and_group = []
     for group, infos in membership_info.items():
