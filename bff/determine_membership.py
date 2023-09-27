@@ -69,6 +69,8 @@ def get_group(dp, data_type):
             return datetime.strptime(nonmember_dict[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
         else:
             return None
+    elif data_type.startswith("rpj-book"):
+        return dp['short_book_title']
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
@@ -252,6 +254,9 @@ def main(args):
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
         # draw_separate_histogram(total_coverage_member_values, xlabel="Percentage of duplication", ylabel="# Documents(k)",
         #                             save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
+    elif data_type.startswith("rpj-book"):
+        draw_separate_histogram(coverages_and_group, split=["a", "z"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
