@@ -1,185 +1,302 @@
 {
     "1": {
         "1": {
-            "ROC AUC": 0.6251081314878892,
+            "ROC AUC": 0.4850778546712803,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.6251081314878892,
-            "ROC AUC Individual with set label": 0.6251081314878892
+            "ROC AUC Individual": 0.4850778546712803,
+            "ROC AUC Individual with set label": 0.4850778546712803
         },
         "best": {
             "s": 1,
-            "ROC AUC": 0.6251081314878892
+            "ROC AUC": 0.4850778546712803
         }
     },
     "3": {
         "1": {
-            "ROC AUC": 0.5847750865051903,
+            "ROC AUC": 0.5032439446366782,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5981593617839291,
-            "ROC AUC Individual with set label": 0.5847750865051903
+            "ROC AUC Individual": 0.5580185505574778,
+            "ROC AUC Individual with set label": 0.5032439446366782
         },
         "3": {
-            "ROC AUC": 0.6713884083044982,
+            "ROC AUC": 0.576340830449827,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5981593617839291,
-            "ROC AUC Individual with set label": 0.6713884083044982
+            "ROC AUC Individual": 0.5580185505574778,
+            "ROC AUC Individual with set label": 0.576340830449827
         },
         "best": {
             "s": 3,
-            "ROC AUC": 0.6713884083044982
+            "ROC AUC": 0.576340830449827
         }
     },
     "5": {
         "1": {
-            "ROC AUC": 0.5195717993079585,
+            "ROC AUC": 0.5157871972318339,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5853243944636678,
-            "ROC AUC Individual with set label": 0.5195717993079585
+            "ROC AUC Individual": 0.595553633217993,
+            "ROC AUC Individual with set label": 0.5157871972318339
         },
         "3": {
-            "ROC AUC": 0.5977508650519031,
+            "ROC AUC": 0.6245674740484429,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5853243944636678,
-            "ROC AUC Individual with set label": 0.5977508650519031
+            "ROC AUC Individual": 0.595553633217993,
+            "ROC AUC Individual with set label": 0.6245674740484429
         },
         "5": {
-            "ROC AUC": 0.6592776816608996,
+            "ROC AUC": 0.702962802768166,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5853243944636678,
-            "ROC AUC Individual with set label": 0.6592776816608996
+            "ROC AUC Individual": 0.595553633217993,
+            "ROC AUC Individual with set label": 0.702962802768166
         },
         "best": {
             "s": 5,
-            "ROC AUC": 0.6592776816608996
+            "ROC AUC": 0.702962802768166
+        }
+    },
+    "8": {
+        "1": {
+            "ROC AUC": 0.49545847750865046,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5788768517517301,
+            "ROC AUC Individual with set label": 0.49545847750865046
+        },
+        "3": {
+            "ROC AUC": 0.537954152249135,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5788768517517301,
+            "ROC AUC Individual with set label": 0.537954152249135
+        },
+        "5": {
+            "ROC AUC": 0.6046712802768166,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5788768517517301,
+            "ROC AUC Individual with set label": 0.6046712802768166
+        },
+        "8": {
+            "ROC AUC": 0.6902032871972319,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5788768517517301,
+            "ROC AUC Individual with set label": 0.6902032871972319
+        },
+        "best": {
+            "s": 8,
+            "ROC AUC": 0.6902032871972319
         }
     },
     "10": {
         "1": {
-            "ROC AUC": 0.4409602076124567,
+            "ROC AUC": 0.4704801038062284,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5768176903114186,
-            "ROC AUC Individual with set label": 0.4409602076124567
+            "ROC AUC Individual": 0.5729519896193771,
+            "ROC AUC Individual with set label": 0.4704801038062284
         },
         "3": {
-            "ROC AUC": 0.5054065743944636,
+            "ROC AUC": 0.5024870242214533,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5768176903114186,
-            "ROC AUC Individual with set label": 0.5054065743944636
+            "ROC AUC Individual": 0.5729519896193771,
+            "ROC AUC Individual with set label": 0.5024870242214533
         },
         "5": {
-            "ROC AUC": 0.5850994809688581,
+            "ROC AUC": 0.5727724913494809,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5768176903114186,
-            "ROC AUC Individual with set label": 0.5850994809688581
+            "ROC AUC Individual": 0.5729519896193771,
+            "ROC AUC Individual with set label": 0.5727724913494809
+        },
+        "8": {
+            "ROC AUC": 0.647923875432526,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5729519896193771,
+            "ROC AUC Individual with set label": 0.647923875432526
         },
         "10": {
-            "ROC AUC": 0.7093425605536333,
+            "ROC AUC": 0.6797145328719724,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5768176903114186,
-            "ROC AUC Individual with set label": 0.7093425605536333
+            "ROC AUC Individual": 0.5729519896193771,
+            "ROC AUC Individual with set label": 0.6797145328719724
         },
         "best": {
             "s": 10,
-            "ROC AUC": 0.7093425605536333
+            "ROC AUC": 0.6797145328719724
         }
     },
     "30": {
         "1": {
-            "ROC AUC": 0.4606401384083045,
+            "ROC AUC": 0.4992430795847751,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.576115977028066,
-            "ROC AUC Individual with set label": 0.4606401384083045
+            "ROC AUC Individual": 0.5850648788927335,
+            "ROC AUC Individual with set label": 0.4992430795847751
         },
         "3": {
-            "ROC AUC": 0.48021193771626297,
+            "ROC AUC": 0.5112456747404844,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.576115977028066,
-            "ROC AUC Individual with set label": 0.48021193771626297
+            "ROC AUC Individual": 0.5850648788927335,
+            "ROC AUC Individual with set label": 0.5112456747404844
         },
         "5": {
-            "ROC AUC": 0.49837802768166095,
+            "ROC AUC": 0.5187067474048443,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.576115977028066,
-            "ROC AUC Individual with set label": 0.49837802768166095
+            "ROC AUC Individual": 0.5850648788927335,
+            "ROC AUC Individual with set label": 0.5187067474048443
+        },
+        "8": {
+            "ROC AUC": 0.5789359861591695,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5850648788927335,
+            "ROC AUC Individual with set label": 0.5789359861591695
         },
         "10": {
-            "ROC AUC": 0.5740700692041523,
+            "ROC AUC": 0.6175389273356402,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.576115977028066,
-            "ROC AUC Individual with set label": 0.5740700692041523
+            "ROC AUC Individual": 0.5850648788927335,
+            "ROC AUC Individual with set label": 0.6175389273356402
         },
         "30": {
-            "ROC AUC": 0.8148788927335641,
+            "ROC AUC": 0.8540224913494809,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.576115977028066,
-            "ROC AUC Individual with set label": 0.8148788927335641
+            "ROC AUC Individual": 0.5850648788927335,
+            "ROC AUC Individual with set label": 0.8540224913494809
         },
         "best": {
             "s": 30,
-            "ROC AUC": 0.8148788927335641
+            "ROC AUC": 0.8540224913494809
         }
     },
     "50": {
         "1": {
-            "ROC AUC": 0.42376730103806226,
+            "ROC AUC": 0.4796712802768166,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5890817041522491,
-            "ROC AUC Individual with set label": 0.42376730103806226
+            "ROC AUC Individual": 0.5943504541522492,
+            "ROC AUC Individual with set label": 0.4796712802768166
         },
         "3": {
-            "ROC AUC": 0.4836721453287197,
+            "ROC AUC": 0.4869160899653979,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5890817041522491,
-            "ROC AUC Individual with set label": 0.4836721453287197
+            "ROC AUC Individual": 0.5943504541522492,
+            "ROC AUC Individual with set label": 0.4869160899653979
         },
         "5": {
-            "ROC AUC": 0.5042171280276817,
+            "ROC AUC": 0.4936202422145329,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5890817041522491,
-            "ROC AUC Individual with set label": 0.5042171280276817
+            "ROC AUC Individual": 0.5943504541522492,
+            "ROC AUC Individual with set label": 0.4936202422145329
+        },
+        "8": {
+            "ROC AUC": 0.5258434256055363,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5943504541522492,
+            "ROC AUC Individual with set label": 0.5258434256055363
         },
         "10": {
-            "ROC AUC": 0.553416955017301,
+            "ROC AUC": 0.5433607266435986,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5890817041522491,
-            "ROC AUC Individual with set label": 0.553416955017301
+            "ROC AUC Individual": 0.5943504541522492,
+            "ROC AUC Individual with set label": 0.5433607266435986
         },
         "30": {
-            "ROC AUC": 0.7804930795847751,
+            "ROC AUC": 0.7588667820069204,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5890817041522491,
-            "ROC AUC Individual with set label": 0.7804930795847751
+            "ROC AUC Individual": 0.5943504541522492,
+            "ROC AUC Individual with set label": 0.7588667820069204
         },
         "50": {
-            "ROC AUC": 0.9010596885813149,
+            "ROC AUC": 0.8638624567474049,
             "Member size": 289,
             "Nonmember size": 32,
-            "ROC AUC Individual": 0.5890817041522491,
-            "ROC AUC Individual with set label": 0.9010596885813149
+            "ROC AUC Individual": 0.5943504541522492,
+            "ROC AUC Individual with set label": 0.8638624567474049
         },
         "best": {
             "s": 50,
-            "ROC AUC": 0.9010596885813149
+            "ROC AUC": 0.8638624567474049
+        }
+    },
+    "80": {
+        "1": {
+            "ROC AUC": 0.517409169550173,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5897568900032439,
+            "ROC AUC Individual with set label": 0.517409169550173
+        },
+        "3": {
+            "ROC AUC": 0.49156574394463665,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5897568900032439,
+            "ROC AUC Individual with set label": 0.49156574394463665
+        },
+        "5": {
+            "ROC AUC": 0.4836721453287197,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5897568900032439,
+            "ROC AUC Individual with set label": 0.4836721453287197
+        },
+        "8": {
+            "ROC AUC": 0.49935121107266434,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5897568900032439,
+            "ROC AUC Individual with set label": 0.49935121107266434
+        },
+        "10": {
+            "ROC AUC": 0.5084342560553633,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5897568900032439,
+            "ROC AUC Individual with set label": 0.5084342560553633
+        },
+        "30": {
+            "ROC AUC": 0.6869593425605537,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5897568900032439,
+            "ROC AUC Individual with set label": 0.6869593425605537
+        },
+        "50": {
+            "ROC AUC": 0.8274221453287197,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5897568900032439,
+            "ROC AUC Individual with set label": 0.8274221453287197
+        },
+        "80": {
+            "ROC AUC": 0.92560553633218,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.5897568900032439,
+            "ROC AUC Individual with set label": 0.92560553633218
+        },
+        "best": {
+            "s": 80,
+            "ROC AUC": 0.92560553633218
         }
     },
     "100": {
@@ -204,6 +321,13 @@
             "ROC AUC Individual": 0.58928366133218,
             "ROC AUC Individual with set label": 0.4764273356401384
         },
+        "8": {
+            "ROC AUC": 0.49005190311418684,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.58928366133218,
+            "ROC AUC Individual with set label": 0.49005190311418684
+        },
         "10": {
             "ROC AUC": 0.5046496539792388,
             "Member size": 289,
@@ -224,6 +348,13 @@
             "Nonmember size": 32,
             "ROC AUC Individual": 0.58928366133218,
             "ROC AUC Individual with set label": 0.7747621107266437
+        },
+        "80": {
+            "ROC AUC": 0.9076557093425605,
+            "Member size": 289,
+            "Nonmember size": 32,
+            "ROC AUC Individual": 0.58928366133218,
+            "ROC AUC Individual with set label": 0.9076557093425605
         },
         "100": {
             "ROC AUC": 0.9408520761245674,
