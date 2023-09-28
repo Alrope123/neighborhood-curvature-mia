@@ -10,7 +10,7 @@ import math
 import random
 
 def generate_topk_array(n):
-    base_list = [1, 3, 5]
+    base_list = [1, 3, 5, 8]
     output_list = []
     while True:
         for k in base_list:
@@ -149,13 +149,13 @@ if __name__ == '__main__':
 
     nonmember_predictions = result[nonmember_key]
     member_predictions = result[member_key]
-    compare_length = min(len(nonmember_predictions), len(member_predictions))
-    # if len(nonmember_predictions) > len(member_predictions):
-    #     nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
-    # elif len(member_predictions) > len(nonmember_predictions):
-    #     member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
     fpr, tpr, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
+    compare_length = min(len(nonmember_predictions), len(member_predictions))
+    if len(nonmember_predictions) > len(member_predictions):
+        nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
+    elif len(member_predictions) > len(nonmember_predictions):
+        member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
     save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{args.key}", 0.05, SAVE_FOLDER)
     print("Individual AUC-ROC with {}: {}".format(args.key, individual_roc_auc))
     save_roc_curves("Individual_with_{}".format(args.key), fpr, tpr, individual_roc_auc, SAVE_FOLDER)
