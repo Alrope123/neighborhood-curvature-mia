@@ -131,8 +131,9 @@ def main(args):
         "number of non-member group": sum([not infos['group_is_member'] for _, infos in membership_info.items()]),
         "average number of documents in every group": np.mean(group_lengths),
         "std number of documents in every group": np.std(group_lengths),
-        "groups": group_rates
+        # "groups": group_rates
     }
+    print(stats)
     with open(os.path.join(save_dir, 'grouping_stats.json'), "w") as f:
         json.dump(stats, f)
     draw_histogram(group_lengths, title=None, xlabel="# documents each date", ylabel="# Dates(k)",
