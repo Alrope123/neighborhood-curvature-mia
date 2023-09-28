@@ -870,6 +870,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
         new_metadata.extend([metadp] * len(segments))
     data = new_data
     metadata = new_metadata
+    assert len(data) == len(metadata), (len(data), len(metadata))
     
     # print stats about remainining data
     print(f"Total number of segments: {len(data)}")
