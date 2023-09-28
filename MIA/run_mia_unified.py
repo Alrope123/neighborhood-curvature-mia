@@ -867,12 +867,14 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     new_metadata = []
     for dp, metadp in zip(data, metadata):
         segments = sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy)
+        assert isinstance(segments[0], str), type(segments[0])
         new_data.extend(segments)
+        assert isinstance(new_data[0], str), new_data[0]
         new_metadata.extend([metadp] * len(segments))
     data = new_data
     metadata = new_metadata
     assert len(data) == len(metadata), (len(data), len(metadata))
-    print(type(data[0]))
+    assert isinstance(data[0], str), data[0]
     # print stats about remainining data
     print(f"Total number of segments: {len(data)}")
     print(f"Average number of words: {np.mean([len(x.split()) for x in data])}")
