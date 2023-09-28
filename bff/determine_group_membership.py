@@ -19,6 +19,8 @@ def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=
         categories = np.searchsorted(split, categories, side='right')
         assert all([category >= 0 and category <= len(split) for category in categories])
         categories = ["<{}".format(split[i]) for i in categories]
+    elif split == []:
+        categories = ["All"]
 
     # Define bin edges
     bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
@@ -72,11 +74,13 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
     plt.savefig(save_path, format='png') 
   
 
-def decide_member_group(group, data_type):
+def decide_member_group(average_score, group, data_type):
     if data_type.startswith('wikipedia'):
         return group < "2020-03-01"
     elif data_type.startswith('rpj-arxiv'):
         return group < "2020-07-32"
+    elif data_type.startswith('rpj-book'):
+        return average_score > 0.5
     else:
         raise NotImplementedError() 
 
@@ -114,7 +118,7 @@ def main(args):
                 is_members.append(is_member)
         scores_and_group.append((np.mean(scores), group))
         membership_info[group]['is_members'] = is_members
-        membership_info[group]['group_is_member'] = decide_member_group(group, data_type)
+        membership_info[group]['group_is_member'] = decide_member_group(np.mean(scores), group, data_type)
 
     # Create statistic info
     print("Calculating the statistics...")
@@ -141,7 +145,9 @@ def main(args):
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
-
+    elif data_type.startswith("rpj-book"):
+        draw_separate_histogram(scores_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     with open(membership_info_path, "wb") as f:
         pkl.dump(membership_info, f)
 
