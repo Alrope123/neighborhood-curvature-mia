@@ -8,6 +8,11 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+def default(obj):
+    if isinstance(obj, np.integer):
+        return int(obj)
+    raise TypeError
+
 def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=None, save_path=None):    
     plt.clf()
 
@@ -135,7 +140,7 @@ def main(args):
     }
     print(stats)
     with open(os.path.join(save_dir, 'grouping_stats.json'), "w") as f:
-        json.dump(stats, f)
+        json.dump(stats, f, default=default)
     draw_histogram(group_lengths, title=None, xlabel="# documents each date", ylabel="# Dates(k)",
                     save_path=os.path.join(save_dir, 'documents_date_distribution.png'), bins=50)
     draw_histogram(list(group_rates.values()), title=None, xlabel="Percentage of Members", ylabel="# Dates(k)",
