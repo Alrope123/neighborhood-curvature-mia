@@ -753,31 +753,37 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         idx_random = random.randint(0, length-max_length)
         return l[idx_random: idx_random + max_length]
     
-    # Filter by number of words first to save compute
-    n_words = len(text.split())
-    if n_words > max_length:
-        if strategy == 'random':
-            text = random_segment(text, n_words, max_length)
-    
-    # Tokenize
-    tokens_base = tokenizer_base.encode(text)
-    tokens_ref = tokenizer_ref.encode(text)
-    while len(tokens_base) > max_length or len(tokens_ref) > max_length:
-        if len(tokens_base) > max_length:
+    if strategy in ['random']:
+        # Filter by number of words first to save compute
+        n_words = len(text.split())
+        if n_words > max_length:
             if strategy == 'random':
-                tokens_base = random_segment(tokens_base, len(tokens_base), max_length)
-            else:
-                raise NotImplementedError()
-            text = tokenizer_base.decode(tokens_base)
-            tokens_ref = tokenizer_ref.encode(text)
-        if len(tokens_ref) > max_length:
-            if strategy == 'random':
-                tokens_ref = random_segment(tokens_ref, len(tokens_ref), max_length)
-            else:
-                raise NotImplementedError()
-            text = tokenizer_base.decode(tokens_ref)
-            tokens_base = tokenizer_base.encode(text)
-    return text        
+                text = random_segment(text, n_words, max_length)
+        
+        # Tokenize
+        tokens_base = tokenizer_base.encode(text)
+        tokens_ref = tokenizer_ref.encode(text)
+        while len(tokens_base) > max_length or len(tokens_ref) > max_length:
+            if len(tokens_base) > max_length:
+                if strategy == 'random':
+                    tokens_base = random_segment(tokens_base, len(tokens_base), max_length)
+                else:
+                    raise NotImplementedError()
+                text = tokenizer_base.decode(tokens_base)
+                tokens_ref = tokenizer_ref.encode(text)
+            if len(tokens_ref) > max_length:
+                if strategy == 'random':
+                    tokens_ref = random_segment(tokens_ref, len(tokens_ref), max_length)
+                else:
+                    raise NotImplementedError()
+                text = tokenizer_base.decode(tokens_ref)
+                tokens_base = tokenizer_base.encode(text)
+        if isinstance(text, list):
+            return text
+        else:
+            return [text]
+    else:
+        
 
 
 def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000):
@@ -847,8 +853,16 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     # tokenized_data_ref = ref_tokenizer(data)["input_ids"]
     print(f"Tokenizing the samples to remove samples that are too long.")
     # data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
-    data = [sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy) for dp in data]
-
+    # data = [sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy) for dp in data]
+    new_data = []
+    new_metadata = []
+    for dp, metadp in zip(data, metadata):
+        segments = sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy)
+        new_data.extend(segments)
+        new_metadata.extend([metadp] * len(segments))
+    data = new_data
+    metadata = new_metadata
+    
     # print stats about remainining data
     print(f"Total number of samples: {len(data)}")
     print(f"Average number of words: {np.mean([len(x.split()) for x in data])}")
