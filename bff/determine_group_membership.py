@@ -25,7 +25,7 @@ def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=
         assert all([category >= 0 and category <= len(split) for category in categories])
         categories = ["<{}".format(split[i]) for i in categories]
     elif split == []:
-        categories = ["All"]
+        categories = ["All" for _ in categories]
 
     # Define bin edges
     bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
@@ -140,7 +140,7 @@ def main(args):
     }
     print(stats)
     with open(os.path.join(save_dir, 'grouping_stats.json'), "w") as f:
-        json.dump(stats, f, default=default)
+        json.dump(stats, f, default=default, indent=4)
     draw_histogram(group_lengths, title=None, xlabel="# documents each date", ylabel="# Dates(k)",
                     save_path=os.path.join(save_dir, 'documents_date_distribution.png'), bins=50)
     draw_histogram(list(group_rates.values()), title=None, xlabel="Percentage of Members", ylabel="# Dates(k)",

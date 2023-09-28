@@ -54,9 +54,6 @@ short_title_count = 0
 def get_group(dp, data_type):
     global member_dict
     global nonmember_dict
-    # DEBUG
-    global title_count 
-    global short_title_count
 
     if data_type == 'rpj-arxiv_month':
         timestamp = dp['meta']['timestamp']
@@ -87,10 +84,8 @@ def get_group(dp, data_type):
             return None
     elif data_type.startswith("rpj-book"):
         if 'title' in dp['meta']:
-            title_count += 1
             return dp['meta']['title']
         elif 'short_book_title' in dp['meta']:
-            short_title_count += 1
             return dp['meta']['short_book_title']
         else:
             raise NotImplementedError("Key not in the meta")
@@ -157,7 +152,7 @@ def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=
         assert all([category >= 0 and category <= len(split) for category in categories])
         categories = ["<{}".format(split[i]) for i in categories]
     elif split == []:
-        categories = ["All"]
+        categories = ["All" for _ in categories]
 
     # Define bin edges
     bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
@@ -267,13 +262,6 @@ def main(args):
     else:
         with open(membership_info_path, "rb") as f:
             membership_info = pkl.load(f)
-
-    
-    # DEBUG
-    global title_count 
-    global short_title_count
-    print("Title count: {}".format(title_count))
-    print("Short Title cout: {}".format(short_title_count))
 
     coverages_and_group = []
     for group, infos in membership_info.items():
