@@ -156,6 +156,8 @@ def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=
         categories = np.searchsorted(split, categories, side='right')
         assert all([category >= 0 and category <= len(split) for category in categories])
         categories = ["<{}".format(split[i]) for i in categories]
+    elif split == []:
+        categories = ["All"]
 
     # Define bin edges
     bin_edges = np.linspace(min(values), max(values), bins+1)  # Example: 20 bins
@@ -287,7 +289,7 @@ def main(args):
         # draw_separate_histogram(total_coverage_member_values, xlabel="Percentage of duplication", ylabel="# Documents(k)",
         #                             save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
     elif data_type.startswith("rpj-book"):
-        draw_separate_histogram(coverages_and_group, split=["a", "z"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+        draw_separate_histogram(coverages_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     else:
         raise NotImplementedError('The data type is not implemented yet.')
