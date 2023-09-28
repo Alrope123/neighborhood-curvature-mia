@@ -788,7 +788,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         if strategy == 'split':
             tokens_base = tokenizer_base.encode(text)
             for i in range(0, len(tokens_base), segment_length):
-                segments.append(tokens_base[i, i+segment_length])
+                segments.append(tokens_base[i: i+segment_length])
         return segments
         
 
