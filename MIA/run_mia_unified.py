@@ -783,6 +783,13 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         else:
             return [text]
     else:
+        segment_length = 512
+        segments = []
+        if strategy == 'split':
+            tokens_base = tokenizer_base.encode(text)
+            for i in range(0, len(tokens_base), segment_length):
+                segments.append(tokens_base[i, i+segment_length])
+        return segments
         
 
 
@@ -851,7 +858,8 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     # tokenized_data = preproc_tokenizer(data)
     # tokenized_data_base = base_tokenizer(data)["input_ids"]
     # tokenized_data_ref = ref_tokenizer(data)["input_ids"]
-    print(f"Tokenizing the samples to remove samples that are too long.")
+    print("Sampling segments from each documents")
+    print(f"Total number of documents: {len(data)}")
     # data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
     # data = [sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy) for dp in data]
     new_data = []
@@ -864,7 +872,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     metadata = new_metadata
     
     # print stats about remainining data
-    print(f"Total number of samples: {len(data)}")
+    print(f"Total number of segments: {len(data)}")
     print(f"Average number of words: {np.mean([len(x.split()) for x in data])}")
 
     return data, metadata

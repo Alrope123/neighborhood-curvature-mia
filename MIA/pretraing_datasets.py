@@ -7,7 +7,7 @@ from typing import List
 from tqdm import tqdm
 import numpy as np
 
-DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'rpj-arxiv_noisy', 'rpj-arxiv_month']
+DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book']
 
 def iterate_files(root_dir):
     file_paths = []
@@ -88,6 +88,25 @@ def load_arxiv(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n_doc
     #     json.dump(meta_data, f)
     return data, meta_data
 
+def load_book(membership_info, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30):
+    data_dir = "/gscratch/h2lab/alrope/data/redpajama/book/"
+    
+    selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
+    
+    data = [] 
+    meta_data = []
+    for file_path, filename in tqdm(iterate_files(data_dir)):
+        with open(file_path, 'r') as f:
+            for i, line in enumerate(f):
+                if (filename, i) in selected_data:
+                    dp = json.loads(line)      
+                    meta_data.append((filename, i))
+                    data.append(dp['text'])
+    assert len(data) == len(selected_data)
+    # with open(os.path.join(SAVE_FOLDER, "metadata_{}.json".format("member" if train else "nonmember")), "w") as f:
+    #     print("Saving to {}.....".format(os.path.join(SAVE_FOLDER, "metadata_{}.json".format("member" if train else "nonmember"))))
+    #     json.dump(meta_data, f)
+    return data, meta_data
 
 def load(name, membership_path, verbose=False, n_group=100, n_document_per_group=30, train=True, SAVE_FOLDER=None):
 
