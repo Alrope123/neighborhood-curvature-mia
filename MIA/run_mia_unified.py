@@ -860,6 +860,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     # tokenized_data_ref = ref_tokenizer(data)["input_ids"]
     print("Sampling segments from each documents")
     print(f"Total number of documents: {len(data)}")
+    print(type(data[0]))
     # data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
     # data = [sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy) for dp in data]
     new_data = []
@@ -871,7 +872,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     data = new_data
     metadata = new_metadata
     assert len(data) == len(metadata), (len(data), len(metadata))
-    
+    print(type(data[0]))
     # print stats about remainining data
     print(f"Total number of segments: {len(data)}")
     print(f"Average number of words: {np.mean([len(x.split()) for x in data])}")
