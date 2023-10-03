@@ -18,14 +18,20 @@ def iterate_files(root_dir):
 if __name__ == "__main__":
     data_dir = "/gscratch/h2lab/alrope/data/redpajama/book"
     chapter_keywords = ["CHAPTER I", 'CHAPTER II', 'CHAPTER III']
-    contains_chapter = []
+    contains_chapter_book3 = []
+    contains_chapter_gutenberg = []
 
     for file_path, file_name in tqdm(iterate_files(data_dir)):
         with open(file_path, 'r') as f:
             for line in f:
                 dp = json.loads(line)
                 text = dp['text']
-                contains_chapter.append(all([keyword in text for keyword in chapter_keywords]))
-
-    print("Total number is {}.".format(len(contains_chapter)))
-    print("Number of books that has chapter: {}".format(sum(contains_chapter)))
+                if 'title' in dp['meta']:
+                    contains_chapter_book3.append(all([keyword in text for keyword in chapter_keywords]))
+                elif 'short_book_title' in dp['meta']:
+                    contains_chapter_gutenberg.append(all([keyword in text for keyword in chapter_keywords]))
+                
+    print("Total number of Book3 is {}.".format(len(contains_chapter_book3)))
+    print("Number of books that has chapter: {}".format(sum(contains_chapter_book3)))
+    print("Total number of Gutenburg is {}.".format(len(contains_chapter_gutenberg)))
+    print("Number of books that has chapter: {}".format(sum(contains_chapter_gutenberg)))
