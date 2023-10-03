@@ -36,7 +36,7 @@ def split_by_chapter(text):
 
 
 if __name__ == "__main__":
-    with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/sample_book.txt", 'w') as f:
+    with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/sample_book.txt", 'r') as f:
         text = "\n".join(f.readlines())
     chapters = split_by_chapter(text)
     print(chapters[:5])
