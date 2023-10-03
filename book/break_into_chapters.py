@@ -61,6 +61,8 @@ if __name__ == "__main__":
                 if all([keyword in text for keyword in chapter_keywords]):
                     for chapter in split_by_chapter(text):
                         dp['text'] = chapter
+                        if 'Mr. Chalk, with his mind full of the story he had just heard, walked' in text:
+                            dp['full_text'] = text
                         fout.write(json.dumps(dp))
                         fout.write('\n')
         # # DEBUG
