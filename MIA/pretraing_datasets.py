@@ -7,7 +7,7 @@ from typing import List
 from tqdm import tqdm
 import numpy as np
 
-DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book']
+DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'wikipedia_month', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book']
 
 def iterate_files(root_dir):
     file_paths = []

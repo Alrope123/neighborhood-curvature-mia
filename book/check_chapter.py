@@ -5,6 +5,14 @@ import numpy as np
 from tqdm import tqdm
 import pickle as pkl
 
+
+def split_by_chapter(text):
+    text = text.rfind("CHAPTER I")
+    chapters = text.split("CHAPTER")
+    chapters = ["CHAPTER" + chapter for chapter in chapters]
+    return chapters
+
+
 def iterate_files(root_dir):
     file_paths = []
     file_names = []
@@ -19,8 +27,8 @@ def iterate_files(root_dir):
 if __name__ == "__main__":
     data_dir = "/gscratch/h2lab/alrope/data/redpajama/book"
     chapter_keywords = ["CHAPTER I", 'CHAPTER II', 'CHAPTER III']
-    contains_chapter_book3 = []
-    contains_chapter_gutenberg = []
+    chapters_lengths_book3 = []
+    chapters_lengths_gutenberg = []
 
     book3_titles = set()
     gutenberg_titles = set()
@@ -31,20 +39,22 @@ if __name__ == "__main__":
                 dp = json.loads(line)
                 text = dp['text']
                 if 'title' in dp['meta']:
-                    contains_chapter_book3.append(all([keyword in text for keyword in chapter_keywords]))
+                    if all([keyword in text for keyword in chapter_keywords]):
+                        chapters_lengths_book3.append(len(split_by_chapter(text)))
                     book3_titles.add(dp['meta']['title'])
                 elif 'short_book_title' in dp['meta']:
-                    contains_chapter_gutenberg.append(all([keyword in text for keyword in chapter_keywords]))
+                    if all([keyword in text for keyword in chapter_keywords]):
+                        chapters_lengths_gutenberg.append(len(split_by_chapter(text)))
                     gutenberg_titles.add(dp['meta']['short_book_title'])
     
-    intersection_titles = contains_chapter_book3.intersection()
+    intersection_titles = book3_titles.intersection(gutenberg_titles)
 
-    print("Total number of Book3 is {}.".format(len(contains_chapter_book3)))
-    print("Number of books that has chapter: {}".format(sum(contains_chapter_book3)))
-    print("Total number of Gutenberg is {}.".format(len(contains_chapter_gutenberg)))
-    print("Number of books that has chapter: {}".format(sum(contains_chapter_gutenberg)))
     print("Total number of articles in Book3 is {}.".format(len(book3_titles)))
+    print("Number of books that has chapter: {}".format(len(chapters_lengths_book3)))
+    print("Average number of chapters: {}").format(sum(chapters_lengths_book3) / len(chapters_lengths_book3))
     print("Total number of articles in Gutenberg is {}.".format(len(gutenberg_titles)))
+    print("Number of books that has chapter: {}".format(len(chapters_lengths_gutenberg)))
+    print("Average number of chapters: {}").format(sum(chapters_lengths_gutenberg) / len(chapters_lengths_gutenberg))
     print("Total number of intersection is {}.".format(len(intersection_titles)))
 
     with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/book/intersection_set.pkl", 'w') as f:
