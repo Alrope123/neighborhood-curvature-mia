@@ -9,7 +9,7 @@ import pickle as pkl
 def split_by_chapter(text):
     # Determine how many Chapter I are there
     idx = max(text.find("CHAPTER I "), text.find("CHAPTER I."))
-    assert idx >= 0, text
+    assert idx >= 0, text[:5000]
     while idx >= 0:
         text = text[idx: ]
         new_idx = max(text.find("CHAPTER I "), text.find("CHAPTER I."))
