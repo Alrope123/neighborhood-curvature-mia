@@ -22,7 +22,7 @@ def split_by_chapter(text):
         print([text[text.find("CHAPTER I"): text.find("CHAPTER I")+ 500]])
         return []
     while idx >= 0:
-        print("found match at: {}".format(text[idx: idx+500]))
+        print("found match at: {}".format([text[idx: idx+500]]))
         text = text[idx: ]
         new_idx = find_chapter_i_index(text)
         if new_idx == idx:
