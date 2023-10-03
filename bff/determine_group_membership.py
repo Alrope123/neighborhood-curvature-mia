@@ -100,7 +100,7 @@ def main(args):
     data_type = args.data_type
     document_threshold = args.document_threshold
     assert os.path.exists(save_dir)
-    save_dir = os.path.join(save_dir, data_type)
+    save_dir = os.path.join(save_dir, data_type.split('@')[0])
     assert os.path.exists(save_dir)
 
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
@@ -125,7 +125,7 @@ def main(args):
                 is_members.append(is_member)
         scores_and_group.append((np.mean(scores), group))
         membership_info[group]['is_members'] = is_members
-        membership_info[group]['group_is_member'] = decide_member_group(np.mean(scores), group, data_type, data_sample=)
+        membership_info[group]['group_is_member'] = decide_member_group(np.mean(scores), group, data_type)
 
     # Create statistic info
     print("Calculating the statistics...")

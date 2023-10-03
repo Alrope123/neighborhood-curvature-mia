@@ -58,4 +58,12 @@ if __name__ == "__main__":
     print("Total number of intersection is {}.".format(len(intersection_titles)))
 
     with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/book/intersection_set.pkl", 'w') as f:
-        pkl.dump(f)
+        pkl.dump(intersection_titles, f)
+
+# Total number of articles in Book3 is 174995.
+# Number of books that has chapter: 1606
+# Average number of chapters: 11.42777085927771
+# Total number of articles in Gutenberg is 26975.
+# Number of books that has chapter: 11623
+# Average number of chapters: 13.988557171126216
+# Total number of intersection is 0.
