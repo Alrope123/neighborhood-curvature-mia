@@ -33,6 +33,8 @@ if __name__ == "__main__":
         os.mkdir(save_dir)
 
     for file_path, file_name in tqdm(iterate_files(data_dir)):
+        print(file_path)
+        print(os.path.join(save_dir, file_name))
         with open(file_path, 'r') as fin, open(os.path.join(save_dir, file_name), 'w') as fout:
             for line in fin:
                 dp = json.loads(line)
