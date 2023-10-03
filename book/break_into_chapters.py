@@ -12,7 +12,7 @@ def split_by_chapter(text):
     assert idx >= 0, text[:5000]
     while idx >= 0:
         text = text[idx: ]
-        new_idx = max([text.find("CHAPTER I "), text.find("CHAPTER I."), text.find("CHAPTER I\n")], text.find("CHAPTER I-"))
+        new_idx = max([text.find("CHAPTER I "), text.find("CHAPTER I."), text.find("CHAPTER I\n"), text.find("CHAPTER I-")])
         if new_idx == idx:
             break
         else:
