@@ -84,6 +84,8 @@ def decide_member_group(average_score, group, data_type):
         return group < "2020-03-01"
     elif data_type.startswith('rpj-arxiv'):
         return group < "2020-07-32"
+    elif data_type.startswith('rpj-book@title'):
+        return group.split("-")[0] == "Books3"
     elif data_type.startswith('rpj-book'):
         return average_score > 0.5
     else:
@@ -123,7 +125,7 @@ def main(args):
                 is_members.append(is_member)
         scores_and_group.append((np.mean(scores), group))
         membership_info[group]['is_members'] = is_members
-        membership_info[group]['group_is_member'] = decide_member_group(np.mean(scores), group, data_type)
+        membership_info[group]['group_is_member'] = decide_member_group(np.mean(scores), group, data_type, data_sample=)
 
     # Create statistic info
     print("Calculating the statistics...")
@@ -150,6 +152,9 @@ def main(args):
                                 save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith('rpj-book@title'):
+        draw_separate_histogram(scores_and_group, split=["Books3", "Gutenberg"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("rpj-book"):
         draw_separate_histogram(scores_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",

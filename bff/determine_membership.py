@@ -104,9 +104,9 @@ def get_group(dp, data_type):
             return None
     elif data_type.startswith("rpj-book"):
         if 'title' in dp['meta']:
-            return dp['meta']['title']
+            return "Books3-" + dp['meta']['title']
         elif 'short_book_title' in dp['meta']:
-            return dp['meta']['short_book_title']
+            return "Gutenberg-" + dp['meta']['short_book_title']
         else:
             raise NotImplementedError("Key not in the meta")
     else:

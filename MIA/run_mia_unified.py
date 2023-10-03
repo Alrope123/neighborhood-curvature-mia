@@ -752,6 +752,12 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
     def random_segment(l, length, max_length):
         idx_random = random.randint(0, length-max_length)
         return l[idx_random: idx_random + max_length]
+
+    def split_by_chapter(text):
+        text = text[text.rfind("CHAPTER I"): ]
+        chapters = text.split("CHAPTER")
+        chapters = ["CHAPTER" + chapter for chapter in chapters]
+        return chapters
     
     if strategy in ['random']:
         # Filter by number of words first to save compute
@@ -789,6 +795,34 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
             tokens_base = tokenizer_base.encode(text)
             for i in range(0, len(tokens_base), segment_length):
                 segments.append(tokenizer_base.decode(tokens_base[i: i+segment_length]))
+        elif strategy == 'chapter':
+            chapters = split_by_chapter(text)
+            segments = []
+            for chapter in chapters:
+                n_words = len(chapter.split())
+                if n_words > max_length:
+                    if strategy == 'random':
+                        chapter = random_segment(chapter, n_words, max_length)
+                
+                # Tokenize
+                tokens_base = tokenizer_base.encode(chapter)
+                tokens_ref = tokenizer_ref.encode(chapter)
+                while len(tokens_base) > max_length or len(tokens_ref) > max_length:
+                    if len(tokens_base) > max_length:
+                        if strategy == 'random':
+                            tokens_base = random_segment(tokens_base, len(tokens_base), max_length)
+                        else:
+                            raise NotImplementedError()
+                        chapter = tokenizer_base.decode(tokens_base)
+                        tokens_ref = tokenizer_ref.encode(chapter)
+                    if len(tokens_ref) > max_length:
+                        if strategy == 'random':
+                            tokens_ref = random_segment(tokens_ref, len(tokens_ref), max_length)
+                        else:
+                            raise NotImplementedError()
+                        chapter = tokenizer_base.decode(tokens_ref)
+                        tokens_base = tokenizer_base.encode(chapter) 
+                segments.append(chapter)
         return segments
         
 
