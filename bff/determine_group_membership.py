@@ -23,7 +23,7 @@ def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=
     if split:
         categories = np.searchsorted(split, categories, side='right')
         assert all([category >= 0 and category <= len(split) for category in categories])
-        categories = ["<{}".format(split[i]) for i in categories]
+        categories = ["<{}".format(split[i] if i < len(split) else "Max") for i in categories]
     elif split == []:
         categories = ["All" for _ in categories]
 
