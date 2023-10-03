@@ -8,7 +8,7 @@ import re
 
 def find_chapter_i_index(text):
     # The regex pattern for "CHAPTER I" not followed by another roman numeral
-    pattern = r'\bCHAPTER I\b(?![IVXLCDM])|CHAPTER I\W'
+    pattern = r'\bCHAPTER I\b(?![IVXLCDM])|CHAPTER I[\W_]'
     match = re.search(pattern, text)
     if match:
         return match.start()
