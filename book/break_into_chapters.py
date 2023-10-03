@@ -8,11 +8,11 @@ import pickle as pkl
 
 def split_by_chapter(text):
     # Determine how many Chapter I are there
-    idx = max(text.find("CHAPTER I "), text.find("CHAPTER I.") > 0)
+    idx = max(text.find("CHAPTER I "), text.find("CHAPTER I."))
     assert idx >= 0
     while idx >= 0:
         text = text[idx: ]
-        new_idx = max(text.find("CHAPTER I "), text.find("CHAPTER I.") > 0)
+        new_idx = max(text.find("CHAPTER I "), text.find("CHAPTER I."))
         if new_idx == idx:
             break
         else:
@@ -52,3 +52,5 @@ if __name__ == "__main__":
                         dp['text'] = chapter
                         fout.write(json.dumps(dp))
                         fout.write('\n')
+        # DEBUG
+        break
