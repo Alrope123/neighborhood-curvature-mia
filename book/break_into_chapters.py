@@ -7,9 +7,15 @@ import pickle as pkl
 
 
 def split_by_chapter(text):
-    text = text[text.rfind("CHAPTER I"): ]
+    # Determine how many Chapter I are there
+    idx = max(text.find("CHAPTER I "), text.find("CHAPTER I.") > 0)
+    assert idx >= 0
+    while idx >= 0:
+        text = text[idx: ]
+        idx = max(text.find("CHAPTER I "), text.find("CHAPTER I.") > 0)
+        
     chapters = text.split("CHAPTER")
-    chapters = ["CHAPTER" + chapter for chapter in chapters]
+    chapters = ["CHAPTER" + chapter for chapter in chapters if chapter]
     return chapters
 
 
