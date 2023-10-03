@@ -18,7 +18,9 @@ def find_chapter_i_index(text):
 def split_by_chapter(text):
     # Determine how many Chapter I are there
     idx = find_chapter_i_index(text)
-    assert idx >= 0, text[text.find("CHAPTER I"): text.find("CHAPTER I")+ 100]
+    if idx < 0:
+        print([text[text.find("CHAPTER I"): text.find("CHAPTER I")+ 100]])
+        return []
     while idx >= 0:
         text = text[idx: ]
         new_idx = find_chapter_i_index(text)
@@ -46,7 +48,7 @@ def iterate_files(root_dir):
 if __name__ == "__main__":
     data_dir = "/gscratch/h2lab/alrope/data/redpajama/book/"
     save_dir = "/gscratch/h2lab/alrope/data/redpajama/book-chapters/"
-    chapter_keywords = ["CHAPTER I", 'CHAPTER II', 'CHAPTER III']
+    chapter_keywords = ['CHAPTER III']
 
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
