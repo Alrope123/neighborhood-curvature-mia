@@ -18,7 +18,7 @@ def find_chapter_i_index(text):
 def split_by_chapter(text):
     # Determine how many Chapter I are there
     idx = find_chapter_i_index(text)
-    assert idx >= 0, text[:5000]
+    assert idx >= 0, text[text.find("CHAPTER I"): text.find("CHAPTER I")+ 100]
     while idx >= 0:
         text = text[idx: ]
         new_idx = find_chapter_i_index(text)
