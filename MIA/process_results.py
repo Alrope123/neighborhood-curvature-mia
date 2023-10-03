@@ -82,8 +82,8 @@ def save_ll_histograms(members, nonmembers, name, bin_width, SAVE_FOLDER):
     
     # plot histogram of sampled/perturbed sampled on left, original/perturbed original on right
     plt.figure(figsize=(10, 6))
-    plt.hist(members, alpha=0.5, bins=bins_members, label='member')
-    plt.hist(nonmembers, alpha=0.5, bins=bins_nonmembers, label='non-member')
+    plt.hist(members, alpha=0.5, bins=bins_members, weights=np.ones(len(members)) / len(members), label='member')
+    plt.hist(nonmembers, alpha=0.5, bins=bins_nonmembers, weights=np.ones(len(nonmembers)) / len(nonmembers), label='non-member')
     plt.xlabel("Likelihood")
     plt.ylabel('Count')
     plt.title(name)
@@ -134,7 +134,7 @@ if __name__ == '__main__':
     with open(args.result_path, 'r') as f:
         result = json.load(f)
     with open(args.membership_path, 'rb') as f:
-        group_to_documents= pkl.load(f)
+        group_to_documents = pkl.load(f)
     
     SAVE_FOLDER = args.out_dir
     max_top_k = args.top_k
@@ -151,11 +151,11 @@ if __name__ == '__main__':
     member_predictions = result[member_key]
     fpr, tpr, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
     # Draw log likehood histogram on individual documents
-    compare_length = min(len(nonmember_predictions), len(member_predictions))
-    if len(nonmember_predictions) > len(member_predictions):
-        nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
-    elif len(member_predictions) > len(nonmember_predictions):
-        member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
+    # compare_length = min(len(nonmember_predictions), len(member_predictions))
+    # if len(nonmember_predictions) > len(member_predictions):
+    #     nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
+    # elif len(member_predictions) > len(nonmember_predictions):
+    #     member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
     save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{args.key}", 0.05, SAVE_FOLDER)
     print("Individual AUC-ROC with {}: {}".format(args.key, individual_roc_auc))
     save_roc_curves("Individual_with_{}".format(args.key), fpr, tpr, individual_roc_auc, SAVE_FOLDER)
