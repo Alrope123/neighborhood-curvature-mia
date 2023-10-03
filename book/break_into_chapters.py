@@ -4,15 +4,24 @@ import csv
 import numpy as np
 from tqdm import tqdm
 import pickle as pkl
+import re
 
+def find_chapter_i_index(text):
+    # The regex pattern for "CHAPTER I" not followed by another roman numeral
+    pattern = r'\bCHAPTER I\b(?![IVXLCDM])|CHAPTER I\W'
+    match = re.search(pattern, text)
+    if match:
+        return match.start()
+    else:
+        return -1
 
 def split_by_chapter(text):
     # Determine how many Chapter I are there
-    idx = max([text.find("CHAPTER I "), text.find("CHAPTER I."), text.find("CHAPTER I\n"), text.find("CHAPTER I-")])
+    idx = find_chapter_i_index(text)
     assert idx >= 0, text[:5000]
     while idx >= 0:
         text = text[idx: ]
-        new_idx = max([text.find("CHAPTER I "), text.find("CHAPTER I."), text.find("CHAPTER I\n"), text.find("CHAPTER I-")])
+        new_idx = find_chapter_i_index(text)
         if new_idx == idx:
             break
         else:
