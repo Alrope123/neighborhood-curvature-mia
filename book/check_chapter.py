@@ -3,6 +3,7 @@ import json
 import csv
 import numpy as np
 from tqdm import tqdm
+import pickle as pkl
 
 def iterate_files(root_dir):
     file_paths = []
@@ -38,9 +39,6 @@ if __name__ == "__main__":
     
     intersection_titles = contains_chapter_book3.intersection()
 
-    with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/book/intersection_set.pkl", 'w') as f:
-        
-
     print("Total number of Book3 is {}.".format(len(contains_chapter_book3)))
     print("Number of books that has chapter: {}".format(sum(contains_chapter_book3)))
     print("Total number of Gutenberg is {}.".format(len(contains_chapter_gutenberg)))
@@ -48,3 +46,6 @@ if __name__ == "__main__":
     print("Total number of articles in Book3 is {}.".format(len(book3_titles)))
     print("Total number of articles in Gutenberg is {}.".format(len(gutenberg_titles)))
     print("Total number of intersection is {}.".format(len(intersection_titles)))
+
+    with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/book/intersection_set.pkl", 'w') as f:
+        pkl.dump(f)
