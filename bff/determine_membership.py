@@ -66,6 +66,26 @@ def get_group(dp, data_type):
         timestamp = dp['meta']['timestamp']
         assert 'T' in timestamp
         return timestamp.split('T')[0]
+    elif data_type == 'wikipedia_month':
+        if member_dict == {}:
+            with open(member_dict_path, 'rb') as f:
+                member_dict = pkl.load(f)
+                print("Loaded in {} wikipedia titled matched.".format(len(member_dict)))
+        if nonmember_dict == {}:
+            with open(nonmember_dict_path, 'rb') as f:
+                nonmember_dict = pkl.load(f)
+                print("Loaded in {} wikipedia titled unmatched.".format(len(nonmember_dict)))
+        title = dp['title']
+        timestamp = None
+        if title in member_dict and member_dict[title] != None:
+            timestamp = datetime.strptime(member_dict[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
+            timestamp_splits = timestamp.split('-')
+            timestamp = '-'.join(timestamp_splits[:-1])
+        elif title in nonmember_dict and nonmember_dict[title] != None:
+            timestamp = datetime.strptime(nonmember_dict[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
+            timestamp_splits = timestamp.split('-')
+            timestamp = '-'.join(timestamp_splits[:-1])
+        return timestamp 
     elif data_type.startswith('wikipedia'):
         if member_dict == {}:
             with open(member_dict_path, 'rb') as f:
