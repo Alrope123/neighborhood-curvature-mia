@@ -51,10 +51,10 @@ if __name__ == "__main__":
 
     print("Total number of articles in Book3 is {}.".format(len(book3_titles)))
     print("Number of books that has chapter: {}".format(len(chapters_lengths_book3)))
-    print("Average number of chapters: {}").format(sum(chapters_lengths_book3) / len(chapters_lengths_book3))
+    print("Average number of chapters: {}".format(sum(chapters_lengths_book3) / len(chapters_lengths_book3)))
     print("Total number of articles in Gutenberg is {}.".format(len(gutenberg_titles)))
     print("Number of books that has chapter: {}".format(len(chapters_lengths_gutenberg)))
-    print("Average number of chapters: {}").format(sum(chapters_lengths_gutenberg) / len(chapters_lengths_gutenberg))
+    print("Average number of chapters: {}".format(sum(chapters_lengths_gutenberg) / len(chapters_lengths_gutenberg)))
     print("Total number of intersection is {}.".format(len(intersection_titles)))
 
     with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/book/intersection_set.pkl", 'w') as f:
