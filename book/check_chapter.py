@@ -7,7 +7,7 @@ import pickle as pkl
 
 
 def split_by_chapter(text):
-    text = text.rfind("CHAPTER I")
+    text = text[text.rfind("CHAPTER I"): ]
     chapters = text.split("CHAPTER")
     chapters = ["CHAPTER" + chapter for chapter in chapters]
     return chapters
