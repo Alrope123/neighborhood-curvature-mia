@@ -25,18 +25,14 @@ def iterate_files(root_dir):
 
 
 if __name__ == "__main__":
-    data_dir = "/gscratch/h2lab/alrope/data/redpajama/book"
-    save_dir = "/gscratch/h2lab/alrope/data/redpajama/book-chapters"
+    data_dir = "/gscratch/h2lab/alrope/data/redpajama/book/"
+    save_dir = "/gscratch/h2lab/alrope/data/redpajama/book-chapters/"
     chapter_keywords = ["CHAPTER I", 'CHAPTER II', 'CHAPTER III']
 
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
 
     for file_path, file_name in tqdm(iterate_files(data_dir)):
-        print(file_path)
-        print(save_dir)
-        print(file_name)
-        print(os.path.join(save_dir, file_name))
         with open(file_path, 'r') as fin, open(os.path.join(save_dir, file_name), 'w') as fout:
             for line in fin:
                 dp = json.loads(line)
