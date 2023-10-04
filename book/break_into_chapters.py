@@ -30,7 +30,7 @@ def split_by_chapter(text):
             idx = new_idx
         
     chapters = text.split("CHAPTER")
-    chapters = ["CHAPTER" + chapter for chapter in chapters if chapter]
+    chapters = [("CHAPTER" + chapter).strip() for chapter in chapters if chapter.strip()]
     return chapters
 
 
