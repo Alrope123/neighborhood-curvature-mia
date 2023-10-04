@@ -153,7 +153,7 @@ def main(args):
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
-    elif data_type.startswith('rpj-book@title'):
+    elif data_type.startswith('@title-rpj-book'):
         draw_separate_histogram(scores_and_group, split=["Books3", "Gutenberg"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("rpj-book"):
