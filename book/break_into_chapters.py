@@ -23,7 +23,7 @@ def split_by_chapter(text):
         return []
     while idx >= 0:
         text = text[idx: ]
-        new_idx = find_chapter_i_index(text)
+        new_idx = find_chapter_i_index(text[1:])
         if new_idx == idx:
             break
         else:
