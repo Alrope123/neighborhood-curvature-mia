@@ -24,7 +24,7 @@ def split_by_chapter(text):
     while idx >= 0:
         print("found match at {}: {}".format(idx, [text[idx: idx+500]]))
         text = text[idx: ]
-        new_idx = find_chapter_i_index(text)
+        new_idx = find_chapter_i_index(text[1:])
         if new_idx == idx:
             break
         else:
@@ -39,4 +39,4 @@ if __name__ == "__main__":
     with open("/gscratch/h2lab/alrope/neighborhood-curvature-mia/debug/sample_book.txt", 'r') as f:
         text = "\n".join(f.readlines())
     chapters = split_by_chapter(text)
-    print(chapters[:5])
+    # print(chapters[:5])
