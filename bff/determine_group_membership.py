@@ -100,7 +100,7 @@ def main(args):
     data_type = args.data_type
     document_threshold = args.document_threshold
     assert os.path.exists(save_dir)
-    save_dir = os.path.join(save_dir, data_type)
+    save_dir = os.path.join(save_dir, data_type[data_type.index('-')+1 : ])
     assert os.path.exists(save_dir)
 
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
