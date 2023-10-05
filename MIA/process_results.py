@@ -425,8 +425,8 @@ if __name__ == '__main__':
 
                 fpr, tpr, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
                 direction_result[k] = {
-                    "Member size": len(cur_member_predictions),
-                    "Nonmember size": len(cur_nonmember_predictions),
+                    "Member size": len(cur_member_individual_predictions),
+                    "Nonmember size": len(cur_nonmember_individual_predictions),
                     "ROC AUC Individual": individual_roc_auc_,
                     "MIA": {}
                 }
