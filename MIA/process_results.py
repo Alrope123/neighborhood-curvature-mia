@@ -425,8 +425,8 @@ if __name__ == '__main__':
 
                 fpr, tpr, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
                 direction_result[k] = {
-                    "Member size": len(cur_member_individual_predictions),
-                    "Nonmember size": len(cur_nonmember_individual_predictions),
+                    "Member size": len(cur_group_results_members),
+                    "Nonmember size": len(cur_group_results_nonmembers),
                     "ROC AUC Individual": individual_roc_auc_,
                     "MIA": {}
                 }
@@ -472,16 +472,16 @@ if __name__ == '__main__':
             os.mkdir(SAVE_FOLDER)
         for k in generate_topk_array(max_top_k):
             best_s = None
-            best_fpr = None
-            best_tpr = None
+            # best_fpr = None
+            # best_tpr = None
             best_auc = -1
             for top_s in generate_topk_array(k):
-                fpr, tpr, roc_auc = average_results[direction][k]['MIA'][top_s]
+                roc_auc = average_results[direction][k]['MIA'][top_s]
                 if roc_auc > best_auc:
                     best_s = top_s
                     best_auc = roc_auc
-                    best_fpr = fpr
-                    best_tpr = tpr
+                    # best_fpr = fpr
+                    # best_tpr = tpr
             output = {
                 "s": best_s,
                 "ROC AUC": best_auc,
