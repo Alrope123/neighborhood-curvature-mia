@@ -462,7 +462,7 @@ if __name__ == '__main__':
 
         all_results.append(seed_result)
 
-
+    print(all_results)
     average_results, std_results = merge_json(all_results)
 
     for direction in ['max', "min"]:
