@@ -495,7 +495,7 @@ if __name__ == '__main__':
             cur_row = []
             for s in ticks:
                 if s in average_results[direction][k]["MIA"]:
-                    cur_row.append(average_results[direction][k]["MIA"][s][0])
+                    cur_row.append(average_results[direction][k]["MIA"][s])
                 else:
                     cur_row.append(np.nan)
             data.append(cur_row)
