@@ -455,7 +455,8 @@ if __name__ == '__main__':
                     
                     fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
 
-                    direction_result[k]["MIA"][top_s] = (roc_auc, fpr, tpr)
+                    # direction_result[k]["MIA"][top_s] = (roc_auc, fpr, tpr)
+                    direction_result[k]["MIA"][top_s] = roc_auc
                 
             seed_result[direction] = direction_result
 
