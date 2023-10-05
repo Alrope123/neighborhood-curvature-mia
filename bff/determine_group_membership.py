@@ -84,7 +84,7 @@ def decide_member_group(average_score, group, data_type):
         return group < "2020-03-01"
     elif data_type.startswith('rpj-arxiv'):
         return group < "2020-07-32"
-    elif data_type.startswith('rpj-book@title'):
+    elif data_type.startswith('@title-rpj-book'):
         return group.split("-")[0] == "Books3"
     elif data_type.startswith('rpj-book'):
         return average_score > 0.5
