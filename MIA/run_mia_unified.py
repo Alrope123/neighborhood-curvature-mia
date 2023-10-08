@@ -1047,7 +1047,8 @@ if __name__ == '__main__':
     parser.add_argument('--max_length', type=int, default=None)
     parser.add_argument('--ceil_pct', action='store_true')
 
-    parser.add_argument('--n_group', type=int, default=100)
+    parser.add_argument('--n_group_member', type=int, default=100)
+    parser.add_argument('--n_group_nonmember', type=int, default=100)
     parser.add_argument('--n_document_per_group', type=int, default=30)
 
     parser.add_argument('--strategy', type=str, default="random")
@@ -1102,7 +1103,7 @@ if __name__ == '__main__':
     dataset_member_name=args.dataset_member.replace('/', '_')
     dataset_nonmember_name=args.dataset_nonmember.replace('/', '_')
 
-    SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
+    SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
 
     new_folder = SAVE_FOLDER.replace("tmp_results", "results")
     ##don't run if exists!!!
@@ -1180,12 +1181,12 @@ if __name__ == '__main__':
     print(f'The longest tokenizable length of is {longest_tokenizable_len}.')
 
     data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=True, 
-                                                 strategy=args.strategy, n_group=args.n_group, 
+                                                 strategy=args.strategy, n_group=args.n_group_member, 
                                                  n_document_per_group=args.n_document_per_group, 
                                                  SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
                                                  max_length=longest_tokenizable_len)
     data_nonmember, metadata_nonmember = generate_data(args.dataset_nonmember, args.dataset_nonmember_key, train=False, 
-                                                       strategy=args.strategy, n_group=args.n_group, 
+                                                       strategy=args.strategy, n_group=args.n_group_nonmember, 
                                                        n_document_per_group=args.n_document_per_group, 
                                                        SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
                                                        max_length=longest_tokenizable_len) 
