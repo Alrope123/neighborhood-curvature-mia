@@ -839,6 +839,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
         data, metadata = pretraing_datasets.load(dataset, 
             membership_path=membership_path,
             n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
+        assert len(data) == len(metadata)
     elif dataset == 'the_pile' and data_split=='train':
         #data_files = "https://www.cs.cmu.edu/~enron/enron_mail_20150507.tar.gz"
         #data_files="/home/niloofar/projects/enron_mail_20150507.tar.gz"
