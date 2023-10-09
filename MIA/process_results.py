@@ -67,9 +67,6 @@ def get_roc_metrics(real_preds, sample_preds):
     real_preds =  [element for element in real_preds if not math.isnan(element)]
     sample_preds = [element for element in sample_preds if not math.isnan(element)]
 
-    print(len(real_preds))
-    print(real_preds[:10])
-
     fpr, tpr, _ = roc_curve([0] * len(real_preds) + [1] * len(sample_preds), real_preds + sample_preds)
     roc_auc = auc(fpr, tpr)
     return fpr.tolist(), tpr.tolist(), float(roc_auc)
