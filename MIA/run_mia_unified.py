@@ -782,7 +782,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
                     tokens_ref = random_segment(tokens_ref, len(tokens_ref), max_length)
                 else:
                     raise NotImplementedError()
-                text = tokenizer_base.decode(tokens_ref)
+                text = tokenizer_ref.decode(tokens_ref)
                 tokens_base = tokenizer_base.encode(text)
         if isinstance(text, list):
             return text
