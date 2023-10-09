@@ -807,15 +807,15 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
                 # Tokenize
                 tokens_base = tokenizer_base.encode(chapter)
                 tokens_ref = tokenizer_ref.encode(chapter)
-                while len(tokens_base) > max_length or len(tokens_ref) > max_length:
-                    if len(tokens_base) > max_length:
+                while len(tokens_base) >= max_length or len(tokens_ref) >= max_length:
+                    if len(tokens_base) >= max_length:
                         if strategy == 'random':
                             tokens_base = random_segment(tokens_base, len(tokens_base), max_length)
                         else:
                             raise NotImplementedError()
                         chapter = tokenizer_base.decode(tokens_base)
                         tokens_ref = tokenizer_ref.encode(chapter)
-                    if len(tokens_ref) > max_length:
+                    if len(tokens_ref) >= max_length:
                         if strategy == 'random':
                             tokens_ref = random_segment(tokens_ref, len(tokens_ref), max_length)
                         else:
