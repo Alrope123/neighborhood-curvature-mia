@@ -33,7 +33,7 @@ def get_embeddings(model, documents):
             embedding = np.mean(vectors, axis=0)
             embeddings.append(embedding)
         else:
-            embedding = np.zeros(model.vector_size)
+            embedding = np.zeros(300)
             embeddings.append(embedding)
     return embeddings
 
