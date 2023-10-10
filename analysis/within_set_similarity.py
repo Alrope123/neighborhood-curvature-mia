@@ -1,7 +1,7 @@
 import numpy as np
 import transformers
 import torch
-import tqdm
+from tqdm import tqdm
 import random
 import argparse
 import os
