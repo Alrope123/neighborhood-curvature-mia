@@ -26,7 +26,7 @@ def load_model(name):
 def get_embeddings(model, documents):
     """Get FastText embedding for a given text."""
     embeddings = []
-    for text in documents:
+    for text in tqdm(documents):
         words = text.split()
         vectors = [model[word] for word in words if word in model]
         if vectors:
@@ -43,7 +43,7 @@ def compute_average_cosine_similarity(embeddings):
     total_similarity = 0
     total_pairs = 0
     random.shuffle(embeddings)
-    for i in range(len(embeddings)):
+    for i in tqdm(range(len(embeddings))):
         for j in range(i+1, len(embeddings)):
             if random.rand() < 0.1:
                 similarity = 1 - cosine(embeddings[i], embeddings[j])
