@@ -18,7 +18,7 @@ np.random.seed(0)
 random.seed(0)
 
 def load_model(name):
-    model_path = hf_hub_download(repo_id="facebook/fasttext-en-vectors", filename="model.bin", cache_dir=args.cache_path)
+    model_path = hf_hub_download(repo_id="facebook/fasttext-en-vectors", filename="model.bin", cache_dir=args.cache_dir)
     model = fasttext.load_model(model_path)
     return model
 
@@ -41,7 +41,7 @@ def get_embeddings(model, documents):
 
 
 def compute_average_cosine_similarity(embeddings):
-    """Compute average cosine similarity among a list of texts."""
+    """Compute average cosine sifmilarity among a list of texts."""
     total_similarity = 0
     total_pairs = 0
     for i in range(len(embeddings)):
