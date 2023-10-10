@@ -31,11 +31,11 @@ def get_embeddings(model, documents):
         vectors = [model[word] for word in words if word in model]
         if vectors:
             embedding = np.mean(vectors, axis=0)
-            assert len(embedding) == len(vectors)
+            assert len(embedding) == len(vectors), (len(embedding) == len(vectors))
             embeddings.append(embedding)
         else:
             embedding = np.zeros(model.vector_size)
-            assert len(embedding) == len(vectors)
+            assert len(embedding) == len(vectors), (len(embedding) == len(vectors))
             embeddings.append(embedding)
     return embeddings
 
