@@ -42,13 +42,11 @@ def compute_average_cosine_similarity(embeddings):
     """Compute average cosine sifmilarity among a list of texts."""
     total_similarity = 0
     total_pairs = 0
-    random.shuffle(embeddings)
     for i in tqdm(range(len(embeddings))):
         for j in range(i+1, len(embeddings)):
-            if random.rand() < 0.1:
-                similarity = 1 - cosine(embeddings[i], embeddings[j])
-                total_similarity += similarity
-                total_pairs += 1
+            similarity = 1 - cosine(embeddings[i], embeddings[j])
+            total_similarity += similarity
+            total_pairs += 1
     
     average_similarity = total_similarity / total_pairs if total_pairs != 0 else 0
     return average_similarity
@@ -57,6 +55,7 @@ def compute_average_cosine_similarity(embeddings):
 if __name__ == '__main__':
     DEVICE = "cuda"
     random.seed(2023)
+    np.random.seed(2023)
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--result_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
@@ -103,14 +102,16 @@ if __name__ == '__main__':
     # Calculate the word embeddings
     group_similarity_member = {}
     for group, documents in tqdm(group_results_members.items()):
-        documents_embeddings = get_embeddings(model, documents)
-        average_similarity = compute_average_cosine_similarity(documents_embeddings)
-        group_similarity_member[group] = average_similarity
+        if np.random.rand() <= 0.1:
+            documents_embeddings = get_embeddings(model, documents)
+            average_similarity = compute_average_cosine_similarity(documents_embeddings)
+            group_similarity_member[group] = average_similarity
     group_similarity_nonmember = {}
     for group, documents in tqdm(group_results_nonmembers.items()):
-        documents_embeddings = get_embeddings(model, documents)
-        average_similarity = compute_average_cosine_similarity(documents_embeddings)
-        group_similarity_nonmember[group] = average_similarity
+        if np.random.rand() <= 0.1:    
+            documents_embeddings = get_embeddings(model, documents)
+            average_similarity = compute_average_cosine_similarity(documents_embeddings)
+            group_similarity_nonmember[group] = average_similarity
     results["final average"] = np.mean(list(group_similarity_member.values()) + list(group_similarity_nonmember.values()))
     results["member"] = group_similarity_member
     results["nonmember"] = group_similarity_nonmember
