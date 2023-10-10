@@ -336,15 +336,26 @@ def get_lira(text):
             assert labels.size(1) <= longest_tokenizable_len, labels.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
             assert labels.max().item() <= base_tokenizer.vocab_size, (labels.max().item(), base_tokenizer.vocab_size)
             assert labels.min().item() >= 0, labels.min().item()
-            tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
-            labels_ref = tokenized_ref.input_ids
-            assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
-            assert labels_ref.max().item() <= ref_tokenizer.vocab_size, (labels_ref.max().item(), ref_tokenizer.vocab_size)
-            assert labels_ref.min().item() >= 0, labels_ref.min().item()
-            lls =  -base_model(**tokenized, labels=labels).loss.item()
-            lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
-
-            return lls, lls - lls_ref
+            
+            # If a reference model is specified
+            if ref_model:
+                tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
+                labels_ref = tokenized_ref.input_ids
+                assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
+                assert labels_ref.max().item() <= ref_tokenizer.vocab_size, (labels_ref.max().item(), ref_tokenizer.vocab_size)
+                assert labels_ref.min().item() >= 0, labels_ref.min().item()
+                lls =  -base_model(**tokenized, labels=labels).loss.item()
+                lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
+                return lls, lls - lls_ref
+            else: # IF no reference model is specified, use ICL
+                tokenized_ref = base_tokenizer(text + '\n\n' + text, return_tensors="pt").to(DEVICE)
+                labels_ref = tokenized_ref.input_ids
+                assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
+                assert labels_ref.max().item() <= ref_tokenizer.vocab_size, (labels_ref.max().item(), ref_tokenizer.vocab_size)
+                assert labels_ref.min().item() >= 0, labels_ref.min().item()
+                lls =  -base_model(**tokenized, labels=labels).loss.item()
+                lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
+                return lls, lls + lls - lls_ref    
 
 def get_lls(texts):
     if not args.openai_model:
@@ -1144,6 +1155,8 @@ if __name__ == '__main__':
     if args.ref_model is not None :
         ref_model, ref_tokenizer = load_base_model_and_tokenizer(args.ref_model)
         load_ref_model()
+    else:
+        ref_model, ref_tokenizer = None, None
 
     # mask filling t5 model
     if not args.baselines_only and not args.random_fills:
@@ -1185,12 +1198,12 @@ if __name__ == '__main__':
                                                  strategy=args.strategy, n_group=args.n_group_member, 
                                                  n_document_per_group=args.n_document_per_group, 
                                                  SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
-                                                 max_length=longest_tokenizable_len)
+                                                 max_length=min(longest_tokenizable_len, args.max_length if args.max_length else 999999))
     data_nonmember, metadata_nonmember = generate_data(args.dataset_nonmember, args.dataset_nonmember_key, train=False, 
                                                        strategy=args.strategy, n_group=args.n_group_nonmember, 
                                                        n_document_per_group=args.n_document_per_group, 
                                                        SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
-                                                       max_length=longest_tokenizable_len) 
+                                                       max_length=min(longest_tokenizable_len, args.max_length if args.max_length else 999999))
 
     # assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
@@ -1271,10 +1284,10 @@ if __name__ == '__main__':
             # # write entropy threshold results to a file
             # with open(os.path.join(SAVE_FOLDER, f"entropy_threshold_results.json"), "w") as f:
             #     json.dump(baseline_outputs[3], f)
-            if args.ref_model is not None:
-                with open(os.path.join(SAVE_FOLDER, f"lr_ratio_threshold_results.json"), "w") as f:
-                    # json.dump(baseline_outputs[4], f)
-                    json.dump(baseline_outputs[0], f)
+            # if args.ref_model is not None:
+            with open(os.path.join(SAVE_FOLDER, f"lr_ratio_threshold_results.json"), "w") as f:
+                # json.dump(baseline_outputs[4], f)
+                json.dump(baseline_outputs[0], f)
 
 
         # # write supervised results to a file
