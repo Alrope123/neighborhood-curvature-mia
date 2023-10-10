@@ -15,8 +15,8 @@ if __name__ == '__main__':
         result_path = base_result_path.format(model)
         with open(result_path, 'r') as f:
             result = json.load(f)
-        sets_members.append(set(result['member_meta']))
-        sets_nonmembers.append(set(result['nonmember_meta']))
+        sets_members.append(set([(filename, i) for filename, i in result['member_meta']]))
+        sets_nonmembers.append(set([(filename, i) for filename, i in result['nonmember_meta']]))
     
     for set_members in sets_members:
         assert set_members == sets_members[0], [set_members, sets_members[0]]
