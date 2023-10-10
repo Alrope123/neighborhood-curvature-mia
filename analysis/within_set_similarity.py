@@ -101,12 +101,12 @@ if __name__ == '__main__':
     results = {}
     # Calculate the word embeddings
     group_similarity_member = {}
-    for group, documents in group_results_members:
+    for group, documents in tqdm(group_results_members):
         documents_embeddings = get_embeddings(model, documents)
         average_similarity = compute_average_cosine_similarity(documents_embeddings)
         group_similarity_member[group] = average_similarity
     group_similarity_nonmember = {}
-    for group, documents in group_results_nonmembers:
+    for group, documents in tqdm(group_results_nonmembers):
         documents_embeddings = get_embeddings(model, documents)
         average_similarity = compute_average_cosine_similarity(documents_embeddings)
         group_similarity_nonmember[group] = average_similarity
@@ -114,5 +114,8 @@ if __name__ == '__main__':
     results["member"] = group_similarity_member
     results["nonmember"] = group_similarity_nonmember
 
+    print("Final average is: {}".format(results["final average"]))
+
     with open(os.path.join(args.result_dir, "within_set_similarity.json"), 'r') as f:
         json.dump(results, f)
+    
