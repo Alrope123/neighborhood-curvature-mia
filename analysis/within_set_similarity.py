@@ -42,11 +42,13 @@ def compute_average_cosine_similarity(embeddings):
     """Compute average cosine sifmilarity among a list of texts."""
     total_similarity = 0
     total_pairs = 0
+    random.shuffle(embeddings)
     for i in range(len(embeddings)):
         for j in range(i+1, len(embeddings)):
-            similarity = 1 - cosine(embeddings[i], embeddings[j])
-            total_similarity += similarity
-            total_pairs += 1
+            if random.rand() < 0.1:
+                similarity = 1 - cosine(embeddings[i], embeddings[j])
+                total_similarity += similarity
+                total_pairs += 1
     
     average_similarity = total_similarity / total_pairs if total_pairs != 0 else 0
     return average_similarity
@@ -54,6 +56,7 @@ def compute_average_cosine_similarity(embeddings):
 
 if __name__ == '__main__':
     DEVICE = "cuda"
+    random.seed(2023)
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--result_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
