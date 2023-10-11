@@ -770,9 +770,10 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         chapters = ["CHAPTER" + chapter for chapter in chapters]
         return chapters
     
-    print(tokenizer_base)
-    print(tokenizer_ref)
-    assert False
+    if "facebook/opt" in tokenizer_base.name_or_path or "facebook/opt" in tokenizer_ref.name_or_path:
+        print("Using OPT Tokenizer!!!")
+        max_length = max_length - 1
+
     
     if strategy in ['random']:
         # Filter by number of words first to save compute
