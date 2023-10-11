@@ -351,10 +351,10 @@ def get_lira(text):
                 tokenized_ref = base_tokenizer(text + '\n\n' + text, return_tensors="pt").to(DEVICE)
                 labels_ref = tokenized_ref.input_ids
                 assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
-                assert labels_ref.max().item() <= ref_tokenizer.vocab_size, (labels_ref.max().item(), ref_tokenizer.vocab_size)
+                assert labels_ref.max().item() <= base_tokenizer.vocab_size, (labels_ref.max().item(), base_tokenizer.vocab_size)
                 assert labels_ref.min().item() >= 0, labels_ref.min().item()
                 lls =  -base_model(**tokenized, labels=labels).loss.item()
-                lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
+                lls_ref = -base_model(**tokenized_ref, labels=labels_ref).loss.item()
                 return lls, lls + lls - lls_ref    
 
 def get_lls(texts):
