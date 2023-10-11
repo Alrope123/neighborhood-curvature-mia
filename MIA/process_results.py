@@ -72,7 +72,7 @@ def get_roc_metrics(real_preds, sample_preds):
     return fpr.tolist(), tpr.tolist(), float(roc_auc)
 
 
-def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
+def save_roc_curves(name, fpr, tpr, roc_auc, save_dir=None):
     # first, clear plt
     plt.clf()
     plt.plot(fpr, tpr, label=f"{name}, roc_auc={roc_auc:.3f}", color='#1b9e77')
@@ -85,7 +85,7 @@ def save_roc_curves(name, fpr, tpr, roc_auc, SAVE_FOLDER=None):
     plt.ylabel('True Positive Rate')
     plt.title(f'ROC Curves')
     plt.legend(loc="lower right", fontsize=6)
-    plt.savefig(f"{SAVE_FOLDER}/roc_curves_{name}.png")
+    plt.savefig(f"{save_dir}/roc_curves_{name}.png")
 
 
 def calculate_group_loss(losses, aggregated_method, direction, top_s):
@@ -96,7 +96,7 @@ def calculate_group_loss(losses, aggregated_method, direction, top_s):
 
 
 # save the histogram of log likelihoods in two side-by-side plots, one for real and real perturbed, and one for sampled and sampled perturbed
-def save_ll_histograms(members, nonmembers, name, bin_width, SAVE_FOLDER):
+def save_ll_histograms(members, nonmembers, name, bin_width, save_dir):
     # assert len(members) == len(nonmembers)
     # first, clear plt
     plt.clf()
@@ -115,8 +115,8 @@ def save_ll_histograms(members, nonmembers, name, bin_width, SAVE_FOLDER):
     plt.ylabel('Count')
     plt.title(name)
     plt.legend(loc='upper right')
-    plt.savefig(f"{SAVE_FOLDER}/ll_histograms_{name}.png")
-    print(f"Plotting at {SAVE_FOLDER}/ll_histograms_{name}.png")
+    plt.savefig(f"{save_dir}/ll_histograms_{name}.png")
+    print(f"Plotting at {save_dir}/ll_histograms_{name}.png")
 
 
 def save_cmap(data, ticks, name):
@@ -194,9 +194,9 @@ if __name__ == '__main__':
         #     nonmember_predictions = np.random.choice(nonmember_predictions, len(member_predictions), replace=False)
         # elif len(member_predictions) > len(nonmember_predictions):
         #     member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
-        save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{key}", 0.05, SAVE_FOLDER)
+        save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{key}", 0.05, ROOT_SAVE_FOLDER)
         print("Individual AUC-ROC with {}: {}".format(key, individual_roc_auc))
-        save_roc_curves("Individual_with_{}".format(key), fpr, tpr, individual_roc_auc, SAVE_FOLDER)
+        save_roc_curves("Individual_with_{}".format(key), fpr, tpr, individual_roc_auc, ROOT_SAVE_FOLDER)
 
         info_to_group = {}
         for group, infos in group_to_documents.items():
