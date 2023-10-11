@@ -8,6 +8,7 @@ import os
 import json
 import time
 import fasttext
+import math
 from huggingface_hub import hf_hub_download
 from scipy.spatial.distance import cosine
 import pickle as pkl
@@ -42,7 +43,7 @@ def compute_average_cosine_similarity(embeddings):
     """Compute average cosine sifmilarity among a list of texts."""
     total_similarity = 0
     total_pairs = 0
-    for i in tqdm(range(len(embeddings))):
+    for i in range(len(embeddings)):
         for j in range(i+1, len(embeddings)):
             similarity = 1 - cosine(embeddings[i], embeddings[j])
             total_similarity += similarity
@@ -102,17 +103,17 @@ if __name__ == '__main__':
     # Calculate the word embeddings
     group_similarity_member = {}
     for group, documents in tqdm(group_results_members.items()):
-        if np.random.rand() <= 0.1:
+        if np.random.rand() <= 0.01:
             documents_embeddings = get_embeddings(model, documents)
             average_similarity = compute_average_cosine_similarity(documents_embeddings)
             group_similarity_member[group] = average_similarity
     group_similarity_nonmember = {}
     for group, documents in tqdm(group_results_nonmembers.items()):
-        if np.random.rand() <= 0.1:    
+        if np.random.rand() <= 0.01:    
             documents_embeddings = get_embeddings(model, documents)
             average_similarity = compute_average_cosine_similarity(documents_embeddings)
             group_similarity_nonmember[group] = average_similarity
-    results["final average"] = np.mean(list(group_similarity_member.values()) + list(group_similarity_nonmember.values()))
+    results["final average"] = np.mean([value for value in list(group_similarity_member.values()) + list(group_similarity_nonmember.values()) if not math.isnan(value)])
     results["member"] = group_similarity_member
     results["nonmember"] = group_similarity_nonmember
 
