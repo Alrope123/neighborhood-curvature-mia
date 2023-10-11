@@ -779,8 +779,6 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         
         # Tokenize
         tokens_base = tokenizer_base.encode(text)
-        if args.ref_model is None:
-            tokenizer_ref = tokenizer_base
         tokens_ref = tokenizer_ref.encode(text)
         while len(tokens_base) > max_length or len(tokens_ref) > max_length:
             if len(tokens_base) > max_length:
@@ -1158,7 +1156,7 @@ if __name__ == '__main__':
         ref_model, ref_tokenizer = load_base_model_and_tokenizer(args.ref_model)
         load_ref_model()
     else:
-        ref_model, ref_tokenizer = None, None
+        ref_model, ref_tokenizer = None, base_tokenizer
 
     # mask filling t5 model
     if not args.baselines_only and not args.random_fills:
