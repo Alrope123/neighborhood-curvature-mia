@@ -4,7 +4,7 @@
             "1": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5215870437987291,
+                "ROC AUC Individual": 0.527739762976928,
                 "MIA": {
                     "1": 0.5013003901170351,
                     "best": {
@@ -16,7 +16,7 @@
             "3": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5491132298447419,
+                "ROC AUC Individual": 0.525222268281649,
                 "MIA": {
                     "1": 0.5013003901170351,
                     "3": 0.5247074122236671,
@@ -29,7 +29,7 @@
             "5": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5509647304671751,
+                "ROC AUC Individual": 0.5219126523983396,
                 "MIA": {
                     "1": 0.5013003901170351,
                     "3": 0.5247074122236671,
@@ -43,7 +43,7 @@
             "8": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.549638462089937,
+                "ROC AUC Individual": 0.5310424220333786,
                 "MIA": {
                     "1": 0.5013003901170351,
                     "3": 0.5247074122236671,
@@ -58,7 +58,7 @@
             "10": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5484959199550258,
+                "ROC AUC Individual": 0.5368568889444126,
                 "MIA": {
                     "1": 0.5013003901170351,
                     "3": 0.5247074122236671,
@@ -74,7 +74,7 @@
             "30": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5364432294218296,
+                "ROC AUC Individual": 0.5383543218834099,
                 "MIA": {
                     "1": 0.5013003901170351,
                     "3": 0.5247074122236671,
@@ -93,7 +93,7 @@
             "1": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5215870437987291,
+                "ROC AUC Individual": 0.527739762976928,
                 "MIA": {
                     "1": 0.9933475675890541,
                     "best": {
@@ -105,7 +105,7 @@
             "3": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5491132298447419,
+                "ROC AUC Individual": 0.525222268281649,
                 "MIA": {
                     "1": 0.9933475675890541,
                     "3": 0.9999829643216108,
@@ -118,7 +118,7 @@
             "5": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5509647304671751,
+                "ROC AUC Individual": 0.5219126523983396,
                 "MIA": {
                     "1": 0.9933475675890541,
                     "3": 0.9999829643216108,
@@ -132,7 +132,7 @@
             "8": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.549638462089937,
+                "ROC AUC Individual": 0.5310424220333786,
                 "MIA": {
                     "1": 0.9933475675890541,
                     "3": 0.9999829643216108,
@@ -147,7 +147,7 @@
             "10": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5484959199550258,
+                "ROC AUC Individual": 0.5368568889444126,
                 "MIA": {
                     "1": 0.9933475675890541,
                     "3": 0.9999829643216108,
@@ -163,7 +163,7 @@
             "30": {
                 "Member size": 769.0,
                 "Nonmember size": 229.0,
-                "ROC AUC Individual": 0.5364432294218296,
+                "ROC AUC Individual": 0.5383543218834099,
                 "MIA": {
                     "1": 0.9933475675890541,
                     "3": 0.9999829643216108,
