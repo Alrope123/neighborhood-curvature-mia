@@ -780,7 +780,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         # Tokenize
         tokens_base = tokenizer_base.encode(text)
         if args.ref_model is None:
-            tokens_ref = tokens_base
+            tokenizer_ref = tokenizer_base
         tokens_ref = tokenizer_ref.encode(text)
         while len(tokens_base) > max_length or len(tokens_ref) > max_length:
             if len(tokens_base) > max_length:
