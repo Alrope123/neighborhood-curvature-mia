@@ -103,13 +103,13 @@ if __name__ == '__main__':
     # Calculate the word embeddings
     group_similarity_member = {}
     for group, documents in tqdm(group_results_members.items()):
-        if np.random.rand() <= 0.01:
+        if np.random.rand() <= 0.1:
             documents_embeddings = get_embeddings(model, documents)
             average_similarity = compute_average_cosine_similarity(documents_embeddings)
             group_similarity_member[group] = average_similarity
     group_similarity_nonmember = {}
     for group, documents in tqdm(group_results_nonmembers.items()):
-        if np.random.rand() <= 0.01:    
+        if np.random.rand() <= 0.1:    
             documents_embeddings = get_embeddings(model, documents)
             average_similarity = compute_average_cosine_similarity(documents_embeddings)
             group_similarity_nonmember[group] = average_similarity
