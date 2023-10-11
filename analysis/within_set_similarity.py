@@ -118,6 +118,6 @@ if __name__ == '__main__':
 
     print("Final average is: {}".format(results["final average"]))
 
-    with open(os.path.join(args.result_dir, "within_set_similarity.json"), 'r') as f:
+    with open(os.path.join(args.result_dir, "within_set_similarity.json"), 'w') as f:
         json.dump(results, f)
     
