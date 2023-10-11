@@ -27,7 +27,7 @@ def load_model(name):
 def get_embeddings(model, documents):
     """Get FastText embedding for a given text."""
     embeddings = []
-    for text in tqdm(documents):
+    for text in documents:
         words = text.split()
         vectors = [model[word] for word in words if word in model]
         if vectors:
