@@ -1,0 +1,315 @@
+{
+    "average": {
+        "max": {
+            "1": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.706,
+                "MIA": {
+                    "1": 0.706,
+                    "best": {
+                        "s": 1,
+                        "ROC AUC": 0.706
+                    }
+                }
+            },
+            "3": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6923666666666667,
+                "MIA": {
+                    "1": 0.7118,
+                    "3": 0.8070999999999999,
+                    "best": {
+                        "s": 3,
+                        "ROC AUC": 0.8070999999999999
+                    }
+                }
+            },
+            "5": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6919740000000001,
+                "MIA": {
+                    "1": 0.6856000000000001,
+                    "3": 0.7953000000000001,
+                    "5": 0.8535,
+                    "best": {
+                        "s": 5,
+                        "ROC AUC": 0.8535
+                    }
+                }
+            },
+            "8": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6922117187500001,
+                "MIA": {
+                    "1": 0.7041,
+                    "3": 0.774,
+                    "5": 0.8285,
+                    "8": 0.8745999999999999,
+                    "best": {
+                        "s": 8,
+                        "ROC AUC": 0.8745999999999999
+                    }
+                }
+            },
+            "10": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6827745000000001,
+                "MIA": {
+                    "1": 0.7132000000000001,
+                    "3": 0.7658,
+                    "5": 0.8038,
+                    "8": 0.8539,
+                    "10": 0.8682,
+                    "best": {
+                        "s": 10,
+                        "ROC AUC": 0.8682
+                    }
+                }
+            },
+            "30": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6771274444444444,
+                "MIA": {
+                    "1": 0.6896000000000001,
+                    "3": 0.745,
+                    "5": 0.7661999999999999,
+                    "8": 0.81,
+                    "10": 0.8367,
+                    "30": 0.9325999999999999,
+                    "best": {
+                        "s": 30,
+                        "ROC AUC": 0.9325999999999999
+                    }
+                }
+            }
+        },
+        "min": {
+            "1": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.706,
+                "MIA": {
+                    "1": 0.706,
+                    "best": {
+                        "s": 1,
+                        "ROC AUC": 0.706
+                    }
+                }
+            },
+            "3": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6923666666666667,
+                "MIA": {
+                    "1": 0.7890999999999999,
+                    "3": 0.8070999999999999,
+                    "best": {
+                        "s": 3,
+                        "ROC AUC": 0.8070999999999999
+                    }
+                }
+            },
+            "5": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6919740000000001,
+                "MIA": {
+                    "1": 0.8357,
+                    "3": 0.8520000000000001,
+                    "5": 0.8535,
+                    "best": {
+                        "s": 5,
+                        "ROC AUC": 0.8535
+                    }
+                }
+            },
+            "8": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6922117187500001,
+                "MIA": {
+                    "1": 0.8432,
+                    "3": 0.8639,
+                    "5": 0.8716,
+                    "8": 0.8745999999999999,
+                    "best": {
+                        "s": 8,
+                        "ROC AUC": 0.8745999999999999
+                    }
+                }
+            },
+            "10": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6827745000000001,
+                "MIA": {
+                    "1": 0.8053,
+                    "3": 0.8494999999999999,
+                    "5": 0.8605,
+                    "8": 0.8673000000000001,
+                    "10": 0.8682,
+                    "best": {
+                        "s": 10,
+                        "ROC AUC": 0.8682
+                    }
+                }
+            },
+            "30": {
+                "Member size": 100.0,
+                "Nonmember size": 100.0,
+                "ROC AUC Individual": 0.6771274444444444,
+                "MIA": {
+                    "1": 0.8413,
+                    "3": 0.8949,
+                    "5": 0.9128,
+                    "8": 0.9224,
+                    "10": 0.9254000000000001,
+                    "30": 0.9325999999999999,
+                    "best": {
+                        "s": 30,
+                        "ROC AUC": 0.9325999999999999
+                    }
+                }
+            }
+        },
+        "Total individual ROC AUC": 0.6986452773766575
+    },
+    "std": {
+        "max": {
+            "1": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0
+                }
+            },
+            "3": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0
+                }
+            },
+            "5": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0,
+                    "5": 0.0
+                }
+            },
+            "8": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0,
+                    "5": 0.0,
+                    "8": 0.0
+                }
+            },
+            "10": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0,
+                    "5": 0.0,
+                    "8": 0.0,
+                    "10": 0.0
+                }
+            },
+            "30": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0,
+                    "5": 0.0,
+                    "8": 0.0,
+                    "10": 0.0,
+                    "30": 0.0
+                }
+            }
+        },
+        "min": {
+            "1": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0
+                }
+            },
+            "3": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0
+                }
+            },
+            "5": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0,
+                    "5": 0.0
+                }
+            },
+            "8": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0,
+                    "5": 0.0,
+                    "8": 0.0
+                }
+            },
+            "10": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0,
+                    "5": 0.0,
+                    "8": 0.0,
+                    "10": 0.0
+                }
+            },
+            "30": {
+                "Member size": 0.0,
+                "Nonmember size": 0.0,
+                "ROC AUC Individual": 0.0,
+                "MIA": {
+                    "1": 0.0,
+                    "3": 0.0,
+                    "5": 0.0,
+                    "8": 0.0,
+                    "10": 0.0,
+                    "30": 0.0
+                }
+            }
+        }
+    }
+}
