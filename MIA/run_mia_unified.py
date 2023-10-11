@@ -1253,8 +1253,8 @@ if __name__ == '__main__':
             # baseline_outputs.append(run_baseline_threshold_experiment(logrank_criterion, "log_rank", n_samples=n_samples))
             # entropy_criterion = lambda text: get_entropy(text)
             # baseline_outputs.append(run_baseline_threshold_experiment(entropy_criterion, "entropy", n_samples=n_samples))
-            if args.ref_model is not None:
-                baseline_outputs.append(run_baseline_threshold_experiment(get_lira, "lr_ratio", n_samples=n_samples))
+            # if args.ref_model is not None:
+            baseline_outputs.append(run_baseline_threshold_experiment(get_lira, "lr_ratio", n_samples=n_samples))
 
         # baseline_outputs.append(eval_supervised(data, model='roberta-base-openai-detector'))
         # baseline_outputs.append(eval_supervised(data, model='roberta-large-openai-detector'))
