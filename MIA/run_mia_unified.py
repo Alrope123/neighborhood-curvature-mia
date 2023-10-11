@@ -770,6 +770,10 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         chapters = ["CHAPTER" + chapter for chapter in chapters]
         return chapters
     
+    print(tokenizer_base)
+    print(tokenizer_ref)
+    assert False
+    
     if strategy in ['random']:
         # Filter by number of words first to save compute
         n_words = len(text.split())
