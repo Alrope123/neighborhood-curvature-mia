@@ -1187,10 +1187,13 @@ if __name__ == '__main__':
         base_model_n_position = base_model.config.max_position_embeddings
     except AttributeError:
         base_model_n_position = base_model.config.n_positions
-    try:
-        ref_model_n_position = ref_model.config.max_position_embeddings
-    except AttributeError:
-        ref_model_n_position = ref_model.config.n_positions
+    if args.ref_model is not None:
+        try:
+            ref_model_n_position = ref_model.config.max_position_embeddings
+        except AttributeError:
+            ref_model_n_position = ref_model.config.n_positions
+    else:
+        ref_model_n_position = base_model_n_position
     longest_tokenizable_len = min(base_model_n_position, ref_model_n_position)
     print(f'The longest tokenizable length of is {longest_tokenizable_len}.')
 
