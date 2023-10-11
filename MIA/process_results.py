@@ -171,6 +171,7 @@ if __name__ == '__main__':
 
     print("# of samples: {}".format(result['n_samples']))
 
+    ROOT_SAVE_FOLDER = SAVE_FOLDER
     for key in args.keys:
         print("Metrics on document level:")
         nonmember_key = f"nonmember_{key}"
@@ -393,7 +394,6 @@ if __name__ == '__main__':
                 random.shuffle(predictions)
                 original_group_results_nonmembers[group] = predictions
 
-        ROOT_SAVE_FOLDER = SAVE_FOLDER
         all_results = []
 
         aggregated_method = "mean"
