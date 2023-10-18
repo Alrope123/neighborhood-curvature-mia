@@ -41,7 +41,10 @@ def load_base_model():
     except NameError:
         pass
     if args.openai_model is None:
-        base_modelcuda()
+        base_model.to(DEVICE)
+    if torch.cuda.device_count() > 1:
+        print(f"Using {torch.cuda.device_count()} GPUs!")
+        base_model = torch.nn.DataParallel(base_model)
     print(f'DONE ({time.time() - start:.2f}s)')
 
 
@@ -53,7 +56,7 @@ def load_ref_model():
     except NameError:
         pass
     if args.openai_model is None:
-        ref_modelcuda()
+        ref_model.to(DEVICE)
     print(f'DONE ({time.time() - start:.2f}s)')
 
 def load_mask_model():
@@ -63,7 +66,7 @@ def load_mask_model():
     if args.openai_model is None:
         base_model.cpu()
     if not args.random_fills:
-        mask_modelcuda()
+        mask_model.to(DEVICE)
     print(f'DONE ({time.time() - start:.2f}s)')
 
 
@@ -110,7 +113,7 @@ def count_masks(texts):
 def replace_masks(texts):
     n_expected = count_masks(texts)
     stop_id = mask_tokenizer.encode(f"<extra_id_{max(n_expected)}>")[0]
-    tokens = mask_tokenizer(texts, return_tensors="pt", padding=True)cuda()
+    tokens = mask_tokenizer(texts, return_tensors="pt", padding=True).to(DEVICE)
     outputs = mask_model.generate(**tokens, max_length=150, do_sample=True, top_p=args.mask_top_p, num_return_sequences=1, eos_token_id=stop_id)
     return mask_tokenizer.batch_decode(outputs, skip_special_tokens=False)
 
@@ -169,7 +172,7 @@ def perturb_texts_(texts, span_length, pct, ceil_pct=False):
     else:
         if args.random_fills_tokens:
             # tokenize base_tokenizer
-            tokens = base_tokenizer(texts, return_tensors="pt", padding=True)cuda()
+            tokens = base_tokenizer(texts, return_tensors="pt", padding=True).to(DEVICE)
             valid_tokens = tokens.input_ids != base_tokenizer.pad_token_id
             replace_pct = args.pct_words_masked * (args.span_length / (args.span_length + 2 * args.buffer_size))
 
@@ -230,9 +233,9 @@ def sample_from_model(texts, min_words=55, prompt_tokens=30, max_length=200):
     # encode each text as a list of token ids
     if args.dataset == 'pubmed':
         texts = [t[:t.index(custom_datasets.SEPARATOR)] for t in texts]
-        all_encoded = base_tokenizer(texts, return_tensors="pt", padding=True)cuda()
+        all_encoded = base_tokenizer(texts, return_tensors="pt", padding=True).to(DEVICE)
     else:
-        all_encoded = base_tokenizer(texts, return_tensors="pt", padding=True)cuda()
+        all_encoded = base_tokenizer(texts, return_tensors="pt", padding=True).to(DEVICE)
         all_encoded = {key: value[:, :prompt_tokens] for key, value in all_encoded.items()}
 
     if args.openai_model:
@@ -300,7 +303,7 @@ def get_ll(text):
         return np.mean(logprobs)
     else:
         with torch.no_grad():
-            tokenized = base_tokenizer(text, return_tensors="pt")cuda()
+            tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels = tokenized.input_ids
             # Step 1: Extract Maximum Token ID
             max_token_id = tokenized.input_ids.max().item()
@@ -331,7 +334,7 @@ def get_lira(text):
         return np.mean(logprobs)
     else:
         with torch.no_grad():
-            tokenized = base_tokenizer(text, return_tensors="pt")cuda()
+            tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
             labels = tokenized.input_ids
             assert labels.size(1) <= longest_tokenizable_len, labels.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
             assert labels.max().item() <= base_tokenizer.vocab_size, (labels.max().item(), base_tokenizer.vocab_size)
@@ -339,7 +342,7 @@ def get_lira(text):
             
             # If a reference model is specified
             if ref_model:
-                tokenized_ref = ref_tokenizer(text, return_tensors="pt")cuda()
+                tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
                 labels_ref = tokenized_ref.input_ids
                 assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
                 assert labels_ref.max().item() <= ref_tokenizer.vocab_size, (labels_ref.max().item(), ref_tokenizer.vocab_size)
@@ -348,7 +351,7 @@ def get_lira(text):
                 lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
                 return lls, lls - lls_ref
             else: # IF no reference model is specified, use ICL
-                tokenized_ref = base_tokenizer(text + '\n\n' + text, return_tensors="pt")cuda()
+                tokenized_ref = base_tokenizer(text + '\n\n' + text, return_tensors="pt").to(DEVICE)
                 labels_ref = tokenized_ref.input_ids
                 assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
                 assert labels_ref.max().item() <= base_tokenizer.vocab_size, (labels_ref.max().item(), base_tokenizer.vocab_size)
@@ -376,7 +379,7 @@ def get_rank(text, log=False):
     assert args.openai_model is None, "get_rank not implemented for OpenAI models"
 
     with torch.no_grad():
-        tokenized = base_tokenizer(text, return_tensors="pt")cuda()
+        tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
       
         logits = base_model(**tokenized).logits[:,:-1]
         labels = tokenized.input_ids[:,1:]
@@ -404,7 +407,7 @@ def get_entropy(text):
 
     with torch.no_grad():
         
-        tokenized = base_tokenizer(text, return_tensors="pt")cuda()
+        tokenized = base_tokenizer(text, return_tensors="pt").to(DEVICE)
 
         logits = base_model(**tokenized).logits[:,:-1]
         neg_entropy = F.softmax(logits, dim=-1) * F.log_softmax(logits, dim=-1)
@@ -944,9 +947,6 @@ def load_base_model_and_tokenizer(name):
         # if 'gpt-j' in name:
         #     base_model_kwargs.update(dict(revision='float16'))
         base_model = transformers.AutoModelForCausalLM.from_pretrained(name, **base_model_kwargs, cache_dir=cache_dir)
-        if torch.cuda.device_count() > 1:
-            print(f"Using {torch.cuda.device_count()} GPUs!")
-            base_model = torch.nn.DataParallel(base_model)
     else:
         base_model = None
 
@@ -966,7 +966,7 @@ def load_base_model_and_tokenizer(name):
 
 def eval_supervised(data, model):
     print(f'Beginning supervised evaluation with {model}...')
-    detector = transformers.AutoModelForSequenceClassification.from_pretrained(model, cache_dir=cache_dir)cuda()
+    detector = transformers.AutoModelForSequenceClassification.from_pretrained(model, cache_dir=cache_dir).to(DEVICE)
     tokenizer = transformers.AutoTokenizer.from_pretrained(model, cache_dir=cache_dir)
 
     real, fake = data['nonmember'], data['member']
@@ -976,14 +976,14 @@ def eval_supervised(data, model):
         real_preds = []
         for batch in tqdm.tqdm(range(len(real) // batch_size), desc="Evaluating real"):
             batch_real = real[batch * batch_size:(batch + 1) * batch_size]
-            batch_real = tokenizer(batch_real, padding=True, truncation=True, max_length=512, return_tensors="pt")cuda()
+            batch_real = tokenizer(batch_real, padding=True, truncation=True, max_length=512, return_tensors="pt").to(DEVICE)
             real_preds.extend(detector(**batch_real).logits.softmax(-1)[:,0].tolist())
         
         # get predictions for fake
         fake_preds = []
         for batch in tqdm.tqdm(range(len(fake) // batch_size), desc="Evaluating fake"):
             batch_fake = fake[batch * batch_size:(batch + 1) * batch_size]
-            batch_fake = tokenizer(batch_fake, padding=True, truncation=True, max_length=512, return_tensors="pt")cuda()
+            batch_fake = tokenizer(batch_fake, padding=True, truncation=True, max_length=512, return_tensors="pt").to(DEVICE)
             fake_preds.extend(detector(**batch_fake).logits.softmax(-1)[:,0].tolist())
 
     predictions = {
