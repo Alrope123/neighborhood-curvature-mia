@@ -33,7 +33,7 @@ COLORS = ["#0072B2", "#009E73", "#D55E00", "#CC79A7", "#F0E442",
 pattern = re.compile(r"<extra_id_\d+>")
 
 
-def load_base_model():
+def load_base_model(base_model):
     print('MOVING BASE MODEL TO GPU...', end='', flush=True)
     start = time.time()
     try:
@@ -1186,7 +1186,7 @@ if __name__ == '__main__':
     # if args.dataset in ['english', 'german']:
     #     preproc_tokenizer = mask_tokenizer
 
-    load_base_model()
+    load_base_model(base_model)
 
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
