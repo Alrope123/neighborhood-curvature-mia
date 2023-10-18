@@ -944,6 +944,9 @@ def load_base_model_and_tokenizer(name):
         # if 'gpt-j' in name:
         #     base_model_kwargs.update(dict(revision='float16'))
         base_model = transformers.AutoModelForCausalLM.from_pretrained(name, **base_model_kwargs, cache_dir=cache_dir)
+        if torch.cuda.device_count() > 1:
+            print(f"Using {torch.cuda.device_count()} GPUs!")
+            base_model = torch.nn.DataParallel(base_model)
     else:
         base_model = None
 
