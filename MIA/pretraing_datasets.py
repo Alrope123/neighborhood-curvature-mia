@@ -47,7 +47,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
     return selected_data
 
 
-def load(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30): 
+def load_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30): 
     selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     
     data = [] 
@@ -70,6 +70,6 @@ def load(name, data_dir, membership_path, verbose=False, n_group=100, n_document
             print("Loading the dataset: {}...".format(name))
         with open(membership_path, 'rb') as f:
             membership_info = pickle.load(f)
-        return load(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
+        return load_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
     else:
         raise ValueError(f'Unknown dataset {name}')
