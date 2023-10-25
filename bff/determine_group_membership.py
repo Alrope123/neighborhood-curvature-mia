@@ -168,6 +168,10 @@ def main(args):
         draw_separate_histogram(scores_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     if data_type.startswith("language"):
+        scores_and_group_new = []
+        for score, group in scores_and_group:
+            scores_and_group_new.append(score, group in rpj_pile_member_set)
+        scores_and_group = scores_and_group_new
         draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                 save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     with open(membership_info_path, "wb") as f:
