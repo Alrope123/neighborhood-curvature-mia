@@ -208,7 +208,8 @@ def draw_separate_histogram(coverages, split=None, bins=20, xlabel=None, ylabel=
     plt.legend()
     plt.savefig(save_path, format='png')
 
-
+rpj_pile_member_set = ["pt", "en", "fr", "ca", "es"]
+rpj_pile_nonmember_set = ["sv", "da", "ro", "bg", "pl", "hu", "sl", "uk", "cs", "it", "ru", "sr", "nl", "de", "hr"]
 def main(args):
     # Process args
     data_dir = args.data_dir
@@ -302,6 +303,10 @@ def main(args):
         draw_separate_histogram(coverages_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     elif data_type.startswith("language"):
+        coverages_and_group_new = []
+        for coverage, group in coverages_and_group:
+            coverages_and_group_new.append((coverage, group in rpj_pile_member_set))
+        coverages_and_group = coverages_and_group_new
         draw_separate_histogram(coverages_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20) 
     else:
