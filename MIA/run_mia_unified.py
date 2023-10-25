@@ -1194,12 +1194,18 @@ if __name__ == '__main__':
     try:
         base_model_n_position = base_model.config.max_position_embeddings
     except AttributeError:
-        base_model_n_position = base_model.config.n_positions
+        try:
+            base_model_n_position = base_model.config.n_positions
+        except AttributeError:
+            base_model_n_position = 2048
     if args.ref_model is not None:
         try:
             ref_model_n_position = ref_model.config.max_position_embeddings
         except AttributeError:
-            ref_model_n_position = ref_model.config.n_positions
+            try:
+                ref_model_n_position = ref_model.config.n_positions
+            except AttributeError:
+                ref_model_n_position = 2048
     else:
         ref_model_n_position = base_model_n_position
     longest_tokenizable_len = min(base_model_n_position, ref_model_n_position)
