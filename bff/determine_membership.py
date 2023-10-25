@@ -109,6 +109,8 @@ def get_group(dp, data_type):
             return "Gutenberg-" + dp['meta']['short_book_title']
         else:
             raise NotImplementedError("Key not in the meta")
+    elif data_type.startswith("langugage"):
+        return dp["meta"]["language"]
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
@@ -299,6 +301,9 @@ def main(args):
     elif data_type.startswith("rpj-book"):
         draw_separate_histogram(coverages_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
+    elif data_type.startswith("language"):
+        draw_separate_histogram(coverages_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20) 
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 

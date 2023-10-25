@@ -78,7 +78,8 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
     # plt.grid(axis='y', alpha=0.75)  # Add a grid on y-axis
     plt.savefig(save_path, format='png') 
   
-
+rpj_pile_member_set = ["pt", "en", "fr", "ca", "es"]
+rpj_pile_nonmember_set = ["sv", "da", "ro", "bg", "pl", "hu", "sl", "uk", "cs", "it", "ru", "sr", "nl", "de", "hr"]
 def decide_member_group(average_score, group, data_type):
     if data_type.startswith('wikipedia'):
         return group < "2020-03-01"
@@ -88,6 +89,13 @@ def decide_member_group(average_score, group, data_type):
         return group.split("-")[0] == "Books3"
     elif data_type.startswith('rpj-book'):
         return average_score > 0.5
+    elif data_type.startswith("langugage"):
+        if group in rpj_pile_member_set:
+            return True
+        elif group in rpj_pile_nonmember_set:
+            return False
+        else:
+            raise NotImplementedError("Language not identified")
     else:
         raise NotImplementedError() 
 
@@ -159,6 +167,9 @@ def main(args):
     elif data_type.startswith("rpj-book"):
         draw_separate_histogram(scores_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    if data_type.startswith("language"):
+        draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     with open(membership_info_path, "wb") as f:
         pkl.dump(membership_info, f)
 
