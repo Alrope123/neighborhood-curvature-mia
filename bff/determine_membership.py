@@ -109,7 +109,7 @@ def get_group(dp, data_type):
             return "Gutenberg-" + dp['meta']['short_book_title']
         else:
             raise NotImplementedError("Key not in the meta")
-    elif data_type.startswith("langugage"):
+    elif data_type.startswith("language"):
         return dp["meta"]["language"]
     else:
         raise NotImplementedError('The data type is not implemented yet.')

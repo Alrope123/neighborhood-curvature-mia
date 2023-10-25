@@ -89,7 +89,7 @@ def decide_member_group(average_score, group, data_type):
         return group.split("-")[0] == "Books3"
     elif data_type.startswith('rpj-book'):
         return average_score > 0.5
-    elif data_type.startswith("langugage"):
+    elif data_type.startswith("language"):
         if group in rpj_pile_member_set:
             return True
         elif group in rpj_pile_nonmember_set:
