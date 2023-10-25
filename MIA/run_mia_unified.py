@@ -845,7 +845,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         
 
 
-def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000):
+def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, data_dir=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000):
     random.seed(2023)
     np.random.seed(2023)
     metadata = None
@@ -854,7 +854,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, m
     if dataset in custom_datasets.DATASETS:
         data = custom_datasets.load(dataset, cache_dir)
     elif dataset in pretraing_datasets.DATASETS:
-        data, metadata = pretraing_datasets.load(dataset, 
+        data, metadata = pretraing_datasets.load(dataset, data_dir=data_dir,
             membership_path=membership_path,
             n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
         assert len(data) == len(metadata)
@@ -1072,6 +1072,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--strategy', type=str, default="random")
 
+    parser.add_argument('--data_dir', type=str, default=None)
     parser.add_argument('--membership_path', type=str, default=None)
 
     args = parser.parse_args()
@@ -1207,12 +1208,12 @@ if __name__ == '__main__':
     data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=True, 
                                                  strategy=args.strategy, n_group=args.n_group_member, 
                                                  n_document_per_group=args.n_document_per_group, 
-                                                 SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
+                                                 SAVE_FOLDER=SAVE_FOLDER, data_dir=args.data_dir, membership_path=args.membership_path, 
                                                  max_length=min(longest_tokenizable_len, args.max_length if args.max_length else 999999))
     data_nonmember, metadata_nonmember = generate_data(args.dataset_nonmember, args.dataset_nonmember_key, train=False, 
                                                        strategy=args.strategy, n_group=args.n_group_nonmember, 
                                                        n_document_per_group=args.n_document_per_group, 
-                                                       SAVE_FOLDER=SAVE_FOLDER, membership_path=args.membership_path, 
+                                                       SAVE_FOLDER=SAVE_FOLDER, data_dir=args.data_dir, membership_path=args.membership_path, 
                                                        max_length=min(longest_tokenizable_len, args.max_length if args.max_length else 999999))
 
     # assert len(data_member) == len(data_nonmember)
