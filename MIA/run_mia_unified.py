@@ -1075,6 +1075,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--data_dir', type=str, default=None)
     parser.add_argument('--membership_path', type=str, default=None)
+    parser.add_argument('--save_dir', type=str, default="results")
 
     args = parser.parse_args()
 
@@ -1126,7 +1127,7 @@ if __name__ == '__main__':
 
     SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
 
-    new_folder = SAVE_FOLDER.replace("tmp_results", "results")
+    new_folder = SAVE_FOLDER.replace("tmp_results", args.save_dir)
     ##don't run if exists!!!
     print(f"{new_folder}")
     if  os.path.isdir((new_folder)):
