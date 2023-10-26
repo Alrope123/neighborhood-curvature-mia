@@ -1,0 +1,40 @@
+version: v2
+description: set-mia test
+tasks:
+  - name: set-mia test
+    image:
+      beaker: alrope/set_mia
+    arguments: [python, MIA/run_mia_unified.py, 
+                --output_name, unified_mia, 
+                --base_model_name, EleutherAI/gpt-neo-2.7B, 
+                --cache_dir, cache, 
+                --dataset_member, wikipedia, 
+                --dataset_member_key, text, 
+                --dataset_nonmember, wikipedia, 
+                --dataset_nonmember_key, text, 
+                --ref_model, EleutherAI/gpt-neo-125m, 
+                --baselines_only, 
+                --n_group_member, 770,
+                --n_group_nonmember, 230, 
+                --n_document_per_group, 30, 
+                --data_dir, /data, 
+                --membership_path, /bff/wikipedia/group_to_member.pkl,
+                --save_dir, /output
+    ]
+    envVars:
+      - name: CUDA_VISIBLE_DEVICES
+        value: "0"
+    datasets:
+      - mountPath: /data
+        source:
+          beaker: alrope/wikipedia
+      - mountPath: /bff
+        source:
+          beaker: alrope/membership
+    result:
+      path: /output
+    resources:
+      gpuCount: 1
+    context:
+      cluster: ai2/allennlp-elanding-a100-40g
+      priority: preemptible
