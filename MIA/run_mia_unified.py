@@ -773,7 +773,8 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         chapters = ["CHAPTER" + chapter for chapter in chapters]
         return chapters
     
-    if "facebook/opt" in tokenizer_base.name_or_path or "facebook/opt" in tokenizer_ref.name_or_path:
+    if "facebook/opt" in tokenizer_base.name_or_path or "facebook/opt" in tokenizer_ref.name_or_path \
+        or "bigscience/bloom" in tokenizer_base.name_or_path or "bigscience/bloom" in tokenizer_ref.name_or_path:
         max_length = max_length - 1
 
     
