@@ -204,9 +204,17 @@ if __name__ == '__main__':
                 sets_nonmembers.append(set([(filename, i) for filename, i in cur_result['nonmember_meta']]))
                 print(cur_result['member_meta'][:10])
             for set_members in sets_members:
-                assert set_members == sets_members[0], [set_members, sets_members[0]]
+                # assert set_members == sets_members[0], [set_members, sets_members[0]]
+                for member in set_members:
+                    assert member in set_members[0]
+                for member in set_members[0]:
+                    assert member in set_members
             for set_nonmembers in sets_nonmembers:
-                assert set_nonmembers == sets_nonmembers[0], [set_nonmembers, sets_nonmembers[0]]
+                # assert set_nonmembers == sets_nonmembers[0], [set_nonmembers, sets_nonmembers[0]]
+                for member in set_nonmembers:
+                    assert member in set_nonmembers[0]
+                for member in set_nonmembers[0]:
+                    assert member in set_nonmembers
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
