@@ -1103,6 +1103,8 @@ if __name__ == '__main__':
             base_model_name = args.base_model_name.replace('/', '_')
         else:
             base_model_name = "openai-" + args.openai_model.replace('/', '_')
+    else:
+        base_model_name = "None"
     scoring_model_string = (f"-{args.scoring_model_name}" if args.scoring_model_name else "").replace('/', '_')
 #    SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{START_DATE}-{START_TIME}-{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{args.dataset}-{args.n_samples}"
     if args.ref_model is not None:
