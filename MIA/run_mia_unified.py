@@ -1080,7 +1080,6 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', type=str, default=None)
     parser.add_argument('--membership_path', type=str, default=None)
     parser.add_argument('--save_dir', type=str, default="results")
-    parser.add_argument('--skip_base_model', default=False, action="store_true")
 
     args = parser.parse_args()
 
@@ -1131,7 +1130,7 @@ if __name__ == '__main__':
     dataset_nonmember_name=args.dataset_nonmember.replace('/', '_')
 
     # SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
-    SAVE_FOLDER = f"{args.save_dir}/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}{'-ref_only' if args.skip_base_model else ''}"
+    SAVE_FOLDER = f"{args.save_dir}/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
 
     # new_folder = SAVE_FOLDER.replace("tmp_results", args.save_dir)
     # ##don't run if exists!!!
@@ -1164,7 +1163,7 @@ if __name__ == '__main__':
     GPT2_TOKENIZER = transformers.GPT2Tokenizer.from_pretrained('gpt2', cache_dir=cache_dir)
 
     # generic generative model
-    if not args.skip_base_model:
+    if args.base_model:
         base_model, base_tokenizer = load_base_model_and_tokenizer(args.base_model_name)
 
 
@@ -1175,7 +1174,7 @@ if __name__ == '__main__':
     else:
         ref_model, ref_tokenizer = None, base_tokenizer
 
-    if args.skip_base_model:
+    if not args.base_model:
         base_model, base_tokenizer = None, ref_tokenizer
 
     # mask filling t5 model
@@ -1199,7 +1198,7 @@ if __name__ == '__main__':
     # if args.dataset in ['english', 'german']:
     #     preproc_tokenizer = mask_tokenizer
 
-    if not args.skip_base_model:
+    if args.base_model:
         load_base_model(base_model)
 
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
