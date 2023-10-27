@@ -149,6 +149,7 @@ def save_cmap(data, ticks, name):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--result_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/lr_ratio_threshold_results.json")
+    parser.add_argument('--result_path_ref', type=str, default=None)
     parser.add_argument('--membership_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl")
     parser.add_argument('--out_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
     parser.add_argument('--keys', nargs="+", default="crit")
@@ -159,13 +160,19 @@ if __name__ == '__main__':
 
     assert os.path.exists(args.result_path), args.result_path
     assert os.path.exists(args.membership_path), args.membership_path
-
+    
     with open(args.result_path, 'r') as f:
         result = json.load(f)
+    if args.result_path_ref != None:
+        assert "crit" in args.keys
+        with open(args.result_path_ref, 'r') as f:
+            result_ref = json.load(f)
     with open(args.membership_path, 'rb') as f:
         group_to_documents = pkl.load(f)
     
     SAVE_FOLDER = args.out_dir
+    if not os.path.exists(SAVE_FOLDER):
+        os.makedirs(SAVE_FOLDER)
     max_top_k = args.top_k
     random.seed(2023)
     np.random.seed(2023)
@@ -185,6 +192,9 @@ if __name__ == '__main__':
         elif key == "ref_lls":
             result[nonmember_key] = [lls - crit for lls, crit in zip(result["nonmember_lls"], result["nonmember_crit"])]
             result[member_key] = [lls - crit for lls, crit in zip(result["member_lls"], result["member_crit"])]
+        elif key == "crit" and args.result_path_ref != None:
+            result[nonmember_key] = [lls_base - lls_ref for lls_base, lls_ref in zip(result["nonmember_lls"], result_ref["nonmember_lls"])]
+            result[member_key] = [lls_base - lls_ref for lls_base, lls_ref in zip(result["member_lls"], result_ref["member_lls"])]
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
@@ -220,148 +230,6 @@ if __name__ == '__main__':
             group_results_nonmembers[group_nonmember].append(entry)
         print("# of member groups before filtering: {}".format(len(group_results_members)))
         print("# of nonmember groups before filtering: {}".format(len(group_results_nonmembers)))
-
-        # # Selecting qualified groups
-        # qualified_group_results_members = {}
-        # qualified_group_results_nonmembers = {}
-        # for group, predictions in group_results_members.items():
-        #     if len(predictions) >= max_top_k:
-        #         random.shuffle(predictions)
-        #         qualified_group_results_members[group] = predictions[:max_top_k]
-        # for group, predictions in group_results_nonmembers.items():
-        #     if len(predictions) >= max_top_k:
-        #         random.shuffle(predictions)
-        #         qualified_group_results_nonmembers[group] = predictions[:max_top_k]
-
-        # # group_results_members, group_results_nonmembers = make_dicts_equal(qualified_group_results_members, qualified_group_results_nonmembers)
-        # group_results_members = qualified_group_results_members
-        # group_results_nonmembers = qualified_group_results_nonmembers
-        # print("# of member groups: {}".format(len(group_results_members)))
-        # print("# of nonmember groups: {}".format(len(group_results_nonmembers)))
-        # print("Average # document in member group: {}/{}".format(np.mean([len(members) for _, members in group_results_members.items()]), np.std([len(members) for _, members in group_results_members.items()])))
-        # print("Average # document in nonmember group: {}/{}".format(np.mean([len(members) for _, members in group_results_nonmembers.items()]), np.std([len(members) for _, members in group_results_nonmembers.items()])))
-
-        # ROOT_SAVE_FOLDER = SAVE_FOLDER
-        # for aggregated_method in ['mean']:
-        #     for direction in ['max', "min"]:
-        #         method = f"{aggregated_method}-{direction}"
-        #         SAVE_FOLDER = os.path.join(ROOT_SAVE_FOLDER, "{}-{}".format(key, method))
-        #         if not os.path.exists(SAVE_FOLDER):
-        #             os.mkdir(SAVE_FOLDER)
-                
-        #         all_results = {}
-        #         for k in generate_topk_array(max_top_k):
-        #             # Randomly k documents from each group 
-        #             cur_group_results_members = {}
-        #             cur_group_results_nonmembers = {}
-        #             for group, predictions in group_results_members.items():
-        #                 random.shuffle(predictions)
-        #                 cur_group_results_members[group] = predictions[:k]
-        #             for group, predictions in group_results_nonmembers.items():
-        #                 random.shuffle(predictions)
-        #                 cur_group_results_nonmembers[group] = predictions[:k]
-
-        #             best_s = None
-        #             best_fpr = None
-        #             best_tpr = None
-        #             best_auc = -1
-
-        #             for top_s in generate_topk_array(k):
-        #                 cur_member_predictions = []
-        #                 cur_nonmember_predictions = []
-
-        #                 cur_member_individual_predictions = []
-        #                 cur_nonmember_individual_predictions = []
-        #                 cur_member_individual_predictions_with_set_label = []
-        #                 cur_nonmember_individual_predictions_with_set_label = []
-
-        #                 if key != 'bff':
-        #                     for group, predictions in cur_group_results_members.items():
-        #                         group_loss = calculate_group_loss(predictions, aggregated_method, direction, top_s)
-        #                         cur_member_predictions.append(group_loss)
-        #                         cur_member_individual_predictions.extend(predictions)
-        #                         cur_member_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
-        #                     for group, predictions in cur_group_results_nonmembers.items():
-        #                         group_loss = calculate_group_loss(predictions, aggregated_method, direction, top_s)
-        #                         cur_nonmember_predictions.append(group_loss)
-        #                         cur_nonmember_individual_predictions.extend(predictions)
-        #                         cur_nonmember_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
-        #                 else:
-        #                     for group, predictions in cur_group_results_members.items():
-        #                         scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
-        #                         group_loss = calculate_group_loss(scores, aggregated_method, direction, top_s)
-        #                         cur_member_predictions.append(group_loss)
-        #                         cur_member_individual_predictions.extend(predictions)
-        #                         cur_member_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
-        #                     for group, predictions in cur_group_results_nonmembers.items():
-        #                         scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
-        #                         group_loss = calculate_group_loss(scores, aggregated_method, direction, top_s)
-        #                         cur_nonmember_predictions.append(group_loss)
-        #                         cur_nonmember_individual_predictions.extend(predictions)
-        #                         cur_nonmember_individual_predictions_with_set_label.extend([group_loss] * len(predictions))
-                        
-        #                 # random.shuffle(cur_member_predictions)
-        #                 # random.shuffle(cur_nonmember_predictions)
-        #                 # sample_size = min([len(cur_member_predictions), len(cur_nonmember_predictions)])
-        #                 # cur_member_predictions = cur_member_predictions[:sample_size]
-        #                 # cur_nonmember_predictions = cur_nonmember_predictions[:sample_size]
-        #                 fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
-        #                 # save_ll_histograms(cur_member_predictions, cur_nonmember_predictions, "group_top-k={}".format(top_k), 0.02, SAVE_FOLDER)
-        #                 # save_roc_curves("group_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
-                        
-        #                 # assert len(cur_member_individual_predictions) == len(cur_nonmember_individual_predictions)
-        #                 fpr, tpr, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
-        #                 # save_ll_histograms(cur_member_individual_predictions, cur_nonmember_individual_predictions, "individual", 0.05, SAVE_FOLDER)
-        #                 # save_roc_curves("individual", fpr, tpr, roc_auc, SAVE_FOLDER)
-
-        #                 # assert len(cur_member_individual_predictions_with_set_label) == len(cur_nonmember_individual_predictions_with_set_label)
-        #                 fpr, tpr, individual_roc_auc_set = get_roc_metrics(cur_nonmember_individual_predictions_with_set_label, cur_member_individual_predictions_with_set_label)
-        #                 # save_ll_histograms(cur_member_individual_predictions_with_set_label, cur_nonmember_individual_predictions_with_set_label, "individual_top-k={}".format(top_k), 0.05, SAVE_FOLDER)
-        #                 # save_roc_curves("individual_top-k={}".format(top_k), fpr, tpr, roc_auc, SAVE_FOLDER)
-
-        #                 if k not in all_results:
-        #                     all_results[k] = {}
-        #                 all_results[k][top_s] = {
-        #                     "ROC AUC": roc_auc,
-        #                     "Member size": len(cur_member_predictions),
-        #                     "Nonmember size": len(cur_nonmember_predictions),
-        #                     "ROC AUC Individual": individual_roc_auc_,
-        #                     "ROC AUC Individual with set label": individual_roc_auc_set
-        #                 }
-        #                 if roc_auc > best_auc:
-        #                     best_s = top_s
-        #                     best_auc = roc_auc
-        #                     best_fpr = fpr
-        #                     best_tpr = tpr
-                    
-        #             output = {
-        #                 "s": best_s,
-        #                 "ROC AUC": best_auc,
-        #             }
-        #             all_results[k]["best"] = output
-
-        #             print("For {} documents: ".format(k))
-        #             print("top s: {}".format(output['s']))
-        #             print("ROC AUC: {}".format(output['ROC AUC']))
-        #             save_roc_curves("group_best", best_fpr, best_tpr, best_auc, SAVE_FOLDER)
-
-        #         # Graph C map
-        #         ticks = generate_topk_array(max_top_k)
-        #         data = [] 
-        #         for k in ticks:
-        #             cur_row = []
-        #             for s in ticks:
-        #                 if s in all_results[k]:
-        #                     cur_row.append(all_results[k][s]["ROC AUC"])
-        #                 else:
-        #                     cur_row.append(np.nan)
-        #             data.append(cur_row)
-        #         save_cmap(data, ticks, method)
-
-
-        #         all_results["Total individual ROC AUC"] = individual_roc_auc
-        #         with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
-        #             json.dump(all_results, f, indent=4)
 
 
         group_results_members = {}
