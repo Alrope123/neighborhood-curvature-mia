@@ -193,8 +193,15 @@ if __name__ == '__main__':
             result[nonmember_key] = [lls - crit for lls, crit in zip(result["nonmember_lls"], result["nonmember_crit"])]
             result[member_key] = [lls - crit for lls, crit in zip(result["member_lls"], result["member_crit"])]
         elif key == "crit" and args.result_path_ref != None:
-            result[nonmember_key] = [lls_base - lls_ref for lls_base, lls_ref in zip(result["nonmember_lls"], result_ref["nonmember_lls"])]
-            result[member_key] = [lls_base - lls_ref for lls_base, lls_ref in zip(result["member_lls"], result_ref["member_lls"])]
+            nonmember_meta_to_index = {}
+            for i, entry in enumerate(result_ref["nonmember_meta"]):
+                nonmember_meta_to_index[entry] = i
+            member_meta_to_index = {}
+            for i, entry in enumerate(result_ref["member_meta"]):
+                member_meta_to_index[entry] = i
+
+            result[nonmember_key] = [lls_base - result_ref["nonmember_lls"][nonmember_meta_to_index[result["nonmember_meta"][i]]] for i, lls_base in enumerate(result["nonmember_lls"])]
+            result[member_key] = [lls_base - result_ref["member_lls"][member_meta_to_index[result["member_meta"][i]]] for i, lls_base in enumerate(result["member_lls"])]
             # assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["nonmember_meta"], result_ref["nonmember_meta"])])
             # assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["member_meta"], result_ref["member_meta"])])
             sets_members = []
@@ -204,17 +211,17 @@ if __name__ == '__main__':
                 sets_nonmembers.append(set([(filename, i) for filename, i in cur_result['nonmember_meta']]))
                 print(cur_result['member_meta'][:10])
             for set_members in sets_members:
-                # assert set_members == sets_members[0], [set_members, sets_members[0]]
-                for member in set_members:
-                    assert member in sets_members[0]
-                for member in sets_members[0]:
-                    assert member in set_members
+                assert set_members == sets_members[0], [set_members, sets_members[0]]
+                # for member in set_members:
+                #     assert member in sets_members[0]
+                # for member in sets_members[0]:
+                #     assert member in set_members
             for set_nonmembers in sets_nonmembers:
-                # assert set_nonmembers == sets_nonmembers[0], [set_nonmembers, sets_nonmembers[0]]
-                for member in set_nonmembers:
-                    assert member in sets_nonmembers[0]
-                for member in sets_nonmembers[0]:
-                    assert member in set_nonmembers
+                assert set_nonmembers == sets_nonmembers[0], [set_nonmembers, sets_nonmembers[0]]
+                # for member in set_nonmembers:
+                #     assert member in sets_nonmembers[0]
+                # for member in sets_nonmembers[0]:
+                #     assert member in set_nonmembers
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
