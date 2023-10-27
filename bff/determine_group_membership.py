@@ -145,10 +145,12 @@ def main(args):
         "number of groups": len(membership_info),
         "number of member group": sum([infos['group_is_member'] for _, infos in membership_info.items()]),
         "number of non-member group": sum([not infos['group_is_member'] for _, infos in membership_info.items()]),
-        "average number of documents in member group": np.mean(group_lengths_nonmember),
-        "std number of documents in member group": np.std(group_lengths_nonmember),
-        "average number of documents in non-member group": np.mean(group_lengths_member),
-        "std number of documents in non-member group": np.std(group_lengths_member),
+        "average number of documents in member group": np.mean(group_lengths_member),
+        "std number of documents in member group": np.std(group_lengths_member),
+        "number of member group with over 100 documents": len([n for n in group_lengths_member if n > 100]),
+        "average number of documents in non-member group": np.mean(group_lengths_nonmember),
+        "std number of documents in non-member group": np.std(group_lengths_nonmember),
+        "number of non-member group with over 100 documents": len([n for n in group_lengths_nonmember if n > 100]),
         # "groups": group_rates
     }
     print(stats)
