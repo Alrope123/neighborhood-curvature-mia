@@ -1037,7 +1037,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_samples', type=int, default=200)
     parser.add_argument('--n_perturbation_list', type=str, default="1,10")
     parser.add_argument('--n_perturbation_rounds', type=int, default=1)
-    parser.add_argument('--base_model_name', type=str, default="gpt2-medium")
+    parser.add_argument('--base_model_name', type=str, default=None)
     parser.add_argument('--revision', type=str, default="main")
     parser.add_argument('--scoring_model_name', type=str, default="")
     parser.add_argument('--mask_filling_model_name', type=str, default="t5-large")
@@ -1163,7 +1163,7 @@ if __name__ == '__main__':
     GPT2_TOKENIZER = transformers.GPT2Tokenizer.from_pretrained('gpt2', cache_dir=cache_dir)
 
     # generic generative model
-    if args.base_model:
+    if args.base_model_name:
         base_model, base_tokenizer = load_base_model_and_tokenizer(args.base_model_name)
 
 
@@ -1174,7 +1174,7 @@ if __name__ == '__main__':
     else:
         ref_model, ref_tokenizer = None, base_tokenizer
 
-    if not args.base_model:
+    if not args.base_model_name:
         base_model, base_tokenizer = None, ref_tokenizer
 
     # mask filling t5 model
@@ -1198,7 +1198,7 @@ if __name__ == '__main__':
     # if args.dataset in ['english', 'german']:
     #     preproc_tokenizer = mask_tokenizer
 
-    if args.base_model:
+    if args.base_model_name:
         load_base_model(base_model)
 
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
