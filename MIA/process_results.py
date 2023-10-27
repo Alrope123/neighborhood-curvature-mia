@@ -206,14 +206,14 @@ if __name__ == '__main__':
             for set_members in sets_members:
                 # assert set_members == sets_members[0], [set_members, sets_members[0]]
                 for member in set_members:
-                    assert member in set_members[0]
-                for member in set_members[0]:
+                    assert member in sets_members[0]
+                for member in sets_members[0]:
                     assert member in set_members
             for set_nonmembers in sets_nonmembers:
                 # assert set_nonmembers == sets_nonmembers[0], [set_nonmembers, sets_nonmembers[0]]
                 for member in set_nonmembers:
-                    assert member in set_nonmembers[0]
-                for member in set_nonmembers[0]:
+                    assert member in sets_nonmembers[0]
+                for member in sets_nonmembers[0]:
                     assert member in set_nonmembers
 
         nonmember_predictions = result[nonmember_key]
