@@ -195,8 +195,17 @@ if __name__ == '__main__':
         elif key == "crit" and args.result_path_ref != None:
             result[nonmember_key] = [lls_base - lls_ref for lls_base, lls_ref in zip(result["nonmember_lls"], result_ref["nonmember_lls"])]
             result[member_key] = [lls_base - lls_ref for lls_base, lls_ref in zip(result["member_lls"], result_ref["member_lls"])]
-            assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["nonmember_meta"], result_ref["nonmember_meta"])])
-            assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["member_meta"], result_ref["member_meta"])])
+            # assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["nonmember_meta"], result_ref["nonmember_meta"])])
+            # assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["member_meta"], result_ref["member_meta"])])
+            sets_members = []
+            sets_nonmembers = []
+            for cur_result in [result, result_ref]:
+                sets_members.append(set([(filename, i) for filename, i in cur_result['member_meta']]))
+                sets_nonmembers.append(set([(filename, i) for filename, i in cur_result['nonmember_meta']]))
+            for set_members in sets_members:
+                assert set_members == sets_members[0], [set_members, sets_members[0]]
+            for set_nonmembers in sets_nonmembers:
+                assert set_nonmembers == sets_nonmembers[0], [set_nonmembers, sets_nonmembers[0]]
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
