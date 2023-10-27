@@ -202,6 +202,7 @@ if __name__ == '__main__':
             for cur_result in [result, result_ref]:
                 sets_members.append(set([(filename, i) for filename, i in cur_result['member_meta']]))
                 sets_nonmembers.append(set([(filename, i) for filename, i in cur_result['nonmember_meta']]))
+                print(cur_result['member_meta'][:10])
             for set_members in sets_members:
                 assert set_members == sets_members[0], [set_members, sets_members[0]]
             for set_nonmembers in sets_nonmembers:
