@@ -195,6 +195,8 @@ if __name__ == '__main__':
         elif key == "crit" and args.result_path_ref != None:
             result[nonmember_key] = [lls_base - lls_ref for lls_base, lls_ref in zip(result["nonmember_lls"], result_ref["nonmember_lls"])]
             result[member_key] = [lls_base - lls_ref for lls_base, lls_ref in zip(result["member_lls"], result_ref["member_lls"])]
+            assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["nonmember_meta"], result_ref["nonmember_meta"])])
+            assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["member_meta"], result_ref["member_meta"])])
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
