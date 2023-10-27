@@ -195,13 +195,13 @@ if __name__ == '__main__':
         elif key == "crit" and args.result_path_ref != None:
             nonmember_meta_to_index = {}
             for i, entry in enumerate(result_ref["nonmember_meta"]):
-                nonmember_meta_to_index[entry] = i
+                nonmember_meta_to_index[tuple(entry)] = i
             member_meta_to_index = {}
             for i, entry in enumerate(result_ref["member_meta"]):
-                member_meta_to_index[entry] = i
+                member_meta_to_index[tuple(entry)] = i
 
-            result[nonmember_key] = [lls_base - result_ref["nonmember_lls"][nonmember_meta_to_index[result["nonmember_meta"][i]]] for i, lls_base in enumerate(result["nonmember_lls"])]
-            result[member_key] = [lls_base - result_ref["member_lls"][member_meta_to_index[result["member_meta"][i]]] for i, lls_base in enumerate(result["member_lls"])]
+            result[nonmember_key] = [lls_base - result_ref["nonmember_lls"][nonmember_meta_to_index[tuple(result["nonmember_meta"][i])]] for i, lls_base in enumerate(result["nonmember_lls"])]
+            result[member_key] = [lls_base - result_ref["member_lls"][member_meta_to_index[tuple(result["member_meta"][i])]] for i, lls_base in enumerate(result["member_lls"])]
             # assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["nonmember_meta"], result_ref["nonmember_meta"])])
             # assert all([meta_base == meta_ref for meta_base, meta_ref in zip(result["member_meta"], result_ref["member_meta"])])
             sets_members = []
