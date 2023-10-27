@@ -59,10 +59,6 @@ def get_wikipedia_creation_timestamp(article_title):
     return None
 
 
-def save_set(dir, name, dictionary):
-    with open(os.path.join(dir, name), 'wb') as f:
-        pkl.dump(dictionary, f)
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -93,13 +89,19 @@ if __name__ == '__main__':
             article_to_timestamp = pkl.load(f)
     else:
         article_to_timestamp = {}
+
+    print("Current dictionary size is {}.".format(len(article_to_timestamp)))
+    title_set = set([title for title in list(title_set) if title not in article_to_timestamp])
+    print("Size of the set need to obtain creation date: {}".format(len(title_set)))
     
     for i, title in enumerate(tqdm(title_set)):
         if title not in article_to_timestamp:
             article_to_timestamp[title] = get_wikipedia_creation_timestamp(title)
 
         if i % args.save_interval == 0:
-            save_set(args.set_path, new_name, article_to_timestamp)
+            with open(out_path, 'wb') as f:
+                pkl.dump(article_to_timestamp, f)
 
-    save_set(args.set_path, new_name, article_to_timestamp)
+    with open(out_path, 'wb') as f:
+        pkl.dump(article_to_timestamp, f)
 
