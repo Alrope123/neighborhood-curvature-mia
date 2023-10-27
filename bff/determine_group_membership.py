@@ -154,7 +154,7 @@ def main(args):
     print(stats)
     with open(os.path.join(save_dir, 'grouping_stats.json'), "w") as f:
         json.dump(stats, f, default=default, indent=4)
-    draw_histogram(group_lengths, title=None, xlabel="# documents each date", ylabel="# Dates(k)",
+    draw_histogram(group_lengths_member + group_lengths_nonmember, title=None, xlabel="# documents each date", ylabel="# Dates(k)",
                     save_path=os.path.join(save_dir, 'documents_date_distribution.png'), bins=50)
     draw_histogram(list(group_rates.values()), title=None, xlabel="Percentage of Members", ylabel="# Dates(k)",
                     save_path=os.path.join(save_dir, 'membership_distribution.png'), bins=20, x_interval=0.05)
