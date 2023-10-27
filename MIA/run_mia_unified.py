@@ -1098,10 +1098,11 @@ if __name__ == '__main__':
     precision_string = "int8" if args.int8 else ("fp16" if args.half else "fp32")
     sampling_string = "top_k" if args.do_top_k else ("top_p" if args.do_top_p else "temp")
     output_subfolder = f"{args.output_name}/" if args.output_name else ""
-    if args.openai_model is None and args.base_model_name:
-        base_model_name = args.base_model_name.replace('/', '_')
-    else:
-        base_model_name = "openai-" + args.openai_model.replace('/', '_')
+    if args.base_model_name:
+        if args.openai_model is None:
+            base_model_name = args.base_model_name.replace('/', '_')
+        else:
+            base_model_name = "openai-" + args.openai_model.replace('/', '_')
     scoring_model_string = (f"-{args.scoring_model_name}" if args.scoring_model_name else "").replace('/', '_')
 #    SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{START_DATE}-{START_TIME}-{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{args.dataset}-{args.n_samples}"
     if args.ref_model is not None:
