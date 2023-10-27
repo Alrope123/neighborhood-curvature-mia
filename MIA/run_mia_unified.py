@@ -1098,7 +1098,7 @@ if __name__ == '__main__':
     precision_string = "int8" if args.int8 else ("fp16" if args.half else "fp32")
     sampling_string = "top_k" if args.do_top_k else ("top_p" if args.do_top_p else "temp")
     output_subfolder = f"{args.output_name}/" if args.output_name else ""
-    if args.openai_model is None:
+    if args.openai_model is None and args.base_model_name:
         base_model_name = args.base_model_name.replace('/', '_')
     else:
         base_model_name = "openai-" + args.openai_model.replace('/', '_')
