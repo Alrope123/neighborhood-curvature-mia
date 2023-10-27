@@ -1129,7 +1129,7 @@ if __name__ == '__main__':
         span_length_string = f'--{args.span_length}'
 
     if args.max_length is not None :
-        max_length_string = f'--m{args.max_length}'
+        max_length_string = f'-m{args.max_length}'
     else:
         max_length_string = ""
 
@@ -1137,7 +1137,8 @@ if __name__ == '__main__':
     dataset_nonmember_name=args.dataset_nonmember.replace('/', '_')
 
     # SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
-    SAVE_FOLDER = f"{args.save_dir}/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
+    # SAVE_FOLDER = f"{args.save_dir}/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
+    SAVE_FOLDER = f"{args.save_dir}/{dataset_member_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{max_length_string}/{base_model_name}"
 
     # new_folder = SAVE_FOLDER.replace("tmp_results", args.save_dir)
     # ##don't run if exists!!!
@@ -1229,17 +1230,19 @@ if __name__ == '__main__':
         ref_model_n_position = base_model_n_position
     longest_tokenizable_len = min(base_model_n_position, ref_model_n_position)
     print(f'The longest tokenizable length of is {longest_tokenizable_len}.')
-
+    if args.max_length:
+        assert args.max_length <= longest_tokenizable_len
+    
     data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=True, 
                                                  strategy=args.strategy, n_group=args.n_group_member, 
                                                  n_document_per_group=args.n_document_per_group, 
                                                  SAVE_FOLDER=SAVE_FOLDER, data_dir=args.data_dir, membership_path=args.membership_path, 
-                                                 max_length=min(longest_tokenizable_len, args.max_length if args.max_length else 999999))
+                                                 max_length=args.max_length if args.max_length else longest_tokenizable_len)
     data_nonmember, metadata_nonmember = generate_data(args.dataset_nonmember, args.dataset_nonmember_key, train=False, 
                                                        strategy=args.strategy, n_group=args.n_group_nonmember, 
                                                        n_document_per_group=args.n_document_per_group, 
                                                        SAVE_FOLDER=SAVE_FOLDER, data_dir=args.data_dir, membership_path=args.membership_path, 
-                                                       max_length=min(longest_tokenizable_len, args.max_length if args.max_length else 999999))
+                                                       max_length=args.max_length if args.max_length else longest_tokenizable_len)
 
     # assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
