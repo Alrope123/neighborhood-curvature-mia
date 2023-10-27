@@ -59,7 +59,7 @@ def load_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n
                     dp = json.loads(line)      
                     meta_data.append((filename, i))
                     data.append(dp['text'])
-    assert len(data) == len(selected_data)
+    assert len(data) == len(selected_data), (len(data), len(selected_data))
     return data, meta_data
 
 

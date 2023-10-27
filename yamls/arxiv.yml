@@ -2,24 +2,24 @@
 version: v2
 description: set-mia
 tasks:
-  - name: wikipedia-neo-125m
+  - name: arxiv-neo-125m
     image:
       beaker: alrope/set_mia
     arguments: [python3, MIA/run_mia_unified.py, 
                 --output_name, unified_mia, 
-                --base_model_name, EleutherAI/pythia-6.9b-deduped, 
+                --base_model_name, EleutherAI/pythia-6.9b-deduped,
                 --cache_dir, cache, 
-                --dataset_member, wikipedia_noisy, 
+                --dataset_member, rpj-arxiv_noisy, 
                 --dataset_member_key, text, 
-                --dataset_nonmember, wikipedia_noisy, 
+                --dataset_nonmember, rpj-arxiv_noisy, 
                 --dataset_nonmember_key, text, 
                 --ref_model, EleutherAI/gpt-neo-125m, 
                 --baselines_only, 
-                --n_group_member, 770,
-                --n_group_nonmember, 230, 
-                --n_document_per_group, 30, 
+                --n_group_member, 926,
+                --n_group_nonmember, 74, 
+                --n_document_per_group, 100, 
                 --data_dir, /data/, 
-                --membership_path, /bff/wikipedia/group_to_member.pkl,
+                --membership_path, /bff/rpj-arxiv_noisy/group_to_member.pkl,
                 --save_dir, /output
     ]
     envVars:
@@ -28,7 +28,7 @@ tasks:
     datasets:
       - mountPath: /data
         source:
-          beaker: alrope/wikipedia
+          beaker: alrope/redpajama-arxiv
       - mountPath: /bff
         source:
           beaker: alrope/membership

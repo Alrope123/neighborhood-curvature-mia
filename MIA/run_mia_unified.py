@@ -347,8 +347,11 @@ def get_lira(text):
                 assert labels_ref.size(1) <= longest_tokenizable_len, labels_ref.size(1)  # Assuming labels is of shape [batch_size, sequence_length]
                 assert labels_ref.max().item() <= ref_tokenizer.vocab_size, (labels_ref.max().item(), ref_tokenizer.vocab_size)
                 assert labels_ref.min().item() >= 0, labels_ref.min().item()
-                lls =  -base_model(**tokenized, labels=labels).loss.item()
                 lls_ref = -ref_model(**tokenized_ref, labels=labels_ref).loss.item()
+                if base_model:
+                    lls = -base_model(**tokenized, labels=labels).loss.item()
+                else:
+                    lls = lls_ref - lls_ref
                 return lls, lls - lls_ref
             else: # IF no reference model is specified, use ICL
                 tokenized_ref = base_tokenizer(text + '\n\n' + text, return_tensors="pt").to(DEVICE)
@@ -774,7 +777,8 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         return chapters
     
     if "facebook/opt" in tokenizer_base.name_or_path or "facebook/opt" in tokenizer_ref.name_or_path \
-        or "bigscience/bloom" in tokenizer_base.name_or_path or "bigscience/bloom" in tokenizer_ref.name_or_path:
+        or "bigscience/bloom" in tokenizer_base.name_or_path or "bigscience/bloom" in tokenizer_ref.name_or_path \
+        or "EleutherAI/pythia" in tokenizer_base.name_or_path or "EleutherAI/pythia" in tokenizer_ref.name_or_path:
         max_length = max_length - 1
 
     
@@ -1076,6 +1080,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', type=str, default=None)
     parser.add_argument('--membership_path', type=str, default=None)
     parser.add_argument('--save_dir', type=str, default="results")
+    parser.add_argument('--skip_base_model', default=False, action="store_true")
 
     args = parser.parse_args()
 
@@ -1125,14 +1130,15 @@ if __name__ == '__main__':
     dataset_member_name=args.dataset_member.replace('/', '_')
     dataset_nonmember_name=args.dataset_nonmember.replace('/', '_')
 
-    SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
+    # SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
+    SAVE_FOLDER = f"{args.save_dir}/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
 
-    new_folder = SAVE_FOLDER.replace("tmp_results", args.save_dir)
-    ##don't run if exists!!!
-    print(f"{new_folder}")
-    if  os.path.isdir((new_folder)):
-        print(f"folder exists, not running this exp {new_folder}")
-        exit(0)
+    # new_folder = SAVE_FOLDER.replace("tmp_results", args.save_dir)
+    # ##don't run if exists!!!
+    # print(f"{new_folder}")
+    # if  os.path.isdir((new_folder)):
+    #     print(f"folder exists, not running this exp {new_folder}")
+    #     exit(0)
 
     if not os.path.exists(SAVE_FOLDER):
         os.makedirs(SAVE_FOLDER)
@@ -1158,7 +1164,8 @@ if __name__ == '__main__':
     GPT2_TOKENIZER = transformers.GPT2Tokenizer.from_pretrained('gpt2', cache_dir=cache_dir)
 
     # generic generative model
-    base_model, base_tokenizer = load_base_model_and_tokenizer(args.base_model_name)
+    if not args.skip_base_model:
+        base_model, base_tokenizer = load_base_model_and_tokenizer(args.base_model_name)
 
 
     #reference model if we are doing the lr baseline
@@ -1167,6 +1174,9 @@ if __name__ == '__main__':
         load_ref_model()
     else:
         ref_model, ref_tokenizer = None, base_tokenizer
+
+    if args.skip_base_model:
+        base_model, base_tokenizer = None, ref_tokenizer
 
     # mask filling t5 model
     if not args.baselines_only and not args.random_fills:
@@ -1189,7 +1199,8 @@ if __name__ == '__main__':
     # if args.dataset in ['english', 'german']:
     #     preproc_tokenizer = mask_tokenizer
 
-    load_base_model(base_model)
+    if not args.skip_base_model:
+        load_base_model(base_model)
 
     print(f'Loading dataset {args.dataset_member} and {args.dataset_nonmember}...')
     # data, seq_lens, n_samples = generate_data(args.dataset_member,args.dataset_member_key)
@@ -1324,9 +1335,9 @@ if __name__ == '__main__':
     # save_llr_histograms(outputs)
 
     # move results folder from tmp_results/ to results/, making sure necessary directories exist
-    new_folder = SAVE_FOLDER.replace("tmp_results", "results")
-    if not os.path.exists(os.path.dirname(new_folder)):
-        os.makedirs(os.path.dirname(new_folder))
-    os.rename(SAVE_FOLDER, new_folder)
+    # new_folder = SAVE_FOLDER.replace("tmp_results", args.save_dir)
+    # if not os.path.exists(os.path.dirname(new_folder)):
+    #     os.makedirs(os.path.dirname(new_folder))
+    # os.rename(SAVE_FOLDER, new_folder)
 
     print(f"Used an *estimated* {API_TOKEN_COUNTER} API tokens (may be inaccurate)")
