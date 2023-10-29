@@ -24,7 +24,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
     groups = set()
     info_list = list(membership_info.items())
     if n_group < 0:
-        n_group = len(info_list)
+        n_group = len([infos for infos in info_list if infos['group_is_member'] == train])
     random.shuffle(info_list)
     for group, infos in info_list:
         if len(groups) >= n_group:
