@@ -24,14 +24,14 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
     groups = set()
     info_list = list(membership_info.items())
     if n_group < 0:
-        n_group = len([infos for infos in info_list if infos['group_is_member'] == train])
+        n_group = len([group for group, infos in info_list if infos['group_is_member'] == train])
     random.shuffle(info_list)
     for group, infos in info_list:
         if len(groups) >= n_group:
             break
         if infos['group_is_member'] == train and len(infos['is_members']) >= n_document_per_group:
             groups.add(group)
-    # assert len(groups) == n_group, (len(groups), n_group)
+    assert len(groups) == n_group, (len(groups), n_group)
 
     selected_data = set()
     for group, infos in membership_info.items():
