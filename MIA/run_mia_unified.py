@@ -340,21 +340,7 @@ def get_lira(text):
             assert labels.max().item() <= base_tokenizer.vocab_size, (labels.max().item(), base_tokenizer.vocab_size)
             assert labels.min().item() >= 0, labels.min().item()
             
-            # If a reference model is specified
-            if min_k_prob:
-                logits = -base_model(**tokenized, labels=labels).logits.item()
-                probabilities = torch.nn.functional.log_softmax(logits, dim=-1)
-                # probabilities = torch.nn.functional.softmax(logits, dim=-1)
-                all_prob = []
-                input_ids = torch.tensor(labels).unsqueeze(0)
-                input_ids_processed = input_ids[0][1:]
-                for i, token_id in enumerate(input_ids_processed):
-                    probability = probabilities[0, i, token_id].item()
-                    all_prob.append(probability)
-                    ratio = 0.2
-                    k_length = int(len(all_prob)*ratio)
-                    topk_prob = np.sort(all_prob)[:k_length]
-                    return -np.mean(topk_prob).item(), -np.mean(topk_prob).item() - -np.mean(topk_prob).item() 
+            # If a reference model is specified 
             if ref_model:
                 tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
                 labels_ref = tokenized_ref.input_ids
@@ -368,8 +354,24 @@ def get_lira(text):
                     lls = lls_ref - lls_ref
                 return lls, lls - lls_ref
             else:
-                lls = -base_model(**tokenized, labels=labels).loss.item()
-                return lls, lls-lls
+                output = -base_model(**tokenized, labels=labels)
+                lls = output.loss.item()
+                if min_k_prob:
+                    logits = output.logits.item()
+                    probabilities = torch.nn.functional.log_softmax(logits, dim=-1)
+                    # probabilities = torch.nn.functional.softmax(logits, dim=-1)
+                    all_prob = []
+                    input_ids = torch.tensor(labels).unsqueeze(0)
+                    input_ids_processed = input_ids[0][1:]
+                    for i, token_id in enumerate(input_ids_processed):
+                        probability = probabilities[0, i, token_id].item()
+                        all_prob.append(probability)
+                        ratio = 0.2
+                        k_length = int(len(all_prob)*ratio)
+                        topk_prob = np.sort(all_prob)[:k_length]
+                        return lls, -np.mean(topk_prob).item()
+                    else:
+                        return lls, lls-lls
                 
             # else: # IF no reference model is specified, use ICL
             #     tokenized_ref = base_tokenizer(text + '\n\n' + text, return_tensors="pt").to(DEVICE)
