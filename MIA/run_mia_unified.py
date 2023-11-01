@@ -366,12 +366,13 @@ def get_lira(text):
                     for i, token_id in enumerate(input_ids_processed):
                         probability = probabilities[0, i, token_id].item()
                         all_prob.append(probability)
-                        ratio = 0.2
-                        k_length = int(len(all_prob)*ratio)
-                        topk_prob = np.sort(all_prob)[:k_length]
-                        return lls, -np.mean(topk_prob).item()
-                    else:
-                        return lls, lls-lls
+                    ratio = 0.2
+                    k_length = int(len(all_prob)*ratio)
+                    topk_prob = np.sort(all_prob)[:k_length]
+                    return lls, -np.mean(topk_prob).item()
+                else:
+                    assert False
+                    return lls, lls-lls
                 
             # else: # IF no reference model is specified, use ICL
             #     tokenized_ref = base_tokenizer(text + '\n\n' + text, return_tensors="pt").to(DEVICE)
@@ -1161,7 +1162,7 @@ if __name__ == '__main__':
 
     # SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
     # SAVE_FOLDER = f"{args.save_dir}/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
-    SAVE_FOLDER = f"{args.save_dir}/{dataset_member_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{max_length_string}{min_k_prob_string}/{base_model_name}"
+    SAVE_FOLDER = f"{args.save_dir}/{dataset_member_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{max_length_string}/{base_model_name}{min_k_prob_string}"
 
     # new_folder = SAVE_FOLDER.replace("tmp_results", args.save_dir)
     # ##don't run if exists!!!
