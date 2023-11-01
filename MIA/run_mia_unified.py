@@ -341,6 +341,20 @@ def get_lira(text):
             assert labels.min().item() >= 0, labels.min().item()
             
             # If a reference model is specified
+            if min_k_prob:
+                logits = -base_model(**tokenized, labels=labels).logits.item()
+                probabilities = torch.nn.functional.log_softmax(logits, dim=-1)
+                # probabilities = torch.nn.functional.softmax(logits, dim=-1)
+                all_prob = []
+                input_ids = torch.tensor(labels).unsqueeze(0)
+                input_ids_processed = input_ids[0][1:]
+                for i, token_id in enumerate(input_ids_processed):
+                    probability = probabilities[0, i, token_id].item()
+                    all_prob.append(probability)
+                    ratio = 0.2
+                    k_length = int(len(all_prob)*ratio)
+                    topk_prob = np.sort(all_prob)[:k_length]
+                    return -np.mean(topk_prob).item(), -np.mean(topk_prob).item() - -np.mean(topk_prob).item() 
             if ref_model:
                 tokenized_ref = ref_tokenizer(text, return_tensors="pt").to(DEVICE)
                 labels_ref = tokenized_ref.input_ids
@@ -1085,6 +1099,8 @@ if __name__ == '__main__':
     parser.add_argument('--membership_path', type=str, default=None)
     parser.add_argument('--save_dir', type=str, default="results")
 
+    parser.add_argument('--min_k_prob', default=False, action='store_true')
+
     args = parser.parse_args()
 
     API_TOKEN_COUNTER = 0
@@ -1161,6 +1177,7 @@ if __name__ == '__main__':
     n_perturbation_list = [int(x) for x in args.n_perturbation_list.split(",")]
     n_perturbation_rounds = args.n_perturbation_rounds
     n_similarity_samples = args.n_similarity_samples
+    min_k_prob = args.min_k_prob
 
     cache_dir = args.cache_dir
     os.environ["XDG_CACHE_HOME"] = cache_dir
