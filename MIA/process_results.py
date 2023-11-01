@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, precision_recall_curve, auc
 import math
 import random
+import zlib
 
 def merge_json(json_objects):
     if all(isinstance(obj, dict) for obj in json_objects):
@@ -146,6 +147,23 @@ def save_cmap(data, ticks, name):
     print(f"Plotting at {SAVE_FOLDER}/cmap_{name}.png")
 
 
+def calculate_compression_entropy(text):
+    # Encode text to bytes
+    text_bytes = text.encode('utf-8')
+    
+    # Compress the bytes
+    compressed_data = zlib.compress(text_bytes)
+    
+    # Calculate the size of the compressed data in bits
+    compressed_size_bits = len(compressed_data) * 8
+    
+    # Calculate the average bits per original symbol
+    # This is the entropy rate of the compressed text
+    entropy_rate = compressed_size_bits / len(text_bytes)
+    
+    return entropy_rate
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--result_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/lr_ratio_threshold_results.json")
@@ -195,6 +213,9 @@ if __name__ == '__main__':
         elif key == "ref_lls":
             result[nonmember_key] = [lls - crit for lls, crit in zip(result["nonmember_lls"], result["nonmember_crit"])]
             result[member_key] = [lls - crit for lls, crit in zip(result["member_lls"], result["member_crit"])]
+        elif key == "zlib":
+            result[nonmember_key] = [lls - calculate_compression_entropy(text) for lls, text in zip(result["nonmember_lls"], result["nonmember"])]
+            result[member_key] = [lls - calculate_compression_entropy(text) for lls, text in zip(result["member_lls"], result["member"])]
         elif key == "crit" and args.result_path_ref != None:
             nonmember_meta_to_index = {}
             for i, entry in enumerate(result_ref["nonmember_meta"]):
