@@ -354,8 +354,8 @@ def get_lira(text):
                     lls = lls_ref - lls_ref
                 return lls, lls - lls_ref
             else:
-                output = -base_model(**tokenized, labels=labels)
-                lls = output.loss.item()
+                output = base_model(**tokenized, labels=labels)
+                lls = -output.loss.item()
                 if min_k_prob:
                     logits = output.logits.item()
                     probabilities = torch.nn.functional.log_softmax(logits, dim=-1)
