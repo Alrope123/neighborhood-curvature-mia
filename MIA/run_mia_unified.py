@@ -357,7 +357,7 @@ def get_lira(text):
                 output = base_model(**tokenized, labels=labels)
                 lls = -output.loss.item()
                 if min_k_prob:
-                    logits = output.logits.item()
+                    logits = output.logits
                     probabilities = torch.nn.functional.log_softmax(logits, dim=-1)
                     # probabilities = torch.nn.functional.softmax(logits, dim=-1)
                     all_prob = []
