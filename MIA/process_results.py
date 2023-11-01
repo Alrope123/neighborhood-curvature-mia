@@ -189,6 +189,9 @@ if __name__ == '__main__':
         if key == "bff":
             result[nonmember_key] = result["nonmember_lls"]
             result[member_key] = result["member_lls"]
+        elif key == "min_k":
+            result[nonmember_key] = result["nonmember_crit"]
+            result[member_key] = result["member_crit"]
         elif key == "ref_lls":
             result[nonmember_key] = [lls - crit for lls, crit in zip(result["nonmember_lls"], result["nonmember_crit"])]
             result[member_key] = [lls - crit for lls, crit in zip(result["member_lls"], result["member_crit"])]
