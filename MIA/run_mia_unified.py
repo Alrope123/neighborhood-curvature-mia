@@ -363,6 +363,8 @@ def get_lira(text):
                     # probabilities = torch.nn.functional.softmax(logits, dim=-1)
                     all_prob = []
                     print(len(labels))
+                    print(len(labels[0]))
+                    print(labels.shape)
                     input_ids_processed = labels[1:]
                     print(len(input_ids_processed))
                     for i, token_id in enumerate(input_ids_processed):
