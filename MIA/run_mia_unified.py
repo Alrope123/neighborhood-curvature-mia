@@ -366,16 +366,12 @@ def get_lira(text):
                     print(len(labels[0]))
                     print(labels.shape)
                     input_ids_processed = labels[0][1:]
-                    print(len(input_ids_processed))
                     for i, token_id in enumerate(input_ids_processed):
                         probability = probabilities[0, i, token_id].item()
                         all_prob.append(probability)
-                    print(all_prob)
                     ratio = 0.2
                     k_length = int(len(all_prob)*ratio)
                     topk_prob = np.sort(all_prob)[:k_length]
-                    print(-np.mean(topk_prob).item())
-                    assert False
                     return lls, -np.mean(topk_prob).item()
                 else:
                     return lls, lls-lls
