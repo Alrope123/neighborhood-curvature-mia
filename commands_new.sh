@@ -409,11 +409,102 @@ python MIA/run_mia_unified.py --base_model_name EleutherAI/pythia-160m-deduped -
 
 
 python MIA/process_results.py \
-  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m--min_k//lr_ratio_threshold_results.json \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_gpt-neo-2.7B--min_k/lr_ratio_threshold_results.json \
   --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
-  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m--min_k/\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_gpt-neo-2.7B--min_k/\
   --top_k 100\
-  --key min_k
+  --key min_k zlib
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/EleutherAI_gpt-neo-2.7B--min_k/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/EleutherAI_gpt-neo-2.7B--min_k/\
+  --top_k 100\
+  --key min_k zlib
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-1b/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-1b/\
+  --top_k 100\
+  --key lls
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-410m/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-410m/\
+  --top_k 100\
+  --key lls
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m/\
+  --top_k 100\
+  --key lls
+
+
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-2.8b-deduped--min_k/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-2.8b-deduped--min_k/\
+  --top_k 100\
+  --key lls
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-1b-deduped--min_k/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-1b-deduped--min_k/\
+  --top_k 100\
+  --key lls
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-410m-deduped--min_k/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-410m-deduped--min_k/\
+  --top_k 100\
+  --key lls
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m-deduped--min_k/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m-deduped--min_k/\
+  --top_k 100\
+  --key lls
+
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-1b/lr_ratio_threshold_results.json \
+  --result_path_ref /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m/lr_ratio_threshold_results.json\
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/lira-EleutherAI_pythia-1b-EleutherAI_pythia-160m/\
+  --top_k 100\
+  --key crit
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-410m/lr_ratio_threshold_results.json \
+  --result_path_ref /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m/lr_ratio_threshold_results.json\
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/lira-EleutherAI_pythia-410m-EleutherAI_pythia-160m/\
+  --top_k 100\
+  --key crit
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-2.8b-deduped--min_k/lr_ratio_threshold_results.json \
+  --result_path_ref /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m/lr_ratio_threshold_results.json\
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/lira-EleutherAI_pythia-2.8b-deduped--min_k-EleutherAI_pythia-160m/\
+  --top_k 100\
+  --key crit
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-1b-deduped--min_k/lr_ratio_threshold_results.json \
+  --result_path_ref /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m/lr_ratio_threshold_results.json\
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/lira-EleutherAI_pythia-1b-deduped--min_k-EleutherAI_pythia-160m/\
+  --top_k 100\
+  --key crit
 
 
 git add results_new/*/*/*.png
