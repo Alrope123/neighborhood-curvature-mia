@@ -196,7 +196,7 @@ if __name__ == '__main__':
                 from nltk.corpus import stopwords
                 import string
                 import itertools
-                ngrams_list = [create_ngrams(document, method.split('-')[-1]) for document in documents]
+                ngrams_list = [create_ngrams(document, int(method.split('-')[-1])) for document in documents]
                 similarities = []
                 for text1, text2 in itertools.combinations(range(len(ngrams_list)), 2):
                     similarities.append(jaccard_similarity(ngrams_list[text1], ngrams_list[text2]))
