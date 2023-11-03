@@ -140,6 +140,8 @@ if __name__ == '__main__':
                     tfidf_matrix = vectorizer.fit_transform(documents)
                     similarities = []
                     similarity_matrix = cosine_similarity(tfidf_matrix)
+                    assert len(documents) == len(similarities), (len(documents), len(similarities))
+                    assert len(documents) == len(similarities[0]), (len(documents), len(similarities[0]))
                     for i in range(len(documents)):
                         for j in range(i+1, len(documents)):
                             similarities.append(similarities[i][j])
