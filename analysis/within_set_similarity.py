@@ -126,8 +126,9 @@ if __name__ == '__main__':
     
     # Calculate the word embeddings
     group_similarity_member = {method: {} for method in args.methods}
-    for group, documents in tqdm(group_results_members.items()):
-        if np.random.rand() <= downsize_factor:
+    random_indices = np.random.randint(0, len(group_results_members), size=int(len(group_results_members) * downsize_factor))
+    for i, group, documents in tqdm(enumerate(group_results_members.items())):
+        if i in random_indices:
             for method in args.methods:
                 if method in results:
                     continue
@@ -158,8 +159,9 @@ if __name__ == '__main__':
                     average_similarity = np.mean(similarities)
                 group_similarity_member[method][group] = average_similarity
     group_similarity_nonmember = {method: {} for method in args.methods}
-    for group, documents in tqdm(group_results_nonmembers.items()):
-        if np.random.rand() <= downsize_factor:
+    random_indices = np.random.randint(0, len(group_results_nonmembers), size=int(len(group_results_nonmembers) * downsize_factor))
+    for i, group, documents in tqdm(enumerate(group_results_nonmembers.items())):
+        if i in random_indices:
             for method in args.methods:
                 if method in results:
                     continue
