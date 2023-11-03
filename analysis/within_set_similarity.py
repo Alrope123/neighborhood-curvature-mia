@@ -61,7 +61,7 @@ def compute_average_cosine_similarity(embeddings):
     for i in range(len(documents)):
         for j in range(i+1, len(documents)):
             similarities.append(similarity_matrix[i][j])
-    return np.mean(similarities)
+    return float(np.mean(similarities))
 
 
 if __name__ == '__main__':
