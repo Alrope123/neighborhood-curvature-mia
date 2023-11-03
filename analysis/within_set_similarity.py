@@ -53,6 +53,19 @@ def get_embeddings(model, documents):
 #     average_similarity = total_similarity / total_pairs if total_pairs != 0 else 0
 #     return average_similarity
 
+##################################### N-gram ####################################################
+def jaccard_similarity(set1, set2):
+    intersection = set1.intersection(set2)
+    union = set1.union(set2)
+    return len(intersection) / len(union)
+
+# Function to create n-grams from a list of texts
+def create_ngrams(text, n):
+    # Remove punctuation and generate n-grams
+    n_grams = ngrams(''.join([char for char in text.lower() if char not in string.punctuation]).split(), n)
+    return set(n_grams)
+
+
 def compute_average_cosine_similarity(embeddings):
     similarities = []
     similarity_matrix = cosine_similarity(embeddings)
@@ -151,6 +164,16 @@ if __name__ == '__main__':
                 vectorizer = TfidfVectorizer()
                 tfidf_matrix = vectorizer.fit_transform(documents)
                 average_similarity = compute_average_cosine_similarity(tfidf_matrix)
+            elif method.startswith('n-gram'):
+                from nltk import ngrams
+                from nltk.corpus import stopwords
+                import string
+                import itertools
+                ngrams_list = [create_ngrams(document, method.split('-')[-1]) for document in documents]
+                similarities = []
+                for text1, text2 in itertools.combinations(range(len(ngrams_list)), 2):
+                    similarities.append(jaccard_similarity(ngrams_list[text1], ngrams_list[text2]))
+                average_similarity = np.mean(similarities)
             group_similarity_member[method][group] = average_similarity
     
     group_similarity_nonmember = {method: {} for method in args.methods}
@@ -168,6 +191,16 @@ if __name__ == '__main__':
                 vectorizer = TfidfVectorizer()
                 tfidf_matrix = vectorizer.fit_transform(documents)
                 average_similarity = compute_average_cosine_similarity(tfidf_matrix)
+            elif method.startswith('n-gram'):
+                from nltk import ngrams
+                from nltk.corpus import stopwords
+                import string
+                import itertools
+                ngrams_list = [create_ngrams(document, method.split('-')[-1]) for document in documents]
+                similarities = []
+                for text1, text2 in itertools.combinations(range(len(ngrams_list)), 2):
+                    similarities.append(jaccard_similarity(ngrams_list[text1], ngrams_list[text2]))
+                average_similarity = np.mean(similarities)
             group_similarity_nonmember[method][group] = average_similarity
 
     for method in args.methods:
