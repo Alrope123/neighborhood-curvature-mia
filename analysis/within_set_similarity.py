@@ -24,6 +24,7 @@ def load_model(name):
     return model
 
 
+##################################### Fasttext ##################################################
 def get_embeddings(model, documents):
     """Get FastText embedding for a given text."""
     embeddings = []
@@ -37,7 +38,6 @@ def get_embeddings(model, documents):
             embedding = np.zeros(300)
             embeddings.append(embedding)
     return embeddings
-
 
 def compute_average_cosine_similarity(embeddings):
     """Compute average cosine sifmilarity among a list of texts."""
@@ -63,10 +63,16 @@ if __name__ == '__main__':
     parser.add_argument('--membership_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl")
     parser.add_argument('--cache_dir', type=str, default="cache")
     parser.add_argument('--model_name', type=str, default="EleutherAI/gpt-neo-2.7B")
+    parser.add_argument('--max_top_k', type=int, default=100)
+    parser.add_argument('--downsize_factor', type=float, default=0.1)
+    parser.add_argument('--methods', nargs="+", default="fasttext")
     args = parser.parse_args()
 
     assert os.path.exists(args.result_dir), args.result_dir
     assert os.path.exists(args.membership_path), args.membership_path
+
+    max_top_k = args.max_top_k
+    downsize_factor = args.downsize_factor
 
 
     # Load selected document
@@ -74,6 +80,12 @@ if __name__ == '__main__':
         result = json.load(f)
     with open(args.membership_path, 'rb') as f:
         group_to_documents = pkl.load(f)
+    
+    if os.path.exists(os.path.join(args.result_dir, "within_set_similarity.json")):
+        with open(os.path.join(args.result_dir, "within_set_similarity.json"), 'r') as f:
+            results = json.load(f)
+    else:
+        results = {}
 
     info_to_group = {}
     for group, infos in group_to_documents.items():
@@ -95,29 +107,65 @@ if __name__ == '__main__':
             group_results_nonmembers[group_nonmember] = []
         group_results_nonmembers[group_nonmember].append(entry)
 
+    original_group_results_members = {}
+    original_group_results_nonmembers = {}
+    for group, predictions in group_results_members.items():
+        if len(predictions) >= max_top_k:
+            random.shuffle(predictions)
+            original_group_results_members[group] = predictions[:max_top_k]
+    for group, predictions in group_results_nonmembers.items():
+        if len(predictions) >= max_top_k:
+            random.shuffle(predictions)
+            original_group_results_nonmembers[group] = predictions[:max_top_k]
+
+    group_results_members = original_group_results_members
+    group_results_nonmembers = original_group_results_nonmembers
 
     # Load the language model
     model = load_model(args.model_name)
 
-    results = {}
     # Calculate the word embeddings
     group_similarity_member = {}
     for group, documents in tqdm(group_results_members.items()):
-        if np.random.rand() <= 0.1:
-            documents_embeddings = get_embeddings(model, documents)
-            average_similarity = compute_average_cosine_similarity(documents_embeddings)
-            group_similarity_member[group] = average_similarity
+        if np.random.rand() <= downsize_factor:
+            for method in args.methods:
+                if method in results:
+                    continue
+                if method == 'fasttext':
+                    documents_embeddings = get_embeddings(model, documents)
+                    average_similarity = compute_average_cosine_similarity(documents_embeddings)
+                elif method == 'tf-idf':
+                    from sklearn.feature_extraction.text import TfidfVectorizer
+                    from sklearn.metrics.pairwise import cosine_similarity
+                    vectorizer = TfidfVectorizer()
+                    tfidf_matrix = vectorizer.fit_transform(documents)
+                    similarities = []
+                    similarity_matrix = cosine_similarity(tfidf_matrix)
+                    for i in range(len(documents)):
+                        for j in range(i+1, len(documents)):
+                            similarities.append(similarities[i][j])
+                    average_similarity = np.mean(average_similarity)
+                group_similarity_member[method][group] = average_similarity
     group_similarity_nonmember = {}
     for group, documents in tqdm(group_results_nonmembers.items()):
-        if np.random.rand() <= 0.1:    
-            documents_embeddings = get_embeddings(model, documents)
-            average_similarity = compute_average_cosine_similarity(documents_embeddings)
-            group_similarity_nonmember[group] = average_similarity
-    results["final average"] = np.mean([value for value in list(group_similarity_member.values()) + list(group_similarity_nonmember.values()) if not math.isnan(value)])
-    results["member"] = group_similarity_member
-    results["nonmember"] = group_similarity_nonmember
-
-    print("Final average is: {}".format(results["final average"]))
+        if np.random.rand() <= downsize_factor:
+            for method in args.methods:
+                if method in results:
+                    continue
+                if method == 'fasttext':    
+                    documents_embeddings = get_embeddings(model, documents)
+                    average_similarity = compute_average_cosine_similarity(documents_embeddings)
+                group_similarity_nonmember[method][group] = average_similarity
+    
+    for method in args.methods:
+        if method in results:
+            continue
+        result = {}
+        result["final average"] = np.mean([value for value in list(group_similarity_member[method].values()) + list(group_similarity_nonmember[method].values()) if not math.isnan(value)])
+        result["member"] = group_similarity_member[method]
+        result["nonmember"] = group_similarity_nonmember[method]
+        results[method] = result
+        print("Final average for {} is: {}".format(method, result["final average"]))
 
     with open(os.path.join(args.result_dir, "within_set_similarity.json"), 'w') as f:
         json.dump(results, f, indent =4)
