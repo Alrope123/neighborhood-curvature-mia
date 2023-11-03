@@ -39,18 +39,28 @@ def get_embeddings(model, documents):
             embeddings.append(embedding)
     return embeddings
 
-def compute_average_cosine_similarity(embeddings):
-    """Compute average cosine sifmilarity among a list of texts."""
-    total_similarity = 0
-    total_pairs = 0
-    for i in range(len(embeddings)):
-        for j in range(i+1, len(embeddings)):
-            similarity = 1 - cosine(embeddings[i], embeddings[j])
-            total_similarity += similarity
-            total_pairs += 1
+# def compute_average_cosine_similarity(embeddings):
+#     """Compute average cosine sifmilarity among a list of texts."""
+#     total_similarity = 0
+#     total_pairs = 0
+#     for i in range(len(embeddings)):
+#         for j in range(i+1, len(embeddings)):
+#             similarity = 1 - cosine(embeddings[i], embeddings[j])
+#             total_similarity += similarity
+#             total_pairs += 1
     
-    average_similarity = total_similarity / total_pairs if total_pairs != 0 else 0
-    return average_similarity
+#     average_similarity = total_similarity / total_pairs if total_pairs != 0 else 0
+#     return average_similarity
+
+def compute_average_cosine_similarity(embeddings):
+    similarities = []
+    similarity_matrix = cosine_similarity(embeddings)
+    assert len(documents) == len(similarity_matrix), (len(documents), len(similarity_matrix))
+    assert len(documents) == len(similarity_matrix[0]), (len(documents), len(similarity_matrix[0]))
+    for i in range(len(documents)):
+        for j in range(i+1, len(documents)):
+            similarities.append(similarity_matrix[i][j])
+    return np.mean(similarities)
 
 
 if __name__ == '__main__':
@@ -149,14 +159,7 @@ if __name__ == '__main__':
                     from sklearn.metrics.pairwise import cosine_similarity
                     vectorizer = TfidfVectorizer()
                     tfidf_matrix = vectorizer.fit_transform(documents)
-                    similarities = []
-                    similarity_matrix = cosine_similarity(tfidf_matrix)
-                    assert len(documents) == len(similarity_matrix), (len(documents), len(similarity_matrix))
-                    assert len(documents) == len(similarity_matrix[0]), (len(documents), len(similarity_matrix[0]))
-                    for i in range(len(documents)):
-                        for j in range(i+1, len(documents)):
-                            similarities.append(similarity_matrix)
-                    average_similarity = np.mean(similarities)
+                    average_similarity = compute_average_cosine_similarity(tfidf_matrix)
                 group_similarity_member[method][group] = average_similarity
     group_similarity_nonmember = {method: {} for method in args.methods}
     random_indices = np.random.randint(0, len(group_results_nonmembers), size=int(len(group_results_nonmembers) * downsize_factor))
@@ -182,14 +185,7 @@ if __name__ == '__main__':
                     from sklearn.metrics.pairwise import cosine_similarity
                     vectorizer = TfidfVectorizer()
                     tfidf_matrix = vectorizer.fit_transform(documents)
-                    similarities = []
-                    similarity_matrix = cosine_similarity(tfidf_matrix)
-                    assert len(documents) == len(similarity_matrix), (len(documents), len(similarity_matrix))
-                    assert len(documents) == len(similarity_matrix[0]), (len(documents), len(similarity_matrix[0]))
-                    for i in range(len(documents)):
-                        for j in range(i+1, len(documents)):
-                            similarities.append(similarity_matrix)
-                    average_similarity = np.mean(similarities)
+                    average_similarity = compute_average_cosine_similarity(tfidf_matrix)
                 group_similarity_nonmember[method][group] = average_similarity
     
     for method in args.methods:
