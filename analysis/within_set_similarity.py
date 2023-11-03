@@ -123,7 +123,7 @@ if __name__ == '__main__':
 
     
     # Calculate the word embeddings
-    group_similarity_member = {}
+    group_similarity_member = {method: {} for method in args.methods}
     for group, documents in tqdm(group_results_members.items()):
         if np.random.rand() <= downsize_factor:
             for method in args.methods:
