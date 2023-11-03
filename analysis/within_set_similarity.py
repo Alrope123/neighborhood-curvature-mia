@@ -57,7 +57,7 @@ def get_embeddings(model, documents):
 def jaccard_similarity(set1, set2):
     intersection = set1.intersection(set2)
     union = set1.union(set2)
-    return len(intersection) / len(union)
+    return len(intersection) / len(union) if len(union) > 0 else 0
 
 # Function to create n-grams from a list of texts
 def create_ngrams(text, n):
