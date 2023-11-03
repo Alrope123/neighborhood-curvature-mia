@@ -145,7 +145,7 @@ if __name__ == '__main__':
                     for i in range(len(documents)):
                         for j in range(i+1, len(documents)):
                             similarities.append(similarity_matrix)
-                    average_similarity = np.mean(average_similarity)
+                    average_similarity = np.mean(similarities)
                 group_similarity_member[method][group] = average_similarity
     group_similarity_nonmember = {}
     for group, documents in tqdm(group_results_nonmembers.items()):
