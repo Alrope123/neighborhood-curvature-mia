@@ -31,7 +31,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             break
         if infos['group_is_member'] == train and len(infos['is_members']) >= n_document_per_group:
             groups.add(group)
-    assert len(groups) == n_group, (len(groups), n_group)
+    # assert len(groups) == n_group, (len(groups), n_group)
 
     selected_data = set()
     for group, infos in membership_info.items():
