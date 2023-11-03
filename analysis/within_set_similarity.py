@@ -121,9 +121,7 @@ if __name__ == '__main__':
     group_results_members = original_group_results_members
     group_results_nonmembers = original_group_results_nonmembers
 
-    # Load the language model
-    model = load_model(args.model_name)
-
+    
     # Calculate the word embeddings
     group_similarity_member = {}
     for group, documents in tqdm(group_results_members.items()):
@@ -132,6 +130,7 @@ if __name__ == '__main__':
                 if method in results:
                     continue
                 if method == 'fasttext':
+                    model = load_model(args.model_name)
                     documents_embeddings = get_embeddings(model, documents)
                     average_similarity = compute_average_cosine_similarity(documents_embeddings)
                 elif method == 'tf-idf':
@@ -152,9 +151,21 @@ if __name__ == '__main__':
             for method in args.methods:
                 if method in results:
                     continue
-                if method == 'fasttext':    
+                if method == 'fasttext':
+                    model = load_model(args.model_name)
                     documents_embeddings = get_embeddings(model, documents)
                     average_similarity = compute_average_cosine_similarity(documents_embeddings)
+                elif method == 'tf-idf':
+                    from sklearn.feature_extraction.text import TfidfVectorizer
+                    from sklearn.metrics.pairwise import cosine_similarity
+                    vectorizer = TfidfVectorizer()
+                    tfidf_matrix = vectorizer.fit_transform(documents)
+                    similarities = []
+                    similarity_matrix = cosine_similarity(tfidf_matrix)
+                    for i in range(len(documents)):
+                        for j in range(i+1, len(documents)):
+                            similarities.append(similarities[i][j])
+                    average_similarity = np.mean(average_similarity)
                 group_similarity_nonmember[method][group] = average_similarity
     
     for method in args.methods:
