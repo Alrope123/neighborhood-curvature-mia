@@ -121,6 +121,8 @@ if __name__ == '__main__':
     group_results_members = original_group_results_members
     group_results_nonmembers = original_group_results_nonmembers
 
+    if 'fasttext' in args.methods:
+        model = load_model(args.model_name)
     
     # Calculate the word embeddings
     group_similarity_member = {method: {} for method in args.methods}
@@ -130,7 +132,6 @@ if __name__ == '__main__':
                 if method in results:
                     continue
                 if method == 'fasttext':
-                    model = load_model(args.model_name)
                     documents_embeddings = get_embeddings(model, documents)
                     # average_similarity = compute_average_cosine_similarity(documents_embeddings)
                     similarities = []
@@ -161,7 +162,6 @@ if __name__ == '__main__':
                 if method in results:
                     continue
                 if method == 'fasttext':
-                    model = load_model(args.model_name)
                     documents_embeddings = get_embeddings(model, documents)
                     # average_similarity = compute_average_cosine_similarity(documents_embeddings)
                     similarities = []
