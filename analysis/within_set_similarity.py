@@ -142,6 +142,7 @@ if __name__ == '__main__':
                     for i in range(len(documents)):
                         for j in range(i+1, len(documents)):
                             similarities.append(similarity_matrix)
+                    average_similarity = np.mean(similarities)
                 elif method == 'tf-idf':
                     from sklearn.feature_extraction.text import TfidfVectorizer
                     from sklearn.metrics.pairwise import cosine_similarity
@@ -173,6 +174,7 @@ if __name__ == '__main__':
                     for i in range(len(documents)):
                         for j in range(i+1, len(documents)):
                             similarities.append(similarity_matrix)
+                    average_similarity = np.mean(similarities)
                 elif method == 'tf-idf':
                     from sklearn.feature_extraction.text import TfidfVectorizer
                     from sklearn.metrics.pairwise import cosine_similarity
