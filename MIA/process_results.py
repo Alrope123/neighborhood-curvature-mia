@@ -338,11 +338,13 @@ if __name__ == '__main__':
                     cur_member_individual_predictions = []
                     cur_nonmember_individual_predictions = []
                     for group, predictions in group_results_members.items():
-                        cur_group_results_members[group] = predictions[:k]
-                        cur_member_individual_predictions.extend(predictions[:k])
+                        for i in range(0, len(predictions), k):
+                            cur_group_results_members[group+f"_{i//k}"] = predictions[i*k:i*(k+1)]
+                            cur_member_individual_predictions.extend(predictions[i*k:i*(k+1)])
                     for group, predictions in group_results_nonmembers.items():
-                        cur_group_results_nonmembers[group] = predictions[:k]
-                        cur_nonmember_individual_predictions.extend(predictions[:k])
+                        for i in range(0, len(predictions), k):
+                            cur_group_results_nonmembers[group+f"_{i//k}"] = predictions[i*k:i*(k+1)]
+                            cur_nonmember_individual_predictions.extend(predictions[i*k:i*(k+1)])
 
                     fpr, tpr, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
                     direction_result[k] = {
