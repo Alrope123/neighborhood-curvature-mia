@@ -10,7 +10,8 @@ import time
 import fasttext
 import math
 from huggingface_hub import hf_hub_download
-from scipy.spatial.distance import cosine
+# from scipy.spatial.distance import cosine
+from sklearn.metrics.pairwise import cosine_similarity
 import pickle as pkl
 
 
@@ -138,25 +139,15 @@ if __name__ == '__main__':
     group_similarity_member = {method: {} for method in args.methods}
     random_indices = np.random.randint(0, len(group_results_members), size=int(len(group_results_members) * downsize_factor))
     sampled_group_documents = [(group, documents) for i, (group, documents) in enumerate(group_results_members.items()) if i in random_indices]
-    for group, document in tqdm(sampled_group_documents):
+    for group, documents in tqdm(sampled_group_documents):
         for method in args.methods:
             if method in results:
                 continue
             if method == 'fasttext':
-                from sklearn.metrics.pairwise import cosine_similarity
                 documents_embeddings = get_embeddings(model, documents)
-                # average_similarity = compute_average_cosine_similarity(documents_embeddings)
-                similarities = []
-                similarity_matrix = cosine_similarity(documents_embeddings)
-                assert len(documents) == len(similarity_matrix), (len(documents), len(similarity_matrix))
-                assert len(documents) == len(similarity_matrix[0]), (len(documents), len(similarity_matrix[0]))
-                for i in range(len(documents)):
-                    for j in range(i+1, len(documents)):
-                        similarities.append(similarity_matrix)
-                average_similarity = np.mean(similarities)
+                average_similarity = compute_average_cosine_similarity(documents_embeddings)
             elif method == 'tf-idf':
                 from sklearn.feature_extraction.text import TfidfVectorizer
-                from sklearn.metrics.pairwise import cosine_similarity
                 vectorizer = TfidfVectorizer()
                 tfidf_matrix = vectorizer.fit_transform(documents)
                 average_similarity = compute_average_cosine_similarity(tfidf_matrix)
@@ -165,25 +156,15 @@ if __name__ == '__main__':
     group_similarity_nonmember = {method: {} for method in args.methods}
     random_indices = np.random.randint(0, len(group_results_nonmembers), size=int(len(group_results_nonmembers) * downsize_factor))
     sampled_group_documents = [(group, documents) for i, (group, documents) in enumerate(group_results_nonmembers.items()) if i in random_indices]
-    for group, document in tqdm(sampled_group_documents):
+    for group, documents in tqdm(sampled_group_documents):
         for method in args.methods:
             if method in results:
                 continue
             if method == 'fasttext':
-                from sklearn.metrics.pairwise import cosine_similarity
                 documents_embeddings = get_embeddings(model, documents)
-                # average_similarity = compute_average_cosine_similarity(documents_embeddings)
-                similarities = []
-                similarity_matrix = cosine_similarity(documents_embeddings)
-                assert len(documents) == len(similarity_matrix), (len(documents), len(similarity_matrix))
-                assert len(documents) == len(similarity_matrix[0]), (len(documents), len(similarity_matrix[0]))
-                for i in range(len(documents)):
-                    for j in range(i+1, len(documents)):
-                        similarities.append(similarity_matrix)
-                average_similarity = np.mean(similarities)
+                average_similarity = compute_average_cosine_similarity(documents_embeddings)
             elif method == 'tf-idf':
                 from sklearn.feature_extraction.text import TfidfVectorizer
-                from sklearn.metrics.pairwise import cosine_similarity
                 vectorizer = TfidfVectorizer()
                 tfidf_matrix = vectorizer.fit_transform(documents)
                 average_similarity = compute_average_cosine_similarity(tfidf_matrix)
