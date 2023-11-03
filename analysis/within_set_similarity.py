@@ -132,6 +132,7 @@ if __name__ == '__main__':
                 if method in results:
                     continue
                 if method == 'fasttext':
+                    from sklearn.metrics.pairwise import cosine_similarity
                     documents_embeddings = get_embeddings(model, documents)
                     # average_similarity = compute_average_cosine_similarity(documents_embeddings)
                     similarities = []
@@ -162,6 +163,7 @@ if __name__ == '__main__':
                 if method in results:
                     continue
                 if method == 'fasttext':
+                    from sklearn.metrics.pairwise import cosine_similarity
                     documents_embeddings = get_embeddings(model, documents)
                     # average_similarity = compute_average_cosine_similarity(documents_embeddings)
                     similarities = []
