@@ -140,11 +140,11 @@ if __name__ == '__main__':
                     tfidf_matrix = vectorizer.fit_transform(documents)
                     similarities = []
                     similarity_matrix = cosine_similarity(tfidf_matrix)
-                    assert len(documents) == len(similarities), (len(documents), len(similarities))
-                    assert len(documents) == len(similarities[0]), (len(documents), len(similarities[0]))
+                    assert len(documents) == len(similarity_matrix), (len(documents), len(similarity_matrix))
+                    assert len(documents) == len(similarity_matrix[0]), (len(documents), len(similarity_matrix[0]))
                     for i in range(len(documents)):
                         for j in range(i+1, len(documents)):
-                            similarities.append(similarities[i][j])
+                            similarities.append(similarity_matrix)
                     average_similarity = np.mean(average_similarity)
                 group_similarity_member[method][group] = average_similarity
     group_similarity_nonmember = {}
