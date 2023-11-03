@@ -132,7 +132,14 @@ if __name__ == '__main__':
                 if method == 'fasttext':
                     model = load_model(args.model_name)
                     documents_embeddings = get_embeddings(model, documents)
-                    average_similarity = compute_average_cosine_similarity(documents_embeddings)
+                    # average_similarity = compute_average_cosine_similarity(documents_embeddings)
+                    similarities = []
+                    similarity_matrix = cosine_similarity(documents_embeddings)
+                    assert len(documents) == len(similarity_matrix), (len(documents), len(similarity_matrix))
+                    assert len(documents) == len(similarity_matrix[0]), (len(documents), len(similarity_matrix[0]))
+                    for i in range(len(documents)):
+                        for j in range(i+1, len(documents)):
+                            similarities.append(similarity_matrix)
                 elif method == 'tf-idf':
                     from sklearn.feature_extraction.text import TfidfVectorizer
                     from sklearn.metrics.pairwise import cosine_similarity
@@ -156,7 +163,14 @@ if __name__ == '__main__':
                 if method == 'fasttext':
                     model = load_model(args.model_name)
                     documents_embeddings = get_embeddings(model, documents)
-                    average_similarity = compute_average_cosine_similarity(documents_embeddings)
+                    # average_similarity = compute_average_cosine_similarity(documents_embeddings)
+                    similarities = []
+                    similarity_matrix = cosine_similarity(documents_embeddings)
+                    assert len(documents) == len(similarity_matrix), (len(documents), len(similarity_matrix))
+                    assert len(documents) == len(similarity_matrix[0]), (len(documents), len(similarity_matrix[0]))
+                    for i in range(len(documents)):
+                        for j in range(i+1, len(documents)):
+                            similarities.append(similarity_matrix)
                 elif method == 'tf-idf':
                     from sklearn.feature_extraction.text import TfidfVectorizer
                     from sklearn.metrics.pairwise import cosine_similarity
