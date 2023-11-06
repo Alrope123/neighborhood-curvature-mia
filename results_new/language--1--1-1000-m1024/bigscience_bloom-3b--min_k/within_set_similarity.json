@@ -1,0 +1,44 @@
+{
+    "fasttext": {
+        "final average": 0.9182267189025879,
+        "member": {},
+        "nonmember": {
+            "nl": 0.9182267189025879
+        }
+    },
+    "tf-idf": {
+        "final average": 0.0844448851573587,
+        "member": {},
+        "nonmember": {
+            "nl": 0.0844448851573587
+        }
+    },
+    "n-gram-2": {
+        "final average": 0.06629293364109999,
+        "member": {},
+        "nonmember": {
+            "nl": 0.06629293364109999
+        }
+    },
+    "n-gram-3": {
+        "final average": 0.04016608685697583,
+        "member": {},
+        "nonmember": {
+            "nl": 0.04016608685697583
+        }
+    },
+    "n-gram-7": {
+        "final average": 0.013805418290972357,
+        "member": {},
+        "nonmember": {
+            "nl": 0.013805418290972357
+        }
+    },
+    "n-gram-13": {
+        "final average": 0.002565588240909822,
+        "member": {},
+        "nonmember": {
+            "nl": 0.002565588240909822
+        }
+    }
+}
