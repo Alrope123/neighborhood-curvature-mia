@@ -483,6 +483,15 @@ python MIA/process_results.py \
   --key crit
 
 python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-1b/lr_ratio_threshold_results.json \
+  --result_path_ref /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-410m/lr_ratio_threshold_results.json\
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/lira-EleutherAI_pythia-1b-EleutherAI_pythia-410m/\
+  --top_k 100\
+  --key crit
+
+
+python MIA/process_results.py \
   --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-410m/lr_ratio_threshold_results.json \
   --result_path_ref /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-160m/lr_ratio_threshold_results.json\
   --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl\
@@ -506,7 +515,25 @@ python MIA/process_results.py \
   --top_k 100\
   --key crit
 
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/EleutherAI_gpt-neo-2.7B/lr_ratio_threshold_results.json \
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/EleutherAI_gpt-neo-2.7B/\
+  --top_k 100\
+  --key lls
+
+python MIA/process_results.py \
+  --result_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/EleutherAI_gpt-neo-2.7B/lr_ratio_threshold_results.json \
+  --result_path_ref /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/EleutherAI_gpt-neo-125m/lr_ratio_threshold_results.json\
+  --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl\
+  --out_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/lira-EleutherAI_gpt-neo-2.7B-EleutherAI_gpt-neo-125m/\
+  --top_k 100\
+  --key crit
+
+/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-book-968-32-1-m1024/EleutherAI_gpt-neo-125m--min_k
+/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-book-968-32-100-m1024/EleutherAI_gpt-neo-125m/lr_ratio_threshold_results.json
 
 git add results_new/*/*/*.png
+git add results_new/*/*/within_set_similarity.json
 git add results_new/*/*/*/*.png
 git add results_new/*/*/*/group_output.json
