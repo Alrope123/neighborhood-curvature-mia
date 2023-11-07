@@ -209,12 +209,12 @@ if __name__ == '__main__':
     for i, text in enumerate(nonmember_data):
         group_results_nonmembers[i] = sample_segment(text, tokenizer, args.max_length)
     
-    print("Length of the member group: {}".format(len(member_data)))
-    print("Length of the nonmember group: {}".format(len(nonmember_data)))
-    print("Length of the member data: {}".format(len(member_data.values())))
-    print("Length of the nonmember data: {}".format(len(nonmember_data.values())))
-    print("Average length of the member group: {}".format(len(member_data.values()) / len(member_data)))
-    print("Average length of the nonmember group: {}".format(len(nonmember_data.values()) / len(nonmember_data)))
+    print("Length of the member group: {}".format(len(group_results_members)))
+    print("Length of the nonmember group: {}".format(len(group_results_nonmembers)))
+    print("Length of the member data: {}".format(len(group_results_members.values())))
+    print("Length of the nonmember data: {}".format(len(group_results_nonmembers.values())))
+    print("Average length of the member group: {}".format(len(group_results_members.values()) / len(member_data)))
+    print("Average length of the nonmember group: {}".format(len(group_results_nonmembers.values()) / len(nonmember_data)))
 
     if 'fasttext' in args.methods:
         model = load_model(args.model_name)
