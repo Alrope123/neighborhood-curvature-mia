@@ -215,6 +215,7 @@ if __name__ == '__main__':
     print("Length of the nonmember data: {}".format(len(group_results_nonmembers.values())))
     print("Average length of the member group: {}".format(len(group_results_members.values()) / len(member_data)))
     print("Average length of the nonmember group: {}".format(len(group_results_nonmembers.values()) / len(nonmember_data)))
+    assert False
 
     if 'fasttext' in args.methods:
         model = load_model(args.model_name)
