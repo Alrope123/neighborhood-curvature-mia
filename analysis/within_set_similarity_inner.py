@@ -211,10 +211,8 @@ if __name__ == '__main__':
     
     print("Length of the member group: {}".format(len(group_results_members)))
     print("Length of the nonmember group: {}".format(len(group_results_nonmembers)))
-    print("Length of the member data: {}".format(len(group_results_members.values())))
-    print("Length of the nonmember data: {}".format(len(group_results_nonmembers.values())))
-    print("Average length of the member group: {}".format(len(group_results_members.values()) / len(member_data)))
-    print("Average length of the nonmember group: {}".format(len(group_results_nonmembers.values()) / len(nonmember_data)))
+    print("Average Length of the member data: {}".format(np.mean([len(value) for value in group_results_members.values()])))
+    print("Average Length of the nonmember data: {}".format(np.mean([len(value) for value in group_results_nonmembers.values()])))
     assert False
 
     if 'fasttext' in args.methods:
