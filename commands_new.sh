@@ -537,3 +537,16 @@ git add results_new/*/*/*.png
 git add results_new/*/*/within_set_similarity.json
 git add results_new/*/*/*/*.png
 git add results_new/*/*/*/group_output.json
+
+
+HF_DATASETS_CACHE=/gscratch/h2lab/alrope/neighborhood-curvature-mia/cache/ HF_HOME=/gscratch/h2lab/alrope/neighborhood-curvature-mia/cache/ TRANSFORMERS_CACHE=/gscratch/h2lab/alrope/neighborhood-curvature-mia/cache/ python src/run.py --target_model EleutherAI/pythia-2.8b --ref_model EleutherAI/pythia-70m --data swj0419/WikiMIA --length 128
+
+python analysis/within_set_similarity.py --result_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_gpt-neo-2.7B/ --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia_noisy/group_to_member.pkl --downsize_factor 0.1 --method fasttext tf-idf n-gram-2 n-gram-3 n-gram-7 n-gram-13
+python analysis/within_set_similarity.py --result_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/EleutherAI_gpt-neo-2.7B/ --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl --downsize_factor 0.1 --method fasttext tf-idf n-gram-2 n-gram-3 n-gram-7 n-gram-13
+python analysis/within_set_similarity.py --result_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/language--1--1-1000-m1024/bigscience_bloom-3b--min_k/ --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/language/group_to_member.pkl --downsize_factor 0.1 --method fasttext tf-idf n-gram-2 n-gram-3 n-gram-7 n-gram-13
+python MIA/run_mia_unified.py --base_model_name EleutherAI/gpt-neo-125m --max_length 1024 --cache_dir cache --dataset_member rpj-book --dataset_member_key text --dataset_nonmember rpj-book --dataset_nonmember_key text --strategy split --baselines_only --n_group_member 968 --n_group_nonmember 32 --n_document_per_group 1 --data_dir /gscratch/h2lab/alrope/data/redpajama/book/ --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-book/group_to_member.pkl --save_dir results_new --min_k_prob
+python analysis/within_set_similarity.py --result_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-book-968-32-1-m1024/EleutherAI_gpt-neo-125m--min_k/ --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-book/group_to_member.pkl --downsize_factor 0.1 --method fasttext tf-idf n-gram-2 n-gram-3 n-gram-7 n-gram-13
+python MIA/run_mia_unified.py --base_model_name EleutherAI/gpt-neo-2.7B --max_length 1024 --cache_dir cache --dataset_member rpj-book --dataset_member_key text --dataset_nonmember rpj-book --dataset_nonmember_key text --strategy split --baselines_only --n_group_member 968 --n_group_nonmember 32 --n_document_per_group 1 --data_dir /gscratch/h2lab/alrope/data/redpajama/book/ --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-book/group_to_member.pkl --save_dir results_new --min_k_prob
+
+
+python analysis/within_set_similarity.py --result_dir /gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/rpj-arxiv_noisy-926-74-100-m1024/EleutherAI_gpt-neo-2.7B/ --membership_path /gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/rpj-arxiv_noisy/group_to_member.pkl --downsize_factor 0.005 --method fasttext
