@@ -166,7 +166,6 @@ if __name__ == '__main__':
     parser.add_argument('--membership_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl")
     parser.add_argument('--cache_dir', type=str, default="cache")
     parser.add_argument('--model_name', type=str, default="EleutherAI/gpt-neo-2.7B")
-    parser.add_argument('--max_top_k', type=int, default=100)
     parser.add_argument('--n_group_member', type=int, default=100)
     parser.add_argument('--n_group_nonmember', type=int, default=100)
     parser.add_argument('--downsize_factor', type=float, default=0.1)
@@ -177,7 +176,6 @@ if __name__ == '__main__':
     assert os.path.exists(args.result_dir), args.result_dir
     assert os.path.exists(args.membership_path), args.membership_path
 
-    max_top_k = args.max_top_k
     downsize_factor = args.downsize_factor
 
     if os.path.exists(os.path.join(args.result_dir, "within_set_similarity_inner.json")):
@@ -196,11 +194,11 @@ if __name__ == '__main__':
     
     member_data = [x.strip() for x in member_data]
     member_data = [strip_newlines(x) for x in member_data]
-    member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 2048]
+    member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 2000]
 
     nonmember_data = [x.strip() for x in nonmember_data]
     nonmember_data = [strip_newlines(x) for x in nonmember_data]
-    nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 2048]
+    nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 2000]
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.name, cache_dir=args.cache_dir)
 
@@ -213,6 +211,9 @@ if __name__ == '__main__':
 
     member_data = new_member_data
     nonmember_data = new_nonmember_data
+
+    print("Length of the member data: {}".format(len(member_data)))
+    print("Length of the nonmember data: {}".format(len(nonmember_data)))
 
     if 'fasttext' in args.methods:
         model = load_model(args.model_name)
