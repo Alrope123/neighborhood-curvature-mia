@@ -70,7 +70,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
     return selected_data
 
 
-def load_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30): 
+def load_dataset(membership_info, data_dir=None, train=True, n_group=100, n_document_per_group=30): 
     selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     
     data = [] 
@@ -86,15 +86,10 @@ def load_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n
     return data, meta_data
 
 
-def load(name, data_dir, membership_path, verbose=False, n_group=100, n_document_per_group=30, train=True, SAVE_FOLDER=None):
-    if name in DATASETS:
-        if verbose:
-            print("Loading the dataset: {}...".format(name))
-        with open(membership_path, 'rb') as f:
-            membership_info = pkl.load(f)
-        return load_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
-    else:
-        raise ValueError(f'Unknown dataset {name}')
+def load(data_dir, membership_path, verbose=False, n_group=100, n_document_per_group=30, train=True):
+    with open(membership_path, 'rb') as f:
+        membership_info = pkl.load(f)
+    return load_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train)
 
 
 def load_model(name):
@@ -155,19 +150,28 @@ def compute_average_cosine_similarity(embeddings):
     return float(np.mean(similarities))
 
 
+def strip_newlines(text):
+    return ' '.join(text.split())
+
+
 if __name__ == '__main__':
     DEVICE = "cuda"
     random.seed(2023)
     np.random.seed(2023)
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('--name', type=str)
+    parser.add_argument('--data_dir', type=str)
     parser.add_argument('--result_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
     parser.add_argument('--membership_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/wikipedia/group_to_member.pkl")
     parser.add_argument('--cache_dir', type=str, default="cache")
     parser.add_argument('--model_name', type=str, default="EleutherAI/gpt-neo-2.7B")
     parser.add_argument('--max_top_k', type=int, default=100)
+    parser.add_argument('--n_group_member', type=int, default=100)
+    parser.add_argument('--n_group_nonmember', type=int, default=100)
     parser.add_argument('--downsize_factor', type=float, default=0.1)
     parser.add_argument('--methods', nargs="+", default="fasttext")
+    parser.add_argument('--max_length', type=int, default=1024)
     args = parser.parse_args()
 
     assert os.path.exists(args.result_dir), args.result_dir
@@ -176,61 +180,48 @@ if __name__ == '__main__':
     max_top_k = args.max_top_k
     downsize_factor = args.downsize_factor
 
-
-    # Load selected document
-    with open(os.path.join(args.result_dir, "lr_ratio_threshold_results.json"), 'r') as f:
-        result = json.load(f)
-    with open(args.membership_path, 'rb') as f:
-        group_to_documents = pkl.load(f)
-    
-    if os.path.exists(os.path.join(args.result_dir, "within_set_similarity.json")):
-        with open(os.path.join(args.result_dir, "within_set_similarity.json"), 'r') as f:
+    if os.path.exists(os.path.join(args.result_dir, "within_set_similarity_inner.json")):
+        with open(os.path.join(args.result_dir, "within_set_similarity_inner.json"), 'r') as f:
             results = json.load(f)
     else:
         results = {}
 
-    info_to_group = {}
-    for group, infos in group_to_documents.items():
-        for filename, i, _, is_member in infos['documents']:
-            info_to_group[(filename, i)] = group
+    # Load selected document
+    member_data, member_metadata = load(data_dir=args.data_dir,
+            membership_path=args.membership_path,
+            n_group=args.n_group_member, n_document_per_group=-1, train=True)
+    nonmember_data, nonmember_metadata = load(data_dir=args.data_dir,
+            membership_path=args.membership_path,
+            n_group=args.n_group_nonmember, n_document_per_group=-1, train=False)
+    
+    member_data = [x.strip() for x in member_data]
+    member_data = [strip_newlines(x) for x in member_data]
+    member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 2048]
 
-    group_results_members = {}
-    group_results_nonmembers = {}
-    for i, entry in enumerate(result["member"]):
-        group_member = info_to_group[tuple(result['member_meta'][i])]
-        assert group_to_documents[group_member]['group_is_member']
-        if group_member not in group_results_members:
-            group_results_members[group_member] = []
-        group_results_members[group_member].append(entry)
-    for i, entry in enumerate(result["nonmember"]):
-        group_nonmember = info_to_group[tuple(result['nonmember_meta'][i])]
-        assert not group_to_documents[group_nonmember]['group_is_member']
-        if group_nonmember not in group_results_nonmembers:
-            group_results_nonmembers[group_nonmember] = []
-        group_results_nonmembers[group_nonmember].append(entry)
+    nonmember_data = [x.strip() for x in nonmember_data]
+    nonmember_data = [strip_newlines(x) for x in nonmember_data]
+    nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 2048]
 
-    original_group_results_members = {}
-    original_group_results_nonmembers = {}
-    for group, predictions in group_results_members.items():
-        if len(predictions) >= max_top_k:
-            random.shuffle(predictions)
-            original_group_results_members[group] = predictions[:max_top_k]
-    for group, predictions in group_results_nonmembers.items():
-        if len(predictions) >= max_top_k:
-            random.shuffle(predictions)
-            original_group_results_nonmembers[group] = predictions[:max_top_k]
+    tokenizer = transformers.AutoTokenizer.from_pretrained(args.name, cache_dir=args.cache_dir)
 
-    group_results_members = original_group_results_members
-    group_results_nonmembers = original_group_results_nonmembers
+    new_member_data = []
+    new_nonmember_data = []
+    for text in member_data:
+        new_member_data.extend(sample_segment(text, tokenizer, args.max_length))
+    for text in nonmember_data:
+        new_nonmember_data.extend(sample_segment(text, tokenizer, args.max_length))
+
+    member_data = new_member_data
+    nonmember_data = new_nonmember_data
 
     if 'fasttext' in args.methods:
         model = load_model(args.model_name)
     
     # Calculate the word embeddings
-    group_similarity_member = {method: {} for method in args.methods}
-    random_indices = np.random.randint(0, len(group_results_members), size=int(len(group_results_members) * downsize_factor))
-    sampled_group_documents = [(group, documents) for i, (group, documents) in enumerate(group_results_members.items()) if i in random_indices]
-    for group, documents in tqdm(sampled_group_documents):
+    group_similarity_member = {method: [] for method in args.methods}
+    random_indices = np.random.randint(0, len(member_data), size=int(len(member_data) * downsize_factor))
+    sampled_documents = [documents for i, documents in enumerate(member_data) if i in random_indices]
+    for documents in tqdm(sampled_documents):
         for method in args.methods:
             if method in results:
                 continue
@@ -252,12 +243,12 @@ if __name__ == '__main__':
                 for text1, text2 in itertools.combinations(range(len(ngrams_list)), 2):
                     similarities.append(jaccard_similarity(ngrams_list[text1], ngrams_list[text2]))
                 average_similarity = np.mean(similarities)
-            group_similarity_member[method][group] = average_similarity
+            group_similarity_member[method].append(average_similarity)
     
-    group_similarity_nonmember = {method: {} for method in args.methods}
-    random_indices = np.random.randint(0, len(group_results_nonmembers), size=int(len(group_results_nonmembers) * downsize_factor))
-    sampled_group_documents = [(group, documents) for i, (group, documents) in enumerate(group_results_nonmembers.items()) if i in random_indices]
-    for group, documents in tqdm(sampled_group_documents):
+    group_similarity_nonmember = {method: [] for method in args.methods}
+    random_indices = np.random.randint(0, len(nonmember_data), size=int(len(nonmember_data) * downsize_factor))
+    sampled_documents = [documents for i, documents in enumerate(nonmember_data) if i in random_indices]
+    for documents in tqdm(sampled_documents):
         for method in args.methods:
             if method in results:
                 continue
@@ -279,18 +270,18 @@ if __name__ == '__main__':
                 for text1, text2 in itertools.combinations(range(len(ngrams_list)), 2):
                     similarities.append(jaccard_similarity(ngrams_list[text1], ngrams_list[text2]))
                 average_similarity = np.mean(similarities)
-            group_similarity_nonmember[method][group] = average_similarity
+            group_similarity_nonmember[method].append(average_similarity)
 
     for method in args.methods:
         if method in results:
             continue
         result = {}
-        result["final average"] = np.mean([value for value in list(group_similarity_member[method].values()) + list(group_similarity_nonmember[method].values()) if not math.isnan(value)])
+        result["final average"] = np.mean([value for value in group_similarity_member[method] + group_similarity_nonmember[method] if not math.isnan(value)])
         result["member"] = group_similarity_member[method]
         result["nonmember"] = group_similarity_nonmember[method]
         results[method] = result
         print("Final average for {} is: {}".format(method, result["final average"]))
 
-    with open(os.path.join(args.result_dir, "within_set_similarity.json"), 'w') as f:
+    with open(os.path.join(args.result_dir, "within_set_similarity_inner.json"), 'w') as f:
         json.dump(results, f, indent =4)
     
