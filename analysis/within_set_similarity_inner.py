@@ -21,15 +21,19 @@ np.random.seed(0)
 random.seed(0)
 
 
-def sample_segment(text, tokenizer, max_length):
+def sample_segment(text, tokenizer, max_length, cross_document=False):
     # def random_segment(l, length, max_length):
     #     idx_random = random.randint(0, length-max_length)
     #     return l[idx_random: idx_random + max_length]
-    segments = []
     tokens = tokenizer.encode(text)
-    for i in range(0, len(tokens), max_length):
-        segments.append(tokenizer.decode(tokens[i: i+max_length]))
-    return segments
+    if not cross_document:
+        segments = []
+        for i in range(0, len(tokens), max_length):
+            segments.append(tokenizer.decode(tokens[i: i+max_length]))
+        return segments
+    else:
+        idx_random = random.randint(0, len(text)-max_length)
+        return text[idx_random: idx_random + max_length]
 
 
 def iterate_files(root_dir):
@@ -171,6 +175,7 @@ if __name__ == '__main__':
     parser.add_argument('--downsize_factor', type=float, default=0.1)
     parser.add_argument('--methods', nargs="+", default="fasttext")
     parser.add_argument('--max_length', type=int, default=1024)
+    parser.add_argument('--cross_document', default=False, action="store_true")
     args = parser.parse_args()
 
     assert os.path.exists(args.result_dir), args.result_dir
@@ -194,20 +199,20 @@ if __name__ == '__main__':
     
     member_data = [x.strip() for x in member_data]
     member_data = [strip_newlines(x) for x in member_data]
-    member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 2000]
+    member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 3000]
 
     nonmember_data = [x.strip() for x in nonmember_data]
     nonmember_data = [strip_newlines(x) for x in nonmember_data]
-    nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 2000]
+    nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 3000]
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.name, cache_dir=args.cache_dir)
 
     group_results_members = {}
     group_results_nonmembers = {}
     for i, text in enumerate(member_data):
-        group_results_members[i] = sample_segment(text, tokenizer, args.max_length)
+        group_results_members[i] = sample_segment(text, tokenizer, args.max_length, args.cross_document)
     for i, text in enumerate(nonmember_data):
-        group_results_nonmembers[i] = sample_segment(text, tokenizer, args.max_length)
+        group_results_nonmembers[i] = sample_segment(text, tokenizer, args.max_length, args.cross_document)
     
     print("Length of the member group: {}".format(len(group_results_members)))
     print("Length of the nonmember group: {}".format(len(group_results_nonmembers)))
