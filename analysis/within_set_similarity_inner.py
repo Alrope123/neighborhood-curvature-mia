@@ -202,27 +202,28 @@ if __name__ == '__main__':
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.name, cache_dir=args.cache_dir)
 
-    new_member_data = []
-    new_nonmember_data = []
-    for text in member_data:
-        new_member_data.extend(sample_segment(text, tokenizer, args.max_length))
-    for text in nonmember_data:
-        new_nonmember_data.extend(sample_segment(text, tokenizer, args.max_length))
-
-    member_data = new_member_data
-    nonmember_data = new_nonmember_data
-
-    print("Length of the member data: {}".format(len(member_data)))
-    print("Length of the nonmember data: {}".format(len(nonmember_data)))
+    group_results_members = {}
+    group_results_nonmembers = {}
+    for i, text in enumerate(member_data):
+        group_results_members[i] = sample_segment(text, tokenizer, args.max_length)
+    for i, text in enumerate(nonmember_data):
+        group_results_nonmembers[i] = sample_segment(text, tokenizer, args.max_length)
+    
+    print("Length of the member group: {}".format(len(member_data)))
+    print("Length of the nonmember group: {}".format(len(nonmember_data)))
+    print("Length of the member data: {}".format(len(member_data.values())))
+    print("Length of the nonmember data: {}".format(len(nonmember_data.values())))
+    print("Average length of the member group: {}".format(len(member_data.values()) / len(member_data)))
+    print("Average length of the nonmember group: {}".format(len(nonmember_data.values()) / len(nonmember_data)))
 
     if 'fasttext' in args.methods:
         model = load_model(args.model_name)
     
     # Calculate the word embeddings
-    group_similarity_member = {method: [] for method in args.methods}
-    random_indices = np.random.randint(0, len(member_data), size=int(len(member_data) * downsize_factor))
-    sampled_documents = [documents for i, documents in enumerate(member_data) if i in random_indices]
-    for documents in tqdm(sampled_documents):
+    group_similarity_member = {method: {} for method in args.methods}
+    random_indices = np.random.randint(0, len(group_results_members), size=int(len(group_results_members) * downsize_factor))
+    sampled_group_documents = [(group, documents) for i, (group, documents) in enumerate(group_results_members.items()) if i in random_indices]
+    for group, documents in tqdm(sampled_group_documents):
         for method in args.methods:
             if method in results:
                 continue
@@ -244,12 +245,12 @@ if __name__ == '__main__':
                 for text1, text2 in itertools.combinations(range(len(ngrams_list)), 2):
                     similarities.append(jaccard_similarity(ngrams_list[text1], ngrams_list[text2]))
                 average_similarity = np.mean(similarities)
-            group_similarity_member[method].append(average_similarity)
+            group_similarity_member[method][group] = average_similarity
     
-    group_similarity_nonmember = {method: [] for method in args.methods}
-    random_indices = np.random.randint(0, len(nonmember_data), size=int(len(nonmember_data) * downsize_factor))
-    sampled_documents = [documents for i, documents in enumerate(nonmember_data) if i in random_indices]
-    for documents in tqdm(sampled_documents):
+    group_similarity_nonmember = {method: {} for method in args.methods}
+    random_indices = np.random.randint(0, len(group_results_nonmembers), size=int(len(group_results_nonmembers) * downsize_factor))
+    sampled_group_documents = [(group, documents) for i, (group, documents) in enumerate(group_results_nonmembers.items()) if i in random_indices]
+    for group, documents in tqdm(sampled_group_documents):
         for method in args.methods:
             if method in results:
                 continue
@@ -271,13 +272,13 @@ if __name__ == '__main__':
                 for text1, text2 in itertools.combinations(range(len(ngrams_list)), 2):
                     similarities.append(jaccard_similarity(ngrams_list[text1], ngrams_list[text2]))
                 average_similarity = np.mean(similarities)
-            group_similarity_nonmember[method].append(average_similarity)
+            group_similarity_nonmember[method][group] = average_similarity
 
     for method in args.methods:
         if method in results:
             continue
         result = {}
-        result["final average"] = np.mean([value for value in group_similarity_member[method] + group_similarity_nonmember[method] if not math.isnan(value)])
+        result["final average"] = np.mean([value for value in list(group_similarity_member[method].values()) + list(group_similarity_nonmember[method].values()) if not math.isnan(value)])
         result["member"] = group_similarity_member[method]
         result["nonmember"] = group_similarity_nonmember[method]
         results[method] = result
