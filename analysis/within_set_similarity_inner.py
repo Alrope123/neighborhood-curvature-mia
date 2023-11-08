@@ -216,13 +216,20 @@ if __name__ == '__main__':
     
     member_data = [x.strip() for x in member_data]
     member_data = [strip_newlines(x) for x in member_data]
+    print("Length of the member group: {}".format(len(member_data)))
     member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 2000]
     if not args.cross_document:
         member_data = sorted(member_data, key=lambda x: len(x), reverse=True)[:args.n_group_member * 5]
 
     nonmember_data = [x.strip() for x in nonmember_data]
     nonmember_data = [strip_newlines(x) for x in nonmember_data]
+    print("Length of the nonmember group: {}".format(len(nonmember_data)))
     nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 2000]
+
+    print("Length of the member group: {}".format(len(member_data)))
+    print("Length of the nonmember group: {}".format(len(nonmember_data)))
+   
+
     if not args.cross_document:
         nonmember_data = sorted(nonmember_data, key=lambda x: len(x), reverse=True)[:args.n_group_nonmember * 5]
 
