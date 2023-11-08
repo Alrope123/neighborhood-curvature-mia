@@ -49,7 +49,10 @@ def sample_segment(text, tokenizer, max_length, cross_document=False):
             segments.append(tokenizer.decode(tokens[i: i+max_length]))
         return segments
     else:
-        idx_random = random.randint(0, len(text)-max_length)
+        if len(text) > max_length:
+            idx_random = random.randint(0, len(text)-max_length)
+        else:
+            idx_random = 0
         return text[idx_random: idx_random + max_length]
 
 
