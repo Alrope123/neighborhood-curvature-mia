@@ -21,6 +21,23 @@ np.random.seed(0)
 random.seed(0)
 
 
+# Function to randomly mix up the text in the lists of the dictionary
+def mix_up_dict_texts(input_dict):
+    # Extract all texts from the dictionary into a single list
+    all_texts = [text for key in input_dict for text in input_dict[key]]
+    # Shuffle the list of all texts
+    random.shuffle(all_texts)
+    
+    # Create a new dictionary with the shuffled texts, maintaining the same structure
+    mixed_dict = {}
+    i = 0
+    for key in input_dict:
+        mixed_dict[key] = all_texts[i:i+len(input_dict[key])]
+        i += len(input_dict[key])
+    
+    return mixed_dict
+
+
 def sample_segment(text, tokenizer, max_length, cross_document=False):
     # def random_segment(l, length, max_length):
     #     idx_random = random.randint(0, length-max_length)
@@ -200,12 +217,14 @@ if __name__ == '__main__':
     member_data = [x.strip() for x in member_data]
     member_data = [strip_newlines(x) for x in member_data]
     member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 2000]
-    member_data = sorted(member_data, key=lambda x: len(x), reverse=True)[:args.n_group_member * 5]
+    if not args.cross_document:
+        member_data = sorted(member_data, key=lambda x: len(x), reverse=True)[:args.n_group_member * 5]
 
     nonmember_data = [x.strip() for x in nonmember_data]
     nonmember_data = [strip_newlines(x) for x in nonmember_data]
     nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 2000]
-    nonmember_data = sorted(nonmember_data, key=lambda x: len(x), reverse=True)[:args.n_group_nonmember * 5]
+    if not args.cross_document:
+        nonmember_data = sorted(nonmember_data, key=lambda x: len(x), reverse=True)[:args.n_group_nonmember * 5]
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.name, cache_dir=args.cache_dir)
 
@@ -216,11 +235,14 @@ if __name__ == '__main__':
     for i, text in enumerate(nonmember_data):
         group_results_nonmembers[i] = sample_segment(text, tokenizer, args.max_length, args.cross_document)
     
+    if args.cross_document:
+        group_results_members = mix_up_dict_texts(group_results_members)
+        group_results_nonmembers = mix_up_dict_texts(group_results_nonmembers)
+
     print("Length of the member group: {}".format(len(group_results_members)))
     print("Length of the nonmember group: {}".format(len(group_results_nonmembers)))
     print("Average Length of the member data: {}".format(np.mean([len(value) for value in group_results_members.values()])))
     print("Average Length of the nonmember data: {}".format(np.mean([len(value) for value in group_results_nonmembers.values()])))
-    assert False
 
     if 'fasttext' in args.methods:
         model = load_model(args.model_name)
