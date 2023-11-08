@@ -94,7 +94,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
 
 def load_dataset(membership_info, data_dir=None, train=True, n_group=100, n_document_per_group=30): 
     selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
-    
+    print("Sampled {} documents".format(len(selected_data)))
     data = [] 
     meta_data = []
     for file_path, filename in tqdm(iterate_files(data_dir)):
@@ -214,7 +214,7 @@ if __name__ == '__main__':
             n_group=args.n_group_member, n_document_per_group=-1, train=True)
     nonmember_data, nonmember_metadata = load(data_dir=args.data_dir,
             membership_path=args.membership_path,
-            n_group=args.n_group_nonmember, n_document_per_group=-1, train=False)
+            n_group=args.n_group_nonmember, n_document_per_group=1, train=False)
     
     member_data = [x.strip() for x in member_data]
     member_data = [strip_newlines(x) for x in member_data]
