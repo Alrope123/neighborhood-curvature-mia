@@ -199,11 +199,13 @@ if __name__ == '__main__':
     
     member_data = [x.strip() for x in member_data]
     member_data = [strip_newlines(x) for x in member_data]
-    member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 3000]
+    member_data = [x for x in member_data if len(x.split()) > 0 and len(x) > 2000]
+    member_data = sorted(member_data, key=lambda x: len(x), reverse=True)[:args.n_group_member * 5]
 
     nonmember_data = [x.strip() for x in nonmember_data]
     nonmember_data = [strip_newlines(x) for x in nonmember_data]
-    nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 3000]
+    nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 2000]
+    nonmember_data = sorted(nonmember_data, key=lambda x: len(x), reverse=True)[:args.n_group_nonmember * 5]
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.name, cache_dir=args.cache_dir)
 
