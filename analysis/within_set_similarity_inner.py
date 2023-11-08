@@ -76,6 +76,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
         if infos['group_is_member'] == train and len(infos['is_members']) >= n_document_per_group:
             groups.add(group)
     # assert len(groups) == n_group, (len(groups), n_group)
+    print("Sampled {} group.".format(len(groups)))
 
     selected_data = set()
     for group, infos in membership_info.items():
@@ -110,6 +111,7 @@ def load_dataset(membership_info, data_dir=None, train=True, n_group=100, n_docu
 def load(data_dir, membership_path, verbose=False, n_group=100, n_document_per_group=30, train=True):
     with open(membership_path, 'rb') as f:
         membership_info = pkl.load(f)
+    print("Total number of groups: {}".format(len(membership_info)))
     return load_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train)
 
 
@@ -225,14 +227,12 @@ if __name__ == '__main__':
     nonmember_data = [strip_newlines(x) for x in nonmember_data]
     print("Length of the nonmember group: {}".format(len(nonmember_data)))
     nonmember_data = [x for x in nonmember_data if len(x.split()) > 0 and len(x) > 2000]
-
-    print("Length of the member group: {}".format(len(member_data)))
-    print("Length of the nonmember group: {}".format(len(nonmember_data)))
-   
-
     if not args.cross_document:
         nonmember_data = sorted(nonmember_data, key=lambda x: len(x), reverse=True)[:args.n_group_nonmember * 5]
-
+   
+    print("Length of the member group: {}".format(len(member_data)))
+    print("Length of the nonmember group: {}".format(len(nonmember_data)))
+ 
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.name, cache_dir=args.cache_dir)
 
     group_results_members = {}
