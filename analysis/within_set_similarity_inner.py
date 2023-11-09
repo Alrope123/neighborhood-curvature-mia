@@ -46,7 +46,9 @@ def sample_segment(text, tokenizer, max_length, cross_document=False):
     if not cross_document:
         segments = []
         for i in range(0, len(tokens), max_length):
-            segments.append(tokenizer.decode(tokens[i: i+max_length]))
+            decoded = tokenizer.decode(tokens[i: i+max_length])
+            if len(decoded) > 100:
+                segments.append(decoded)
         return segments
     else:
         if len(text) > max_length:
