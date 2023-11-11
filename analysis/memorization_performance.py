@@ -27,9 +27,9 @@ if __name__ == '__main__':
         with open(result_path, 'r') as f:
             result = json.load(f)
         for i, entry in enumerate(result["nonmember_meta"]):
-            lls[size][tuple(entry)] = result["nonmember_lls"]
+            lls[size][tuple(entry)] = result["nonmember_lls"][i]
         for i, entry in enumerate(result["member_meta"]):
-            lls[size][tuple(entry)] = result["member_lls"]
+            lls[size][tuple(entry)] = result["member_lls"][i]
         
     # Set a threshold
     best_nonmember_lls = lls[sizes[-1]].values()
