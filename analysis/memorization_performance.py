@@ -57,6 +57,7 @@ if __name__ == '__main__':
         print("Precision for size ({}): {}".format(size, precision))
         print("Recall for size ({}): {}".format(size, recall))
         print("F1 for size ({}): {}".format(size, recall))
+        print("=========================================================")
 
 
         
