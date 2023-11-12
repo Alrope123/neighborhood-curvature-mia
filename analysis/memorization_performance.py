@@ -36,7 +36,7 @@ if __name__ == '__main__':
     best_member_lls = lls[sizes[-1]].values()
     threshold = None
     fpr, tpr, thresholds, roc_auc = get_roc_metrics(best_nonmember_lls,  best_member_lls)
-    for i, (rate, thresholds) in zip(fpr, roc_auc):
+    for i, rate in fpr:
         if rate > 0.05:
             threshold = thresholds[i-1]
     
