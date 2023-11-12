@@ -55,11 +55,14 @@ if __name__ == '__main__':
     # Collecting Evaluation
     evaluations = []
     for size, size_result in lls.items():
-        predictions = {}
+        correct_labels = []
+        predictions = []
         for entry, score in size_result.items():
-            predictions[tuple(entry)] = score > threshold
-        precision = precision_score(list(labels.values()), list(predictions.values()))
-        recall = recall_score(list(labels.values()), list(predictions.values()))
+            predictions.append(score > threshold)
+            correct_labels.append(labels[tuple(entry)]) 
+
+        precision = precision_score(correct_labels, predictions)
+        recall = recall_score(correct_labels, predictions)
         f1 = 2 * (precision * recall) / (precision + recall)
         print("Precision for size ({}): {}".format(size, precision))
         print("Recall for size ({}): {}".format(size, recall))
