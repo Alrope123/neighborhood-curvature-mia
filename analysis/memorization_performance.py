@@ -4,6 +4,7 @@ import pickle as pkl
 import json
 from sklearn.metrics import roc_curve, precision_recall_curve, auc, precision_score, recall_score
 import math
+import numpy as np
 
 
 def get_roc_metrics(real_preds, sample_preds):
@@ -44,6 +45,7 @@ if __name__ == '__main__':
     labels = {}
     for entry, score in lls[sizes[-1]].items():
         labels[tuple(entry)] = score > threshold
+    print("Memorized rate for the largest model:{}".format(np.mean(labels)))
     
     # Collecting Evaluation
     evaluations = []
