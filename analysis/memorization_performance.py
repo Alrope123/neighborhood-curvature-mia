@@ -44,11 +44,10 @@ if __name__ == '__main__':
     for i, rate in enumerate(fpr):
         if rate > 0.05:
             threshold = thresholds[i-1]
-    
+            break
+
     # Determine memorized label v.s. not memorized label
     labels = {}
-    for entry, score in lls[sizes[-1]].items():
-        print(score)
     for entry, score in lls[sizes[-1]].items():
         labels[tuple(entry)] = score > threshold
     print("Memorized rate for the largest model:{}".format(np.mean(list(labels.values()))))
