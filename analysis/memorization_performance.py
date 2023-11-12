@@ -31,7 +31,7 @@ if __name__ == '__main__':
             lls[size][tuple(entry)] = result["nonmember_lls"][i]
         for i, entry in enumerate(result["member_meta"]):
             lls[size][tuple(entry)] = result["member_lls"][i]
-        
+    
     # Find a threshold
     best_nonmember_lls = lls[sizes[-1]].values()
     best_member_lls = lls[sizes[-1]].values()
@@ -48,6 +48,8 @@ if __name__ == '__main__':
     # Determine memorized label v.s. not memorized label
     labels = {}
     for entry, score in lls[sizes[-1]].items():
+        print(score)
+    for entry, score in lls[sizes[-1]].items():
         labels[tuple(entry)] = score > threshold
     print("Memorized rate for the largest model:{}".format(np.mean(list(labels.values()))))
     
@@ -62,7 +64,7 @@ if __name__ == '__main__':
         f1 = 2 * (precision * recall) / (precision + recall)
         print("Precision for size ({}): {}".format(size, precision))
         print("Recall for size ({}): {}".format(size, recall))
-        print("F1 for size ({}): {}".format(size, recall))
+        print("F1 for size ({}): {}".format(size, f1))
         print("=========================================================")
 
 
