@@ -45,7 +45,7 @@ if __name__ == '__main__':
     labels = {}
     for entry, score in lls[sizes[-1]].items():
         labels[tuple(entry)] = score > threshold
-    print("Memorized rate for the largest model:{}".format(np.mean(labels.value())))
+    print("Memorized rate for the largest model:{}".format(np.mean(labels.values())))
     
     # Collecting Evaluation
     evaluations = []
