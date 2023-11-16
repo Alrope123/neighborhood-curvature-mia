@@ -81,8 +81,8 @@ if __name__ == '__main__':
     correlations = {
         "evaluations": evaluations,
         "precision_correlation": get_correlation(evaluations, "precision"),
-        "recall_correlation": get_correlation(evaluations, "precision"),
-        "f1_correlation": get_correlation(evaluations, "precision")
+        "recall_correlation": get_correlation(evaluations, "recall"),
+        "f1_correlation": get_correlation(evaluations, "f1")
     }
 
     output_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_analysis/"
