@@ -26,6 +26,7 @@ if __name__ == '__main__':
 
     # Load perplexities
     lls = {size: {} for size in sizes}
+    lls_nonmember = {size: {} for size in sizes}
     for size in sizes:
         result_path = base_result_path.format(size)
         with open(result_path, 'r') as f:
@@ -33,14 +34,14 @@ if __name__ == '__main__':
         for i, entry in enumerate(result["nonmember_meta"]):
             lls[size][tuple(entry)] = result["nonmember_lls"][i]
         for i, entry in enumerate(result["member_meta"]):
-            lls[size][tuple(entry)] = result["member_lls"][i]
+            lls_nonmember[size][tuple(entry)] = result["member_lls"][i]
     
     memorizations = {}
     for cur_rate in rates:
         all_evals = {}
         for target_size in reversed(sizes):
             # Find a threshold
-            best_nonmember_lls = lls[target_size].values()
+            best_nonmember_lls = lls_nonmember[target_size].values()
             best_member_lls = lls[target_size].values()
             threshold = None
             fpr, tpr, thresholds, roc_auc = get_roc_metrics(best_nonmember_lls,  best_member_lls)
