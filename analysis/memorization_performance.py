@@ -50,7 +50,8 @@ if __name__ == '__main__':
         labels = {}
         for entry, score in lls[target_size].items():
             labels[tuple(entry)] = score > threshold
-        print("Memorized rate for the largest model:{}".format(np.mean(list(labels.values()))))
+        memorization_rate = np.mean(list(labels.values()))
+        print("Memorized rate for the largest model:{}".format(memorization_rate))
         
         evaluations = []
         # Collecting Evaluation
@@ -90,7 +91,7 @@ if __name__ == '__main__':
         
         all_evals["target_size"] = {
             "threshold": threshold,
-            "memorization_rate": np.mean(list(labels.values())),
+            "memorization_rate": memorization_rate,
             "evaluations": evaluations,
             "correlations": correlations
         }
