@@ -42,7 +42,7 @@ if __name__ == '__main__':
         threshold = None
         fpr, tpr, thresholds, roc_auc = get_roc_metrics(best_nonmember_lls,  best_member_lls)
         for i, rate in enumerate(fpr):
-            if rate > 0.05:
+            if rate > 0.15:
                 threshold = thresholds[i-1]
                 break
 
@@ -51,7 +51,7 @@ if __name__ == '__main__':
         for entry, score in lls[target_size].items():
             labels[tuple(entry)] = score > threshold
         memorization_rate = np.mean(list(labels.values()))
-        print("Memorized rate for the largest model:{}".format(memorization_rate))
+        print("Memorized rate for Eleuther_pythia-{}:{}".format(target_size, memorization_rate))
         
         evaluations = []
         # Collecting Evaluation
