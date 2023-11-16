@@ -89,7 +89,7 @@ if __name__ == '__main__':
             "ratio_correlation": get_correlation(evaluations, "ratio")
         }
         
-        all_evals["target_size"] = {
+        all_evals[target_size] = {
             "threshold": threshold,
             "memorization_rate": memorization_rate,
             "evaluations": evaluations,
