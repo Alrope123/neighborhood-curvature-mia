@@ -67,6 +67,7 @@ if __name__ == '__main__':
             precision = precision_score(correct_labels, predictions)
             recall = recall_score(correct_labels, predictions)
             f1 = 2 * (precision * recall) / (precision + recall)
+            pure_ratio = sum(precision) / sum(correct_labels)
             peformance_path = crit_result_path.format(target_size, ref_size)
             with open(peformance_path, 'r') as f:
                 performance = json.load(f)["average"]["max"]["100"]["MIA"]["best"]["ROC AUC"]
@@ -76,13 +77,15 @@ if __name__ == '__main__':
                 "precision": precision,
                 "recall": recall,
                 "f1": f1,
+                "ratio": pure_ratio,
                 "performance": performance
             })
         
         correlations = {
             "precision_correlation": get_correlation(evaluations, "precision"),
             "recall_correlation": get_correlation(evaluations, "recall"),
-            "f1_correlation": get_correlation(evaluations, "f1")
+            "f1_correlation": get_correlation(evaluations, "f1"),
+            "ratio_correlation": get_correlation(evaluations, "ratio")
         }
         
         all_evals["target_size"] = {
