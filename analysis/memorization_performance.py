@@ -21,7 +21,7 @@ def get_correlation(evaluations, key1, key2="performance"):
 if __name__ == '__main__':
     base_result_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/EleutherAI_pythia-{}/lr_ratio_threshold_results.json"
     crit_result_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_new/wikipedia_noisy-770-230-100-m1024/lira-{}-{}/crit/group_out.json"
-    sizes = ["14m", "70m", "160m", "410m", "1b", "2.8b", "6.9b", "12b--min_k"]
+    sizes = ["14m--min_k", "70m--min_k", "160m", "410m", "1b", "2.8b", "6.9b", "12b--min_k"]
 
     # Load perplexities
     lls = {size: {} for size in sizes}
