@@ -86,10 +86,10 @@ if __name__ == '__main__':
                 })
             
             correlations = {
-                "precision_correlation": get_correlation(evaluations, "precision"),
-                "recall_correlation": get_correlation(evaluations, "recall"),
-                "f1_correlation": get_correlation(evaluations, "f1"),
-                "ratio_correlation": get_correlation(evaluations, "ratio")
+                "precision_correlation": get_correlation(evaluations, "precision") if len(evaluations) > 1 else 0,
+                "recall_correlation": get_correlation(evaluations, "recall") if len(evaluations) > 1 else 0,
+                "f1_correlation": get_correlation(evaluations, "f1") if len(evaluations) > 1 else 0,
+                "ratio_correlation": get_correlation(evaluations, "ratio") if len(evaluations) > 1 else 0
             }
             
             all_evals[target_size] = {
