@@ -51,8 +51,10 @@ if __name__ == '__main__':
 
             # Determine memorized label v.s. not memorized label
             labels = {}
+            label_scores = {}
             for entry, score in lls[target_size].items():
                 labels[tuple(entry)] = score > threshold
+                label_scores[tuple(entry)] = score
             memorization_rate = np.mean(list(labels.values()))
             print("Memorized rate for Eleuther_pythia-{}:{}".format(target_size, memorization_rate))
             
@@ -63,15 +65,21 @@ if __name__ == '__main__':
                     continue
                 size_result = lls[ref_size]
                 correct_labels = []
+                correct_label_scores = []
                 predictions = []
+                prediciton_scores = []
                 for entry, score in size_result.items():
                     predictions.append(score > threshold)
-                    correct_labels.append(labels[tuple(entry)]) 
+                    correct_labels.append(labels[tuple(entry)])
+                    prediciton_scores.append(score)
+                    correct_label_scores.append(label_scores[tuple(entry)]) 
 
                 precision = precision_score(correct_labels, predictions)
                 recall = recall_score(correct_labels, predictions)
                 f1 = 2 * (precision * recall) / (precision + recall)
                 pure_ratio = sum(predictions) / sum(correct_labels)
+                confidence = np.mean([score for i, score in enumerate(prediciton_scores) if predictions[i]]) - np.mean([score for i, score in enumerate(correct_label_scores) if correct_labels[i]])
+                correct_confidence = np.mean([score for i, score in enumerate(prediciton_scores) if correct_labels[i]]) - np.mean([score for i, score in enumerate(correct_label_scores) if correct_labels[i]])
                 peformance_path = crit_result_path.format(target_size, ref_size)
                 with open(peformance_path, 'r') as f:
                     performance = json.load(f)["average"]["max"]["100"]["MIA"]["best"]["ROC AUC"]
@@ -82,6 +90,8 @@ if __name__ == '__main__':
                     "recall": recall,
                     "f1": f1,
                     "ratio": pure_ratio,
+                    "confidence": confidence,
+                    "correct_confidence": correct_confidence,
                     "performance": performance
                 })
             
@@ -89,7 +99,9 @@ if __name__ == '__main__':
                 "precision_correlation": get_correlation(evaluations, "precision") if len(evaluations) > 1 else 0,
                 "recall_correlation": get_correlation(evaluations, "recall") if len(evaluations) > 1 else 0,
                 "f1_correlation": get_correlation(evaluations, "f1") if len(evaluations) > 1 else 0,
-                "ratio_correlation": get_correlation(evaluations, "ratio") if len(evaluations) > 1 else 0
+                "ratio_correlation": get_correlation(evaluations, "ratio") if len(evaluations) > 1 else 0,
+                "confidence_correlation": get_correlation(evaluations, "confidence") if len(evaluations) > 1 else 0,
+                "correct_confidence_correlation": get_correlation(evaluations, "correct_confidence") if len(evaluations) > 1 else 0
             }
             
             all_evals[target_size] = {
