@@ -83,7 +83,8 @@ if __name__ == '__main__':
                 correct_confidence = np.mean([score for i, score in enumerate(prediciton_scores) if correct_labels[i]]) - np.mean([score for i, score in enumerate(correct_label_scores) if correct_labels[i]])
                 peformance_path = crit_result_path.format(target_size, ref_size)
                 with open(peformance_path, 'r') as f:
-                    performance = json.load(f)["average"]["max"]["100"]["MIA"]["best"]["ROC AUC"]
+                    # performance = json.load(f)["average"]["max"]["100"]["MIA"]["best"]["ROC AUC"]
+                    performance = json.load(f)["average"]["max"]["100"]["ROC AUC Individual"]
                 
                 evaluations.append({
                     "ref_size": ref_size,
