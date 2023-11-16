@@ -1,10 +1,10 @@
 {
     "0.05": {
         "average_correlations": {
-            "precision": NaN,
-            "recall": NaN,
-            "f1": NaN,
-            "ratio": NaN
+            "precision": -0.2064315710826693,
+            "recall": 0.3008354028357231,
+            "f1": 0.33865564999599207,
+            "ratio": 0.2977791237510071
         },
         "all_evals": {
             "12b--min_k": {
@@ -309,10 +309,10 @@
                     }
                 ],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             },
             "14m--min_k": {
@@ -320,20 +320,20 @@
                 "memorization_rate": 0.049616571710167985,
                 "evaluations": [],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             }
         }
     },
     "0.15": {
         "average_correlations": {
-            "precision": NaN,
-            "recall": NaN,
-            "f1": NaN,
-            "ratio": NaN
+            "precision": 0.024130578371356806,
+            "recall": 0.32409677268614123,
+            "f1": 0.36689118079502964,
+            "ratio": 0.32139674469407487
         },
         "all_evals": {
             "12b--min_k": {
@@ -638,10 +638,10 @@
                     }
                 ],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             },
             "14m--min_k": {
@@ -649,20 +649,20 @@
                 "memorization_rate": 0.14918688995132579,
                 "evaluations": [],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             }
         }
     },
     "0.5": {
         "average_correlations": {
-            "precision": NaN,
-            "recall": NaN,
-            "f1": NaN,
-            "ratio": NaN
+            "precision": 0.0738682930303134,
+            "recall": 0.3521094378466761,
+            "f1": 0.40169305974108316,
+            "ratio": 0.3506629045569247
         },
         "all_evals": {
             "12b--min_k": {
@@ -967,10 +967,10 @@
                     }
                 ],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             },
             "14m--min_k": {
@@ -978,20 +978,20 @@
                 "memorization_rate": 0.49981412157313665,
                 "evaluations": [],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             }
         }
     },
     "0.85": {
         "average_correlations": {
-            "precision": NaN,
-            "recall": NaN,
-            "f1": NaN,
-            "ratio": NaN
+            "precision": 0.2443831430903899,
+            "recall": 0.4380274629362332,
+            "f1": 0.49476164081382723,
+            "ratio": 0.4371275225858982
         },
         "all_evals": {
             "12b--min_k": {
@@ -1296,10 +1296,10 @@
                     }
                 ],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             },
             "14m--min_k": {
@@ -1307,20 +1307,20 @@
                 "memorization_rate": 0.8484961138440523,
                 "evaluations": [],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             }
         }
     },
     "0.95": {
         "average_correlations": {
-            "precision": NaN,
-            "recall": NaN,
-            "f1": NaN,
-            "ratio": NaN
+            "precision": -0.16138839594771393,
+            "recall": 0.5688514576698711,
+            "f1": 0.6111355390003939,
+            "ratio": 0.5682910742287914
         },
         "all_evals": {
             "12b--min_k": {
@@ -1625,10 +1625,10 @@
                     }
                 ],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             },
             "14m--min_k": {
@@ -1636,10 +1636,10 @@
                 "memorization_rate": 0.9464756585715891,
                 "evaluations": [],
                 "correlations": {
-                    "precision_correlation": NaN,
-                    "recall_correlation": NaN,
-                    "f1_correlation": NaN,
-                    "ratio_correlation": NaN
+                    "precision_correlation": 0,
+                    "recall_correlation": 0,
+                    "f1_correlation": 0,
+                    "ratio_correlation": 0
                 }
             }
         }
