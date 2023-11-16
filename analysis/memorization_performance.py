@@ -89,8 +89,10 @@ if __name__ == '__main__':
         }
         
         all_evals["target_size"] = {
-            evaluations: evaluations,
-            correlations: correlations
+            "threshold": threshold,
+            "memorization_rate": np.mean(list(labels.values())),
+            "evaluations": evaluations,
+            "correlations": correlations
         }
 
     output_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_analysis/"
