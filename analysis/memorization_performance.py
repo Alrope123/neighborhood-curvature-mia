@@ -100,7 +100,7 @@ if __name__ == '__main__':
             }
         memorizations[cur_rate] = {
             "average_correlations": {
-                key: np.mean([all_evals[s]["correlations"][key] for s in all_evals.keys()]) for key in ["precision", "recall", "f1", "ratio"]
+                key: np.mean([all_evals[s]["correlations"]["{}_correlation".format(key)] for s in all_evals.keys()]) for key in ["precision", "recall", "f1", "ratio"]
             },
             "all_evals": all_evals,
         }
