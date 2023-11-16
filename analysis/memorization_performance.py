@@ -88,6 +88,6 @@ if __name__ == '__main__':
     output_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_analysis/"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    with open(os.path.join(result_path, "memorizaiton.json"), 'w') as f:
-        json.dump(correlations)
+    with open(os.path.join(output_dir, "memorization.json"), 'w') as f:
+        json.dump(correlations, f)
         
