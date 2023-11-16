@@ -34,7 +34,7 @@ if __name__ == '__main__':
         for i, entry in enumerate(result["member_meta"]):
             lls[size][tuple(entry)] = result["member_lls"][i]
     
-    evaluations = []
+    all_evals = {}
     for target_size in reversed(sizes):
         # Find a threshold
         best_nonmember_lls = lls[target_size].values()
@@ -52,10 +52,12 @@ if __name__ == '__main__':
             labels[tuple(entry)] = score > threshold
         print("Memorized rate for the largest model:{}".format(np.mean(list(labels.values()))))
         
+        evaluations = []
         # Collecting Evaluation
-        for ref_size, size_result in lls.items():
+        for ref_size in reversed(sizes):
             if sizes.index(ref_size) >= sizes.index(target_size):
                 continue
+            size_result = lls[ref_size]
             correct_labels = []
             predictions = []
             for entry, score in size_result.items():
@@ -70,7 +72,6 @@ if __name__ == '__main__':
                 performance = json.load(f)["average"]["max"]["100"]["MIA"]["best"]["ROC AUC"]
             
             evaluations.append({
-                "target_size": target_size,
                 "ref_size": ref_size,
                 "precision": precision,
                 "recall": recall,
@@ -78,16 +79,20 @@ if __name__ == '__main__':
                 "performance": performance
             })
         
-    correlations = {
-        "evaluations": evaluations,
-        "precision_correlation": get_correlation(evaluations, "precision"),
-        "recall_correlation": get_correlation(evaluations, "recall"),
-        "f1_correlation": get_correlation(evaluations, "f1")
-    }
+        correlations = {
+            "precision_correlation": get_correlation(evaluations, "precision"),
+            "recall_correlation": get_correlation(evaluations, "recall"),
+            "f1_correlation": get_correlation(evaluations, "f1")
+        }
+        
+        all_evals["target_size"] = {
+            evaluations: evaluations,
+            correlations: correlations
+        }
 
     output_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_analysis/"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     with open(os.path.join(output_dir, "memorization.json"), 'w') as f:
-        json.dump(correlations, f, indent=4)
+        json.dump(all_evals, f, indent=4)
         
