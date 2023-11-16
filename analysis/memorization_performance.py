@@ -54,6 +54,8 @@ if __name__ == '__main__':
         
         # Collecting Evaluation
         for ref_size, size_result in lls.items():
+            if sizes.index(ref_size) <= sizes.index(target_size):
+                continue
             correct_labels = []
             predictions = []
             for entry, score in size_result.items():
