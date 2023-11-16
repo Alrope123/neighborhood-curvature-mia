@@ -98,7 +98,12 @@ if __name__ == '__main__':
                 "evaluations": evaluations,
                 "correlations": correlations
             }
-        memorizations[cur_rate] = all_evals
+        memorizations[cur_rate] = {
+            "average_correlations": {
+                key: np.mean([all_evals[s]["correlations"][key] for s in all_evals.keys()]) for key in ["precision", "recall", "f1", "ratio"]
+            },
+            "all_evals": all_evals,
+        }
 
     output_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/results_analysis/"
     if not os.path.exists(output_dir):
