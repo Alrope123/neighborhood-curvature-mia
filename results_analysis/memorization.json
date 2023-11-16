@@ -226,6 +226,6 @@
         }
     ],
     "precision_correlation": -0.11193101699382348,
-    "recall_correlation": -0.11193101699382348,
-    "f1_correlation": -0.11193101699382348
+    "recall_correlation": 0.2639699057367344,
+    "f1_correlation": 0.28924455737435634
 }
