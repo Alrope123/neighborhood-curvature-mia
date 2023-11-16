@@ -54,7 +54,7 @@ if __name__ == '__main__':
         
         # Collecting Evaluation
         for ref_size, size_result in lls.items():
-            if sizes.index(ref_size) <= sizes.index(target_size):
+            if sizes.index(ref_size) >= sizes.index(target_size):
                 continue
             correct_labels = []
             predictions = []
@@ -89,5 +89,5 @@ if __name__ == '__main__':
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     with open(os.path.join(output_dir, "memorization.json"), 'w') as f:
-        json.dump(correlations, f)
+        json.dump(correlations, f, indent=4)
         
