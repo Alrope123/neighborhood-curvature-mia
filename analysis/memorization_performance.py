@@ -67,7 +67,7 @@ if __name__ == '__main__':
             precision = precision_score(correct_labels, predictions)
             recall = recall_score(correct_labels, predictions)
             f1 = 2 * (precision * recall) / (precision + recall)
-            pure_ratio = sum(precision) / sum(correct_labels)
+            pure_ratio = sum(predictions) / sum(correct_labels)
             peformance_path = crit_result_path.format(target_size, ref_size)
             with open(peformance_path, 'r') as f:
                 performance = json.load(f)["average"]["max"]["100"]["MIA"]["best"]["ROC AUC"]
