@@ -20,7 +20,6 @@ os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
 os.environ['TRANSFORMERS_CACHE'] = os.path.join(cache_dir, "transformers")
 
 def iterate_files(root_dir):
-    print(root_dir)
     file_paths = []
     file_names = []
     for root, _, files in os.walk(root_dir):
@@ -243,7 +242,7 @@ def main(args):
     save_dir = os.path.join(save_dir, data_type)
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
-    filter_names = os.listdir(overlap_dir)    
+    filter_names = os.listdir(overlap_dir) if os.path.exists(overlap_dir) else [0, 1]   
 
 
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
@@ -265,9 +264,9 @@ def main(args):
                 print("!!!!!!!!!!!!!!!!!!!!!!")
                 # is_member_all = [False] * len(data)
                 total_coverages = []
-                for filter_name in filter_names:
-                    overlap_path = os.path.join(overlap_dir, filter_name, filename)
-                    if os.path.exists(overlap_path):
+                for filter_name in filter_names:  
+                    if overlap_dir:
+                        overlap_path = os.path.join(overlap_dir, filter_name, filename)
                         # Read in each overlap file
                         overlap_data = custom_open(overlap_path)
                         # assert len(data) == len(overlap_data)
