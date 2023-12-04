@@ -7,11 +7,17 @@ import argparse
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from datetime import datetime
+from datasets import load_dataset
 
 member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
 nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
 member_dict = {}
 nonmember_dict = {}
+
+cache_dir = "cache"
+os.environ['HF_HOME'] = cache_dir
+os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
+os.environ['TRANSFORMERS_CACHE'] = os.path.join(cache_dir, "transformers")
 
 def iterate_files(root_dir):
     file_paths = []
@@ -41,6 +47,10 @@ def custom_open_yield(path, suffix=".jsonl"):
             for line in file:
                 dp = json.loads(line)
                 yield dp
+    elif suffix == "huggingface":
+        dataset = load_dataset("allenai/tulu-v1-sft-mixture", split="train")
+        for dp in dataset:
+            yield dp
     else:
         raise NotImplementedError()
 
@@ -111,6 +121,8 @@ def get_group(dp, data_type):
             raise NotImplementedError("Key not in the meta")
     elif data_type.startswith("language"):
         return dp["meta"]["language"]
+    elif data_type.startswith("instruction"):
+        return dp["dataset"]
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
@@ -245,13 +257,13 @@ def main(args):
                 total_coverages = []
                 for filter_name in filter_names:
                     overlap_path = os.path.join(overlap_dir, filter_name, filename)
-                    assert os.path.exists(overlap_path), overlap_path
-
-                    # Read in each overlap file
-                    overlap_data = custom_open(overlap_path)
-                    # assert len(data) == len(overlap_data)
-
-                    total_coverages.append([calculate_coverage(dp) for dp in overlap_data])
+                    if os.path.exists(overlap_path):
+                        # Read in each overlap file
+                        overlap_data = custom_open(overlap_path)
+                        # assert len(data) == len(overlap_data)
+                        total_coverages.append([calculate_coverage(dp) for dp in overlap_data])
+                    else:
+                        total_coverages.append([1.0] * 99999)
 
                 assert len(total_coverages) == len(filter_names)
                 # assert len(total_coverages[0]) == len(data)
@@ -309,6 +321,9 @@ def main(args):
         coverages_and_group = coverages_and_group_new
         draw_separate_histogram(coverages_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20) 
+    elif data_type.startswith("instruction"):
+        draw_separate_histogram(coverages_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 

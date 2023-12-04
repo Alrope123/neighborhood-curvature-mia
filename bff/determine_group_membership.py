@@ -80,6 +80,8 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
   
 rpj_pile_member_set = ["pt", "en", "fr", "ca", "es"]
 rpj_pile_nonmember_set = ["sv", "da", "ro", "bg", "pl", "hu", "sl", "uk", "cs", "it", "ru", "sr", "nl", "de", "hr"]
+instruction_member_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
+instruction_nonmember_set = ["wizardlm", "open_orca", ""]
 def decide_member_group(average_score, group, data_type):
     if data_type.startswith('wikipedia'):
         return group < "2020-03-01"
@@ -171,6 +173,9 @@ def main(args):
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("rpj-book"):
         draw_separate_histogram(scores_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith("instruction"):
+        draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     if data_type.startswith("language"):
         scores_and_group_new = []
