@@ -97,7 +97,7 @@ def decide_member_group(average_score, group, data_type):
             return False
         else:
             raise NotImplementedError("Language not identified")
-    elif data_type.startswith("language"):
+    elif data_type.startswith("instruction"):
         return group in instruction_v1_set
     else:
         raise NotImplementedError() 
