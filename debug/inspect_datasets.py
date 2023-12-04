@@ -1,6 +1,13 @@
 from datasets import load_dataset
+import os
 
-dataset = load_dataset("allenai/tulu-v1-sft-mixture", split="train")
+cache_dir = "cache"
+os.environ['HF_HOME'] = cache_dir
+os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
+os.environ['TRANSFORMERS_CACHE'] = os.path.join(cache_dir, "transformers")
+
+dataset = load_dataset("allenai/tulu-v2-sft-mixture", split="train")
+
 
 keys = set()
 
