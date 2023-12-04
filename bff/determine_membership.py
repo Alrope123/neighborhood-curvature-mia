@@ -43,6 +43,7 @@ def custom_open(path, suffix=".jsonl"):
 instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
 instruction_v2_set = ['code_alpaca', 'hard_coded', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
 def custom_open_yield(path, suffix=".jsonl"):
+    print("Suffix={}".format(suffix))
     if suffix == ".jsonl":
         with open(path, 'r') as file:
             for line in file:
@@ -281,7 +282,8 @@ def main(args):
                 # total_coverages = {(filename, i): (total_coverages[i], get_group(data[i], data_type=data_type)) for i in range(len(total_coverages))}
 
                 total_coverages_dict = {}
-                for j, dp in enumerate(custom_open_yield(data_path)):
+                print("!!!!!!!!!!!!!!!!!!!!!!2")
+                for j, dp in enumerate(custom_open_yield(data_path, suffix=".jsonl" if data_type not in ["instruction"] else "huggingface")):
                     total_coverages_dict[(filename, j)] = (total_coverages[j], get_group(dp, data_type=data_type))
                 total_coverages = total_coverages_dict
 
