@@ -242,7 +242,7 @@ def main(args):
     save_dir = os.path.join(save_dir, data_type)
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
-    filter_names = os.listdir(overlap_dir) if os.path.exists(overlap_dir) else [0, 1]   
+    filter_names = os.listdir(overlap_dir) if overlap_dir else [0, 1]   
 
 
     membership_info_path = os.path.join(save_dir, 'group_to_member.pkl')
