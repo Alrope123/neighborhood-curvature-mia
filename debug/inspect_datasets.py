@@ -17,8 +17,8 @@ keys = set()
 for dp in dataset:
     if dp["dataset"] not in keys:
         keys.add(dp["dataset"])
-    else:
         print(dp["messages"][0])
+        
 
 
 print(keys)
