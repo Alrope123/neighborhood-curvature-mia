@@ -1,7 +1,7 @@
 from datasets import load_dataset
 import os
 
-cache_dir = "cache"
+cache_dir = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/cache"
 os.environ['HF_HOME'] = cache_dir
 os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
 os.environ['TRANSFORMERS_CACHE'] = os.path.join(cache_dir, "transformers")
