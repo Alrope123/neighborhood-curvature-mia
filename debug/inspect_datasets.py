@@ -15,6 +15,10 @@ dataset = load_dataset("allenai/tulu-v2-sft-mixture", split="train", cache_dir=o
 keys = set()
 
 for dp in dataset:
-    keys.add(dp["dataset"])
+    if dp["dataset"] not in keys:
+        keys.add(dp["dataset"])
+    else:
+        print(dp["messages"][0])
+
 
 print(keys)
