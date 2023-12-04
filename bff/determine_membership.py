@@ -20,6 +20,7 @@ os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
 os.environ['TRANSFORMERS_CACHE'] = os.path.join(cache_dir, "transformers")
 
 def iterate_files(root_dir):
+    print(root_dir)
     file_paths = []
     file_names = []
     for root, _, files in os.walk(root_dir):
@@ -254,13 +255,14 @@ def main(args):
             # DEBUG:
             # if i > 3:
             #     break
-            print(i)
 
             coverage_path = os.path.join(save_dir, '{}.pkl'.format(filename))
             if os.path.exists(coverage_path):
+                print("?????????????????????????")
                 with open(coverage_path, 'rb') as f:
                     total_coverages = pkl.load(f)
             else:
+                print("!!!!!!!!!!!!!!!!!!!!!!")
                 # is_member_all = [False] * len(data)
                 total_coverages = []
                 for filter_name in filter_names:
