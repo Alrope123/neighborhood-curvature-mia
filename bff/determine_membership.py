@@ -254,6 +254,7 @@ def main(args):
             # DEBUG:
             # if i > 3:
             #     break
+            print(i)
 
             coverage_path = os.path.join(save_dir, '{}.pkl'.format(filename))
             if os.path.exists(coverage_path):
@@ -338,7 +339,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default="/gscratch/h2lab/alrope/data/redpajama/arxiv/")
-    parser.add_argument('--overlap_dir', type=str, default="/gscratch/h2lab/alrope/data/bff/redpajama-arxiv+pile")
+    parser.add_argument('--overlap_dir', type=str, default=None)
     parser.add_argument('--save_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/bff/")
     parser.add_argument('--data_type', type=str, default="rpj-arxiv")
     parser.add_argument('--read_cache', action="store_true", default=False)
