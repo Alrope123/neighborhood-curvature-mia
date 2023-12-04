@@ -9,7 +9,7 @@ os.environ['TRANSFORMERS_CACHE'] = os.path.join(cache_dir, "transformers")
 print(os.environ['HF_HOME'])
 print(os.environ['HF_DATASETS_CACHE'])
 
-dataset = load_dataset("allenai/tulu-v2-sft-mixture", split="train")
+dataset = load_dataset("allenai/tulu-v2-sft-mixture", split="train", cache_dir=os.path.join(cache_dir, "datasets"))
 
 
 keys = set()
