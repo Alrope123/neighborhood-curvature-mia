@@ -7,7 +7,7 @@ import argparse
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from datetime import datetime
-from datasets import load_dataset
+from datasets import load_dataset, concatenate_datasets
 
 member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
 nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
@@ -40,7 +40,8 @@ def custom_open(path, suffix=".jsonl"):
         raise NotImplementedError()
     return data
 
-
+instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
+instruction_v2_set = ['code_alpaca', 'hard_coded', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
 def custom_open_yield(path, suffix=".jsonl"):
     if suffix == ".jsonl":
         with open(path, 'r') as file:
@@ -48,8 +49,14 @@ def custom_open_yield(path, suffix=".jsonl"):
                 dp = json.loads(line)
                 yield dp
     elif suffix == "huggingface":
-        dataset = load_dataset("allenai/tulu-v1-sft-mixture", split="train")
-        for dp in dataset:
+        def filter_rows(row):
+            # Replace 'value_to_delete' with the value which, if found, will lead to row deletion
+            return row['dataset'] not in instruction_v1_set
+        dataset_v1 = load_dataset("allenai/tulu-v1-sft-mixture", split="train")
+        dataset_v2 = load_dataset("allenai/tulu-v2-sft-mixture", split="train")
+        dataset_v2 = dataset_v2.filter(filter_rows)
+        merged_dataset = concatenate_datasets([dataset_v1, dataset_v2])
+        for dp in merged_dataset:
             yield dp
     else:
         raise NotImplementedError()
