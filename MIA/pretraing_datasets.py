@@ -70,9 +70,9 @@ def load_my_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None
 
 instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
 instruction_v2_set = ['code_alpaca', 'hard_coded', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
+debug = True
 def load_dataset_huggingface(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30): 
     selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
-    
     data = [] 
     meta_data = []
     for file_path, filename in tqdm(iterate_files(data_dir)):
@@ -81,8 +81,12 @@ def load_dataset_huggingface(membership_info, data_dir=None, train=True, SAVE_FO
             return row['dataset'] not in instruction_v1_set
         
         def concatenate_messages(messages):
-            messages = [message["content"] for message in messages]
-            text = "\n\n\n".join(messages)
+            text = ""
+            for message in messages:
+                text += "<|{}|>\n{}\n".format(message["role"], message["content"])
+            if debug:
+                print(text)
+                debug = False
             return text
         dataset_v1 = load_dataset("allenai/tulu-v1-sft-mixture", split="train")
         dataset_v2 = load_dataset("allenai/tulu-v2-sft-mixture", split="train")
