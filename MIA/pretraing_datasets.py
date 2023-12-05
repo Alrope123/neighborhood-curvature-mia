@@ -83,6 +83,7 @@ def load_dataset_huggingface(membership_info, data_dir=None, train=True, SAVE_FO
         def concatenate_messages(messages):
             messages = [message["content"] for message in messages]
             text = "\n\n\n".join(messages)
+            return text
         dataset_v1 = load_dataset("allenai/tulu-v1-sft-mixture", split="train")
         dataset_v2 = load_dataset("allenai/tulu-v2-sft-mixture", split="train")
         dataset_v2 = dataset_v2.filter(filter_rows)
