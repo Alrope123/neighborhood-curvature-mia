@@ -80,13 +80,12 @@ def load_dataset_huggingface(membership_info, data_dir=None, train=True, SAVE_FO
             # Replace 'value_to_delete' with the value which, if found, will lead to row deletion
             return row['dataset'] not in instruction_v1_set
         
-        def concatenate_messages(messages):
+        def concatenate_messages(messages, debug):
             text = ""
             for message in messages:
                 text += "<|{}|>\n{}\n".format(message["role"], message["content"])
             if debug:
                 print(text)
-                debug = False
             return text
         dataset_v1 = load_dataset("allenai/tulu-v1-sft-mixture", split="train")
         dataset_v2 = load_dataset("allenai/tulu-v2-sft-mixture", split="train")
@@ -95,7 +94,9 @@ def load_dataset_huggingface(membership_info, data_dir=None, train=True, SAVE_FO
         for i, dp in enumerate(merged_dataset):
             if (filename, i) in selected_data:
                 meta_data.append((filename, i))
-                data.append(concatenate_messages(dp['messages']))
+                if debug:
+                    data.append(concatenate_messages(dp['messages'], debug))
+                    debug = False
     assert len(data) == len(selected_data), (len(data), len(selected_data))
     return data, meta_data
 
