@@ -1,0 +1,44 @@
+# EleutherAI/pythia-6.9b, EleutherAI/gpt-neo-2.7B, EleutherAI/gpt-neox-20b
+version: v2
+description: set-mia
+tasks:
+  - name: instruction-tulu
+    image:
+      beaker: alrope/set_mia 
+    arguments: [python3, MIA/run_mia_unified.py, 
+                --base_model_name, allenai/tulu-v1-llama2-7b, 
+                --cache_dir, cache, 
+                --dataset_member, instruction, 
+                --dataset_member_key, text, 
+                --dataset_nonmember, instruction, 
+                --dataset_nonmember_key, text, 
+                --baselines_only, 
+                --n_group_member, -1,
+                --n_group_nonmember, -1, 
+                --n_document_per_group, 100, 
+                --data_dir, /data/, 
+                --membership_path, /bff/instruction/group_to_member.pkl,
+                --save_dir, /output,
+                --max_length 1024,
+                --min_k_prob
+    ]
+    envVars:
+      - name: CUDA_VISIBLE_DEVICES
+        value: "0"
+      - name: HF_HOME
+        value: "cache"
+    datasets:
+      - mountPath: /data
+        source:
+          beaker: alrope/instruction
+      - mountPath: /bff
+        source:
+          beaker: alrope/membership
+    result:
+      path: /output
+    resources:
+      gpuCount: 1
+    context:
+      cluster: ai2/allennlp-elanding-a100-40g
+      priority: preemptible
+# ai2/allennlp-elanding-a100-40g, ai2/allennlp-cirrascale
