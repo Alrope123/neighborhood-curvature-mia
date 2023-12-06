@@ -975,9 +975,13 @@ def load_base_model_and_tokenizer(name):
         base_model = None
 
     optional_tok_kwargs = {}
+    # if "facebook/opt-" in name or "allenai/tulu" in name:
     if "facebook/opt-" in name:
         print("Using non-fast tokenizer for OPT")
         optional_tok_kwargs['fast'] = False
+    if "allenai/tulu" in name:
+        print("Using non-fast tokenizer for Tulu")
+        optional_tok_kwargs['legacy'] = True
     if args.dataset_member in ['pubmed'] or args.dataset_nonmember in ['pubmed']:
         optional_tok_kwargs['padding_side'] = 'left'
     base_tokenizer = transformers.AutoTokenizer.from_pretrained(name, **optional_tok_kwargs, cache_dir=cache_dir)
