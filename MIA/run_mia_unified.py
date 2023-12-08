@@ -87,6 +87,7 @@ def recover(
         device_map={"": torch.device(device)},
         torch_dtype=torch.float32,
         low_cpu_mem_usage=True,
+        token="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",
     )
     model_recovered: transformers.PreTrainedModel = transformers.AutoModelForCausalLM.from_pretrained(
         path_diff,
