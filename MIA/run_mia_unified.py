@@ -33,6 +33,112 @@ COLORS = ["#0072B2", "#009E73", "#D55E00", "#CC79A7", "#F0E442",
 pattern = re.compile(r"<extra_id_\d+>")
 
 
+def smart_tokenizer_and_embedding_resize(
+    special_tokens_dict,
+    tokenizer,
+    model,
+):
+    """Resize tokenizer and embedding.
+
+    Note: This is the unoptimized version that may make your embedding size not be divisible by 64.
+    """
+    num_new_tokens = tokenizer.add_special_tokens(special_tokens_dict)
+    model.resize_token_embeddings(len(tokenizer))
+
+    if num_new_tokens > 0:
+        input_embeddings = model.get_input_embeddings().weight.data
+        output_embeddings = model.get_output_embeddings().weight.data
+
+        input_embeddings_avg = input_embeddings[:-num_new_tokens].mean(dim=0, keepdim=True)
+        output_embeddings_avg = output_embeddings[:-num_new_tokens].mean(dim=0, keepdim=True)
+
+        input_embeddings[-num_new_tokens:] = input_embeddings_avg
+        output_embeddings[-num_new_tokens:] = output_embeddings_avg
+
+
+@torch.inference_mode()
+def recover(
+    path_raw,
+    path_diff,
+    path_tuned=None,
+    device="cpu",
+    test_inference=True,
+    check_integrity_naively=True,
+):
+    """Recover the original weights from the released weight diff.
+
+    This function is given for you to run.
+
+    Things to do before running this:
+        1. Convert Meta's released weights into huggingface format. Follow this guide:
+            https://huggingface.co/docs/transformers/main/model_doc/llama
+        2. Make sure you cloned the released weight diff into your local machine. The weight diff is located at:
+            https://huggingface.co/tatsu-lab/alpaca-7b/tree/main
+        3. Run this function with the correct paths. E.g.,
+            python weight_diff.py recover --path_raw <path_to_step_1_dir> --path_diff <path_to_step_2_dir>
+
+    Additional notes:
+        - If things run too slowly, and you have an 80G GPU lying around, let GPU go brrr by setting `--device "cuda"`.
+        - If you want to save the recovered weights, set `--path_tuned <your_path_tuned>`.
+            Next time you can load the recovered weights directly from `<your_path_tuned>`.
+    """
+    model_raw: transformers.PreTrainedModel = transformers.AutoModelForCausalLM.from_pretrained(
+        path_raw,
+        device_map={"": torch.device(device)},
+        torch_dtype=torch.float32,
+        low_cpu_mem_usage=True,
+    )
+    model_recovered: transformers.PreTrainedModel = transformers.AutoModelForCausalLM.from_pretrained(
+        path_diff,
+        device_map={"": torch.device(device)},
+        torch_dtype=torch.float32,
+        low_cpu_mem_usage=True,
+    )
+
+    tokenizer_raw: transformers.PreTrainedTokenizer = transformers.AutoTokenizer.from_pretrained(
+        path_raw
+    )
+    if tokenizer_raw.pad_token is None:
+        smart_tokenizer_and_embedding_resize(
+            special_tokens_dict=dict(pad_token="[PAD]"),
+            model=model_raw,
+            tokenizer=tokenizer_raw,
+        )
+    tokenizer_recovered: transformers.PreTrainedTokenizer = transformers.AutoTokenizer.from_pretrained(
+        path_diff
+    )
+
+    state_dict_recovered = model_recovered.state_dict()
+    state_dict_raw = model_raw.state_dict()
+    for key in tqdm.tqdm(state_dict_recovered):
+        state_dict_recovered[key].add_(state_dict_raw[key])
+
+    if check_integrity_naively:
+        # This is not a rigorous, cryptographically strong integrity check :)
+        allsum = sum(state_dict_recovered[key].sum() for key in state_dict_recovered)
+        assert torch.allclose(
+            allsum, torch.full_like(allsum, fill_value=50637.1836), atol=1e-2, rtol=0
+        ), "Naive integrity check failed. This could imply that some of the checkpoint files are corrupted."
+
+    if path_tuned is not None:
+        model_recovered.save_pretrained(path_tuned)
+        tokenizer_recovered.save_pretrained(path_tuned)
+
+    if test_inference:
+        input_text = (
+            "Below is an instruction that describes a task. "
+            "Write a response that appropriately completes the request.\r\n\r\n"
+            "### Instruction:\r\nList three technologies that make life easier.\r\n\r\n### Response:"
+        )
+        inputs = tokenizer_recovered(input_text, return_tensors="pt")
+        out = model_recovered.generate(inputs=inputs.input_ids, max_new_tokens=100)
+        output_text = tokenizer_recovered.batch_decode(out, skip_special_tokens=True)[0]
+        output_text = output_text[len(input_text) :]
+        print(f"Input: {input_text}\nCompletion: {output_text}")
+
+    return model_recovered, tokenizer_recovered
+
+
 def load_base_model(base_model):
     print('MOVING BASE MODEL TO GPU...', end='', flush=True)
     start = time.time()
@@ -962,6 +1068,9 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, d
 
 
 def load_base_model_and_tokenizer(name):
+    if "allenai/tulu-" in name:
+        return recover("meta-llama/Llama-2-{}-hf".format(name.split('-')[-1]), name)
+
 
     if args.openai_model is None:
         print(f'Loading BASE model {name}...')
