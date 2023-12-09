@@ -1048,6 +1048,8 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, d
     print(type(data[0]))
     # data = [x for x, y, z in zip(data, tokenized_data_base, tokenized_data_ref) if len(y) <= max_length and len(z) <= max_length]
     # data = [sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy) for dp in data]
+    
+    print("Segmenting the dataset.")
     new_data = []
     new_metadata = []
     for dp, metadp in zip(data, metadata):

@@ -48,6 +48,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             random.shuffle(new_added_data)
             new_added_data = new_added_data[:int(n_document_per_group * 1.2)]
             selected_data.update(new_added_data)
+    print("Sampled {} groups with {} datapoints.".format(len(groups), len(selected_data)))
     # assert len(selected_data) >= n_group * n_document_per_group, len(selected_data)
     return selected_data
 
@@ -96,7 +97,7 @@ def load_dataset_huggingface(membership_info, data_dir=None, train=True, SAVE_FO
     return data, meta_data
 
 
-def load(name, data_dir, membership_path, verbose=False, n_group=100, n_document_per_group=30, train=True, SAVE_FOLDER=None):
+def load(name, data_dir, membership_path, verbose=True, n_group=100, n_document_per_group=30, train=True, SAVE_FOLDER=None):
 
     if name in DATASETS:
         if verbose:
