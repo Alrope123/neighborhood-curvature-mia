@@ -97,7 +97,8 @@ def recover(
     )
 
     tokenizer_raw: transformers.PreTrainedTokenizer = transformers.AutoTokenizer.from_pretrained(
-        path_raw
+        path_raw,
+        token="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",
     )
     if tokenizer_raw.pad_token is None:
         smart_tokenizer_and_embedding_resize(
