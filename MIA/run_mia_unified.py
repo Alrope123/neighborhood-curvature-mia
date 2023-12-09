@@ -63,7 +63,7 @@ def recover(
     path_tuned=None,
     device="cpu",
     test_inference=True,
-    check_integrity_naively=True,
+    check_integrity_naively=False,
 ):
     """Recover the original weights from the released weight diff.
 
