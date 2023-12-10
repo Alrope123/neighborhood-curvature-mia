@@ -1052,7 +1052,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, d
     print("Segmenting the dataset.")
     new_data = []
     new_metadata = []
-    for dp, metadp in zip(data, metadata):
+    for dp, metadp in tqdm(zip(data, metadata)):
         segments = sample_segment(dp, base_tokenizer, ref_tokenizer, max_length, strategy)
         assert isinstance(segments[0], str), type(segments[0])
         new_data.extend(segments)
