@@ -18,6 +18,7 @@ import pretraing_datasets
 from multiprocessing.pool import ThreadPool
 import time
 import math
+from tqdm import tqdm
 
 
 torch.manual_seed(0)
