@@ -282,8 +282,7 @@ def main(args):
                 # total_coverages = {(filename, i): (total_coverages[i], get_group(data[i], data_type=data_type)) for i in range(len(total_coverages))}
 
                 total_coverages_dict = {}
-                print("!!!!!!!!!!!!!!!!!!!!!!2")
-                for j, dp in enumerate(custom_open_yield(data_path, suffix=".jsonl" if data_type not in ["instruction"] else "huggingface")):
+                for j, dp in enumerate(custom_open_yield(data_path, suffix=".jsonl" if not data_type.startswith("instruction") else "huggingface")):
                     total_coverages_dict[(filename, j)] = (total_coverages[j], get_group(dp, data_type=data_type))
                 total_coverages = total_coverages_dict
 

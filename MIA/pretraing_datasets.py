@@ -8,7 +8,7 @@ from tqdm import tqdm
 import numpy as np
 from datasets import load_dataset, concatenate_datasets
 
-DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'wikipedia_month', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book', 'language', 'instruction']
+DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'wikipedia_month', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book', 'language', 'instruction_v1', 'instruction_v2', 'instruction_human']
 cache_dir = "cache"
 os.environ['HF_HOME'] = cache_dir
 os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
@@ -71,6 +71,7 @@ def load_my_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None
 
 instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
 instruction_v2_set = ['code_alpaca', 'hard_coded', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
+instruction_human_set = ["flan_v2", "cot", "oasst1", "dolly"]
 def load_dataset_huggingface(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30): 
     selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     data = [] 
@@ -104,7 +105,7 @@ def load(name, data_dir, membership_path, verbose=True, n_group=100, n_document_
             print("Loading the dataset: {}...".format(name))
         with open(membership_path, 'rb') as f:
             membership_info = pickle.load(f)
-        if name in ["instruction"]:
+        if name.startswith("instruction"):
             return load_dataset_huggingface(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
         else:
             return load_my_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER) 

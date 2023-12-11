@@ -56,7 +56,7 @@ def smart_tokenizer_and_embedding_resize(
         output_embeddings[-num_new_tokens:] = output_embeddings_avg
 
 
-@torch.inference_mode()
+# @torch.inference_mode()
 def recover(
     path_raw,
     path_diff,
@@ -919,7 +919,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         # Tokenize
         tokens_base = tokenizer_base.encode(text)
         tokens_ref = tokenizer_ref.encode(text)
-        while len(tokens_base) > max_length or len(tokens_ref) > max_length:
+        if len(tokens_base) > max_length or len(tokens_ref) > max_length:
             if len(tokens_base) > max_length:
                 if strategy == 'random':
                     tokens_base = random_segment(tokens_base, len(tokens_base), max_length)
@@ -1072,7 +1072,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, d
 
 
 def load_base_model_and_tokenizer(name):
-    if "allenai/tulu-" in name:
+    if "allenai/" in name:
         return recover("meta-llama/Llama-2-{}-hf".format(name.split('-')[-1]), name)
 
 
@@ -1092,7 +1092,7 @@ def load_base_model_and_tokenizer(name):
     if "facebook/opt-" in name:
         print("Using non-fast tokenizer for OPT")
         optional_tok_kwargs['fast'] = False
-    if "allenai/tulu" in name:
+    if "allenai/" in name:
         print("Using non-fast tokenizer for Tulu")
         optional_tok_kwargs['legacy'] = True
     if args.dataset_member in ['pubmed'] or args.dataset_nonmember in ['pubmed']:

@@ -81,6 +81,8 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
 rpj_pile_member_set = ["pt", "en", "fr", "ca", "es"]
 rpj_pile_nonmember_set = ["sv", "da", "ro", "bg", "pl", "hu", "sl", "uk", "cs", "it", "ru", "sr", "nl", "de", "hr"]
 instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
+instruction_v2_set = ['code_alpaca', 'hard_coded', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
+instruction_human_set = ["flan_v2", "cot", "oasst1", "dolly"]
 def decide_member_group(average_score, group, data_type):
     if data_type.startswith('wikipedia'):
         return group < "2020-03-01"
@@ -98,7 +100,12 @@ def decide_member_group(average_score, group, data_type):
         else:
             raise NotImplementedError("Language not identified")
     elif data_type.startswith("instruction"):
-        return group in instruction_v1_set
+        if data_type.endswith("v1"):
+            return group in instruction_v1_set
+        elif data_type.endswith("v2"):
+            return group != "dolly"
+        elif data_type.endswith("human"):
+            return group in instruction_human_set
     else:
         raise NotImplementedError() 
 
