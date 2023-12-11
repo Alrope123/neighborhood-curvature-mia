@@ -107,7 +107,7 @@ def decide_member_group(average_score, group, data_type):
         elif data_type.endswith("human"):
             return group in instruction_human_set
         else:
-            target_data_type = data_type.split('$')[-1]
+            target_data_type = data_type.split('+')[-1]
             return group == target_data_type
     else:
         raise NotImplementedError() 
