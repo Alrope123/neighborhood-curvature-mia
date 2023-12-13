@@ -81,7 +81,7 @@ def draw_histogram(data, save_path, bins=None, title=None, xlabel=None, ylabel=N
 rpj_pile_member_set = ["pt", "en", "fr", "ca", "es"]
 rpj_pile_nonmember_set = ["sv", "da", "ro", "bg", "pl", "hu", "sl", "uk", "cs", "it", "ru", "sr", "nl", "de", "hr"]
 instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
-instruction_v2_set = ['code_alpaca', 'hard_coded', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
+instruction_v2_set = ['code_alpaca', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
 instruction_human_set = ["flan_v2", "cot", "oasst1", "dolly"]
 def decide_member_group(average_score, group, data_type):
     if data_type.startswith('wikipedia'):
