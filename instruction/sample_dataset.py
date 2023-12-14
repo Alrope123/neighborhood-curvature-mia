@@ -49,7 +49,7 @@ if __name__ == '__main__':
     new_dataset = []
     for i, entry in enumerate(merged_dataset):
         dataset = entry["dataset"]
-        if i in selected_indices[dataset]:
+        if dataset in selected_indices and i in selected_indices[dataset]:
             entry['text'] = concatenate_messages(entry['messages'])
             del entry['messages']
             new_dataset.append(entry)
