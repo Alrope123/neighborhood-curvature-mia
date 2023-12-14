@@ -34,9 +34,11 @@ if __name__ == '__main__':
     for key, value in selected_indices.items():
         if len(value) < 1000:
             continue
-        indices = selected_indices[key]
+        indices = value
         random.shuffle(indices)
         selected_indices[key] = indices[:1000]
+    
+    print(len(selected_indices))
 
     new_dataset = []
     for i, entry in enumerate(merged_dataset):
