@@ -43,6 +43,8 @@ if __name__ == '__main__':
         dataset = entry["dataset"]
         if i in selected_indices[dataset]:
             new_dataset.append(entry)
+
+    print(len(new_dataset))
     
     with open(os.path.join("/gscratch/h2lab/alrope/data/instruction/0.jsonl"), 'w') as f:
         for entry in new_dataset:
