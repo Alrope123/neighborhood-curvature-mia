@@ -35,7 +35,7 @@ if __name__ == '__main__':
         if len(value) < 1000:
             continue
         indices = selected_indices[key]
-        indices.shuffle()
+        random.shuffle(indices)
         selected_indices[key] = indices[:1000]
 
     new_dataset = []
