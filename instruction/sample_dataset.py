@@ -11,11 +11,17 @@ from datasets import load_dataset, concatenate_datasets
 instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
 instruction_v2_set = ['code_alpaca', 'hard_coded', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
 
+def concatenate_messages(messages):
+    text = ""
+    for message in messages:
+        text += "<|{}|>\n{}\n".format(message["role"], message["content"])
+    return text
 
 if __name__ == '__main__':
     np.random.seed(2023)
     random.seed(2023)
 
+    old_selected_indices = {}
     selected_indices = {}
     def filter_rows(row):
         # Replace 'value_to_delete' with the value which, if found, will lead to row deletion
@@ -27,11 +33,11 @@ if __name__ == '__main__':
     
     for i, entry in enumerate(merged_dataset):
         dataset = entry["dataset"]
-        if dataset not in selected_indices:
-            selected_indices[dataset] = []
-        selected_indices[dataset].append(i)
+        if dataset not in old_selected_indices:
+            old_selected_indices[dataset] = []
+        old_selected_indices[dataset].append(i)
 
-    for key, value in selected_indices.items():
+    for key, value in old_selected_indices.items():
         if len(value) < 1000:
             continue
         indices = value
@@ -44,6 +50,8 @@ if __name__ == '__main__':
     for i, entry in enumerate(merged_dataset):
         dataset = entry["dataset"]
         if i in selected_indices[dataset]:
+            entry['text'] = concatenate_messages(entry['messages'])
+            del entry['messages']
             new_dataset.append(entry)
 
     print(len(new_dataset))
