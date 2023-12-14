@@ -105,9 +105,9 @@ def load(name, data_dir, membership_path, verbose=True, n_group=100, n_document_
             print("Loading the dataset: {}...".format(name))
         with open(membership_path, 'rb') as f:
             membership_info = pickle.load(f)
-        if name.startswith("instruction"):
-            return load_dataset_huggingface(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
-        else:
-            return load_my_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER) 
+        # if name.startswith("instruction"):
+        #     return load_dataset_huggingface(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
+        # else:
+        return load_my_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER) 
     else:
         raise ValueError(f'Unknown dataset {name}')

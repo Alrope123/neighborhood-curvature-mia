@@ -46,19 +46,20 @@ if __name__ == '__main__':
     
     print(len(selected_indices))
 
-    new_dataset = []
+    new_dataset = {}
     for i, entry in enumerate(merged_dataset):
         dataset = entry["dataset"]
         if dataset in selected_indices and i in selected_indices[dataset]:
             entry['text'] = concatenate_messages(entry['messages'])
             del entry['messages']
-            new_dataset.append(entry)
-
-    print(len(new_dataset))
+            if dataset not in new_dataset:
+                new_dataset[dataset] = []
+            new_dataset[dataset].append(entry)
     
-    with open(os.path.join("/gscratch/h2lab/alrope/data/instruction/0.jsonl"), 'w') as f:
-        for entry in new_dataset:
-            f.write(json.dumps(entry) + "\n")
+    for key, value in new_dataset:
+        with open(os.path.join("/gscratch/h2lab/alrope/data/instruction/{}.jsonl".format(key)), 'w') as f:
+            for entry in value:
+                f.write(json.dumps(entry) + "\n")
 
 
         
