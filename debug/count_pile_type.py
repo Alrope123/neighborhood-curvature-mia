@@ -6,13 +6,13 @@ from collections import Counter
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_path', type=str, default="/gscratch/h2lab/sewon/data/the-pile/train-all-gz/Pile_CC-0.json.gz")
+    parser.add_argument('--data_path', type=str, default="/data/data/pile/val.jsonl")
 
     args = parser.parse_args()
 
     types = []
     # Open the gzip file in read mode
-    with gzip.open(args.data_path, 'rt', encoding='utf-8') as f:
+    with open(args.data_path, 'r') as f:
         # Iterate through each line in the file
         for line in f:
             # Parse the JSON content from the line
