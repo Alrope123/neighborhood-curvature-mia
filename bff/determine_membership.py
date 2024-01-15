@@ -337,8 +337,7 @@ def main(args):
         draw_separate_histogram(coverages_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     elif data_type.startswith("license"):
-        draw_separate_histogram(coverages_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
+        pass
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
