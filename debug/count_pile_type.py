@@ -23,6 +23,7 @@ if __name__ == "__main__":
             dp = json.loads(line)
             data.append(dp)
             print(dp)
+            assert False
 
 
 
