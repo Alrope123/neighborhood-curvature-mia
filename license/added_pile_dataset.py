@@ -21,9 +21,7 @@ def subsample_and_save(dataset_path, output_file, subsample_size=1000):
                 subset_data[t].append(dp["text"])
                 if len(subset_data[t]) > subsample_size:
                     complete[t] = True
-                    print("!!!!!!!!!!!!!!!!!!!")
                 if all([c for name, c in complete.items()]):
-                    assert False
                     break
 
     print({name: len(text) for name, text in subset_data.items()})
