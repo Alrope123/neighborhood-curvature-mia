@@ -1,12 +1,8 @@
 import argparse
 import json
-import io
 import gzip
 import json
-
-def tokenize(s):
-    words = re.findall(r'\S+|\s+', s)
-    return list(filter(lambda w: not w.isspace(), words))
+from collections import Counter
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -14,17 +10,17 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    data = []
+    types = []
     # Open the gzip file in read mode
     with gzip.open(args.data_path, 'rt', encoding='utf-8') as f:
         # Iterate through each line in the file
         for line in f:
             # Parse the JSON content from the line
             dp = json.loads(line)
-            data.append(dp)
-            print(dp)
+            types.append(dp["meta"]["pile_set_name"])
             assert False
 
-
+    types = Counter(types)
+    print(types)
 
 # python generate_predctions.py --model_name togethercomputer/RedPajama-INCITE-Base-3B-v1 --n 1000 --answer_n 3
