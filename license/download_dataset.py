@@ -3,13 +3,12 @@ import json
 
 def subsample_and_save(dataset_name, output_file):
     # Load the dataset
-    dataset = load_dataset(dataset_name)
-
+    subset_names = ['ccby_law', 'ccby_s2orc', 'ccby_stackexchange', 'ccby_stackoverflow', 'ccby_wikinews', 'ccby_wikipedia', 'pd_arxiv_abstracts', 'pd_books', 'pd_law', 'pd_news', 'pd_s2orc', 'sw_amps_math', 'sw_dm_math', 'sw_github', 'sw_hackernews', 'sw_ubuntu_irc']
     combined_data = []
 
     # Iterate through each subset
-    for subset_name in dataset.keys():
-        subset = dataset[subset_name]
+    for subset_name in subset_names:
+        subset = load_dataset('kernelmachine/open-license-corpus', 'pd_law', streaming=True)['train']
 
         # Subsample 1000 rows
         subsample = subset.shuffle(seed=2024).select(range(1000))
