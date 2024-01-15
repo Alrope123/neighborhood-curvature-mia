@@ -11,7 +11,7 @@ def subsample_and_save(dataset_name, output_file):
         subset = load_dataset('kernelmachine/open-license-corpus', 'pd_law', streaming=True)['train']
 
         # Subsample 1000 rows
-        subsample = subset.shuffle(seed=2024).select(range(1000))
+        subsample = subset.shuffle(seed=2024)[:1000]
 
         # Add the subset name as a field and append to combined_data
         for row in subsample:
