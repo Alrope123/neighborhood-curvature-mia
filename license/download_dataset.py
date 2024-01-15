@@ -45,6 +45,7 @@ def subsample_and_save(dataset_name, output_file, subsample_size=1000):
                 row_data = {**row, "subset_name": subset_name}
                 combined_data.append(row_data)
                 subsample_count += 1
+                print(subsample_count)
                 if subsample_count >= subsample_size:
                     break
 
