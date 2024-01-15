@@ -109,6 +109,15 @@ def decide_member_group(average_score, group, data_type):
         else:
             target_data_type = data_type.split('+')[-1]
             return group == target_data_type
+    elif data_type.startswith("license"):
+        if data_type.endswith("ccby"):
+            return any([group.startswith(prefix) for prefix in ["ccby", "pd", "sw"]])
+        elif data_type.endswith("sw"):
+            return any([group.startswith(prefix) for prefix in ["pd", "sw"]])
+        elif data_type.endswith("pd"):
+            return any([group.startswith(prefix) for prefix in ["pd"]])
+        else:
+            return False
     else:
         raise NotImplementedError() 
 
@@ -186,6 +195,9 @@ def main(args):
         draw_separate_histogram(scores_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("instruction"):
+        draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith("license"):
         draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     if data_type.startswith("language"):

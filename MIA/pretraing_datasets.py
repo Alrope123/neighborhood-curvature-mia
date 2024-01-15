@@ -8,7 +8,7 @@ from tqdm import tqdm
 import numpy as np
 from datasets import load_dataset, concatenate_datasets
 
-DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'wikipedia_month', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book', 'language', 'instruction_v1', 'instruction_v2', 'instruction_human', 'instruction+cot', 'instruction+flan_v2', 'instruction+dolly', 'instruction+oasst1', 'instruction+code_alpaca', 'instruction+gpt4_alpaca', 'instruction+sharegpt']
+DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'wikipedia_month', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book', 'language', 'instruction_v1', 'instruction_v2', 'instruction_human', 'instruction+cot', 'instruction+flan_v2', 'instruction+dolly', 'instruction+oasst1', 'instruction+code_alpaca', 'instruction+gpt4_alpaca', 'instruction+sharegpt', "license-ccby", "license-sw", "license-pd"]
 cache_dir = "cache"
 os.environ['HF_HOME'] = cache_dir
 os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
