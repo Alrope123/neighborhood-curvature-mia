@@ -464,7 +464,7 @@ def get_lira(text):
             else:
                 if "silo" in base_model_name:
                     m = torch.nn.LogSoftmax(dim=-1)
-                    nll = torch.nn.NLLLoss(reduction='none')
+                    nll = torch.nn.NLLLoss(reduction='mean')
                     
                     output = base_model(**tokenized, output_hidden_states=True, return_dict=True)
                     logits = output.logits # [batch_size, max_seq_length, n_vocabs]
