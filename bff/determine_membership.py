@@ -132,7 +132,7 @@ def get_group(dp, data_type):
     elif data_type.startswith("instruction"):
         return dp["dataset"]
     elif data_type.startswith('license'):
-        return dp["subset"]
+        return dp["subset_name"]
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
