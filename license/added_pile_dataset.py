@@ -27,7 +27,7 @@ def subsample_and_save(dataset_path, output_file, subsample_size=1000):
     print({name: len(text) for name, text in subset_data.items()})
 
     with open(output_file, 'w') as f:
-        for name, text_array in subset_data:
+        for name, text_array in subset_data.items():
             for text in text_array:
                 f.write(json.dumps({"subset_name": name, "text": text}) + '\n')
 
