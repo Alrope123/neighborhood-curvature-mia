@@ -469,8 +469,8 @@ def get_lira(text):
                     output = base_model(**tokenized, output_hidden_states=True, return_dict=True)
                     logits = output.logits # [batch_size, max_seq_length, n_vocabs]
                     logits = logits.reshape(-1, logits.shape[-1])
-                    labels = labels.reshape(-1)
-                    lls = nll(m(logits), labels)
+                    labels_new = labels.reshape(-1)
+                    lls = nll(m(logits), labels_new)
                 else:
                     output = base_model(**tokenized, labels=labels)
                     lls = -output.loss.item()
