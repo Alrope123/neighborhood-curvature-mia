@@ -11,7 +11,7 @@ def subsample_and_save(dataset_name, output_file):
 
     # Iterate through each subset
     for subset_name in subset_names:
-        subset = load_dataset('kernelmachine/open-license-corpus', 'pd_law', streaming=True)['train']
+        subset = load_dataset('kernelmachine/open-license-corpus', subset_name)['train']
 
         # Subsample 1000 rows
         random.shuffle(subset)
