@@ -18,7 +18,6 @@ if __name__ == "__main__":
             # Parse the JSON content from the line
             dp = json.loads(line)
             types.append(dp["meta"]["pile_set_name"])
-            assert False
 
     types = Counter(types)
     print(types)
