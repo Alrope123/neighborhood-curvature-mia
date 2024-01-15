@@ -2,9 +2,14 @@ from datasets import load_dataset
 import json
 import random
 import argparse
+import os
 
 def subsample_and_save(dataset_path, output_file, subsample_size=1000):
     random.seed(2024)
+
+    file_number = random.randint(0, 30)
+
+    dataset_path = os.path.join(dataset_path, "{}.jsonl".format(file_number))
 
     subset_names = ['Books3', 'OpenWebText2', 'BookCorpus2', 'Enron Emails']
     subset_data = {name: [] for name in subset_names}
@@ -33,7 +38,7 @@ def subsample_and_save(dataset_path, output_file, subsample_size=1000):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--data_path', type=str, default="/data/data/pile/val.jsonl")
+parser.add_argument('--data_path', type=str, default="/data/data/pile/train")
 args = parser.parse_args()
 
 # Example usage
