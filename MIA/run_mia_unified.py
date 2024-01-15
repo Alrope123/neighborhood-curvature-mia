@@ -462,8 +462,18 @@ def get_lira(text):
                     lls = lls_ref - lls_ref
                 return lls, lls - lls_ref
             else:
-                output = base_model(**tokenized, labels=labels)
-                lls = -output.loss.item()
+                if "silo" in base_model_name:
+                    m = torch.nn.LogSoftmax(dim=-1)
+                    nll = torch.nn.NLLLoss(reduction='none')
+                    
+                    output = base_model(**tokenized, output_hidden_states=True, return_dict=True)
+                    logits = outputs.logits # [batch_size, max_seq_length, n_vocabs]
+                    logits = logits.reshape(-1, logits.shape[-1])
+                    labels = labels.reshape(-1)
+                    lls = nll(m(logits), labels)
+                else:
+                    output = base_model(**tokenized, labels=labels)
+                    lls = -output.loss.item()
                 if min_k_prob:
                     logits = output.logits
                     probabilities = torch.nn.functional.log_softmax(logits, dim=-1)
