@@ -1,7 +1,10 @@
 from datasets import load_dataset
 import json
+import random
 
 def subsample_and_save(dataset_name, output_file):
+    random.seed(2024)
+
     # Load the dataset
     subset_names = ['ccby_law', 'ccby_s2orc', 'ccby_stackexchange', 'ccby_stackoverflow', 'ccby_wikinews', 'ccby_wikipedia', 'pd_arxiv_abstracts', 'pd_books', 'pd_law', 'pd_news', 'pd_s2orc', 'sw_amps_math', 'sw_dm_math', 'sw_github', 'sw_hackernews', 'sw_ubuntu_irc']
     combined_data = []
@@ -11,7 +14,8 @@ def subsample_and_save(dataset_name, output_file):
         subset = load_dataset('kernelmachine/open-license-corpus', 'pd_law', streaming=True)['train']
 
         # Subsample 1000 rows
-        subsample = subset.shuffle(seed=2024)[:1000]
+        random.shuffle(seed=2024)
+        subsample = subset[:1000]
 
         # Add the subset name as a field and append to combined_data
         for row in subsample:
