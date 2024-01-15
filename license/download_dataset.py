@@ -35,6 +35,8 @@ def subsample_and_save(dataset_name, output_file, subsample_size=1000):
     combined_data = []
 
     for subset_name in subset_names:
+        print("Processing " + subset_name)
+
         subset = load_dataset(dataset_name, subset_name, streaming=True)['train']
         subsample_count = 0
 
