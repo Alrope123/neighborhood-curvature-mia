@@ -39,7 +39,7 @@ def subsample_and_save(dataset_name, output_file, subsample_size=1000):
         subsample_count = 0
 
         for row in subset:
-            if random.random() < (subsample_size / len(subset)):
+            if random.uniform(0, 1) < 0.01:  # Adjust this probability as needed
                 row_data = {**row, "subset_name": subset_name}
                 combined_data.append(row_data)
                 subsample_count += 1
