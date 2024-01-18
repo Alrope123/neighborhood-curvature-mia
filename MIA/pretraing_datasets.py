@@ -107,7 +107,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             if strategy == "random":
                 random.shuffle(new_added_data)
                 new_added_data = new_added_data[:int(n_document_per_group * 1.2)]
-                best_score = np.mean(calculate_tfidf_similarity(new_added_data))
+                best_score = np.mean(calculate_tfidf_similarity(texts))
             else:
                 direction = strategy.split("_")[0]
                 iteration = int(strategy.split("_")[1])
