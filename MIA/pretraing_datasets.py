@@ -111,7 +111,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
                 direction = strategy.split("_")[0]
                 iteration = int(strategy.split("_")[1])
                 print("direction: {}\titeration: {}".format(direction, iteration))
-                new_added_data, best_score = select_similar_subset(texts, int(n_document_per_group * 1.2, direction, iteration))
+                new_added_data, best_score = select_similar_subset(texts, int(n_document_per_group * 1.2), direction, iteration)
                 print("The resulting similarity score is : {}".format(best_score))
 
             selected_data.update(new_added_data)
