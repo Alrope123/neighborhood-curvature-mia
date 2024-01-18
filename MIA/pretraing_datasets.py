@@ -95,25 +95,25 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             new_added_data = []
             for filename, i, _, _ in infos['documents']:
                 new_added_data.append((filename, i))
+            print("Loading data to check for similarity.")
+            texts = [] 
+            for file_path, filename in tqdm(iterate_files(data_dir)):
+                with open(file_path, 'r') as f:
+                    for i, line in enumerate(f):
+                        if (filename, i) in new_added_data:
+                            dp = json.loads(line)      
+                            texts.append(dp['text'])
             # Oversample the documents to give room for unqualified document
             if strategy == "random":
                 random.shuffle(new_added_data)
                 new_added_data = new_added_data[:int(n_document_per_group * 1.2)]
+                best_score = np.mean(calculate_tfidf_similarity(new_added_data))
             else:
-                texts = [] 
-                print("Loading data to check for similarity.")
-                for file_path, filename in tqdm(iterate_files(data_dir)):
-                    with open(file_path, 'r') as f:
-                        for i, line in enumerate(f):
-                            if (filename, i) in new_added_data:
-                                dp = json.loads(line)      
-                                texts.append(dp['text'])
                 direction = strategy.split("_")[0]
                 iteration = int(strategy.split("_")[1])
                 print("direction: {}\titeration: {}".format(direction, iteration))
                 new_added_data, best_score = select_similar_subset(texts, int(n_document_per_group * 1.2), direction, iteration)
-                print("The resulting similarity score is : {}".format(best_score))
-
+            print("The resulting similarity score is : {}".format(best_score))
             selected_data.update(new_added_data)
     print("Sampled {} groups with {} datapoints.".format(len(groups), len(selected_data)))
     # assert len(selected_data) >= n_group * n_document_per_group, len(selected_data)
