@@ -107,9 +107,9 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
                     data_to_text[(filename, i)] = dp['text']
 
     selected_data = set()
-    for group, infos in membership_info.items():
+    for group, infos in tqdm(membership_info.items()):
         scores = []
-        if group in tqdm(groups):
+        if group in groups:
             new_added_data = []
             for filename, i, _, _ in infos['documents']:
                 new_added_data.append((filename, i))
