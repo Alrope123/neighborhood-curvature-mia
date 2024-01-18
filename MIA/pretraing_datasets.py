@@ -53,7 +53,7 @@ def select_similar_subset(texts, subset_size, direction, iteration):
     # Heuristic: start with a random subset and iteratively try to improve it
     current_subset_indices = np.random.choice(len(texts), subset_size, replace=False).tolist()
 
-    for _ in tqdm(range(iteration)):  # Number of iterations can be adjusted
+    for _ in range(iteration):  # Number of iterations can be adjusted
         # Calculate average pairwise similarity for current subset
         current_subset = [texts[i] for i in current_subset_indices]
         current_similarity = calculate_tfidf_similarity(current_subset)
@@ -122,7 +122,6 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             else:
                 direction = strategy.split("_")[0]
                 iteration = int(strategy.split("_")[1])
-                print("direction: {}\titeration: {}".format(direction, iteration))
                 best_indices, best_score = select_similar_subset(texts, int(n_document_per_group * 1.2), direction, iteration)
                 new_added_data = [new_added_data[i] for i in best_indices]
             selected_data.update(new_added_data)
