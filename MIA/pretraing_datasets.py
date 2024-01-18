@@ -73,7 +73,7 @@ def select_similar_subset(texts, subset_size, direction, iteration):
             current_subset_indices.remove(swap_index)
             current_subset_indices.append(new_index)
 
-    return [texts[i] for i in best_subset], best_score
+    return best_subset, best_score
 
 
 def sample_group(membership_info, n_group=100, n_document_per_group=30, train=True, strategy="random", data_dir=None):
@@ -89,6 +89,23 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             groups.add(group)
     # assert len(groups) == n_group, (len(groups), n_group)
 
+    # Loading group data
+    print("Building data to text dictionary")
+    all_data = set()
+    data_to_text = {}
+    for group, infos in membership_info.items():
+        if group in groups:
+            new_added_data = []
+            for filename, i, _, _ in infos['documents']:
+                new_added_data.append((filename, i))
+                all_data.update(new_added_data)
+    for file_path, filename in tqdm(iterate_files(data_dir)):
+        with open(file_path, 'r') as f:
+            for i, line in enumerate(f):
+                if (filename, i) in all_data:
+                    dp = json.loads(line)      
+                    data_to_text[(filename, i)] = dp['text']
+
     selected_data = set()
     for group, infos in membership_info.items():
         if group in groups:
@@ -96,13 +113,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
             for filename, i, _, _ in infos['documents']:
                 new_added_data.append((filename, i))
             print("Loading data to check for similarity.")
-            texts = [] 
-            for file_path, filename in tqdm(iterate_files(data_dir)):
-                with open(file_path, 'r') as f:
-                    for i, line in enumerate(f):
-                        if (filename, i) in new_added_data:
-                            dp = json.loads(line)      
-                            texts.append(dp['text'])
+            texts = [data_to_text[dp] for dp in new_added_data]
             # Oversample the documents to give room for unqualified document
             if strategy == "random":
                 random.shuffle(new_added_data)
@@ -112,7 +123,8 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
                 direction = strategy.split("_")[0]
                 iteration = int(strategy.split("_")[1])
                 print("direction: {}\titeration: {}".format(direction, iteration))
-                new_added_data, best_score = select_similar_subset(texts, int(n_document_per_group * 1.2), direction, iteration)
+                best_indices, best_score = select_similar_subset(texts, int(n_document_per_group * 1.2), direction, iteration)
+                new_added_data = [new_added_data[i] for i in best_indices]
             print("The resulting similarity score is : {}".format(best_score))
             selected_data.update(new_added_data)
     print("Sampled {} groups with {} datapoints.".format(len(groups), len(selected_data)))
