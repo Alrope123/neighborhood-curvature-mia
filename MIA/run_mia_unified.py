@@ -987,7 +987,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         
 
 
-def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, data_dir=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000):
+def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, data_dir=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000, document_strategy="random"):
     random.seed(2023)
     np.random.seed(2023)
     metadata = None
@@ -998,7 +998,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, d
     elif dataset in pretraing_datasets.DATASETS:
         data, metadata = pretraing_datasets.load(dataset, data_dir=data_dir,
             membership_path=membership_path,
-            n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
+            n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER, strategy=document_strategy)
         assert len(data) == len(metadata)
     elif dataset == 'the_pile' and data_split=='train':
         #data_files = "https://www.cs.cmu.edu/~enron/enron_mail_20150507.tar.gz"
@@ -1222,6 +1222,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_document_per_group', type=int, default=30)
 
     parser.add_argument('--strategy', type=str, default="random")
+    parser.add_argument('--document_strategy', type=str, default="random")
 
     parser.add_argument('--data_dir', type=str, default=None)
     parser.add_argument('--membership_path', type=str, default=None)
@@ -1282,12 +1283,17 @@ if __name__ == '__main__':
     else:
         min_k_prob_string = ""
 
+    if args.document_strategy == "random":
+        document_strategy_string = ""
+    else:
+        document_strategy_string = "-" + args.document_strategy
+
     dataset_member_name=args.dataset_member.replace('/', '_')
     dataset_nonmember_name=args.dataset_nonmember.replace('/', '_')
 
     # SAVE_FOLDER = f"tmp_results/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
     # SAVE_FOLDER = f"{args.save_dir}/{output_subfolder}{base_model_name}-{args.revision}{scoring_model_string}-{args.mask_filling_model_name}-{sampling_string}/{precision_string}-{args.pct_words_masked}-{args.n_perturbation_rounds}-{dataset_member_name}-{dataset_nonmember_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{ref_model_string}{span_length_string}{max_length_string}{tok_by_tok_string}"
-    SAVE_FOLDER = f"{args.save_dir}/{dataset_member_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{max_length_string}/{base_model_name}{min_k_prob_string}"
+    SAVE_FOLDER = f"{args.save_dir}/{dataset_member_name}-{args.n_group_member}-{args.n_group_nonmember}-{args.n_document_per_group}{max_length_string}{document_strategy_string}/{base_model_name}{min_k_prob_string}"
 
     # new_folder = SAVE_FOLDER.replace("tmp_results", args.save_dir)
     # ##don't run if exists!!!
@@ -1387,12 +1393,14 @@ if __name__ == '__main__':
                                                  strategy=args.strategy, n_group=args.n_group_member, 
                                                  n_document_per_group=args.n_document_per_group, 
                                                  SAVE_FOLDER=SAVE_FOLDER, data_dir=args.data_dir, membership_path=args.membership_path, 
-                                                 max_length=args.max_length if args.max_length else longest_tokenizable_len)
+                                                 max_length=args.max_length if args.max_length else longest_tokenizable_len,
+                                                 document_strategy=args.document_strategy)
     data_nonmember, metadata_nonmember = generate_data(args.dataset_nonmember, args.dataset_nonmember_key, train=False, 
                                                        strategy=args.strategy, n_group=args.n_group_nonmember, 
                                                        n_document_per_group=args.n_document_per_group, 
                                                        SAVE_FOLDER=SAVE_FOLDER, data_dir=args.data_dir, membership_path=args.membership_path, 
-                                                       max_length=args.max_length if args.max_length else longest_tokenizable_len)
+                                                       max_length=args.max_length if args.max_length else longest_tokenizable_len,
+                                                       document_strategy=args.document_strategy)
 
     # assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')
