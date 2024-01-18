@@ -108,11 +108,11 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
 
     selected_data = set()
     for group, infos in membership_info.items():
-        if group in groups:
+        scores = []
+        if group in tqdm(groups):
             new_added_data = []
             for filename, i, _, _ in infos['documents']:
                 new_added_data.append((filename, i))
-            print("Loading data to check for similarity.")
             texts = [data_to_text[dp] for dp in new_added_data]
             # Oversample the documents to give room for unqualified document
             if strategy == "random":
@@ -125,8 +125,9 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
                 print("direction: {}\titeration: {}".format(direction, iteration))
                 best_indices, best_score = select_similar_subset(texts, int(n_document_per_group * 1.2), direction, iteration)
                 new_added_data = [new_added_data[i] for i in best_indices]
-            print("The resulting similarity score is : {}".format(best_score))
             selected_data.update(new_added_data)
+            scores.append(best_score)
+    print("The resulting similarity score is : {}".format(np.mean(best_score)))
     print("Sampled {} groups with {} datapoints.".format(len(groups), len(selected_data)))
     # assert len(selected_data) >= n_group * n_document_per_group, len(selected_data)
     return selected_data
