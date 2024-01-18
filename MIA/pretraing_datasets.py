@@ -85,7 +85,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
     for group, infos in info_list:
         if len(groups) >= n_group:
             break
-        if infos['group_is_member'] == train and len(infos['is_members']) >= n_document_per_group:
+        if infos['group_is_member'] == train and len(infos['is_members']) >= int(n_document_per_group * 1.2):
             groups.add(group)
     # assert len(groups) == n_group, (len(groups), n_group)
 
