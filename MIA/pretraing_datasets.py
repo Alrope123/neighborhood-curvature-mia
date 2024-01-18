@@ -53,7 +53,7 @@ def select_similar_subset(texts, subset_size, direction, iteration):
     # Heuristic: start with a random subset and iteratively try to improve it
     current_subset_indices = np.random.choice(len(texts), subset_size, replace=False).tolist()
 
-    for _ in range(iteration):  # Number of iterations can be adjusted
+    for _ in tqdm(range(iteration)):  # Number of iterations can be adjusted
         # Calculate average pairwise similarity for current subset
         current_subset = [texts[i] for i in current_subset_indices]
         current_similarity = calculate_tfidf_similarity(current_subset)
