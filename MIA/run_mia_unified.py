@@ -1093,7 +1093,7 @@ def load_base_model_and_tokenizer(name):
         #     base_model_kwargs.update(dict(torch_dtype=torch.float16))
         # if 'gpt-j' in name:
         #     base_model_kwargs.update(dict(revision='float16'))
-        base_model = transformers.AutoModelForCausalLM.from_pretrained(name, **base_model_kwargs, cache_dir=cache_dir)
+        base_model = transformers.AutoModelForCausalLM.from_pretrained(name, **base_model_kwargs, cache_dir=cache_dir, trust_remote_code=True)
     else:
         base_model = None
 
