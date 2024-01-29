@@ -394,7 +394,8 @@ if __name__ == '__main__':
             all_results.append(seed_result)
 
         print(all_results)
-        average_results, std_results = merge_json(all_results)
+        # average_results, std_results = merge_json(all_results)
+         average_results, std_results = all_results[0]
 
         for direction in ['max', "min"]:
             SAVE_FOLDER = os.path.join(ROOT_SAVE_FOLDER, "{}".format(key))
