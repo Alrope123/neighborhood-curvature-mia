@@ -68,9 +68,9 @@ def get_roc_metrics(real_preds, sample_preds):
     real_preds =  [element for element in real_preds if not math.isnan(element)]
     sample_preds = [element for element in sample_preds if not math.isnan(element)]
 
-    fpr, tpr, _ = roc_curve([0] * len(real_preds) + [1] * len(sample_preds), real_preds + sample_preds)
+    fpr, tpr, thresholds = roc_curve([0] * len(real_preds) + [1] * len(sample_preds), real_preds + sample_preds)
     roc_auc = auc(fpr, tpr)
-    return fpr.tolist(), tpr.tolist(), float(roc_auc)
+    return fpr.tolist(), tpr.tolist(), thresholds.tolist(), float(roc_auc)
 
 
 def save_roc_curves(name, fpr, tpr, roc_auc, save_dir=None):
@@ -375,10 +375,18 @@ if __name__ == '__main__':
                                 group_loss = calculate_group_loss(scores, aggregated_method, direction, top_s)
                                 cur_nonmember_predictions.append(group_loss)
                         
-                        fpr, tpr, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
+                        fpr, tpr, thresholds, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
+                        threshold = None
+                        tpr_is = None
+                        for i, rate in enumerate(fpr):
+                            if rate > 0.05:
+                                threshold = thresholds[i-1]
+                                tpr_is = tpr[i-1]
+                                break
 
                         # direction_result[k]["MIA"][top_s] = (roc_auc, fpr, tpr)
-                        direction_result[k]["MIA"][top_s] = roc_auc
+                        direction_result[k]["MIA"][top_s] = (roc_auc, threshold, tpr_is)
+                        
                     
                 seed_result[direction] = direction_result
 
@@ -397,16 +405,22 @@ if __name__ == '__main__':
                 # best_fpr = None
                 # best_tpr = None
                 best_auc = -1
+                best_threshold = -1
+                best_tpr_is = -1
                 for top_s in generate_topk_array(k):
-                    roc_auc = average_results[direction][k]['MIA'][top_s]
+                    roc_auc, threshold, tpr_is = average_results[direction][k]['MIA'][top_s]
                     if roc_auc > best_auc:
                         best_s = top_s
                         best_auc = roc_auc
                         # best_fpr = fpr
                         # best_tpr = tpr
+                        best_threshold = threshold
+                        best_tpr_is  = tpr_is
                 output = {
                     "s": best_s,
                     "ROC AUC": best_auc,
+                    "threshold": best_threshold,
+                    "TPR at 5%": best_tpr_is
                 }
                 average_results[direction][k]["MIA"]["best"] = output
             
@@ -417,7 +431,7 @@ if __name__ == '__main__':
                 cur_row = []
                 for s in ticks:
                     if s in average_results[direction][k]["MIA"]:
-                        cur_row.append(average_results[direction][k]["MIA"][s])
+                        cur_row.append(average_results[direction][k]["MIA"][s][0])
                     else:
                         cur_row.append(np.nan)
                 data.append(cur_row)
