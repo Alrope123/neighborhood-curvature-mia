@@ -241,7 +241,7 @@ if __name__ == '__main__':
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
-        fpr, tpr, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
+        fpr, tpr, thresholds, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
         # Draw log likehood histogram on individual documents
         # compare_length = min(len(nonmember_predictions), len(member_predictions))
         # if len(nonmember_predictions) > len(member_predictions):
@@ -345,7 +345,7 @@ if __name__ == '__main__':
                         for i in range(0, len(predictions), k):
                             cur_group_results_nonmembers[group+f"_{i//k}"] = predictions[i:i+k]
                             cur_nonmember_individual_predictions.extend(predictions[i:i+k])
-                    fpr, tpr, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
+                    fpr, tpr, thresholds, individual_roc_auc_ = get_roc_metrics(cur_nonmember_individual_predictions, cur_member_individual_predictions)
                     direction_result[k] = {
                         "Member size": len(cur_group_results_members),
                         "Nonmember size": len(cur_group_results_nonmembers),
