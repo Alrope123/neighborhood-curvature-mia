@@ -84,7 +84,9 @@ instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "co
 instruction_v2_set = ['code_alpaca', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
 instruction_human_set = ["flan_v2", "cot", "oasst1", "dolly"]
 def decide_member_group(average_score, group, data_type):
-    if data_type.startswith('wikipedia'):
+    if data_type.startswith('wikipedia_anchor'):
+        return group < "2023-07-18"
+    elif data_type.startswith('wikipedia'):
         return group < "2020-03-01"
     elif data_type.startswith('rpj-arxiv'):
         return group < "2020-07-32"
@@ -118,6 +120,8 @@ def decide_member_group(average_score, group, data_type):
             return any([group.startswith(prefix) for prefix in ["pd"]])
         else:
             return False
+    elif data_type.startswith("lyrics") or data_type.startswith("nytimes"):
+        return True
     else:
         raise NotImplementedError() 
 
@@ -188,6 +192,9 @@ def main(args):
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith("wikipedia_anchor"):
+        draw_separate_histogram(scores_and_group, split=["1960", "2010", "2023-07-18", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith('@title-rpj-book'):
         draw_separate_histogram(scores_and_group, split=["Books3", "Gutenberg"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
@@ -198,6 +205,12 @@ def main(args):
         draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("license"):
+        draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith("lyrics"):
+        draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith("nytimes"):
         draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     if data_type.startswith("language"):

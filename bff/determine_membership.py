@@ -8,6 +8,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from datetime import datetime
 from datasets import load_dataset, concatenate_datasets
+import csv
 
 member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
 nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
@@ -59,6 +60,12 @@ def custom_open_yield(path, suffix=".jsonl"):
         merged_dataset = concatenate_datasets([dataset_v1, dataset_v2])
         for dp in merged_dataset:
             yield dp
+    elif suffix == "csv":
+        with open(path, mode='r', encoding='utf-8') as file:
+            csv_dict_reader = csv.DictReader(file)
+            for row in csv_dict_reader:
+                # Each row is a dictionary
+                yield row
     else:
         raise NotImplementedError()
 
@@ -133,6 +140,10 @@ def get_group(dp, data_type):
         return dp["dataset"]
     elif data_type.startswith('license'):
         return dp["subset_name"]
+    elif data_type.startswith('lyrics'):
+        return dp["Artist"]
+    elif data_type.startswith('nytimes'):
+        return dp["date"].split()[0]
     else:
         raise NotImplementedError('The data type is not implemented yet.')
 
@@ -318,11 +329,18 @@ def main(args):
     if data_type.startswith("rpj-arxiv"):
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-07-32", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
+    elif data_type.startswith("wikipedia_anchor"):
+        draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2023-07-18", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
         # draw_separate_histogram(total_coverage_member_values, xlabel="Percentage of duplication", ylabel="# Documents(k)",
         #                             save_path=os.path.join(save_dir, 'overlap_distribution2.png'), bins=20)
+    elif data_type.startswith("lyrics"):
+        pass
+    elif data_type.startswith("nytimes"):
+        pass
     elif data_type.startswith("rpj-book"):
         draw_separate_histogram(coverages_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
