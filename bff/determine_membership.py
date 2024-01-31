@@ -286,7 +286,7 @@ def main(args):
                         # assert len(data) == len(overlap_data)
                         total_coverages.append([calculate_coverage(dp) for dp in overlap_data])
                     else:
-                        total_coverages.append([1.0] * 999999)
+                        total_coverages.append([1.0] * 9999999)
 
                 assert len(total_coverages) == len(filter_names)
                 # assert len(total_coverages[0]) == len(data)
