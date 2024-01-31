@@ -85,6 +85,7 @@ instruction_v2_set = ['code_alpaca', 'science.scierc_ner', 'cot', 'wizardlm', 's
 instruction_human_set = ["flan_v2", "cot", "oasst1", "dolly"]
 switch = False
 def decide_member_group(average_score, group, data_type):
+    global switch
     if data_type.startswith('wikipedia_anchor'):
         return group < "2023-07-18"
     elif data_type.startswith('wikipedia'):
