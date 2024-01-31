@@ -83,6 +83,7 @@ rpj_pile_nonmember_set = ["sv", "da", "ro", "bg", "pl", "hu", "sl", "uk", "cs", 
 instruction_v1_set = ["sharegpt", "flan_v2", "cot", "gpt4_alpaca", "oasst1", "code_alpaca", "dolly"]
 instruction_v2_set = ['code_alpaca', 'science.scierc_ner', 'cot', 'wizardlm', 'science.qasper_truncated_4000', 'open_orca', 'lima', 'science.scierc_relation', 'gpt4_alpaca', 'oasst1', 'science.scifact_json', 'flan_v2', 'science.evidence_inference', 'science.scitldr_aic', 'sharegpt']
 instruction_human_set = ["flan_v2", "cot", "oasst1", "dolly"]
+switch = False
 def decide_member_group(average_score, group, data_type):
     if data_type.startswith('wikipedia_anchor'):
         return group < "2023-07-18"
@@ -119,7 +120,8 @@ def decide_member_group(average_score, group, data_type):
         elif data_type.endswith("pd"):
             return any([group.startswith(prefix) for prefix in ["pd"]])
         else:
-            return False
+            switch = not switch
+            return switch
     elif data_type.startswith("lyrics") or data_type.startswith("nytimes"):
         return True
     else:
