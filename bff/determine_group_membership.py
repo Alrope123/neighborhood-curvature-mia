@@ -120,10 +120,10 @@ def decide_member_group(average_score, group, data_type):
         elif data_type.endswith("pd"):
             return any([group.startswith(prefix) for prefix in ["pd"]])
         else:
-            switch = not switch
-            return switch
+            return False
     elif data_type.startswith("lyrics") or data_type.startswith("nytimes"):
-        return True
+        switch = not switch
+        return switch
     else:
         raise NotImplementedError() 
 
