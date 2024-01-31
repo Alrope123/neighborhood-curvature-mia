@@ -12,12 +12,14 @@ if __name__ == '__main__':
     lyrics_path = "/gscratch/h2lab/alrope/data/nytimes/nyt-comments-2020.csv"
     outputs_path = "/gscratch/h2lab/alrope/data/nytimes/nyt-comments-2020.jsonl"
 
-    outputs = {}
+    outputs = []
     with open(lyrics_path, mode='r', encoding='utf-8') as file:
         csv_dict_reader = csv.DictReader(file)
         for row in tqdm.tqdm(csv_dict_reader, total=4962666):
-            outputs["date"] = row["createDate"]
-            outputs["text"] = row["commentBody"]
+            output = {}
+            output["date"] = row["createDate"]
+            output["text"] = row["commentBody"]
+            outputs.append(output)
 
     with open(outputs_path, 'w') as f:
         for output in outputs:
