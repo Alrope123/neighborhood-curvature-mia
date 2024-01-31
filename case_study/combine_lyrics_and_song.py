@@ -11,12 +11,14 @@ if __name__ == '__main__':
     lyrics_path = "/gscratch/h2lab/alrope/data/lyrics/lyrics-data.csv"
     outputs_path = "/gscratch/h2lab/alrope/data/lyrics/lyrics-data.jsonl"
 
-    outputs = {}
+    outputs = []
     with open(lyrics_path, mode='r', encoding='utf-8') as file:
         csv_dict_reader = csv.DictReader(file)
         for row in csv_dict_reader:
-            outputs["Artist"] = row["ALink"]
-            outputs["text"] = row["Lyric"]
+            output = {}
+            output["Artist"] = row["ALink"]
+            output["text"] = row["Lyric"]
+            outputs.append(output)
 
     with open(outputs_path, 'w') as f:
         for output in outputs:
