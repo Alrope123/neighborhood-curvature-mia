@@ -1,0 +1,12 @@
+{
+    "document_threshold": 0.5,
+    "number of groups": 397,
+    "number of member group": 199,
+    "number of non-member group": 198,
+    "average number of documents in member group": 12657.844221105528,
+    "std number of documents in member group": 5585.202294834575,
+    "number of member group with over 100 documents": 186,
+    "average number of documents in non-member group": 12462.373737373737,
+    "std number of documents in non-member group": 5580.85216436723,
+    "number of non-member group with over 100 documents": 185
+}
