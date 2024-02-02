@@ -151,6 +151,8 @@ def get_group(dp, data_type):
 def qualified(data_type, score=None, group=None):
     if data_type=='wikipedia':
         return (score < 0.05 and group >= "2020-03-01") or (score > 0.95 and group < "2020-03-01")
+    elif data_type=="wikipedia_anchor":
+        return group < "2021-7-18" or group >= "2023-7-18"
     else:
         return True
 
@@ -330,7 +332,7 @@ def main(args):
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-07-32", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     elif data_type.startswith("wikipedia_anchor"):
-        draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2023-07-18", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+        draw_separate_histogram(coverages_and_group, split=["1960", "2021-07-18", "2023-07-18", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",

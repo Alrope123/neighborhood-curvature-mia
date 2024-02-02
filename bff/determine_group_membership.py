@@ -192,11 +192,11 @@ def main(args):
     if data_type.startswith("rpj-arxiv"):
         draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-07-32", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                 save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith("wikipedia_anchor"):
+        draw_separate_histogram(scores_and_group, split=["1960", "2021-07-18", "2023-07-18", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(scores_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
-                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
-    elif data_type.startswith("wikipedia_anchor"):
-        draw_separate_histogram(scores_and_group, split=["1960", "2010", "2023-07-18", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith('@title-rpj-book'):
         draw_separate_histogram(scores_and_group, split=["Books3", "Gutenberg"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
