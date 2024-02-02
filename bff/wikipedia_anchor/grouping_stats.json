@@ -1,12 +1,12 @@
 {
     "document_threshold": 0.5,
-    "number of groups": 8251,
-    "number of member group": 6915,
-    "number of non-member group": 1336,
-    "average number of documents in member group": 90.69472161966739,
-    "std number of documents in member group": 53.05858718657699,
-    "number of member group with over 100 documents": 2288,
-    "average number of documents in non-member group": 106.56586826347305,
-    "std number of documents in non-member group": 33.5639772904152,
-    "number of non-member group with over 100 documents": 781
+    "number of groups": 7586,
+    "number of member group": 7586,
+    "number of non-member group": 0,
+    "average number of documents in member group": 94.03598734510942,
+    "std number of documents in member group": 52.157823901891256,
+    "number of member group with over 100 documents": 2904,
+    "average number of documents in non-member group": NaN,
+    "std number of documents in non-member group": NaN,
+    "number of non-member group with over 100 documents": 0
 }
