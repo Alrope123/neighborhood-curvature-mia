@@ -47,7 +47,7 @@ if __name__ == '__main__':
         member_notext_set = set()
         non_member_notext_set = set()
         # Go through each file and label them based on title
-        for file_path in tqdm(iterate_files(args.data_dir)):
+        for file_path, filename in tqdm(iterate_files(args.data_dir)):
             with open(file_path, 'r') as f:
                 for line in f:
                     dp = json.loads(line)
