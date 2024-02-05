@@ -355,7 +355,7 @@ def main(args):
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-07-32", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                 save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     elif data_type.startswith("wikipedia_anchor"):
-        draw_separate_histogram(coverages_and_group, split=["1960", "2021-07-18", "2023-07-18", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
+        draw_separate_histogram(coverages_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'overlap_distribution.png'), bins=20)
     elif data_type.startswith("wikipedia"):
         draw_separate_histogram(coverages_and_group, split=["1960", "2010", "2020-03-01", "2024"], xlabel="Percentage of duplication", ylabel="# Documents(k)",
