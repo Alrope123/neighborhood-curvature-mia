@@ -15,6 +15,11 @@ nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipe
 member_dict = {}
 nonmember_dict = {}
 
+member_dict_path2 = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out2/pile_member_text_w_time.pkl"
+nonmember_dict_path2 =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out2/pile_nonmember_text_w_time.pkl"
+member_dict2 = {}
+nonmember_dict2 = {}
+
 cache_dir = "cache"
 os.environ['HF_HOME'] = cache_dir
 os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
@@ -111,6 +116,22 @@ def get_group(dp, data_type):
             timestamp_splits = timestamp.split('-')
             timestamp = '-'.join(timestamp_splits[:-1])
         return timestamp 
+    elif data_type.startswith('wikipedia_anchor'):
+        if member_dict2 == {}:
+            with open(member_dict_path2, 'rb') as f:
+                member_dict2 = pkl.load(f)
+                print("Loaded in {} wikipedia titled matched.".format(len(member_dict2)))
+        if nonmember_dict2 == {}:
+            with open(nonmember_dict_path2, 'rb') as f:
+                nonmember_dict2 = pkl.load(f)
+                print("Loaded in {} wikipedia titled unmatched.".format(len(nonmember_dict2)))
+        title = dp['title']
+        if title in member_dict2 and member_dict2[title] != None:
+            return datetime.strptime(member_dict2[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
+        elif title in nonmember_dict2 and nonmember_dict2[title] != None:
+            return datetime.strptime(nonmember_dict2[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
+        else:
+            return None
     elif data_type.startswith('wikipedia'):
         if member_dict == {}:
             with open(member_dict_path, 'rb') as f:
