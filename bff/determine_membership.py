@@ -84,6 +84,8 @@ short_title_count = 0
 def get_group(dp, data_type):
     global member_dict
     global nonmember_dict
+    global member_dict2
+    global nonmember_dict2
 
     if data_type == 'rpj-arxiv_month':
         timestamp = dp['meta']['timestamp']
