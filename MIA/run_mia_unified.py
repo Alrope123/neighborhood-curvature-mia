@@ -1027,6 +1027,9 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, d
     # remove newlines from each example
     data = [strip_newlines(x) for x in data]
 
+    if not train:
+        print(data[:10])
+
     # try to keep only examples with > 100 words
     # if dataset in ['writing', 'squad', 'xsum']:
     # long_data = [x for x in data if len(x.split()) > 100]
