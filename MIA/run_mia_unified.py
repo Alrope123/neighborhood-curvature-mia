@@ -1032,12 +1032,14 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, d
     # long_data = [x for x in data if len(x.split()) > 100]
     # if len(long_data) > 0:
     #     data = long_data
+    print(f"Total number of documents before long: {len(data)}")
     long_datas = [(x, y) for x, y in zip(data, metadata) if len(x.split()) > 0]
     (long_data, long_metadata) = zip(*long_datas)
     if len(long_data) > 0:
         data = long_data
         metadata = long_metadata
 
+    print(f"Total number of documents after long: {len(data)}")
     
     # not_too_long_data = [x for x in data if len(x.split()) < max_length]
     # if len(not_too_long_data) > 0:
