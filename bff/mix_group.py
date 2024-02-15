@@ -247,8 +247,8 @@ def main(args):
         documents = membership_info[other_group]['documents']
         assert len(documents) > nonmember_pollution_size
         np.random.shuffle(documents)
-        final_documents.extends(documents[:nonmember_pollution_size])
-        final_membership.extends([False] * nonmember_pollution_size)
+        final_documents.extend(documents[:nonmember_pollution_size])
+        final_membership.extend([False] * nonmember_pollution_size)
 
         membership_info[group]['documents'] = final_documents
         membership_info[group]['is_members'] = final_documents
@@ -268,8 +268,8 @@ def main(args):
         documents = membership_info[other_group]['documents']
         assert len(documents) > member_pollution_size
         np.random.shuffle(documents)
-        final_documents.extends(documents[:member_pollution_size])
-        final_membership.extends([True] * member_pollution_size)
+        final_documents.extend(documents[:member_pollution_size])
+        final_membership.extend([True] * member_pollution_size)
 
         membership_info[group]['documents'] = final_documents
         membership_info[group]['is_members'] = final_documents
