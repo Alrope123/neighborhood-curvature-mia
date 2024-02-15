@@ -282,7 +282,7 @@ def main(args):
     print("Calculating the statistics...")
     group_lengths_nonmember = [len(infos['is_members']) for _, infos in membership_info.items() if not infos['group_is_member']]
     group_lengths_member = [len(infos['is_members']) for _, infos in membership_info.items() if infos['group_is_member']]
-    group_rates = {group: sum(infos['is_members']) / len(infos["is_members"]) for group, infos in membership_info.items()}
+    # group_rates = {group: sum(infos['is_members']) / len(infos["is_members"]) for group, infos in membership_info.items()}
     stats = {
         "document_threshold": document_threshold,
         "number of groups": len(membership_info),
