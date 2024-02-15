@@ -280,14 +280,14 @@ def main(args):
 
     # Create statistic info
     print("Calculating the statistics...")
-    group_lengths_nonmember = [len(infos['is_members']) for _, infos in membership_info.items() if not infos['group_is_member']]
-    group_lengths_member = [len(infos['is_members']) for _, infos in membership_info.items() if infos['group_is_member']]
+    group_lengths_nonmember = [len(infos['is_members']) for _, infos in new_membership_info.items() if not infos['group_is_member']]
+    group_lengths_member = [len(infos['is_members']) for _, infos in new_membership_info.items() if infos['group_is_member']]
     # group_rates = {group: sum(infos['is_members']) / len(infos["is_members"]) for group, infos in membership_info.items()}
     stats = {
         "document_threshold": document_threshold,
         "number of groups": len(membership_info),
-        "number of member group": sum([infos['group_is_member'] for _, infos in membership_info.items()]),
-        "number of non-member group": sum([not infos['group_is_member'] for _, infos in membership_info.items()]),
+        "number of member group": sum([infos['group_is_member'] for _, infos in new_membership_info.items()]),
+        "number of non-member group": sum([not infos['group_is_member'] for _, infos in new_membership_info.items()]),
         "average number of documents in member group": np.mean(group_lengths_member),
         "std number of documents in member group": np.std(group_lengths_member),
         "number of member group with over 100 documents": len([n for n in group_lengths_member if n > 100]),
