@@ -213,7 +213,7 @@ def main(args):
     else:
         np.random.shuffle(good_pollution_member_groups)
         good_pollution_member_groups = good_pollution_member_groups[:nonmember_group_size]
-        good_pollution_member_groups = [group for group in good_pollution_member_groups if group not in good_pollution_member_groups]
+        good_base_member_groups = [group for group in good_pollution_member_groups if group not in good_pollution_member_groups]
         np.random.shuffle(good_base_member_groups)
         good_base_member_groups = good_base_member_groups[:member_group_size]
     
@@ -226,7 +226,7 @@ def main(args):
     else:
         np.random.shuffle(good_pollution_nonmember_groups)
         good_pollution_nonmember_groups = good_pollution_nonmember_groups[:member_group_size]
-        good_pollution_nonmember_groups = [group for group in good_pollution_nonmember_groups if group not in good_pollution_nonmember_groups]
+        good_base_nonmember_groups = [group for group in good_pollution_nonmember_groups if group not in good_pollution_nonmember_groups]
         np.random.shuffle(good_base_nonmember_groups)
         good_base_nonmember_groups = good_base_nonmember_groups[:nonmember_group_size]
 
