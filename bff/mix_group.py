@@ -202,7 +202,7 @@ def main(args):
     
     print([member_base_size, nonmember_pollution_size, nonmember_base_size, member_pollution_size])
     print([len(good_base_member_groups), len(good_pollution_member_groups), len(good_base_nonmember_groups), len(good_pollution_nonmember_groups)])
-    assert False
+    # assert False
 
     if member_base_size > member_pollution_size:
         np.random.shuffle(good_base_member_groups)
