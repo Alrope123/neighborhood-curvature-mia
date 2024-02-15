@@ -190,8 +190,8 @@ def main(args):
         membership_info[group]['group_is_member'] = is_group_member
 
     # filtering
-    member_pollution_size = int(size * member_mix_ratio)
-    nonmember_pollution_size = int(size * nonmember_mix_ratio)
+    member_pollution_size = int(size * nonmember_mix_ratio)
+    nonmember_pollution_size = int(size * member_mix_ratio)
     member_base_size = size - nonmember_pollution_size
     nonmember_base_size = size - member_pollution_size
     
