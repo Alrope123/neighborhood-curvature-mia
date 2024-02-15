@@ -154,9 +154,11 @@ def main(args):
     new_save_dir = os.path.join(args.save_dir, "mixture")
     if not os.path.exists(new_save_dir):
         os.mkdir(new_save_dir)
-    new_save_dir = os.path.join(new_save_dir, "{}-{}-{}-{}".format(member_mix_ratio, nonmember_mix_ratio, member_group_size, nonmember_group_size))
+    new_save_dir = os.path.join(new_save_dir, "{}-{}-{}-{}-{}".format(size, member_mix_ratio, nonmember_mix_ratio, member_group_size, nonmember_group_size))
     if not os.path.exists(new_save_dir):
         os.mkdir(new_save_dir)
+
+    print("Saving into {}.".format(new_save_dir))
     new_membership_info_path = os.path.join(new_save_dir, 'group_to_member.pkl')
 
     member_groups = []
