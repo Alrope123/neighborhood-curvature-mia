@@ -200,6 +200,7 @@ def main(args):
     good_base_nonmember_groups = [group  for group in nonmember_groups if len(membership_info[group]['documents']) >= nonmember_base_size]
     good_pollution_nonmember_groups = [group  for group in nonmember_groups if len(membership_info[group]['documents']) >= nonmember_pollution_size]
     
+    print([len(member_base_size), len(nonmember_pollution_size), len(nonmember_base_size), len(member_pollution_size)])
     print([len(good_base_member_groups), len(good_pollution_member_groups), len(good_base_nonmember_groups), len(good_pollution_nonmember_groups)])
     assert False
 
