@@ -155,11 +155,13 @@ def get_group(dp, data_type):
             splits = dp['meta']['title'].split(" - ")
             if len(splits) != 2:
                 print("Error: {}".format(splits)) 
+                return None
             return splits[1]
         elif 'short_book_title' in dp['meta']:
             splits = dp['meta']['short_book_title'].split(" by ")
             if len(splits) != 2:
-                print("Error: {}".format(splits)) 
+                print("Error: {}".format(splits))
+                return None 
             return splits[1]
         else:
             raise NotImplementedError("Key not in the meta")
