@@ -88,7 +88,7 @@ def main(args):
             title = dp['title']
             score = total_coverages[j]
             
-            if title in member_dict and member_dict[title] != None and qualified(score):
+            if title in member_dict and qualified(score):
                 perfect_set.add(title)
 
     print("Size of the resulting set: {}".format(len(perfect_set)))
