@@ -18,7 +18,7 @@ if __name__ == "__main__":
                 if 'title' in dp['meta']:
                     titles.add(dp['meta']['title'])
                 else:
-                    titles.add(dp['meta']['short_book_title'])
+                    short_book_titles.add(dp['meta']['short_book_title'])
                 if i > 20:
                     break
         else:
