@@ -24,5 +24,6 @@ if __name__ == "__main__":
         else:
             data = json.load(f)
 
+    print(short_book_titles)
     print(titles)
 
