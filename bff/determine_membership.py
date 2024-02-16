@@ -150,6 +150,19 @@ def get_group(dp, data_type):
             return datetime.strptime(nonmember_dict[title].split(',')[1].strip(), '%d %B %Y').strftime('%Y-%m-%d')
         else:
             return None
+    elif data_type.startswith("rpj-book_author"):
+        if 'title' in dp['meta']:
+            splits = dp['meta']['title'].split(" - ")
+            if len(splits) != 2:
+                print("Error: {}".format(splits)) 
+            return splits[1]
+        elif 'short_book_title' in dp['meta']:
+            splits = dp['meta']['short_book_title'].split(" by ")
+            if len(splits) != 2:
+                print("Error: {}".format(splits)) 
+            return splits[1]
+        else:
+            raise NotImplementedError("Key not in the meta")
     elif data_type.startswith("rpj-book"):
         if 'title' in dp['meta']:
             return "Books3-" + dp['meta']['title']
