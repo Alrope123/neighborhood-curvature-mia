@@ -64,6 +64,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--set_path', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out")
     parser.add_argument('--perfect_set_path', type=str, default=None)
+    parser.add_argument('--worst_set_path', type=str, default=None)
     parser.add_argument('--set_name', type=str, required=True)
     parser.add_argument('--out_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out")
     parser.add_argument('--save_interval', type=int, default=10000)
@@ -78,9 +79,13 @@ if __name__ == '__main__':
     # load the set of title
     with open(os.path.join(args.set_path, args.set_name), 'rb') as f:
         title_set = pkl.load(f)
+    
     if args.perfect_set_path:
         with open(os.path.join(args.perfect_set_path, "perfect_set.pkl"), 'rb') as f:
-            title_set = pkl.load(f)
+            title_set.update(pkl.load(f))
+    elif args.worst_set_path:
+        with open(os.path.join(args.perfect_set_path, "worst_set.pkl"), 'rb') as f:
+            title_set.update(pkl.load(f))
     else:
         with open(os.path.join(args.set_path, args.set_name), 'rb') as f:
             title_set = pkl.load(f)
