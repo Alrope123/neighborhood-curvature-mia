@@ -189,9 +189,9 @@ def main(args):
             nonmember_groups.append(group)  
         membership_info[group]['group_is_member'] = is_group_member
 
-    print("Total groups before filtering: {}.".format(membership_info))
+    print("Total groups before filtering: {}.".format(len(membership_info)))
     membership_info = {key: value for key, value in membership_info.items() if all([is_member == value['is_members'][0] for is_member in value['is_members']])}
-    print("Total groups after filtering: {}.".format(membership_info))
+    print("Total groups after filtering: {}.".format(len(membership_info)))
 
     # filtering
     member_pollution_size = int(size * nonmember_mix_ratio)
