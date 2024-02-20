@@ -10,8 +10,8 @@ from datetime import datetime
 from datasets import load_dataset, concatenate_datasets
 import csv
 
-member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_member_text_w_time.pkl"
-nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out/pile_nonmember_text_w_time.pkl"
+member_dict_path = "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out3/pile_member_text_w_time.pkl"
+nonmember_dict_path =  "/gscratch/h2lab/alrope/neighborhood-curvature-mia/wikipedia/out3/pile_nonmember_text_w_time.pkl"
 member_dict = {}
 nonmember_dict = {}
 
