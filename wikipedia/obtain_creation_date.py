@@ -84,7 +84,7 @@ if __name__ == '__main__':
         with open(os.path.join(args.perfect_set_path, "perfect_set.pkl"), 'rb') as f:
             title_set.update(pkl.load(f))
     elif args.worst_set_path:
-        with open(os.path.join(args.perfect_set_path, "worst_set.pkl"), 'rb') as f:
+        with open(os.path.join(args.worst_set_path, "worst_set.pkl"), 'rb') as f:
             title_set.update(pkl.load(f))
     else:
         with open(os.path.join(args.set_path, args.set_name), 'rb') as f:
