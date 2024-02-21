@@ -194,7 +194,7 @@ def qualified(data_type, score=None, group=None):
     if data_type=='wikipedia':
         return (score < 0.05 and group >= "2020-03-01") or (score > 0.95 and group < "2020-03-01")
     elif data_type=="wikipedia_anchor":
-        return group < "2021-7-18" or group >= "2023-7-18"
+        return group < "2018-01-01" or group >= "2023-10-10"
     else:
         return True
 
