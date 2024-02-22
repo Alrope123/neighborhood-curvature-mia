@@ -64,6 +64,7 @@ if __name__ == '__main__':
 
         print(type(huggingface_data))
         print(type(huggingface_data["id"]))
+        huggingface_data = dict_of_lists_to_list_of_dicts(huggingface_data)
 
         new_dataset = []
         for i, entry in enumerate(huggingface_data):
