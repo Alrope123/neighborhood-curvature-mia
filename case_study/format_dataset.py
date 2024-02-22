@@ -62,7 +62,7 @@ if __name__ == '__main__':
         else:
             raise NotImplementedError('Dataset splits: {}'.format(huggingface_datasets))
         
-        huggingface_data = dict_of_lists_to_list_of_dicts(huggingface_data)[:5000]
+        huggingface_data = huggingface_data.to_iterable_dataset()[:5000]
 
         new_dataset = []
         for i, entry in enumerate(huggingface_data):
