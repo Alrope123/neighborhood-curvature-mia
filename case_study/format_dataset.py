@@ -61,8 +61,6 @@ if __name__ == '__main__':
             huggingface_data = huggingface_datasets["validation"][:5000]
         else:
             raise NotImplementedError('Dataset splits: {}'.format(huggingface_datasets))
-        
-        huggingface_data = huggingface_data.to_iterable_dataset()
 
         new_dataset = []
         for i, entry in enumerate(huggingface_data):
