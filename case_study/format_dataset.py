@@ -165,6 +165,6 @@ if __name__ == '__main__':
         #     new_dataset.append(new_entry)
 
 
-        with open(os.path.join("/gscratch/h2lab/alrope/data/eval{}/{}.jsonl".format("_full" if args.include_answer else "", eval_dataset.replace('/', '_'))), 'w') as f:
+        with open(os.path.join("/gscratch/h2lab/alrope/data/eval{}/{}.jsonl".format("_full" if args.include_answer else "", eval_dataset.replace('/', '_').split('@')[0])), 'w') as f:
             for entry in new_dataset:
                 f.write(json.dumps(entry) + "\n")
