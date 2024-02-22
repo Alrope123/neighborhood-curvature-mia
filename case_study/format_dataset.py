@@ -46,7 +46,7 @@ if __name__ == '__main__':
             raise NotImplementedError('Dataset splits: {}'.format(huggingface_datasets))
         
         new_dataset = []
-        for i, entry in enumerate(huggingface_data):
+        for i, entry in enumerate(huggingface_data.items()):
             if not args.include_answer:
                 if "question" in entry:
                     if type(entry["question"]) == str:
