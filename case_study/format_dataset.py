@@ -8,6 +8,23 @@ from tqdm import tqdm
 from datetime import datetime
 from datasets import load_dataset, concatenate_datasets
 
+def dict_of_lists_to_list_of_dicts(dict_of_lists):
+    # Check if the dictionary is empty
+    if not dict_of_lists:
+        return []
+
+    # Get the length of the lists in the dictionary assuming all lists are of the same length
+    list_length = len(next(iter(dict_of_lists.values())))
+
+    # Create a list of dictionaries
+    list_of_dicts = []
+    for i in range(list_length):
+        # Create a new dictionary for each index in the lists
+        new_dict = {key: value[i] for key, value in dict_of_lists.items()}
+        list_of_dicts.append(new_dict)
+
+    return list_of_dicts
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--include_answer', default=False, action="store_true")
@@ -39,14 +56,13 @@ if __name__ == '__main__':
             huggingface_datasets = load_dataset(dataset_name)
         
         if "test" in huggingface_datasets:
-            huggingface_data = huggingface_datasets["test"][:5000]
+            huggingface_data = huggingface_datasets["test"]
         elif "validation" in huggingface_datasets:
-            huggingface_data = huggingface_datasets["validation"][:5000]
+            huggingface_data = huggingface_datasets["validation"]
         else:
             raise NotImplementedError('Dataset splits: {}'.format(huggingface_datasets))
         
-        print(type(huggingface_data))
-        assert False
+        huggingface_data = dict_of_lists_to_list_of_dicts(huggingface_data)[:5000]
 
         new_dataset = []
         for i, entry in enumerate(huggingface_data):
