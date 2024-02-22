@@ -24,6 +24,8 @@ if __name__ == '__main__':
     random.seed(2023)
 
     for eval_dataset in eval_datasets:
+        print("Processing {}".format(eval_dataset))
+
         names = eval_dataset.split('@')
         dataset_name = names[0]
         if len(names) > 1:
