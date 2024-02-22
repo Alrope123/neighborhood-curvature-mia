@@ -53,9 +53,9 @@ if __name__ == '__main__':
             split_name = names[1]
 
         if subset_name:
-            huggingface_dataset = load_dataset(dataset_name, subset_name, split="{}[:5000]".format(split_name))
+            huggingface_data = load_dataset(dataset_name, subset_name, split="{}[:5000]".format(split_name))
         else:
-            huggingface_dataset = load_dataset(dataset_name, split="{}[:5000]".format(split_name))
+            huggingface_data = load_dataset(dataset_name, split="{}[:5000]".format(split_name))
 
         huggingface_data = dict_of_lists_to_list_of_dicts(huggingface_data)
 
