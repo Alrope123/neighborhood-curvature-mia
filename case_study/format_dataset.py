@@ -52,6 +52,8 @@ if __name__ == '__main__':
             subset_name = None
             split_name = names[1]
 
+        print("dataset:{}\tsubset:{}\tsplit:{}".format(dataset_name, subset_name, split_name))
+
         if subset_name:
             huggingface_data = load_dataset(dataset_name, subset_name, split="{}[:5000]".format(split_name))
         else:
