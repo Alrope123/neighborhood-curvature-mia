@@ -31,7 +31,7 @@ if __name__ == '__main__':
     parser.add_argument('--out_path', type=str, default="/gscratch/h2lab/alrope/data/eval")
     args = parser.parse_args()
 
-    eval_datasets = ["allenai/ai2_arc@ARC-Easy", "google/boolq", "gsm8k@main", "lambada", "natural_questions@default", "openbookqa@main", "piqa"]
+    eval_datasets = ["allenai/ai2_arc@ARC-Easy@test", "google/boolq@validation", "gsm8k@main@test", "lambada@test", "natural_questions@default@validation", "openbookqa@test", "piqa@test"]
     mmlu_subsets = ['abstract_algebra', 'anatomy', 'astronomy', 'business_ethics', 'clinical_knowledge', 'college_biology', 'college_chemistry', 'college_computer_science', 'college_mathematics', 'college_medicine', 'college_physics', 'computer_security', 'conceptual_physics', 'econometrics', 'electrical_engineering', 'elementary_mathematics', 'formal_logic', 'global_facts', 'high_school_biology', 'high_school_chemistry', 'high_school_computer_science', 'high_school_european_history', 'high_school_geography', 'high_school_government_and_politics', 'high_school_macroeconomics', 'high_school_mathematics', 'high_school_microeconomics', 'high_school_physics', 'high_school_psychology', 'high_school_statistics', 'high_school_us_history', 'high_school_world_history', 'human_aging', 'human_sexuality', 'international_law', 'jurisprudence', 'logical_fallacies', 'machine_learning', 'management', 'marketing', 'medical_genetics', 'miscellaneous', 'moral_disputes', 'moral_scenarios', 'nutrition', 'philosophy', 'prehistory', 'professional_accounting', 'professional_law', 'professional_medicine', 'professional_psychology', 'public_relations', 'security_studies', 'sociology', 'us_foreign_policy', 'virology', 'world_religions']
     eval_datasets.extend(["cais/mmlu@{}".format(subset) for subset in mmlu_subsets])
 
@@ -45,22 +45,17 @@ if __name__ == '__main__':
 
         names = eval_dataset.split('@')
         dataset_name = names[0]
-        if len(names) > 1:
+        if len(names) > 2:
             subset_name = names[1]
+            split_name = names[2]
         else:
             subset_name = None
+            split_name = names[1]
 
         if subset_name:
-            huggingface_datasets = load_dataset(dataset_name, subset_name)
+            huggingface_datasets = load_dataset(dataset_name, subset_name, split="{}[:5000]".format(split_name))
         else:
-            huggingface_datasets = load_dataset(dataset_name)
-        
-        if "test" in huggingface_datasets:
-            huggingface_data = huggingface_datasets["test"][:5000]
-        elif "validation" in huggingface_datasets:
-            huggingface_data = huggingface_datasets["validation"][:5000]
-        else:
-            raise NotImplementedError('Dataset splits: {}'.format(huggingface_datasets))
+            huggingface_datasets = load_dataset(dataset_name, split="{}[:5000]".format(split_name))
 
         huggingface_data = dict_of_lists_to_list_of_dicts(huggingface_data)
 
