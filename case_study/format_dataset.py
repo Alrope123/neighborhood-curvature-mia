@@ -62,6 +62,9 @@ if __name__ == '__main__':
         else:
             raise NotImplementedError('Dataset splits: {}'.format(huggingface_datasets))
 
+        print(type(huggingface_data))
+        print(type(huggingface_data["id"]))
+
         new_dataset = []
         for i, entry in enumerate(huggingface_data):
             if not args.include_answer:
