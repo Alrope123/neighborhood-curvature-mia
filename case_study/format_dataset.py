@@ -57,7 +57,7 @@ if __name__ == '__main__':
         else:
             huggingface_data = load_dataset(dataset_name, split="{}[:5000]".format(split_name))
 
-        huggingface_data = dict_of_lists_to_list_of_dicts(huggingface_data)
+        # huggingface_data = dict_of_lists_to_list_of_dicts(huggingface_data)
 
         new_dataset = []
         for i, entry in enumerate(huggingface_data):
