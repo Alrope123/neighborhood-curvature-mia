@@ -51,14 +51,14 @@ if __name__ == '__main__':
             subset_name = None
 
         if subset_name:
-            huggingface_datasets = load_dataset(dataset_name, subset_name)[:5000]
+            huggingface_datasets = load_dataset(dataset_name, subset_name)
         else:
-            huggingface_datasets = load_dataset(dataset_name)[:5000]
+            huggingface_datasets = load_dataset(dataset_name)
         
         if "test" in huggingface_datasets:
-            huggingface_data = huggingface_datasets["test"]
+            huggingface_data = huggingface_datasets["test"][:5000]
         elif "validation" in huggingface_datasets:
-            huggingface_data = huggingface_datasets["validation"]
+            huggingface_data = huggingface_datasets["validation"][:5000]
         else:
             raise NotImplementedError('Dataset splits: {}'.format(huggingface_datasets))
         
