@@ -51,9 +51,9 @@ if __name__ == '__main__':
             subset_name = None
 
         if subset_name:
-            huggingface_datasets = load_dataset(dataset_name, subset_name)
+            huggingface_datasets = load_dataset(dataset_name, subset_name)[:5000]
         else:
-            huggingface_datasets = load_dataset(dataset_name)
+            huggingface_datasets = load_dataset(dataset_name)[:5000]
         
         if "test" in huggingface_datasets:
             huggingface_data = huggingface_datasets["test"]
@@ -62,7 +62,7 @@ if __name__ == '__main__':
         else:
             raise NotImplementedError('Dataset splits: {}'.format(huggingface_datasets))
         
-        huggingface_data = huggingface_data.to_iterable_dataset()[:5000]
+        huggingface_data = huggingface_data.to_iterable_dataset()
 
         new_dataset = []
         for i, entry in enumerate(huggingface_data):
