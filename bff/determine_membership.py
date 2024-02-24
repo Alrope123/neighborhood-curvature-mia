@@ -184,6 +184,10 @@ def get_group(dp, data_type):
         return dp["subset_name"]
     elif data_type.startswith('lyrics'):
         return dp["Artist"]
+    elif data_type.startswith('contamination'):
+        return dp["group"]
+    elif data_type.startswith('tuning'):
+        return dp["dataset"]
     elif data_type.startswith('nytimes'):
         return dp["date"].split()[0]
     else:
@@ -384,6 +388,10 @@ def main(args):
     elif data_type.startswith("lyrics"):
         pass
     elif data_type.startswith("nytimes"):
+        pass
+    elif data_type.startswith("contamination"):
+        pass
+    elif data_type.startswith("tuning"):
         pass
     elif data_type.startswith("rpj-book"):
         draw_separate_histogram(coverages_and_group, split=[], xlabel="Percentage of duplication", ylabel="# Documents(k)",

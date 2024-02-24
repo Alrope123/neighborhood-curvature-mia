@@ -125,6 +125,9 @@ def decide_member_group(average_score, group, data_type):
     elif data_type.startswith("lyrics") or data_type.startswith("nytimes"):
         switch = not switch
         return switch
+    elif data_type.startswith("contamination") or data_type.startswith("tuning"):
+        switch = not switch
+        return switch
     else:
         raise NotImplementedError() 
 
@@ -211,6 +214,12 @@ def main(args):
         draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("lyrics"):
+        draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith("contamination"):
+        draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
+                                    save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
+    elif data_type.startswith("tuning"):
         draw_separate_histogram(scores_and_group, split=None, xlabel="Percentage of duplication", ylabel="# Documents(k)",
                                     save_path=os.path.join(save_dir, 'group_bff_distribution.png'), bins=20)
     elif data_type.startswith("nytimes"):

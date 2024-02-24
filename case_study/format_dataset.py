@@ -100,7 +100,7 @@ if __name__ == '__main__':
                     text = entry["question_stem"] + " " + entry["choices"]["text"][entry["choices"]["label"].index(entry["answerKey"])]
                 elif eval_dataset.startswith("piqa"):
                     print(entry["label"])
-                    text = entry["goal"] + splitter + entry["sol{}".format(entry["label"])]
+                    text = entry["goal"]
                 elif eval_dataset.startswith("cais/mmlu"):
                     text = entry["question"] + splitter + entry["choices"][choices_list.index(entry["answerKey"])]
 
