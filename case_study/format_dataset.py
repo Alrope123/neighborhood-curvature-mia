@@ -87,7 +87,7 @@ if __name__ == '__main__':
             else:
                 splitter = '\n'
                 if eval_dataset.startswith("allenai/ai2_arc"):
-                    text = entry["question"] + splitter + entry["choices"]["text"][entry["answerKey"]]
+                    text = entry["question"] + splitter + entry["choices"]["text"][entry["choices"]["label"].index(entry["answerKey"])]
                 elif eval_dataset.startswith("google/boolq"):
                     text = entry["question"] + splitter + entry["question"]
                 elif eval_dataset.startswith("gsm8k"):
