@@ -40,6 +40,7 @@ if __name__ == '__main__':
     dataset_alpaca_bench = load_dataset("tatsu-lab/alpaca_eval", split="eval")
     
     print(type(dataset_alpaca_bench))
+    print(dataset_alpaca_bench)
     assert False
 
     new_dataset = {}
