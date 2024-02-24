@@ -102,7 +102,7 @@ if __name__ == '__main__':
                     print(entry["label"])
                     text = entry["goal"]
                 elif eval_dataset.startswith("cais/mmlu"):
-                    text = entry["question"] + splitter + entry["choices"][choices_list.index(entry["answer"])]
+                    text = entry["question"] + splitter + entry["choices"][choices_list.index(entry["answer"]) if entry["answer"] in choices_list else entry["answer"]]
 
             new_entry  = {"group": show_name, "text": text}
             new_dataset.append(new_entry)
