@@ -39,11 +39,17 @@ if __name__ == '__main__':
     dataset_mt_bench = load_dataset("HuggingFaceH4/mt_bench_prompts", split="train")
     dataset_alpaca_bench = load_dataset("tatsu-lab/alpaca_eval", split="eval")
     
-    print(type(dataset_alpaca_bench))
-    print(dataset_alpaca_bench)
-    assert False
-
     new_dataset = {}
+
+    for entry in dataset_mt_bench:
+        dataset = "alpaca_bench"
+        print(entry)
+        assert False
+        entry['text'] = entry['prompt']
+        if dataset not in new_dataset:
+            new_dataset[dataset] = []
+        new_dataset[dataset].append(entry)
+
     for entry in merged_dataset:
         dataset = entry["dataset"]
         entry['text'] = entry['messages']
