@@ -28,7 +28,7 @@ if __name__ == '__main__':
         return row['dataset'] not in instruction_v1_set
     def select_dataset(row):
         selected_datasets = ["oasst1", "dolly", "sharegpt", "gpt4_alpaca", "code_alpaca", "lima", 'science.scierc_ner', 'science.qasper_truncated_4000','science.evidence_inference', 'science.scitldr_aic']
-        return row['dataset'] not in selected_datasets
+        return row['dataset'] in selected_datasets
     
     dataset_v1 = load_dataset("allenai/tulu-v1-sft-mixture", split="train")
     dataset_v2 = load_dataset("allenai/tulu-v2-sft-mixture", split="train")
