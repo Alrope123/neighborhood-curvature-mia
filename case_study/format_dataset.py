@@ -48,9 +48,11 @@ if __name__ == '__main__':
         if len(names) > 2:
             subset_name = names[1]
             split_name = names[2]
+            show_name = dataset_name.replace('/', '_') + "@" + subset_name
         else:
             subset_name = None
             split_name = names[1]
+            show_name = dataset_name.replace('/', '_')
 
         print("dataset:{}\tsubset:{}\tsplit:{}".format(dataset_name, subset_name, split_name))
 
@@ -101,7 +103,7 @@ if __name__ == '__main__':
                 elif eval_dataset.startswith("cais/mmlu"):
                     text = entry["question"] + splitter + entry["choices"][choices_list.index(entry["answerKey"])]
 
-            new_entry  = {"group": eval_dataset, "text": text}
+            new_entry  = {"group": show_name, "text": text}
             new_dataset.append(new_entry)
 
         # if not args.include_answer:
@@ -167,6 +169,6 @@ if __name__ == '__main__':
         #     new_dataset.append(new_entry)
 
 
-        with open(os.path.join("/gscratch/h2lab/alrope/data/eval{}/{}.jsonl".format("_full" if args.include_answer else "", eval_dataset.replace('/', '_').split('@')[0])), 'w') as f:
+        with open(os.path.join("/gscratch/h2lab/alrope/data/eval{}/{}.jsonl".format("_full" if args.include_answer else "", show_name)), 'w') as f:
             for entry in new_dataset:
                 f.write(json.dumps(entry) + "\n")
