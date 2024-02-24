@@ -66,7 +66,7 @@ if __name__ == '__main__':
         new_dataset[dataset].append(entry)
 
     for key, value in new_dataset.items():
-        with open(os.path.join("/gscratch/h2lab/alrope/data/instruction/{}.jsonl".format(key)), 'w') as f:
+        with open(os.path.join("/gscratch/h2lab/alrope/data/instruction_v2/{}.jsonl".format(key)), 'w') as f:
             for entry in value:
                 f.write(json.dumps(entry) + "\n")
 
