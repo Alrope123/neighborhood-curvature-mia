@@ -41,15 +41,6 @@ if __name__ == '__main__':
     
     new_dataset = {}
 
-    for entry in dataset_mt_bench:
-        dataset = "alpaca_bench"
-        print(entry)
-        assert False
-        entry['text'] = entry['prompt']
-        if dataset not in new_dataset:
-            new_dataset[dataset] = []
-        new_dataset[dataset].append(entry)
-
     for entry in merged_dataset:
         dataset = entry["dataset"]
         entry['text'] = entry['messages']
@@ -60,6 +51,13 @@ if __name__ == '__main__':
 
     for entry in dataset_mt_bench:
         dataset = "mt_bench"
+        entry['text'] = entry['prompt']
+        if dataset not in new_dataset:
+            new_dataset[dataset] = []
+        new_dataset[dataset].append(entry)
+
+    for entry in dataset_mt_bench:
+        dataset = "alpaca_bench"
         entry['text'] = entry['prompt']
         if dataset not in new_dataset:
             new_dataset[dataset] = []
