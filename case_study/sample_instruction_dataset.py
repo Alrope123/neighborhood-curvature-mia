@@ -51,6 +51,7 @@ if __name__ == '__main__':
 
     for entry in dataset_mt_bench:
         dataset = "mt_bench"
+        entry["dataset"] = dataset
         entry['text'] = entry['prompt']
         del entry['prompt']
         if dataset not in new_dataset:
@@ -59,6 +60,7 @@ if __name__ == '__main__':
 
     for entry in dataset_mt_bench:
         dataset = "alpaca_bench"
+        entry["dataset"] = dataset
         entry['text'] = entry['prompt']
         del entry['prompt']
         if dataset not in new_dataset:
