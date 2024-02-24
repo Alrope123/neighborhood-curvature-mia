@@ -37,7 +37,7 @@ if __name__ == '__main__':
     merged_dataset = merged_dataset.filter(select_dataset)
 
     dataset_mt_bench = load_dataset("HuggingFaceH4/mt_bench_prompts", split="train")
-    dataset_alpaca_bench = load_dataset("tatsu-lab/alpaca_eval", split="train")
+    dataset_alpaca_bench = load_dataset("tatsu-lab/alpaca_eval", split="eval")
     
     print(type(dataset_alpaca_bench))
     assert False
