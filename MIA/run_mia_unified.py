@@ -987,7 +987,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         
 
 
-def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, data_dir=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000, instruct_model=instruct_model):
+def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, data_dir=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000, instruct_model=None):
     random.seed(2023)
     np.random.seed(2023)
     metadata = None
