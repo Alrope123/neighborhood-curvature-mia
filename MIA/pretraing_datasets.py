@@ -8,11 +8,72 @@ from tqdm import tqdm
 import numpy as np
 from datasets import load_dataset, concatenate_datasets
 
-DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'wikipedia_month', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book', 'language', 'instruction_v1', 'instruction_v2', 'instruction_human', 'instruction+cot', 'instruction+flan_v2', 'instruction+dolly', 'instruction+oasst1', 'instruction+code_alpaca', 'instruction+gpt4_alpaca', 'instruction+sharegpt', "license_ccby", "license_sw", "license_pd", "wikipedia_anchor", "lyrics", "nytimes"]
+DATASETS = ['rpj-arxiv', 'wikipedia', 'wikipedia_noisy', 'wikipedia_month', 'rpj-arxiv_noisy', 'rpj-arxiv_month', 'rpj-book', 'language', 'instruction_v1', 'instruction_v2', 'instruction_human', 'instruction+cot', 'instruction+flan_v2', 'instruction+dolly', 'instruction+oasst1', 'instruction+code_alpaca', 'instruction+gpt4_alpaca', 'instruction+sharegpt', "license_ccby", "license_sw", "license_pd", "wikipedia_anchor", "lyrics", "nytimes", "contamination", "tuning"]
 cache_dir = "cache"
 os.environ['HF_HOME'] = cache_dir
 os.environ['HF_DATASETS_CACHE'] = os.path.join(cache_dir, "datasets")
 os.environ['TRANSFORMERS_CACHE'] = os.path.join(cache_dir, "transformers")
+
+def format_instruct_data(instructions, instruct_model):
+    text = ""
+    for i, instruction in enumerate(instructions):
+        if instruct_model.startswith("allenai/tulu"):
+            text += "<|{}|>\n{}\n".format(instruction["role"], instruction["content"])
+        elif instruct_model.startswith("WizardLM/WizardLM-13B"):
+            text += "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. "
+            if instruction["role"] == "user":
+                text += "USER: {} ".format(instruction["content"])
+            elif instruction["role"] == "assistant":
+                text += "ASSISTANT: {}</s>".format(instruction["content"])
+            else:
+                raise NotImplementedError("Unrecognized role.")
+            text += "\n"
+        elif instruct_model.startswith("mistralai/Mistral-7B-Instruct"):
+            text += "<s>"
+            if instruction["role"] == "user":
+                text += "[INST] {} [/INST]".format(instruction["content"])
+            elif instruction["role"] == "assistant":
+                text += "{}</s>".format(instruction["content"])
+            else:
+                raise NotImplementedError("Unrecognized role.")
+            text += "\n"
+        elif instruct_model.startswith("mistralai/Mistral-7B-Instruct"):
+            text += "<s>"
+            if instruction["role"] == "user":
+                text += "[INST] {} [/INST]".format(instruction["content"])
+            elif instruction["role"] == "assistant":
+                text += "{}</s>".format(instruction["content"])
+            else:
+                raise NotImplementedError("Unrecognized role.")
+            text += "\n"
+        elif instruct_model.startswith("meta-llama/Llama-2-7b-chat"):
+            text += "<s>[INST] <<SYS>>\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\n\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.\n<</SYS>>\n\n"
+            if instruction["role"] == "user":
+                text += "{}{} [/INST] ".format("<s>[INST] " if i != 1 else "", instruction["content"])
+            elif instruction["role"] == "assistant":
+                text += "{}</s>".format(instruction["content"])
+            else:
+                raise NotImplementedError("Unrecognized role.")
+            text += "\n"
+        elif instruct_model.startswith("lmsys/vicuna"):
+            text += "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.\n\n"
+            if instruction["role"] == "user":
+                text += "USER: {}\n".format(instruction["content"])
+            elif instruction["role"] == "assistant":
+                text += "ASSISTANT: {}</s>\n".format(instruction["content"])
+            else:
+                raise NotImplementedError("Unrecognized role.")
+        elif instruct_model.startswith("mine/alpaca"):
+            text += "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n"
+            if instruction["role"] == "user":
+                text += "\n### Instruction: {}\n\n".format(instruction["content"])
+            elif instruction["role"] == "assistant":
+                text += "### Response: {}\n".format(instruction["content"])
+            else:
+                raise NotImplementedError("Unrecognized role.")
+        else:
+            raise NotImplementedError("Unrecognized role.")
+
 
 def iterate_files(root_dir):
     file_paths = []
@@ -53,7 +114,7 @@ def sample_group(membership_info, n_group=100, n_document_per_group=30, train=Tr
     return selected_data
 
 
-def load_my_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30): 
+def load_my_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None, n_group=100, n_document_per_group=30, instruct_model=None): 
     selected_data = sample_group(membership_info, n_group, n_document_per_group, train)
     
     data = [] 
@@ -64,7 +125,10 @@ def load_my_dataset(membership_info, data_dir=None, train=True, SAVE_FOLDER=None
                 if (filename, i) in selected_data:
                     dp = json.loads(line)      
                     meta_data.append((filename, i))
-                    data.append(dp['text'])
+                    if not instruct_model:
+                        data.append(dp['text'])
+                    else:
+                        data.append(format_instruct_data(dp['text'], instruct_model))
     assert len(data) == len(selected_data), (len(data), len(selected_data))
     return data, meta_data
 
@@ -98,7 +162,7 @@ def load_dataset_huggingface(membership_info, data_dir=None, train=True, SAVE_FO
     return data, meta_data
 
 
-def load(name, data_dir, membership_path, verbose=True, n_group=100, n_document_per_group=30, train=True, SAVE_FOLDER=None):
+def load(name, data_dir, membership_path, verbose=True, n_group=100, n_document_per_group=30, train=True, SAVE_FOLDER=None, instruct_model=None):
 
     if name in DATASETS:
         if verbose:
@@ -108,6 +172,6 @@ def load(name, data_dir, membership_path, verbose=True, n_group=100, n_document_
         # if name.startswith("instruction"):
         #     return load_dataset_huggingface(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
         # else:
-        return load_my_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER) 
+        return load_my_dataset(membership_info, data_dir=data_dir, n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER, instruct_model=instruct_model) 
     else:
         raise ValueError(f'Unknown dataset {name}')

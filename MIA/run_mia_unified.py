@@ -987,7 +987,7 @@ def sample_segment(text, tokenizer_base, tokenizer_ref, max_length, strategy='ra
         
 
 
-def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, data_dir=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000):
+def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, data_dir=None, membership_path=None, n_group=100, n_document_per_group=30, max_length=100000, instruct_model=instruct_model):
     random.seed(2023)
     np.random.seed(2023)
     metadata = None
@@ -998,7 +998,7 @@ def generate_data(dataset,key,train=True, strategy='random', SAVE_FOLDER=None, d
     elif dataset in pretraing_datasets.DATASETS:
         data, metadata = pretraing_datasets.load(dataset, data_dir=data_dir,
             membership_path=membership_path,
-            n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER)
+            n_group=n_group, n_document_per_group=n_document_per_group, train=train, SAVE_FOLDER=SAVE_FOLDER, instruct_model=instruct_model)
         assert len(data) == len(metadata)
     elif dataset == 'the_pile' and data_split=='train':
         #data_files = "https://www.cs.cmu.edu/~enron/enron_mail_20150507.tar.gz"
@@ -1393,17 +1393,29 @@ if __name__ == '__main__':
     print(f'The longest tokenizable length of is {longest_tokenizable_len}.')
     if args.max_length:
         assert args.max_length <= longest_tokenizable_len
+
+    if args.dataset_member == "tuning":
+        instruct_model_member = args.base_model_name
+    else:
+        instruct_model_member = None
+    if args.dataset_nonmember == "tuning":
+        instruct_model_nonmember = args.base_model_name
+    else:
+        instruct_model_nonmember = None
+        
     
     data_member, metadata_member = generate_data(args.dataset_member,args.dataset_member_key, train=True, 
                                                  strategy=args.strategy, n_group=args.n_group_member, 
                                                  n_document_per_group=args.n_document_per_group, 
                                                  SAVE_FOLDER=SAVE_FOLDER, data_dir=args.data_dir, membership_path=args.membership_path, 
-                                                 max_length=args.max_length if args.max_length else longest_tokenizable_len)
+                                                 max_length=args.max_length if args.max_length else longest_tokenizable_len,
+                                                 instruct_model=instruct_model_member)
     data_nonmember, metadata_nonmember = generate_data(args.dataset_nonmember, args.dataset_nonmember_key, train=False, 
                                                        strategy=args.strategy, n_group=args.n_group_nonmember, 
                                                        n_document_per_group=args.n_document_per_group, 
                                                        SAVE_FOLDER=SAVE_FOLDER, data_dir=args.data_dir, membership_path=args.membership_path, 
-                                                       max_length=args.max_length if args.max_length else longest_tokenizable_len)
+                                                       max_length=args.max_length if args.max_length else longest_tokenizable_len,
+                                                       instruct_model=instruct_model_nonmember)
 
     # assert len(data_member) == len(data_nonmember)
     print(f'Loaded {len(data_member)} members and {len(data_nonmember)} non-members.')

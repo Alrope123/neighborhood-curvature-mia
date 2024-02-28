@@ -54,6 +54,7 @@ if __name__ == '__main__':
         entry["dataset"] = dataset
         entry['text'] = entry['prompt']
         del entry['prompt']
+        entry["text"] = [{"role": "user", "content": text} for text in entry["text"]]
         if dataset not in new_dataset:
             new_dataset[dataset] = []
         new_dataset[dataset].append(entry)
@@ -63,6 +64,7 @@ if __name__ == '__main__':
         entry["dataset"] = dataset
         entry['text'] = entry['prompt']
         del entry['prompt']
+        entry["text"] = [{"role": "user", "content": text} for text in entry["text"]]
         if dataset not in new_dataset:
             new_dataset[dataset] = []
         new_dataset[dataset].append(entry)
