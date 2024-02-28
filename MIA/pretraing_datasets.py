@@ -72,7 +72,7 @@ def format_instruct_data(instructions, instruct_model):
             else:
                 raise NotImplementedError("Unrecognized role.")
         else:
-            raise NotImplementedError("Unrecognized role.")
+            raise NotImplementedError("Unrecognized model.")
 
 
 def iterate_files(root_dir):
