@@ -394,9 +394,9 @@ if __name__ == '__main__':
 
         final_result = {}
         final_result["threshold"] = threshold
-        for group, loss in cur_member_predictions.items():
+        for (group, loss) in cur_member_predictions:
             final_result[group] = (loss, "member")
-        for group, loss in cur_nonmember_predictions.items():
+        for (group, loss) in cur_nonmember_predictions:
             final_result[group] = (loss, "nonmember")
 
         with open(os.path.join(SAVE_FOLDER, "final_prediction.json"), 'w') as f:
