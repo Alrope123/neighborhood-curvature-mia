@@ -360,7 +360,7 @@ if __name__ == '__main__':
             else:
                 cur_nonmember_predictions.append((group, group_loss))
         
-        if len(cur_member_predictions) > 0:
+        if len(cur_member_predictions) > 0 and len(cur_nonmember_predictions) > 0:
             draw_histogram([loss for (_, loss) in cur_member_predictions], [loss for (_, loss) in cur_nonmember_predictions], "Group Losses", 0.05, SAVE_FOLDER)
         
             groups = [group for group, _ in cur_member_predictions] + [group for group, _ in cur_nonmember_predictions]
@@ -376,8 +376,10 @@ if __name__ == '__main__':
 
             plt.tight_layout()
             plt.savefig(f"{SAVE_FOLDER}/membership_distribution.png")
-        else:
+        elif len(cur_nonmember_predictions) > 0:
             print("All non-members!")
+        elif len(cur_member_predictions) > 0:
+            print("All members!")
 
         final_result = {}
         final_result["threshold"] = threshold
