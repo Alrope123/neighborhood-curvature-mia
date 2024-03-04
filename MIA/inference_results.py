@@ -196,7 +196,7 @@ if __name__ == '__main__':
     parser.add_argument('--out_dir', type=str, default="/gscratch/h2lab/alrope/neighborhood-curvature-mia/results/unified_mia/EleutherAI_gpt-neo-2.7B-main-t5-large-temp/fp32-0.3-1-wikipedia-wikipedia-5000--ref_gpt2-xl--m2000--tok_false/")
     parser.add_argument('--keys', nargs="+", default="crit")
     parser.add_argument('--top_k', type=int, default=50)
-    parser.add_argument('--threshold', type=float, default=0.5)
+    parser.add_argument('--threshold', type=float, default=None)
     parser.add_argument('--random_groups', type=int, default=1)  
 
     args = parser.parse_args()
