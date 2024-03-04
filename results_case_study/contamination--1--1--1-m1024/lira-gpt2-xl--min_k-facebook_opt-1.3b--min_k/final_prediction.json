@@ -1,0 +1,35 @@
+{
+    "threshold": -0.18949928641319275,
+    "gsm8k": [
+        -0.012886340321467028,
+        "member"
+    ],
+    "cais_mmlu": [
+        0.14006767046845706,
+        "member"
+    ],
+    "lambada": [
+        -0.1080486139647363,
+        "member"
+    ],
+    "openbookqa": [
+        0.079475876802433,
+        "member"
+    ],
+    "allenai_ai2_arc": [
+        0.12781350055493806,
+        "member"
+    ],
+    "google_boolq": [
+        -0.8023845607551021,
+        "nonmember"
+    ],
+    "piqa": [
+        NaN,
+        "nonmember"
+    ],
+    "natural_questions": [
+        -0.40199642303968147,
+        "nonmember"
+    ]
+}

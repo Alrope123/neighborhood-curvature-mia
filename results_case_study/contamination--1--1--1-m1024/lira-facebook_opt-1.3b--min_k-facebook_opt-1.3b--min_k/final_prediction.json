@@ -1,0 +1,35 @@
+{
+    "threshold": 1.0,
+    "cais_mmlu": [
+        0.0,
+        "nonmember"
+    ],
+    "lambada": [
+        0.0,
+        "nonmember"
+    ],
+    "allenai_ai2_arc": [
+        0.0,
+        "nonmember"
+    ],
+    "openbookqa": [
+        0.0,
+        "nonmember"
+    ],
+    "gsm8k": [
+        0.0,
+        "nonmember"
+    ],
+    "piqa": [
+        0.0,
+        "nonmember"
+    ],
+    "google_boolq": [
+        0.0,
+        "nonmember"
+    ],
+    "natural_questions": [
+        0.0,
+        "nonmember"
+    ]
+}
