@@ -400,4 +400,4 @@ if __name__ == '__main__':
             final_result[group] = (loss, "nonmember")
 
         with open(os.path.join(SAVE_FOLDER, "final_prediction.json"), 'w') as f:
-            result = json.dump(final_result, f)
+            result = json.dump(final_result, f, indent=4)
