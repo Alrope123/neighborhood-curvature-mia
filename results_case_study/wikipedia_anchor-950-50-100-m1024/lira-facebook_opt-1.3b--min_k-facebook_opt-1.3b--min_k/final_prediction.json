@@ -1,10 +1,6 @@
 {
     "threshold": 1.0,
-    "cais_mmlu@high_school_us_history": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@virology": [
+    "cais_mmlu": [
         0.0,
         "nonmember"
     ],
@@ -12,43 +8,7 @@
         0.0,
         "nonmember"
     ],
-    "cais_mmlu@security_studies": [
-        0.0,
-        "nonmember"
-    ],
-    "allenai_ai2_arc@ARC-Easy": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_computer_science": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@college_mathematics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@conceptual_physics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@us_foreign_policy": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_world_history": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@electrical_engineering": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@computer_security": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_government_and_politics": [
+    "allenai_ai2_arc": [
         0.0,
         "nonmember"
     ],
@@ -56,35 +16,7 @@
         0.0,
         "nonmember"
     ],
-    "cais_mmlu@sociology": [
-        0.0,
-        "nonmember"
-    ],
-    "gsm8k@main": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@professional_psychology": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@marketing": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@management": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@moral_scenarios": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@abstract_algebra": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_chemistry": [
+    "gsm8k": [
         0.0,
         "nonmember"
     ],
@@ -92,167 +24,11 @@
         0.0,
         "nonmember"
     ],
-    "cais_mmlu@college_physics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@global_facts": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_physics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_statistics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@college_computer_science": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@jurisprudence": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@prehistory": [
-        0.0,
-        "nonmember"
-    ],
     "google_boolq": [
         0.0,
         "nonmember"
     ],
-    "cais_mmlu@high_school_microeconomics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@public_relations": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@formal_logic": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@clinical_knowledge": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@miscellaneous": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@astronomy": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@professional_accounting": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@machine_learning": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_european_history": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_biology": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@college_medicine": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_mathematics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@logical_fallacies": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@professional_law": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@human_aging": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@world_religions": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@nutrition": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_geography": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@professional_medicine": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@college_chemistry": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@econometrics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@moral_disputes": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@college_biology": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@medical_genetics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@anatomy": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_macroeconomics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@philosophy": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@high_school_psychology": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@elementary_mathematics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@business_ethics": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@human_sexuality": [
-        0.0,
-        "nonmember"
-    ],
-    "cais_mmlu@international_law": [
-        0.0,
-        "nonmember"
-    ],
-    "natural_questions@default": [
+    "natural_questions": [
         0.0,
         "nonmember"
     ]
