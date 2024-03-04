@@ -326,30 +326,17 @@ if __name__ == '__main__':
         # print("Average # document in member group: {}/{}".format(np.mean([len(members) for _, members in group_results_members.items()]), np.std([len(members) for _, members in group_results_members.items()])))
         # print("Average # document in nonmember group: {}/{}".format(np.mean([len(members) for _, members in group_results_nonmembers.items()]), np.std([len(members) for _, members in group_results_nonmembers.items()])))
 
-        original_group_results_members = {}
-        original_group_results_nonmembers = {}
-        # Randomly shuffle predictions
-        for group, predictions in group_results_members.items():
-            if len(predictions) >= max_top_k:
-                random.shuffle(predictions)
-                original_group_results_members[group] = predictions
-        for group, predictions in group_results_nonmembers.items():
-            if len(predictions) >= max_top_k:
-                random.shuffle(predictions)
-                original_group_results_nonmembers[group] = predictions
-
-
         aggregated_method = "mean"
     
 
         qualified_group_results_members = {}
         qualified_group_results_nonmembers = {}
-        for group, predictions in original_group_results_members.items():
-            if len(predictions) >= max_top_k:
-                qualified_group_results_members[group] = predictions[: max_top_k]
-        for group, predictions in original_group_results_nonmembers.items():
-            if len(predictions) >= max_top_k:           
-                qualified_group_results_nonmembers[group] = predictions[: max_top_k]
+        for group, predictions in group_results_members.items():
+            random.shuffle(predictions)
+            qualified_group_results_members[group] = predictions[: max_top_k]
+        for group, predictions in group_results_nonmembers.items():
+            random.shuffle(predictions)           
+            qualified_group_results_nonmembers[group] = predictions[: max_top_k]
         # group_results_members, group_results_nonmembers = make_dicts_equal(qualified_group_results_members, qualified_group_results_nonmembers)
         group_results_members = qualified_group_results_members
         group_results_nonmembers = qualified_group_results_nonmembers
