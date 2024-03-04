@@ -361,7 +361,7 @@ if __name__ == '__main__':
                 cur_nonmember_predictions.append((group, group_loss))
         
         if len(cur_member_predictions) > 0:
-            draw_histogram(cur_member_predictions, cur_nonmember_predictions, "Group Losses", 0.05, SAVE_FOLDER)
+            draw_histogram([loss for (_, loss) in cur_member_predictions], [loss for (_, loss) in cur_nonmember_predictions], "Group Losses", 0.05, SAVE_FOLDER)
         
             groups = [group for group, _ in cur_member_predictions] + [group for group, _ in cur_nonmember_predictions]
             groups = sorted(groups)
