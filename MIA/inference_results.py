@@ -365,6 +365,7 @@ if __name__ == '__main__':
             groups = sorted(groups)
             groups_to_present = [1 if group in [group for group, _ in cur_member_predictions] else 0]
             plt.figure(figsize=(10, 2))  # Adjust the figure size as needed
+            print((len(groups), len(groups_to_present)))
             plt.scatter(groups, groups_to_present, c=groups_to_present, cmap='viridis', alpha=0.6)
             plt.yticks([0, 1], ['Non-member', 'Member'])  # Set the y-ticks to show 'Failure' and 'Success'
             plt.xlabel('Date')
