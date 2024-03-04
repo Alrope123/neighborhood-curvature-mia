@@ -1,259 +1,259 @@
 {
     "threshold": 0.5,
     "gsm8k@main": [
-        1.0,
-        "member"
+        0.08240446507116732,
+        "nonmember"
     ],
     "cais_mmlu@high_school_chemistry": [
-        1.0,
-        "member"
+        0.013030628166576423,
+        "nonmember"
     ],
     "google_boolq": [
-        1.0,
-        "member"
+        -0.2628934851623376,
+        "nonmember"
     ],
     "cais_mmlu@security_studies": [
-        1.0,
-        "member"
+        0.09009296679105915,
+        "nonmember"
     ],
     "cais_mmlu@college_mathematics": [
-        1.0,
-        "member"
+        0.16394213474158084,
+        "nonmember"
     ],
     "cais_mmlu@prehistory": [
-        1.0,
-        "member"
+        0.20412713787504025,
+        "nonmember"
     ],
     "piqa": [
-        1.0,
-        "member"
+        NaN,
+        "nonmember"
     ],
     "cais_mmlu@computer_security": [
-        1.0,
-        "member"
+        0.04078414945891409,
+        "nonmember"
     ],
     "cais_mmlu@high_school_statistics": [
-        1.0,
-        "member"
+        0.10212334976639859,
+        "nonmember"
     ],
     "cais_mmlu@electrical_engineering": [
-        1.0,
-        "member"
+        -0.05269532733493381,
+        "nonmember"
     ],
     "cais_mmlu@management": [
-        1.0,
-        "member"
+        0.0797737345975988,
+        "nonmember"
     ],
     "cais_mmlu@marketing": [
-        1.0,
-        "member"
+        0.03837909718951442,
+        "nonmember"
     ],
     "cais_mmlu@college_computer_science": [
-        1.0,
-        "member"
+        0.13955598888975201,
+        "nonmember"
     ],
     "cais_mmlu@high_school_physics": [
-        1.0,
-        "member"
+        0.028948891957600913,
+        "nonmember"
     ],
     "cais_mmlu@high_school_government_and_politics": [
-        1.0,
-        "member"
+        0.1824043206870556,
+        "nonmember"
     ],
     "cais_mmlu@high_school_computer_science": [
-        1.0,
-        "member"
+        0.20564409458275998,
+        "nonmember"
     ],
     "cais_mmlu@professional_psychology": [
-        1.0,
-        "member"
+        -0.0028412299148384756,
+        "nonmember"
     ],
     "cais_mmlu@high_school_microeconomics": [
-        1.0,
-        "member"
+        0.21409648078403393,
+        "nonmember"
     ],
     "lambada": [
-        1.0,
-        "member"
+        -0.1080486139647363,
+        "nonmember"
     ],
     "cais_mmlu@global_facts": [
-        1.0,
-        "member"
+        0.10189187285876034,
+        "nonmember"
     ],
     "cais_mmlu@jurisprudence": [
-        1.0,
-        "member"
+        0.10787431101932704,
+        "nonmember"
     ],
     "cais_mmlu@high_school_world_history": [
-        1.0,
-        "member"
+        0.10579565167427063,
+        "nonmember"
     ],
     "cais_mmlu@us_foreign_policy": [
-        1.0,
-        "member"
+        0.2403390190818093,
+        "nonmember"
     ],
     "cais_mmlu@conceptual_physics": [
-        1.0,
-        "member"
+        0.02808058567536183,
+        "nonmember"
     ],
     "cais_mmlu@high_school_us_history": [
-        1.0,
-        "member"
+        0.16699765644637235,
+        "nonmember"
     ],
     "openbookqa": [
-        1.0,
-        "member"
+        0.023887033691864932,
+        "nonmember"
     ],
     "allenai_ai2_arc@ARC-Easy": [
-        1.0,
-        "member"
+        0.09780905306966681,
+        "nonmember"
     ],
     "cais_mmlu@virology": [
-        1.0,
-        "member"
+        0.09434855490019828,
+        "nonmember"
     ],
     "cais_mmlu@sociology": [
-        1.0,
-        "member"
+        0.22394054174423217,
+        "nonmember"
     ],
     "cais_mmlu@college_physics": [
-        1.0,
-        "member"
+        -0.04188780973453333,
+        "nonmember"
     ],
     "cais_mmlu@abstract_algebra": [
-        1.0,
-        "member"
+        0.19142203379159023,
+        "nonmember"
     ],
     "cais_mmlu@moral_scenarios": [
-        1.0,
-        "member"
+        0.08454106744770502,
+        "nonmember"
     ],
     "cais_mmlu@high_school_psychology": [
-        1.0,
-        "member"
+        0.2010465529473389,
+        "nonmember"
     ],
     "cais_mmlu@high_school_macroeconomics": [
-        1.0,
-        "member"
+        0.2010943445264527,
+        "nonmember"
     ],
     "cais_mmlu@anatomy": [
-        1.0,
-        "member"
+        0.17587500276850232,
+        "nonmember"
     ],
     "cais_mmlu@business_ethics": [
-        1.0,
-        "member"
+        0.03699864763202089,
+        "nonmember"
     ],
     "cais_mmlu@human_aging": [
-        1.0,
-        "member"
+        0.1104845877166267,
+        "nonmember"
     ],
     "cais_mmlu@formal_logic": [
-        1.0,
-        "member"
+        0.22689640998840332,
+        "nonmember"
     ],
     "cais_mmlu@logical_fallacies": [
-        1.0,
-        "member"
+        0.06404910117019842,
+        "nonmember"
     ],
     "cais_mmlu@college_biology": [
-        1.0,
-        "member"
+        0.13212580780882935,
+        "nonmember"
     ],
     "cais_mmlu@human_sexuality": [
-        1.0,
-        "member"
+        0.20109375990354098,
+        "nonmember"
     ],
     "cais_mmlu@world_religions": [
-        1.0,
-        "member"
+        0.17085533422582289,
+        "nonmember"
     ],
     "cais_mmlu@medical_genetics": [
-        1.0,
-        "member"
+        0.18394108733745537,
+        "nonmember"
     ],
     "cais_mmlu@moral_disputes": [
-        1.0,
-        "member"
+        0.3350506367890731,
+        "nonmember"
     ],
     "cais_mmlu@public_relations": [
-        1.0,
-        "member"
+        0.04384036239134062,
+        "nonmember"
     ],
     "cais_mmlu@elementary_mathematics": [
-        1.0,
-        "member"
+        0.21204222418585253,
+        "nonmember"
     ],
     "cais_mmlu@philosophy": [
-        1.0,
-        "member"
+        0.15592965156801286,
+        "nonmember"
     ],
     "cais_mmlu@econometrics": [
-        1.0,
-        "member"
+        0.15697506993217805,
+        "nonmember"
     ],
     "cais_mmlu@high_school_biology": [
-        1.0,
-        "member"
+        0.15538162938213657,
+        "nonmember"
     ],
     "cais_mmlu@clinical_knowledge": [
-        1.0,
-        "member"
+        0.2288618471586343,
+        "nonmember"
     ],
     "cais_mmlu@machine_learning": [
-        1.0,
-        "member"
+        0.17084924165193024,
+        "nonmember"
     ],
     "cais_mmlu@college_medicine": [
-        1.0,
-        "member"
+        0.15942649162092873,
+        "nonmember"
     ],
     "cais_mmlu@high_school_geography": [
-        1.0,
-        "member"
+        0.09611067190993255,
+        "nonmember"
     ],
     "cais_mmlu@miscellaneous": [
-        1.0,
-        "member"
+        0.08437797922612456,
+        "nonmember"
     ],
     "cais_mmlu@astronomy": [
-        1.0,
-        "member"
+        0.13456580023102413,
+        "nonmember"
     ],
     "cais_mmlu@nutrition": [
-        1.0,
-        "member"
+        0.2726675893439621,
+        "nonmember"
     ],
     "cais_mmlu@high_school_mathematics": [
-        1.0,
-        "member"
+        0.22819142004814288,
+        "nonmember"
     ],
     "cais_mmlu@professional_accounting": [
-        1.0,
-        "member"
+        -0.013755150112817296,
+        "nonmember"
     ],
     "cais_mmlu@high_school_european_history": [
-        1.0,
-        "member"
+        0.15379890508768035,
+        "nonmember"
     ],
     "cais_mmlu@international_law": [
-        1.0,
-        "member"
+        0.2734295884768168,
+        "nonmember"
     ],
     "cais_mmlu@professional_law": [
-        1.0,
-        "member"
+        0.013292684013829539,
+        "nonmember"
     ],
     "natural_questions@default": [
-        1.0,
-        "member"
+        -0.40199642303968147,
+        "nonmember"
     ],
     "cais_mmlu@college_chemistry": [
-        1.0,
-        "member"
+        0.0045053573569866145,
+        "nonmember"
     ],
     "cais_mmlu@professional_medicine": [
-        1.0,
-        "member"
+        0.13226391600506773,
+        "nonmember"
     ]
 }
