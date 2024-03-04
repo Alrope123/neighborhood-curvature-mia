@@ -19,7 +19,7 @@ def format_instruct_data(instructions, instruct_model):
     for i, instruction in enumerate(instructions):
         if instruct_model.startswith("allenai/tulu"):
             text += "<|{}|>\n{}\n".format(instruction["role"], instruction["content"])
-        elif instruct_model.startswith("WizardLM/WizardLM-13B"):
+        elif instruct_model.startswith("WizardLM/WizardLM"):
             text += "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. "
             if instruction["role"] == "user":
                 text += "USER: {} ".format(instruction["content"])
@@ -28,7 +28,7 @@ def format_instruct_data(instructions, instruct_model):
             else:
                 raise NotImplementedError("Unrecognized role.")
             text += "\n"
-        elif instruct_model.startswith("mistralai/Mistral-7B-Instruct"):
+        elif instruct_model.startswith("mistralai/Mistral"):
             text += "<s>"
             if instruction["role"] == "user":
                 text += "[INST] {} [/INST]".format(instruction["content"])
@@ -37,16 +37,7 @@ def format_instruct_data(instructions, instruct_model):
             else:
                 raise NotImplementedError("Unrecognized role.")
             text += "\n"
-        elif instruct_model.startswith("mistralai/Mistral-7B-Instruct"):
-            text += "<s>"
-            if instruction["role"] == "user":
-                text += "[INST] {} [/INST]".format(instruction["content"])
-            elif instruction["role"] == "assistant":
-                text += "{}</s>".format(instruction["content"])
-            else:
-                raise NotImplementedError("Unrecognized role.")
-            text += "\n"
-        elif instruct_model.startswith("meta-llama/Llama-2-7b-chat"):
+        elif instruct_model.startswith("meta-llama/Llama-2"):
             text += "<s>[INST] <<SYS>>\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\n\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.\n<</SYS>>\n\n"
             if instruction["role"] == "user":
                 text += "{}{} [/INST] ".format("<s>[INST] " if i != 1 else "", instruction["content"])
