@@ -3,10 +3,10 @@
     "number of groups": 12,
     "number of member group": 6,
     "number of non-member group": 6,
-    "average number of documents in member group": 9821.833333333334,
-    "std number of documents in member group": 12788.882599308232,
+    "average number of documents in member group": 846.6666666666666,
+    "std number of documents in member group": 342.8637565499678,
     "number of member group with over 100 documents": 5,
-    "average number of documents in non-member group": 39710.833333333336,
-    "std number of documents in non-member group": 60534.91113788986,
+    "average number of documents in non-member group": 738.1666666666666,
+    "std number of documents in non-member group": 378.34306154893636,
     "number of non-member group with over 100 documents": 5
 }
