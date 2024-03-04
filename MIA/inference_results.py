@@ -373,21 +373,24 @@ if __name__ == '__main__':
             else:
                 cur_nonmember_predictions.append((group, group_loss))
         
-        draw_histogram(cur_member_predictions, cur_nonmember_predictions, "Group Losses", 0.05, SAVE_FOLDER)
+        if len(cur_member_predictions) > 0:
+            draw_histogram(cur_member_predictions, cur_nonmember_predictions, "Group Losses", 0.05, SAVE_FOLDER)
         
-        groups = [group for group, _ in cur_member_predictions] + [group for group, _ in cur_nonmember_predictions]
-        groups = sorted(groups)
-        groups_to_present = [1 if group in [group for group, _ in cur_member_predictions] else 0]
-        plt.figure(figsize=(10, 2))  # Adjust the figure size as needed
-        plt.scatter(groups, groups_to_present, c=groups_to_present, cmap='viridis', alpha=0.6)
-        plt.yticks([0, 1], ['Non-member', 'Member'])  # Set the y-ticks to show 'Failure' and 'Success'
-        plt.xlabel('Date')
-        plt.ylabel('Membership')
-        plt.title('Distribution of Members')
-        plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+            groups = [group for group, _ in cur_member_predictions] + [group for group, _ in cur_nonmember_predictions]
+            groups = sorted(groups)
+            groups_to_present = [1 if group in [group for group, _ in cur_member_predictions] else 0]
+            plt.figure(figsize=(10, 2))  # Adjust the figure size as needed
+            plt.scatter(groups, groups_to_present, c=groups_to_present, cmap='viridis', alpha=0.6)
+            plt.yticks([0, 1], ['Non-member', 'Member'])  # Set the y-ticks to show 'Failure' and 'Success'
+            plt.xlabel('Date')
+            plt.ylabel('Membership')
+            plt.title('Distribution of Members')
+            plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 
-        plt.tight_layout()
-        plt.savefig(f"{SAVE_FOLDER}/membership_distribution.png")
+            plt.tight_layout()
+            plt.savefig(f"{SAVE_FOLDER}/membership_distribution.png")
+        else:
+            print("All non-members!")
 
         final_result = {}
         final_result["threshold"] = threshold
