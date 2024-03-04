@@ -1,5 +1,5 @@
 {
-    "threshold": 0.5,
+    "threshold": 1.0,
     "cais_mmlu@high_school_us_history": [
         0.0,
         "nonmember"
