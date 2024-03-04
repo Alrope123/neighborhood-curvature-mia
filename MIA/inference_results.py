@@ -348,6 +348,9 @@ if __name__ == '__main__':
         for group, predictions in group_results_members.items():
             scores = [score for (_, _, score, _) in group_to_documents[group]['documents']]
             group_loss = calculate_group_loss(scores, aggregated_method, "min", max_top_k)
+            print(scores)
+            print(group_loss)
+            assert False
             if group_loss > threshold:
                 cur_member_predictions.append((group, group_loss))
             else:
