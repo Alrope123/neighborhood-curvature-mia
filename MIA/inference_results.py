@@ -363,7 +363,7 @@ if __name__ == '__main__':
         
             groups = [group for group, _ in cur_member_predictions] + [group for group, _ in cur_nonmember_predictions]
             groups = sorted(groups)
-            groups_to_present = [1 if group in [group for group, _ in cur_member_predictions] else 0]
+            groups_to_present = [1 if group in [group for group, _ in cur_member_predictions] else 0 for group in groups]
             plt.figure(figsize=(10, 2))  # Adjust the figure size as needed
             print((len(groups), len(groups_to_present)))
             plt.scatter(groups, groups_to_present, c=groups_to_present, cmap='viridis', alpha=0.6)
