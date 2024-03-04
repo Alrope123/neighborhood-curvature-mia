@@ -69,6 +69,11 @@ if __name__ == '__main__':
             new_dataset[dataset] = []
         new_dataset[dataset].append(entry)
 
+    # Downsampling
+    for dataset, prompts in new_dataset.items():
+        random.shuffle(prompts)
+        new_dataset[dataset] = prompts[:1000]
+
     for key, value in new_dataset.items():
         with open(os.path.join("/gscratch/h2lab/alrope/data/instruction_v2/{}.jsonl".format(key)), 'w') as f:
             for entry in value:
