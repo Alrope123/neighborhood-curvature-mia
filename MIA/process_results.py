@@ -376,6 +376,8 @@ if __name__ == '__main__':
                                 cur_nonmember_predictions.append(group_loss)
                         
                         fpr, tpr, thresholds, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
+                        cur_nonmember_predictions = [prediction for prediction in cur_nonmember_predictions if prediction]
+                        cur_member_predictions = [prediction for prediction in cur_member_predictions if prediction]
                         average_cur_nonmember = np.mean(cur_nonmember_predictions)
                         std_cur_nonmember = np.std(cur_nonmember_predictions)
                         average_cur_member = np.mean(cur_member_predictions)
