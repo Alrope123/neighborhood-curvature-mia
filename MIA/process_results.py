@@ -382,6 +382,10 @@ if __name__ == '__main__':
                         std_cur_nonmember = np.std(cur_nonmember_predictions)
                         average_cur_member = np.mean(cur_member_predictions)
                         std_cur_member = np.std(cur_member_predictions)
+                        assert average_cur_member
+                        assert std_cur_member
+                        assert average_cur_nonmember
+                        assert std_cur_nonmember
                         threshold = None
                         tpr_is = None
                         for i, rate in enumerate(fpr):
