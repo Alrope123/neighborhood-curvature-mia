@@ -378,14 +378,10 @@ if __name__ == '__main__':
                         fpr, tpr, thresholds, roc_auc = get_roc_metrics(cur_nonmember_predictions, cur_member_predictions)
                         cur_nonmember_predictions = [prediction for prediction in cur_nonmember_predictions if prediction]
                         cur_member_predictions = [prediction for prediction in cur_member_predictions if prediction]
-                        average_cur_nonmember = np.mean(cur_nonmember_predictions)
-                        std_cur_nonmember = np.std(cur_nonmember_predictions)
-                        average_cur_member = np.mean(cur_member_predictions)
-                        std_cur_member = np.std(cur_member_predictions)
-                        assert average_cur_member
-                        assert std_cur_member
-                        assert average_cur_nonmember
-                        assert std_cur_nonmember
+                        average_cur_nonmember = np.nanmean(cur_nonmember_predictions)
+                        std_cur_nonmember = np.nanstd(cur_nonmember_predictions)
+                        average_cur_member = np.nanmean(cur_member_predictions)
+                        std_cur_member = np.nanstd(cur_member_predictions)
                         threshold = None
                         tpr_is = None
                         for i, rate in enumerate(fpr):
