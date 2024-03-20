@@ -241,7 +241,7 @@ if __name__ == '__main__':
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
-        fpr, tpr, thresholds, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
+        individual_fpr, tpr, thresholds, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
         # Draw log likehood histogram on individual documents
         # compare_length = min(len(nonmember_predictions), len(member_predictions))
         # if len(nonmember_predictions) > len(member_predictions):
@@ -454,9 +454,16 @@ if __name__ == '__main__':
                         cur_row.append(np.nan)
                 data.append(cur_row)
             save_cmap(data, ticks, direction)
-                
+
+        for i, rate in enumerate(individual_fpr):
+            if rate > 0.05:
+                individual_threshold = thresholds[i-1]
+                individual_tpr_is = tpr[i-1]
+                break
 
         average_results["Total individual ROC AUC"] = individual_roc_auc
+        average_results["Total TPR@5%"] = individual_tpr_is
+        average_results["Total threshold"] = individual_threshold
         final_results = {"average": average_results, "std": std_results}
         with open(os.path.join(SAVE_FOLDER, "group_output.json"), 'w') as f:
             json.dump(final_results, f, indent=4)
