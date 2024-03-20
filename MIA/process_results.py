@@ -250,7 +250,7 @@ if __name__ == '__main__':
         #     member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
         save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{key}", 0.05, ROOT_SAVE_FOLDER)
         print("Individual AUC-ROC with {}: {}".format(key, individual_roc_auc))
-        save_roc_curves("Individual_with_{}".format(key), fpr, tpr, individual_roc_auc, ROOT_SAVE_FOLDER)
+        save_roc_curves("Individual_with_{}".format(key), individual_fpr, tpr, individual_roc_auc, ROOT_SAVE_FOLDER)
 
         info_to_group = {}
         for group, infos in group_to_documents.items():
