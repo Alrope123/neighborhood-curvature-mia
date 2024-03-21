@@ -241,7 +241,7 @@ if __name__ == '__main__':
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
-        individual_fpr, tpr, individual_thresholds, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
+        individual_fpr, individual_tpr, individual_thresholds, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
         # Draw log likehood histogram on individual documents
         # compare_length = min(len(nonmember_predictions), len(member_predictions))
         # if len(nonmember_predictions) > len(member_predictions):
@@ -250,7 +250,7 @@ if __name__ == '__main__':
         #     member_predictions = np.random.choice(member_predictions, len(nonmember_predictions), replace=False)
         save_ll_histograms(member_predictions, nonmember_predictions,f"individual_with_{key}", 0.05, ROOT_SAVE_FOLDER)
         print("Individual AUC-ROC with {}: {}".format(key, individual_roc_auc))
-        save_roc_curves("Individual_with_{}".format(key), individual_fpr, tpr, individual_roc_auc, ROOT_SAVE_FOLDER)
+        save_roc_curves("Individual_with_{}".format(key), individual_fpr, individual_tpr, individual_roc_auc, ROOT_SAVE_FOLDER)
 
         info_to_group = {}
         for group, infos in group_to_documents.items():
@@ -460,7 +460,7 @@ if __name__ == '__main__':
             print()
             if rate > 0.05:
                 individual_threshold = individual_thresholds[i-1]
-                individual_tpr_is = tpr[i-1]
+                individual_tpr_is = individual_tpr[i-1]
                 break
 
         average_results["Total individual ROC AUC"] = individual_roc_auc
