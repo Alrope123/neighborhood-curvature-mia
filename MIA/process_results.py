@@ -456,8 +456,6 @@ if __name__ == '__main__':
             save_cmap(data, ticks, direction)
 
         for i, rate in enumerate(individual_fpr):
-            print(rate)
-            print()
             if rate > 0.05:
                 individual_threshold = individual_thresholds[i-1]
                 individual_tpr_is = individual_tpr[i-1]
