@@ -202,6 +202,9 @@ if __name__ == '__main__':
         print("Metrics on document level:")
         nonmember_key = f"nonmember_{key}"
         member_key = f"member_{key}"
+        nonmember_meta_key = "nonmember_meta"
+        member_meta_key = "member_meta"
+
 
         # add additional key to the results
         if key == "bff":
@@ -209,9 +212,9 @@ if __name__ == '__main__':
             result[member_key] = result["member_lls"]
         elif key == "min_k":
             result[member_key] = result["nonmember_crit"]
-            print(result["nonmember_crit"][:100])
+            # print(result["nonmember_crit"][:100])
             result[nonmember_key] = result["member_crit"]
-            print(result["member_crit"][:100])
+            # print(result["member_crit"][:100])
         elif key == "ref_lls":
             result[nonmember_key] = [lls - crit for lls, crit in zip(result["nonmember_lls"], result["nonmember_crit"])]
             result[member_key] = [lls - crit for lls, crit in zip(result["member_lls"], result["member_crit"])]
@@ -220,19 +223,19 @@ if __name__ == '__main__':
             result[member_key] = [lls - calculate_compression_entropy(text) for lls, text in zip(result["member_lls"], result["member"])]
         elif key == "crit" and args.result_path_ref != None:
             nonmember_meta_to_index = {}
-            for i, entry in enumerate(result_ref["nonmember_meta"]):
+            for i, entry in enumerate(result_ref[nonmember_meta_key]):
                 nonmember_meta_to_index[tuple(entry)] = i
             member_meta_to_index = {}
-            for i, entry in enumerate(result_ref["member_meta"]):
+            for i, entry in enumerate(result_ref[member_meta_key]):
                 member_meta_to_index[tuple(entry)] = i
 
-            result[nonmember_key] = [lls_base - result_ref["nonmember_lls"][nonmember_meta_to_index[tuple(result["nonmember_meta"][i])]] for i, lls_base in enumerate(result["nonmember_lls"])]
-            result[member_key] = [lls_base - result_ref["member_lls"][member_meta_to_index[tuple(result["member_meta"][i])]] for i, lls_base in enumerate(result["member_lls"])]
+            result[nonmember_key] = [lls_base - result_ref["nonmember_lls"][nonmember_meta_to_index[tuple(result[nonmember_meta_key][i])]] for i, lls_base in enumerate(result["nonmember_lls"])]
+            result[member_key] = [lls_base - result_ref["member_lls"][member_meta_to_index[tuple(result[member_meta_key][i])]] for i, lls_base in enumerate(result["member_lls"])]
             sets_members = []
             sets_nonmembers = []
             for cur_result in [result, result_ref]:
-                sets_members.append(set([(filename, i) for filename, i in cur_result['member_meta']]))
-                sets_nonmembers.append(set([(filename, i) for filename, i in cur_result['nonmember_meta']]))
+                sets_members.append(set([(filename, i) for filename, i in cur_result[member_meta_key]]))
+                sets_nonmembers.append(set([(filename, i) for filename, i in cur_result[nonmember_meta_key]]))
             for set_members in sets_members:
                 assert set_members == sets_members[0], [set_members, sets_members[0]]
             for set_nonmembers in sets_nonmembers:
@@ -260,13 +263,13 @@ if __name__ == '__main__':
         group_results_members = {}
         group_results_nonmembers = {}
         for i, entry in enumerate(result[member_key]):
-            group_member = info_to_group[tuple(result['member_meta'][i])]
+            group_member = info_to_group[tuple(result[member_meta_key][i])]
             assert group_to_documents[group_member]['group_is_member']
             if group_member not in group_results_members:
                 group_results_members[group_member] = []
             group_results_members[group_member].append(entry)
         for i, entry in enumerate(result[nonmember_key]):
-            group_nonmember = info_to_group[tuple(result['nonmember_meta'][i])]
+            group_nonmember = info_to_group[tuple(result[nonmember_meta_key][i])]
             assert not group_to_documents[group_nonmember]['group_is_member']
             if group_nonmember not in group_results_nonmembers:
                 group_results_nonmembers[group_nonmember] = []
@@ -278,13 +281,13 @@ if __name__ == '__main__':
         group_results_members = {}
         group_results_nonmembers = {}
         for i, entry in enumerate(result[member_key]):
-            group_member = info_to_group[tuple(result['member_meta'][i])]
+            group_member = info_to_group[tuple(result[member_meta_key][i])]
             assert group_to_documents[group_member]['group_is_member']
             if group_member not in group_results_members:
                 group_results_members[group_member] = []
             group_results_members[group_member].append(entry)
         for i, entry in enumerate(result[nonmember_key]):
-            group_nonmember = info_to_group[tuple(result['nonmember_meta'][i])]
+            group_nonmember = info_to_group[tuple(result[nonmember_meta_key][i])]
             assert not group_to_documents[group_nonmember]['group_is_member']
             if group_nonmember not in group_results_nonmembers:
                 group_results_nonmembers[group_nonmember] = []
