@@ -241,7 +241,7 @@ if __name__ == '__main__':
 
         nonmember_predictions = result[nonmember_key]
         member_predictions = result[member_key]
-        individual_fpr, tpr, thresholds, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
+        individual_fpr, tpr, individual_thresholds, individual_roc_auc = get_roc_metrics(nonmember_predictions, member_predictions)
         # Draw log likehood histogram on individual documents
         # compare_length = min(len(nonmember_predictions), len(member_predictions))
         # if len(nonmember_predictions) > len(member_predictions):
@@ -456,8 +456,10 @@ if __name__ == '__main__':
             save_cmap(data, ticks, direction)
 
         for i, rate in enumerate(individual_fpr):
+            print(rate)
+            print()
             if rate > 0.05:
-                individual_threshold = thresholds[i-1]
+                individual_threshold = individual_thresholds[i-1]
                 individual_tpr_is = tpr[i-1]
                 break
 
