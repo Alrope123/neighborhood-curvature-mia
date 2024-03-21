@@ -6,11 +6,16 @@
                 "Nonmember size": 4900,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -24,16 +29,26 @@
                 "Nonmember size": 1666,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -47,21 +62,36 @@
                 "Nonmember size": 980,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -75,26 +105,46 @@
                 "Nonmember size": 637,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -108,31 +158,56 @@
                 "Nonmember size": 490,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -146,36 +221,66 @@
                 "Nonmember size": 196,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "30": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "30": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -189,41 +294,76 @@
                 "Nonmember size": 98,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "30": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "50": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "30": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "50": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -237,46 +377,86 @@
                 "Nonmember size": 98,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "30": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "50": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "80": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "30": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "50": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "80": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -290,51 +470,96 @@
                 "Nonmember size": 49,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "30": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "50": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "80": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "100": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "30": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "50": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "80": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "100": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -350,11 +575,16 @@
                 "Nonmember size": 4900,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -368,16 +598,26 @@
                 "Nonmember size": 1666,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -391,21 +631,36 @@
                 "Nonmember size": 980,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -419,26 +674,46 @@
                 "Nonmember size": 637,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -452,31 +727,56 @@
                 "Nonmember size": 490,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -490,36 +790,66 @@
                 "Nonmember size": 196,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "30": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "30": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -533,41 +863,76 @@
                 "Nonmember size": 98,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "30": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "50": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "30": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "50": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -581,46 +946,86 @@
                 "Nonmember size": 98,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "30": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "50": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "80": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "30": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "50": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "80": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -634,51 +1039,96 @@
                 "Nonmember size": 49,
                 "ROC AUC Individual": 0.5,
                 "MIA": {
-                    "1": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "3": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "5": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "8": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "10": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "30": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "50": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "80": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
-                    "100": [
-                        0.5,
-                        1.0,
-                        0.0
-                    ],
+                    "1": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "3": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "5": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "8": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "10": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "30": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "50": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "80": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
+                    "100": {
+                        "ROC_AUC": 0.5,
+                        "threshold@FPR=0.05": 1.0,
+                        "TPR@FPR=0.05": 0.0,
+                        "Member Average": NaN,
+                        "Member STD": NaN,
+                        "Non-Member Average": NaN,
+                        "Non-Member STD": NaN,
+                        "Average Diff": NaN
+                    },
                     "best": {
                         "s": 1,
                         "ROC AUC": 0.5,
@@ -688,7 +1138,9 @@
                 }
             }
         },
-        "Total individual ROC AUC": 0.5
+        "Total individual ROC AUC": 0.5,
+        "Total TPR@5%": 0.0,
+        "Total threshold": 1.0
     },
     "std": 0
 }
