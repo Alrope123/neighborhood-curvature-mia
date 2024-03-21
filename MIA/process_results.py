@@ -211,12 +211,14 @@ if __name__ == '__main__':
             result[nonmember_key] = result["nonmember_lls"]
             result[member_key] = result["member_lls"]
         elif key == "min_k":
-            result[member_key] = result["nonmember_crit"]
-            # print(result["nonmember_crit"][:100])
-            result[nonmember_key] = result["member_crit"]
-            # print(result["member_crit"][:100])
+            nonmember_key = f"member_{key}"
+            member_key = f"nonmember_{key}"
             nonmember_meta_key = "member_meta"
             member_meta_key = "nonmember_meta"
+            result[nonmember_key] = result["nonmember_crit"]
+            # print(result["nonmember_crit"][:100])
+            result[member_key] = result["member_crit"]
+            # print(result["member_crit"][:100])
         elif key == "ref_lls":
             result[nonmember_key] = [lls - crit for lls, crit in zip(result["nonmember_lls"], result["nonmember_crit"])]
             result[member_key] = [lls - crit for lls, crit in zip(result["member_lls"], result["member_crit"])]
