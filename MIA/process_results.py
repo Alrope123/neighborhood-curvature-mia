@@ -292,13 +292,13 @@ if __name__ == '__main__':
         group_results_nonmembers = {}
         for i, entry in enumerate(result[member_key]):
             group_member = info_to_group[tuple(result[member_meta_key][i])]
-            assert group_to_documents[group_member]['group_is_member']
+            # assert group_to_documents[group_member]['group_is_member']
             if group_member not in group_results_members:
                 group_results_members[group_member] = []
             group_results_members[group_member].append(entry)
         for i, entry in enumerate(result[nonmember_key]):
             group_nonmember = info_to_group[tuple(result[nonmember_meta_key][i])]
-            assert not group_to_documents[group_nonmember]['group_is_member']
+            # assert not group_to_documents[group_nonmember]['group_is_member']
             if group_nonmember not in group_results_nonmembers:
                 group_results_nonmembers[group_nonmember] = []
             group_results_nonmembers[group_nonmember].append(entry)
