@@ -215,6 +215,8 @@ if __name__ == '__main__':
             # print(result["nonmember_crit"][:100])
             result[nonmember_key] = result["member_crit"]
             # print(result["member_crit"][:100])
+            nonmember_meta_key = "member_meta"
+            member_meta_key = "nonmember_meta"
         elif key == "ref_lls":
             result[nonmember_key] = [lls - crit for lls, crit in zip(result["nonmember_lls"], result["nonmember_crit"])]
             result[member_key] = [lls - crit for lls, crit in zip(result["member_lls"], result["member_crit"])]
