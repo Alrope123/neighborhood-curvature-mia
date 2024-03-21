@@ -216,8 +216,8 @@ if __name__ == '__main__':
             result[nonmember_key] = [lls - crit for lls, crit in zip(result["nonmember_lls"], result["nonmember_crit"])]
             result[member_key] = [lls - crit for lls, crit in zip(result["member_lls"], result["member_crit"])]
         elif key == "zlib":
-            result[nonmember_key] = [lls - calculate_compression_entropy(text) for lls, text in zip(result["nonmember_lls"], result["nonmember"])]
-            result[member_key] = [lls - calculate_compression_entropy(text) for lls, text in zip(result["member_lls"], result["member"])]
+            result[member_key] = [lls - calculate_compression_entropy(text) for lls, text in zip(result["nonmember_lls"], result["nonmember"])]
+            result[nonmember_key] = [lls - calculate_compression_entropy(text) for lls, text in zip(result["member_lls"], result["member"])]
         elif key == "crit" and args.result_path_ref != None:
             nonmember_meta_to_index = {}
             for i, entry in enumerate(result_ref["nonmember_meta"]):
