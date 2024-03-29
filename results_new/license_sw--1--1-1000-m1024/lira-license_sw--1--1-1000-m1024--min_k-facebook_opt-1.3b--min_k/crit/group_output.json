@@ -1,0 +1,1146 @@
+{
+    "average": {
+        "max": {
+            "1": {
+                "Member size": 900,
+                "Nonmember size": 900,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.8486851851851853,
+                        "threshold@FPR=0.05": 16.0603928565979,
+                        "TPR@FPR=0.05": 0.4922222222222222,
+                        "Member Average": 16.795559778412184,
+                        "Member STD": 2.216472383507936,
+                        "Non-Member Average": 14.46703171312809,
+                        "Non-Member STD": 1.0211562972445816,
+                        "Average Diff": 2.328528065284093
+                    },
+                    "best": {
+                        "s": 1,
+                        "ROC AUC": 0.8486851851851853,
+                        "threshold": 16.0603928565979,
+                        "TPR at 5%": 0.4922222222222222
+                    }
+                }
+            },
+            "3": {
+                "Member size": 306,
+                "Nonmember size": 306,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9066598316886668,
+                        "threshold@FPR=0.05": 14.843270301818848,
+                        "TPR@FPR=0.05": 0.6013071895424836,
+                        "Member Average": 15.832393406652937,
+                        "Member STD": 1.7589956685355608,
+                        "Non-Member Average": 13.754560028026306,
+                        "Non-Member STD": 0.885217637049163,
+                        "Average Diff": 2.0778333786266305
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9204686231791191,
+                        "threshold@FPR=0.05": 15.502231280008951,
+                        "TPR@FPR=0.05": 0.673202614379085,
+                        "Member Average": 16.785083467599353,
+                        "Member STD": 1.8453066603249748,
+                        "Non-Member Average": 14.46338569111554,
+                        "Non-Member STD": 0.6759421276700526,
+                        "Average Diff": 2.3216977764838127
+                    },
+                    "best": {
+                        "s": 3,
+                        "ROC AUC": 0.9204686231791191,
+                        "threshold": 15.502231280008951,
+                        "TPR at 5%": 0.673202614379085
+                    }
+                }
+            },
+            "5": {
+                "Member size": 180,
+                "Nonmember size": 180,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9298456790123456,
+                        "threshold@FPR=0.05": 14.596652269363403,
+                        "TPR@FPR=0.05": 0.6444444444444445,
+                        "Member Average": 15.526721347040601,
+                        "Member STD": 1.683426310349147,
+                        "Non-Member Average": 13.445399661196603,
+                        "Non-Member STD": 0.889142153187189,
+                        "Average Diff": 2.0813216858439976
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9475,
+                        "threshold@FPR=0.05": 14.892796357472738,
+                        "TPR@FPR=0.05": 0.7222222222222222,
+                        "Member Average": 16.08032053521386,
+                        "Member STD": 1.7098620774090185,
+                        "Non-Member Average": 13.988976325149888,
+                        "Non-Member STD": 0.6251742284761813,
+                        "Average Diff": 2.0913442100639728
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9490432098765432,
+                        "threshold@FPR=0.05": 15.367699766159058,
+                        "TPR@FPR=0.05": 0.75,
+                        "Member Average": 16.795559778412184,
+                        "Member STD": 1.7644277155734074,
+                        "Non-Member Average": 14.467031713128089,
+                        "Non-Member STD": 0.5719347005241465,
+                        "Average Diff": 2.328528065284095
+                    },
+                    "best": {
+                        "s": 5,
+                        "ROC AUC": 0.9490432098765432,
+                        "threshold": 15.367699766159058,
+                        "TPR at 5%": 0.75
+                    }
+                }
+            },
+            "8": {
+                "Member size": 117,
+                "Nonmember size": 117,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.941412813207685,
+                        "threshold@FPR=0.05": 14.26322603225708,
+                        "TPR@FPR=0.05": 0.8376068376068376,
+                        "Member Average": 15.32239698446714,
+                        "Member STD": 1.622009425667535,
+                        "Non-Member Average": 13.243497600922218,
+                        "Non-Member STD": 0.903585363474484,
+                        "Average Diff": 2.078899383544922
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9542698517057491,
+                        "threshold@FPR=0.05": 14.574156522750854,
+                        "TPR@FPR=0.05": 0.8034188034188035,
+                        "Member Average": 15.756402813131656,
+                        "Member STD": 1.64460194066705,
+                        "Non-Member Average": 13.743780185354401,
+                        "Non-Member STD": 0.6616161090410451,
+                        "Average Diff": 2.0126226277772545
+                    },
+                    "5": {
+                        "ROC_AUC": 0.958506830301702,
+                        "threshold@FPR=0.05": 14.90442190170288,
+                        "TPR@FPR=0.05": 0.7008547008547008,
+                        "Member Average": 16.104310005801356,
+                        "Member STD": 1.676774487016695,
+                        "Non-Member Average": 14.036721301792012,
+                        "Non-Member STD": 0.589154168190171,
+                        "Average Diff": 2.067588704009344
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9622324494119366,
+                        "threshold@FPR=0.05": 15.273565232753754,
+                        "TPR@FPR=0.05": 0.811965811965812,
+                        "Member Average": 16.787119964058075,
+                        "Member STD": 1.6981484501817554,
+                        "Non-Member Average": 14.466215251156918,
+                        "Non-Member STD": 0.5366454539906426,
+                        "Average Diff": 2.3209047129011573
+                    },
+                    "best": {
+                        "s": 8,
+                        "ROC AUC": 0.9622324494119366,
+                        "threshold": 15.273565232753754,
+                        "TPR at 5%": 0.811965811965812
+                    }
+                }
+            },
+            "10": {
+                "Member size": 90,
+                "Nonmember size": 90,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9367901234567902,
+                        "threshold@FPR=0.05": 14.236133575439453,
+                        "TPR@FPR=0.05": 0.8,
+                        "Member Average": 15.18858083486557,
+                        "Member STD": 1.6083807678580049,
+                        "Non-Member Average": 13.135703072283004,
+                        "Non-Member STD": 0.9190853577655989,
+                        "Average Diff": 2.0528777625825665
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9588888888888889,
+                        "threshold@FPR=0.05": 14.462183952331543,
+                        "TPR@FPR=0.05": 0.8222222222222222,
+                        "Member Average": 15.591862601704067,
+                        "Member STD": 1.6009509586564565,
+                        "Non-Member Average": 13.575750929337957,
+                        "Non-Member STD": 0.7100159579808729,
+                        "Average Diff": 2.01611167236611
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9664197530864198,
+                        "threshold@FPR=0.05": 14.596668767929078,
+                        "TPR@FPR=0.05": 0.8444444444444444,
+                        "Member Average": 15.86280210759905,
+                        "Member STD": 1.6277513093194032,
+                        "Non-Member Average": 13.849572735892401,
+                        "Non-Member STD": 0.5971189031745687,
+                        "Average Diff": 2.0132293717066485
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9677777777777777,
+                        "threshold@FPR=0.05": 14.869971424341202,
+                        "TPR@FPR=0.05": 0.8555555555555555,
+                        "Member Average": 16.295060981396173,
+                        "Member STD": 1.6741536186013612,
+                        "Non-Member Average": 14.189313114351696,
+                        "Non-Member STD": 0.5390414596868612,
+                        "Average Diff": 2.1057478670444763
+                    },
+                    "10": {
+                        "ROC_AUC": 0.9735802469135801,
+                        "threshold@FPR=0.05": 15.235760045051574,
+                        "TPR@FPR=0.05": 0.8777777777777778,
+                        "Member Average": 16.79555977841218,
+                        "Member STD": 1.6521109841221293,
+                        "Non-Member Average": 14.46703171312809,
+                        "Non-Member STD": 0.5151466343774275,
+                        "Average Diff": 2.3285280652840896
+                    },
+                    "best": {
+                        "s": 10,
+                        "ROC AUC": 0.9735802469135801,
+                        "threshold": 15.235760045051574,
+                        "TPR at 5%": 0.8777777777777778
+                    }
+                }
+            },
+            "30": {
+                "Member size": 36,
+                "Nonmember size": 36,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9313271604938272,
+                        "threshold@FPR=0.05": 14.095881938934326,
+                        "TPR@FPR=0.05": 0.8055555555555556,
+                        "Member Average": 14.876694000429577,
+                        "Member STD": 1.6326412029844553,
+                        "Non-Member Average": 12.688085966640049,
+                        "Non-Member STD": 0.9734856162358458,
+                        "Average Diff": 2.188608033789528
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9591049382716048,
+                        "threshold@FPR=0.05": 14.179423491160074,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 15.23391505192827,
+                        "Member STD": 1.5455784792854141,
+                        "Non-Member Average": 13.108638563641797,
+                        "Non-Member STD": 0.8049757280298965,
+                        "Average Diff": 2.125276488286472
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9714506172839507,
+                        "threshold@FPR=0.05": 14.31169319152832,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 15.44813460376528,
+                        "Member STD": 1.5682093725587365,
+                        "Non-Member Average": 13.361356466346315,
+                        "Non-Member STD": 0.6818632742446898,
+                        "Average Diff": 2.086778137418964
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9645061728395062,
+                        "threshold@FPR=0.05": 14.522884547710419,
+                        "TPR@FPR=0.05": 0.6944444444444444,
+                        "Member Average": 15.699579497178396,
+                        "Member STD": 1.6179331103309773,
+                        "Non-Member Average": 13.643472119751904,
+                        "Non-Member STD": 0.6069243114157621,
+                        "Average Diff": 2.0561073774264926
+                    },
+                    "10": {
+                        "ROC_AUC": 0.9529320987654322,
+                        "threshold@FPR=0.05": 14.965242218971252,
+                        "TPR@FPR=0.05": 0.5833333333333334,
+                        "Member Average": 15.907734593417908,
+                        "Member STD": 1.6651052966238247,
+                        "Non-Member Average": 13.802519177397091,
+                        "Non-Member STD": 0.6087099455224427,
+                        "Average Diff": 2.105215416020817
+                    },
+                    "30": {
+                        "ROC_AUC": 0.988425925925926,
+                        "threshold@FPR=0.05": 15.254472184181214,
+                        "TPR@FPR=0.05": 0.8611111111111112,
+                        "Member Average": 16.80045695233124,
+                        "Member STD": 1.5986987380925024,
+                        "Non-Member Average": 14.446243464339666,
+                        "Non-Member STD": 0.4513666459469534,
+                        "Average Diff": 2.354213487991572
+                    },
+                    "best": {
+                        "s": 30,
+                        "ROC AUC": 0.988425925925926,
+                        "threshold": 15.254472184181214,
+                        "TPR at 5%": 0.8611111111111112
+                    }
+                }
+            },
+            "50": {
+                "Member size": 18,
+                "Nonmember size": 18,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.8950617283950618,
+                        "threshold@FPR=0.05": 14.095881938934326,
+                        "TPR@FPR=0.05": 0.7222222222222222,
+                        "Member Average": 14.57928505871031,
+                        "Member STD": 1.747012595513795,
+                        "Non-Member Average": 12.441719300217098,
+                        "Non-Member STD": 1.0159694580923655,
+                        "Average Diff": 2.1375657584932117
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9598765432098766,
+                        "threshold@FPR=0.05": 14.03665280342102,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 14.927721332620694,
+                        "Member STD": 1.5627836720070345,
+                        "Non-Member Average": 12.8028688121725,
+                        "Non-Member STD": 0.8446878820298336,
+                        "Average Diff": 2.1248525204481936
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9691358024691358,
+                        "threshold@FPR=0.05": 14.190749883651733,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 15.100064440568287,
+                        "Member STD": 1.5320924642876668,
+                        "Non-Member Average": 12.985624321301778,
+                        "Non-Member STD": 0.8043078647216737,
+                        "Average Diff": 2.1144401192665097
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9783950617283951,
+                        "threshold@FPR=0.05": 14.186942398548126,
+                        "TPR@FPR=0.05": 0.8888888888888888,
+                        "Member Average": 15.282712739374903,
+                        "Member STD": 1.543253220062918,
+                        "Non-Member Average": 13.18753217574623,
+                        "Non-Member STD": 0.7372165547398067,
+                        "Average Diff": 2.0951805636286736
+                    },
+                    "10": {
+                        "ROC_AUC": 0.9783950617283951,
+                        "threshold@FPR=0.05": 14.260915231704711,
+                        "TPR@FPR=0.05": 0.8888888888888888,
+                        "Member Average": 15.371076493793062,
+                        "Member STD": 1.5540435886605013,
+                        "Non-Member Average": 13.302345046069888,
+                        "Non-Member STD": 0.6774776393901045,
+                        "Average Diff": 2.0687314477231737
+                    },
+                    "30": {
+                        "ROC_AUC": 0.9969135802469136,
+                        "threshold@FPR=0.05": 14.631850051879884,
+                        "TPR@FPR=0.05": 0.9444444444444444,
+                        "Member Average": 15.953885121698736,
+                        "Member STD": 1.6253347385673602,
+                        "Non-Member Average": 13.939762442421031,
+                        "Non-Member STD": 0.49983684902052516,
+                        "Average Diff": 2.0141226792777047
+                    },
+                    "50": {
+                        "ROC_AUC": 0.9876543209876543,
+                        "threshold@FPR=0.05": 15.234882917404175,
+                        "TPR@FPR=0.05": 0.9444444444444444,
+                        "Member Average": 16.795559778412184,
+                        "Member STD": 1.6092513735414102,
+                        "Non-Member Average": 14.467031713128089,
+                        "Non-Member STD": 0.4487710036657611,
+                        "Average Diff": 2.328528065284095
+                    },
+                    "best": {
+                        "s": 30,
+                        "ROC AUC": 0.9969135802469136,
+                        "threshold": 14.631850051879884,
+                        "TPR at 5%": 0.9444444444444444
+                    }
+                }
+            },
+            "80": {
+                "Member size": 18,
+                "Nonmember size": 18,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9104938271604938,
+                        "threshold@FPR=0.05": 13.923637866973877,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 14.640223536226484,
+                        "Member STD": 1.6750258518776888,
+                        "Non-Member Average": 12.4292750093672,
+                        "Non-Member STD": 1.0238082719705852,
+                        "Average Diff": 2.2109485268592834
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9506172839506173,
+                        "threshold@FPR=0.05": 14.12964097658793,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 14.997105293803745,
+                        "Member STD": 1.5281718987818869,
+                        "Non-Member Average": 12.833805834805524,
+                        "Non-Member STD": 0.8972985687904008,
+                        "Average Diff": 2.163299458998221
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9537037037037037,
+                        "threshold@FPR=0.05": 14.184034442901611,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 15.188893487718369,
+                        "Member STD": 1.5290707739094342,
+                        "Non-Member Average": 13.078430986404419,
+                        "Non-Member STD": 0.8208074299468658,
+                        "Average Diff": 2.1104625013139504
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9567901234567902,
+                        "threshold@FPR=0.05": 14.234405875205994,
+                        "TPR@FPR=0.05": 0.8888888888888888,
+                        "Member Average": 15.393262991474735,
+                        "Member STD": 1.5527487190530533,
+                        "Non-Member Average": 13.31289610846175,
+                        "Non-Member STD": 0.7662871741418287,
+                        "Average Diff": 2.080366883012985
+                    },
+                    "10": {
+                        "ROC_AUC": 0.9537037037037037,
+                        "threshold@FPR=0.05": 14.593725514411926,
+                        "TPR@FPR=0.05": 0.7222222222222222,
+                        "Member Average": 15.506129707892736,
+                        "Member STD": 1.5669878068984373,
+                        "Non-Member Average": 13.429375294844311,
+                        "Non-Member STD": 0.7357703169951446,
+                        "Average Diff": 2.076754413048425
+                    },
+                    "30": {
+                        "ROC_AUC": 0.9382716049382717,
+                        "threshold@FPR=0.05": 15.385528814792632,
+                        "TPR@FPR=0.05": 0.6666666666666666,
+                        "Member Average": 16.18871366503062,
+                        "Member STD": 1.6700120184618936,
+                        "Non-Member Average": 14.059976191653146,
+                        "Non-Member STD": 0.6418279993476739,
+                        "Average Diff": 2.1287374733774733
+                    },
+                    "50": {
+                        "ROC_AUC": 0.962962962962963,
+                        "threshold@FPR=0.05": 15.385528814792632,
+                        "TPR@FPR=0.05": 0.6666666666666666,
+                        "Member Average": 16.353870361712243,
+                        "Member STD": 1.646850061161366,
+                        "Non-Member Average": 14.216797734366523,
+                        "Non-Member STD": 0.541278920920064,
+                        "Average Diff": 2.13707262734572
+                    },
+                    "80": {
+                        "ROC_AUC": 0.9845679012345679,
+                        "threshold@FPR=0.05": 15.385528814792632,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 16.769830719505748,
+                        "Member STD": 1.5920119061914089,
+                        "Non-Member Average": 14.461323746417962,
+                        "Non-Member STD": 0.4627090096188458,
+                        "Average Diff": 2.308506973087786
+                    },
+                    "best": {
+                        "s": 80,
+                        "ROC AUC": 0.9845679012345679,
+                        "threshold": 15.385528814792632,
+                        "TPR at 5%": 0.8333333333333334
+                    }
+                }
+            },
+            "100": {
+                "Member size": 9,
+                "Nonmember size": 9,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.8641975308641975,
+                        "threshold@FPR=0.05": 13.772611141204834,
+                        "TPR@FPR=0.05": 0.6666666666666666,
+                        "Member Average": 14.231056292851767,
+                        "Member STD": 1.8149039678148966,
+                        "Non-Member Average": 12.08620516459147,
+                        "Non-Member STD": 1.0900996814504857,
+                        "Average Diff": 2.144851128260296
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9506172839506173,
+                        "threshold@FPR=0.05": 13.952560106913248,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 14.680163533599288,
+                        "Member STD": 1.584878403460545,
+                        "Non-Member Average": 12.51523346371121,
+                        "Non-Member STD": 0.8617031439010544,
+                        "Average Diff": 2.1649300698880776
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9506172839506173,
+                        "threshold@FPR=0.05": 14.10773720741272,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 14.852696747250027,
+                        "Member STD": 1.544017659262387,
+                        "Non-Member Average": 12.689373787244161,
+                        "Non-Member STD": 0.8444274019631657,
+                        "Average Diff": 2.163322960005866
+                    },
+                    "8": {
+                        "ROC_AUC": 0.962962962962963,
+                        "threshold@FPR=0.05": 14.182302117347717,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 15.006037121017775,
+                        "Member STD": 1.5141016664434856,
+                        "Non-Member Average": 12.856173773606619,
+                        "Non-Member STD": 0.8447863008553593,
+                        "Average Diff": 2.1498633474111557
+                    },
+                    "10": {
+                        "ROC_AUC": 0.962962962962963,
+                        "threshold@FPR=0.05": 14.212493395805359,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 15.079384505748749,
+                        "Member STD": 1.5080779837935345,
+                        "Non-Member Average": 12.9428373336792,
+                        "Non-Member STD": 0.8304766379126659,
+                        "Average Diff": 2.136547172069548
+                    },
+                    "30": {
+                        "ROC_AUC": 1.0,
+                        "threshold@FPR=0.05": 14.299587170282999,
+                        "TPR@FPR=0.05": 1.0,
+                        "Member Average": 15.535209979392862,
+                        "Member STD": 1.555044969369899,
+                        "Non-Member Average": 13.5200102130572,
+                        "Non-Member STD": 0.5605817113475317,
+                        "Average Diff": 2.0151997663356624
+                    },
+                    "50": {
+                        "ROC_AUC": 1.0,
+                        "threshold@FPR=0.05": 14.546326761245728,
+                        "TPR@FPR=0.05": 1.0,
+                        "Member Average": 15.817549997170769,
+                        "Member STD": 1.6061064452478715,
+                        "Non-Member Average": 13.819342221948837,
+                        "Non-Member STD": 0.5067045653251414,
+                        "Average Diff": 1.9982077752219318
+                    },
+                    "80": {
+                        "ROC_AUC": 1.0,
+                        "threshold@FPR=0.05": 14.7900315284729,
+                        "TPR@FPR=0.05": 1.0,
+                        "Member Average": 16.24044995556275,
+                        "Member STD": 1.6505590431082997,
+                        "Non-Member Average": 14.167310016022789,
+                        "Non-Member STD": 0.4732597336945243,
+                        "Average Diff": 2.07313993953996
+                    },
+                    "100": {
+                        "ROC_AUC": 0.9876543209876543,
+                        "threshold@FPR=0.05": 15.272954230308533,
+                        "TPR@FPR=0.05": 0.8888888888888888,
+                        "Member Average": 16.795559778412184,
+                        "Member STD": 1.6024139777605417,
+                        "Non-Member Average": 14.467031713128089,
+                        "Non-Member STD": 0.4452969448289678,
+                        "Average Diff": 2.328528065284095
+                    },
+                    "best": {
+                        "s": 30,
+                        "ROC AUC": 1.0,
+                        "threshold": 14.299587170282999,
+                        "TPR at 5%": 1.0
+                    }
+                }
+            }
+        },
+        "min": {
+            "1": {
+                "Member size": 900,
+                "Nonmember size": 900,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.8486851851851853,
+                        "threshold@FPR=0.05": 16.0603928565979,
+                        "TPR@FPR=0.05": 0.4922222222222222,
+                        "Member Average": 16.795559778412184,
+                        "Member STD": 2.216472383507936,
+                        "Non-Member Average": 14.46703171312809,
+                        "Non-Member STD": 1.0211562972445816,
+                        "Average Diff": 2.328528065284093
+                    },
+                    "best": {
+                        "s": 1,
+                        "ROC AUC": 0.8486851851851853,
+                        "threshold": 16.0603928565979,
+                        "TPR at 5%": 0.4922222222222222
+                    }
+                }
+            },
+            "3": {
+                "Member size": 306,
+                "Nonmember size": 306,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.8762868982015465,
+                        "threshold@FPR=0.05": 16.733721494674683,
+                        "TPR@FPR=0.05": 0.5849673202614379,
+                        "Member Average": 17.920176568958496,
+                        "Member STD": 2.381135356685991,
+                        "Non-Member Average": 15.172886144296795,
+                        "Non-Member STD": 0.8654577864863308,
+                        "Average Diff": 2.747290424661701
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9204686231791191,
+                        "threshold@FPR=0.05": 15.502231280008951,
+                        "TPR@FPR=0.05": 0.673202614379085,
+                        "Member Average": 16.785083467599353,
+                        "Member STD": 1.8453066603249748,
+                        "Non-Member Average": 14.46338569111554,
+                        "Non-Member STD": 0.6759421276700526,
+                        "Average Diff": 2.3216977764838127
+                    },
+                    "best": {
+                        "s": 3,
+                        "ROC AUC": 0.9204686231791191,
+                        "threshold": 15.502231280008951,
+                        "TPR at 5%": 0.673202614379085
+                    }
+                }
+            },
+            "5": {
+                "Member size": 180,
+                "Nonmember size": 180,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.8860493827160494,
+                        "threshold@FPR=0.05": 17.24134111404419,
+                        "TPR@FPR=0.05": 0.6388888888888888,
+                        "Member Average": 18.561730215946834,
+                        "Member STD": 2.4320601635574715,
+                        "Non-Member Average": 15.500174702207248,
+                        "Non-Member STD": 0.8631109333808745,
+                        "Average Diff": 3.0615555137395862
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9219135802469136,
+                        "threshold@FPR=0.05": 15.914530436197916,
+                        "TPR@FPR=0.05": 0.7222222222222222,
+                        "Member Average": 17.448866732584104,
+                        "Member STD": 1.921025991262871,
+                        "Non-Member Average": 14.941863583083508,
+                        "Non-Member STD": 0.6182442658067244,
+                        "Average Diff": 2.507003149500596
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9490432098765432,
+                        "threshold@FPR=0.05": 15.367699766159058,
+                        "TPR@FPR=0.05": 0.75,
+                        "Member Average": 16.795559778412184,
+                        "Member STD": 1.7644277155734074,
+                        "Non-Member Average": 14.467031713128089,
+                        "Non-Member STD": 0.5719347005241465,
+                        "Average Diff": 2.328528065284095
+                    },
+                    "best": {
+                        "s": 5,
+                        "ROC AUC": 0.9490432098765432,
+                        "threshold": 15.367699766159058,
+                        "TPR at 5%": 0.75
+                    }
+                }
+            },
+            "8": {
+                "Member size": 117,
+                "Nonmember size": 117,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9007232084155161,
+                        "threshold@FPR=0.05": 17.447917461395264,
+                        "TPR@FPR=0.05": 0.6495726495726496,
+                        "Member Average": 18.97616215241261,
+                        "Member STD": 2.424095549955651,
+                        "Non-Member Average": 15.71922838025623,
+                        "Non-Member STD": 0.8612337375297308,
+                        "Average Diff": 3.25693377215638
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9227116663014099,
+                        "threshold@FPR=0.05": 16.385334968566895,
+                        "TPR@FPR=0.05": 0.7094017094017094,
+                        "Member Average": 17.953532173592823,
+                        "Member STD": 1.9996336182266194,
+                        "Non-Member Average": 15.21209565679572,
+                        "Non-Member STD": 0.6421562240680405,
+                        "Average Diff": 2.741436516797103
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9393673752648112,
+                        "threshold@FPR=0.05": 15.872518825531007,
+                        "TPR@FPR=0.05": 0.7264957264957265,
+                        "Member Average": 17.384564595293792,
+                        "Member STD": 1.8356662992348718,
+                        "Non-Member Average": 14.884745888832287,
+                        "Non-Member STD": 0.5805590203787736,
+                        "Average Diff": 2.4998187064615056
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9622324494119366,
+                        "threshold@FPR=0.05": 15.273565232753754,
+                        "TPR@FPR=0.05": 0.811965811965812,
+                        "Member Average": 16.787119964058075,
+                        "Member STD": 1.6981484501817554,
+                        "Non-Member Average": 14.466215251156918,
+                        "Non-Member STD": 0.5366454539906426,
+                        "Average Diff": 2.3209047129011573
+                    },
+                    "best": {
+                        "s": 8,
+                        "ROC AUC": 0.9622324494119366,
+                        "threshold": 15.273565232753754,
+                        "TPR at 5%": 0.811965811965812
+                    }
+                }
+            },
+            "10": {
+                "Member size": 90,
+                "Nonmember size": 90,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9197530864197531,
+                        "threshold@FPR=0.05": 17.660941123962402,
+                        "TPR@FPR=0.05": 0.7,
+                        "Member Average": 19.541519261731043,
+                        "Member STD": 2.3946298982614214,
+                        "Non-Member Average": 15.882277684079277,
+                        "Non-Member STD": 0.8663845273893557,
+                        "Average Diff": 3.659241577651766
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9395061728395061,
+                        "threshold@FPR=0.05": 16.67986500263214,
+                        "TPR@FPR=0.05": 0.7666666666666667,
+                        "Member Average": 18.330933340169768,
+                        "Member STD": 1.927296923279239,
+                        "Non-Member Average": 15.385597388170385,
+                        "Non-Member STD": 0.6285794194403683,
+                        "Average Diff": 2.9453359519993825
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9541975308641976,
+                        "threshold@FPR=0.05": 16.04849753379822,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 17.728317449225322,
+                        "Member STD": 1.8052143179366869,
+                        "Non-Member Average": 15.08449069036378,
+                        "Non-Member STD": 0.5604499736988228,
+                        "Average Diff": 2.643826758861543
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9679012345679013,
+                        "threshold@FPR=0.05": 15.545852988958359,
+                        "TPR@FPR=0.05": 0.8222222222222222,
+                        "Member Average": 17.13953198550476,
+                        "Member STD": 1.7013971321676176,
+                        "Non-Member Average": 14.737312259359491,
+                        "Non-Member STD": 0.5220902096278363,
+                        "Average Diff": 2.402219726145269
+                    },
+                    "10": {
+                        "ROC_AUC": 0.9735802469135801,
+                        "threshold@FPR=0.05": 15.235760045051574,
+                        "TPR@FPR=0.05": 0.8777777777777778,
+                        "Member Average": 16.79555977841218,
+                        "Member STD": 1.6521109841221293,
+                        "Non-Member Average": 14.46703171312809,
+                        "Non-Member STD": 0.5151466343774275,
+                        "Average Diff": 2.3285280652840896
+                    },
+                    "best": {
+                        "s": 10,
+                        "ROC AUC": 0.9735802469135801,
+                        "threshold": 15.235760045051574,
+                        "TPR at 5%": 0.8777777777777778
+                    }
+                }
+            },
+            "30": {
+                "Member size": 36,
+                "Nonmember size": 36,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9151234567901233,
+                        "threshold@FPR=0.05": 18.382607460021973,
+                        "TPR@FPR=0.05": 0.8055555555555556,
+                        "Member Average": 20.42707540260421,
+                        "Member STD": 2.456116751639547,
+                        "Non-Member Average": 16.344027638435364,
+                        "Non-Member STD": 0.8759886306490283,
+                        "Average Diff": 4.083047764168846
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9452160493827161,
+                        "threshold@FPR=0.05": 18.124452988306682,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 19.45667130472484,
+                        "Member STD": 2.125650791261299,
+                        "Non-Member Average": 15.840283779634367,
+                        "Non-Member STD": 0.6774347343583577,
+                        "Average Diff": 3.616387525090472
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9537037037037037,
+                        "threshold@FPR=0.05": 17.276803398132323,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 18.849795119961097,
+                        "Member STD": 1.982165135526172,
+                        "Non-Member Average": 15.575682013233498,
+                        "Non-Member STD": 0.6445157167655238,
+                        "Average Diff": 3.274113106727599
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9498456790123456,
+                        "threshold@FPR=0.05": 16.565529614686966,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 18.210730305355455,
+                        "Member STD": 1.8469936748718652,
+                        "Non-Member Average": 15.29671286067201,
+                        "Non-Member STD": 0.635040688855765,
+                        "Average Diff": 2.914017444683445
+                    },
+                    "10": {
+                        "ROC_AUC": 0.9459876543209876,
+                        "threshold@FPR=0.05": 16.31718542575836,
+                        "TPR@FPR=0.05": 0.75,
+                        "Member Average": 17.912448085844517,
+                        "Member STD": 1.817095355874172,
+                        "Non-Member Average": 15.11824524584744,
+                        "Non-Member STD": 0.6667518116438383,
+                        "Average Diff": 2.7942028399970766
+                    },
+                    "30": {
+                        "ROC_AUC": 0.988425925925926,
+                        "threshold@FPR=0.05": 15.254472184181214,
+                        "TPR@FPR=0.05": 0.8611111111111112,
+                        "Member Average": 16.80045695233124,
+                        "Member STD": 1.5986987380925024,
+                        "Non-Member Average": 14.446243464339666,
+                        "Non-Member STD": 0.4513666459469534,
+                        "Average Diff": 2.354213487991572
+                    },
+                    "best": {
+                        "s": 30,
+                        "ROC AUC": 0.988425925925926,
+                        "threshold": 15.254472184181214,
+                        "TPR at 5%": 0.8611111111111112
+                    }
+                }
+            },
+            "50": {
+                "Member size": 18,
+                "Nonmember size": 18,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9351851851851851,
+                        "threshold@FPR=0.05": 19.810200691223145,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 21.311151299211716,
+                        "Member STD": 2.389580180905269,
+                        "Non-Member Average": 16.814701947900986,
+                        "Non-Member STD": 0.8183079816000277,
+                        "Average Diff": 4.49644935131073
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9722222222222223,
+                        "threshold@FPR=0.05": 18.30964493751526,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 20.309809883435562,
+                        "Member STD": 2.1318815459956566,
+                        "Non-Member Average": 16.26872355187381,
+                        "Non-Member STD": 0.6331199862611091,
+                        "Average Diff": 4.041086331561754
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9722222222222223,
+                        "threshold@FPR=0.05": 17.680868911743165,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 19.830270382430818,
+                        "Member STD": 2.090266233723804,
+                        "Non-Member Average": 16.01021043525802,
+                        "Non-Member STD": 0.5993152202552351,
+                        "Average Diff": 3.8200599471727976
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9598765432098766,
+                        "threshold@FPR=0.05": 17.65469953417778,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 19.319237086094088,
+                        "Member STD": 1.9820420895203077,
+                        "Non-Member Average": 15.769278895937735,
+                        "Non-Member STD": 0.563295976207036,
+                        "Average Diff": 3.549958190156353
+                    },
+                    "10": {
+                        "ROC_AUC": 0.9660493827160495,
+                        "threshold@FPR=0.05": 17.454589104652406,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 19.00021908581257,
+                        "Member STD": 1.8752120636861336,
+                        "Non-Member Average": 15.65724818872081,
+                        "Non-Member STD": 0.5435266499654893,
+                        "Average Diff": 3.34297089709176
+                    },
+                    "30": {
+                        "ROC_AUC": 0.9660493827160495,
+                        "threshold@FPR=0.05": 16.315625286102296,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 17.53219452114017,
+                        "Member STD": 1.6699743661318311,
+                        "Non-Member Average": 14.985638190971478,
+                        "Non-Member STD": 0.47266945451218817,
+                        "Average Diff": 2.5465563301686913
+                    },
+                    "50": {
+                        "ROC_AUC": 0.9876543209876543,
+                        "threshold@FPR=0.05": 15.234882917404175,
+                        "TPR@FPR=0.05": 0.9444444444444444,
+                        "Member Average": 16.795559778412184,
+                        "Member STD": 1.6092513735414102,
+                        "Non-Member Average": 14.467031713128089,
+                        "Non-Member STD": 0.4487710036657611,
+                        "Average Diff": 2.328528065284095
+                    },
+                    "best": {
+                        "s": 50,
+                        "ROC AUC": 0.9876543209876543,
+                        "threshold": 15.234882917404175,
+                        "TPR at 5%": 0.9444444444444444
+                    }
+                }
+            },
+            "80": {
+                "Member size": 18,
+                "Nonmember size": 18,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.8734567901234568,
+                        "threshold@FPR=0.05": 19.14736557006836,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 20.76118203666475,
+                        "Member STD": 2.7097003760461744,
+                        "Non-Member Average": 16.750210503737133,
+                        "Non-Member STD": 0.9223685574102077,
+                        "Average Diff": 4.010971532927616
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9012345679012345,
+                        "threshold@FPR=0.05": 18.73836867014567,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 19.93970133198632,
+                        "Member STD": 2.314486450160615,
+                        "Non-Member Average": 16.183720577646184,
+                        "Non-Member STD": 0.6913080517555632,
+                        "Average Diff": 3.7559807543401362
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9197530864197531,
+                        "threshold@FPR=0.05": 18.13753924369812,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 19.393102286921604,
+                        "Member STD": 2.189166705486448,
+                        "Non-Member Average": 15.930805567900336,
+                        "Non-Member STD": 0.6573996669105573,
+                        "Average Diff": 3.4622967190212677
+                    },
+                    "8": {
+                        "ROC_AUC": 0.9351851851851852,
+                        "threshold@FPR=0.05": 17.37293377518654,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 18.924125556730562,
+                        "Member STD": 2.1654646591480806,
+                        "Non-Member Average": 15.660492164807188,
+                        "Non-Member STD": 0.6658805339813267,
+                        "Average Diff": 3.263633391923374
+                    },
+                    "10": {
+                        "ROC_AUC": 0.9290123456790124,
+                        "threshold@FPR=0.05": 17.566039323806763,
+                        "TPR@FPR=0.05": 0.6666666666666666,
+                        "Member Average": 18.68138066629569,
+                        "Member STD": 2.143990887069801,
+                        "Non-Member Average": 15.519100364380412,
+                        "Non-Member STD": 0.6659599315288346,
+                        "Average Diff": 3.1622803019152794
+                    },
+                    "30": {
+                        "ROC_AUC": 0.9506172839506173,
+                        "threshold@FPR=0.05": 16.35104364156723,
+                        "TPR@FPR=0.05": 0.6666666666666666,
+                        "Member Average": 17.463097982494915,
+                        "Member STD": 1.7991558500291926,
+                        "Non-Member Average": 14.868867099837022,
+                        "Non-Member STD": 0.6270233749108479,
+                        "Average Diff": 2.594230882657893
+                    },
+                    "50": {
+                        "ROC_AUC": 0.9722222222222222,
+                        "threshold@FPR=0.05": 15.867481005191802,
+                        "TPR@FPR=0.05": 0.7222222222222222,
+                        "Member Average": 17.118500952190818,
+                        "Member STD": 1.6673282524054516,
+                        "Non-Member Average": 14.702132279276848,
+                        "Non-Member STD": 0.5300021371685468,
+                        "Average Diff": 2.41636867291397
+                    },
+                    "80": {
+                        "ROC_AUC": 0.9845679012345679,
+                        "threshold@FPR=0.05": 15.385528814792632,
+                        "TPR@FPR=0.05": 0.8333333333333334,
+                        "Member Average": 16.769830719505748,
+                        "Member STD": 1.5920119061914089,
+                        "Non-Member Average": 14.461323746417962,
+                        "Non-Member STD": 0.4627090096188458,
+                        "Average Diff": 2.308506973087786
+                    },
+                    "best": {
+                        "s": 80,
+                        "ROC AUC": 0.9845679012345679,
+                        "threshold": 15.385528814792632,
+                        "TPR at 5%": 0.8333333333333334
+                    }
+                }
+            },
+            "100": {
+                "Member size": 9,
+                "Nonmember size": 9,
+                "ROC AUC Individual": 0.8486851851851853,
+                "MIA": {
+                    "1": {
+                        "ROC_AUC": 0.9012345679012346,
+                        "threshold@FPR=0.05": 20.17169427871704,
+                        "TPR@FPR=0.05": 0.8888888888888888,
+                        "Member Average": 22.00496730539534,
+                        "Member STD": 2.523804968909128,
+                        "Non-Member Average": 17.32135922378964,
+                        "Non-Member STD": 0.6328860463599058,
+                        "Average Diff": 4.683608081605701
+                    },
+                    "3": {
+                        "ROC_AUC": 0.9753086419753086,
+                        "threshold@FPR=0.05": 19.27142031987508,
+                        "TPR@FPR=0.05": 0.8888888888888888,
+                        "Member Average": 21.065248970632197,
+                        "Member STD": 2.071411083613666,
+                        "Non-Member Average": 16.675489646417123,
+                        "Non-Member STD": 0.5403548890202504,
+                        "Average Diff": 4.389759324215074
+                    },
+                    "5": {
+                        "ROC_AUC": 0.9753086419753086,
+                        "threshold@FPR=0.05": 18.13753924369812,
+                        "TPR@FPR=0.05": 0.8888888888888888,
+                        "Member Average": 20.540452390246923,
+                        "Member STD": 2.029835347867973,
+                        "Non-Member Average": 16.40450891653697,
+                        "Non-Member STD": 0.5476471663197454,
+                        "Average Diff": 4.135943473709954
+                    },
+                    "8": {
+                        "ROC_AUC": 0.962962962962963,
+                        "threshold@FPR=0.05": 19.062339067459106,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 20.09685820258326,
+                        "Member STD": 2.039643102681588,
+                        "Non-Member Average": 16.152989603579044,
+                        "Non-Member STD": 0.5707498345277194,
+                        "Average Diff": 3.9438685990042153
+                    },
+                    "10": {
+                        "ROC_AUC": 0.962962962962963,
+                        "threshold@FPR=0.05": 18.771928358078004,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 19.87532534400622,
+                        "Member STD": 2.0444189211886665,
+                        "Non-Member Average": 16.033148392703797,
+                        "Non-Member STD": 0.565238921075136,
+                        "Average Diff": 3.8421769513024238
+                    },
+                    "30": {
+                        "ROC_AUC": 0.9753086419753085,
+                        "threshold@FPR=0.05": 17.52230914433797,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 18.440222947023535,
+                        "Member STD": 1.7240314765110145,
+                        "Non-Member Average": 15.436805443631279,
+                        "Non-Member STD": 0.49551265377052517,
+                        "Average Diff": 3.0034175033922565
+                    },
+                    "50": {
+                        "ROC_AUC": 0.9753086419753085,
+                        "threshold@FPR=0.05": 16.8712579870224,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 17.773569559653602,
+                        "Member STD": 1.6731639492377732,
+                        "Non-Member Average": 15.114721204307346,
+                        "Non-Member STD": 0.4687552262141327,
+                        "Average Diff": 2.6588483553462563
+                    },
+                    "80": {
+                        "ROC_AUC": 0.9753086419753085,
+                        "threshold@FPR=0.05": 16.170036378502846,
+                        "TPR@FPR=0.05": 0.7777777777777778,
+                        "Member Average": 17.158080290340713,
+                        "Member STD": 1.6464609103859758,
+                        "Non-Member Average": 14.760440871367852,
+                        "Non-Member STD": 0.46303711435762623,
+                        "Average Diff": 2.3976394189728616
+                    },
+                    "100": {
+                        "ROC_AUC": 0.9876543209876543,
+                        "threshold@FPR=0.05": 15.272954230308533,
+                        "TPR@FPR=0.05": 0.8888888888888888,
+                        "Member Average": 16.795559778412184,
+                        "Member STD": 1.6024139777605417,
+                        "Non-Member Average": 14.467031713128089,
+                        "Non-Member STD": 0.4452969448289678,
+                        "Average Diff": 2.328528065284095
+                    },
+                    "best": {
+                        "s": 100,
+                        "ROC AUC": 0.9876543209876543,
+                        "threshold": 15.272954230308533,
+                        "TPR at 5%": 0.8888888888888888
+                    }
+                }
+            }
+        },
+        "Total individual ROC AUC": 0.8370087556546861,
+        "Total TPR@5%": 0.4516091417910448,
+        "Total threshold": 16.144133806228638
+    },
+    "std": 0
+}
