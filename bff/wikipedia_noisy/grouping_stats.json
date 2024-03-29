@@ -3,6 +3,8 @@
     "number of groups": 8251,
     "number of member group": 6915,
     "number of non-member group": 1336,
+    "min_group": "2001-01-21",
+    "max_group": "2023-10-27",
     "average number of documents in member group": 90.69472161966739,
     "std number of documents in member group": 53.05858718657699,
     "number of member group with over 100 documents": 2288,
