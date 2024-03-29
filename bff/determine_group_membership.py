@@ -177,6 +177,8 @@ def main(args):
         "number of groups": len(membership_info),
         "number of member group": sum([infos['group_is_member'] for _, infos in membership_info.items()]),
         "number of non-member group": sum([not infos['group_is_member'] for _, infos in membership_info.items()]),
+        "min_group": min(list(membership_info.keys())),
+        "max_group": max(list(membership_info.keys())),
         "average number of documents in member group": np.mean(group_lengths_member),
         "std number of documents in member group": np.std(group_lengths_member),
         "number of member group with over 100 documents": len([n for n in group_lengths_member if n > 100]),
